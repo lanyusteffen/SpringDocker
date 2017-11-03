@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+docker run -d -p 8080:8080 --link dockerpostgresreplication_postgres-master_1:dockerpostgresreplication_postgres-master_1 --link dockerpostgresreplication_postgres-slave_1:dockerpostgresreplication_postgres-slave_1 --link rediscluster_sentinel_1:rediscluster_sentinel_1 --link rediscluster_sentinel2_1:rediscluster_sentinel2_1 --link rediscluster_sentinel3_1:rediscluster_sentinel3_1 stelylanlife/spring-boot-docker
