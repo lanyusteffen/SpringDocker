@@ -12,15 +12,19 @@ import stu.lanyu.springdocker.annotation.ReadWrite;
 @Aspect
 @Component
 public class ReadOnlyInterCeptor implements Ordered {
+
     @Pointcut(value="execution(public * *(..))")
     public void anyPublicMethod() { }
 
     @Around("@annotation(readWrite)")
     public Object proceed(ProceedingJoinPoint pjp, ReadWrite readWrite) throws Throwable {
+
         try {
+
             DbContextHolder.setDbType(DbType.MASTER);
+
             Object result = pjp.proceed();
-            DbContextHolder.clearDbType();
+
             return result;
         } finally {
             // restore state

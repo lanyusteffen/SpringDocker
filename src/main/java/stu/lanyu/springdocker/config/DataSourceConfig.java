@@ -10,6 +10,7 @@ import javax.sql.DataSource;
 
 @Configuration
 public class DataSourceConfig {
+
     @Bean(name = "readWriteDataSource")
     @ConfigurationProperties(prefix = "spring.datasource.readwrite")
     @Primary

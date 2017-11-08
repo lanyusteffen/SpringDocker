@@ -6,6 +6,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
 import stu.lanyu.springdocker.business.readwrite.UserService;
+import stu.lanyu.springdocker.config.GlobalConfig;
 import stu.lanyu.springdocker.domain.User;
 import stu.lanyu.springdocker.exception.ValidationException;
 import stu.lanyu.springdocker.request.LoginRequest;
@@ -28,7 +29,6 @@ public class UserController {
 
     @Autowired
     private RedisTemplate<String, User> redisTemplate;
-    private static final String REGISTER_NEWUSER_CACHE_KEY = "NewRegisterUser";
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public boolean Register(@RequestBody RegisterRequest registerRequest)
@@ -47,7 +47,7 @@ public class UserController {
         }
 
         long timestamp = System.currentTimeMillis() / 1000;
-        if (redisTemplate.opsForZSet().add(REGISTER_NEWUSER_CACHE_KEY, user, timestamp)) {
+        if (redisTemplate.opsForZSet().add(GlobalConfig.Redis.REGISTER_NEWUSER_CACHE_KEY, user, timestamp)) {
             this.userService.register(user);
         }
         else {
@@ -59,7 +59,7 @@ public class UserController {
 
     @RequestMapping(value = "/newRegister", method = RequestMethod.GET)
     public @ResponseBody List<User> getLastRegisterUser(int lastCount) {
-        Set<User> users = redisTemplate.opsForZSet().range(REGISTER_NEWUSER_CACHE_KEY, 0, -1);
+        Set<User> users = redisTemplate.opsForZSet().range(GlobalConfig.Redis.REGISTER_NEWUSER_CACHE_KEY, 0, -1);
         List<User> userList = new ArrayList<User>();
         userList.addAll(users);
         return userList;

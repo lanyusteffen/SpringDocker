@@ -1,0 +1,50 @@
+syntax = "proto2";
+
+package message;
+
+option java_package = "stu.lanyu.springdocker.message";
+option java_outer_classname = "MessageProto";
+
+message LogCollectProto
+{
+    repeated LogProto Logs = 1;
+    optional string ServiceIdentity = 2;
+}
+
+message LogProto
+{
+    optional string Body = 1;
+    optional string Level = 2;
+}
+
+message RegisterServiceProto
+{
+    optional string ServiceIdentity = 1;
+    optional int64 RegisterTime = 2;
+    optional string ActionToken = 3;
+    optional string BreakerUrl = 4;
+    repeated RegisterJobProto RegisterJobs = 5;
+}
+
+message RegisterJobProto
+{
+    optional string JobName = 1;
+    optional string JogGroup = 2;
+    optional string JobClassType = 3;
+    optional string TriggerName = 4;
+    optional string TriggerGroup = 5;
+    optional int32 RepeatCount = 6;
+    optional int32 RepeatInterval = 7;
+}
+
+message WarningProto {
+    optional string ServiceIdentity = 1;
+    optional string JobName = 2;
+    optional string JobGroup = 3;
+    optional string WarningReason = 4;
+}
+
+message HeartbeatProto {
+    optional string HeartbeatUrl = 1;
+    optional string ServiceIdentity = 2;
+}

@@ -1,6 +1,7 @@
 package stu.lanyu.springdocker.config;
 
 public enum DbType {
+
     /**
      * 主机
      */
