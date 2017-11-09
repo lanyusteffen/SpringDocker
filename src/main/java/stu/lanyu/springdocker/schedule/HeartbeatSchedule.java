@@ -8,14 +8,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
-import stu.lanyu.springdocker.business.readonly.JobMonitorInfoService;
 import stu.lanyu.springdocker.business.readonly.TaskMonitorInfoService;
 import stu.lanyu.springdocker.config.GlobalConfig;
 import stu.lanyu.springdocker.contract.entity.HeartbeatInfo;
 import stu.lanyu.springdocker.contract.entity.JobMonitorInfo;
 import stu.lanyu.springdocker.domain.TaskMonitorInfo;
+import stu.lanyu.springdocker.utility.StringUtility;
 
-import java.io.IOException;
 import java.net.ConnectException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -36,9 +35,6 @@ public class HeartbeatSchedule {
 
     @Autowired
     private stu.lanyu.springdocker.business.readwrite.JobMonitorInfoService jobMonitorInfoService;
-
-    @Autowired
-    private JobMonitorInfoService jobMonitorInfoQueryService;
 
     @Scheduled(fixedDelay = 60000)
     public void checkHeartbeat() {
@@ -79,37 +75,67 @@ public class HeartbeatSchedule {
                     taskMonitorInfo.setVeto(heartbeatInfo.isVetoForTask());
                     taskMonitorInfo.setHeartbeatBreak(false);
 
-                    for (JobMonitorInfo monitorInfo : heartbeatInfo.getMonitorInfos()) {
+                    for (JobMonitorInfo jobMonitorInfo : heartbeatInfo.getMonitorInfos()) {
+
+                        String currentJobName = (StringUtility.isNullOrEmpty(jobMonitorInfo.getJobName())
+                                ? "" : jobMonitorInfo.getJobName());
+                        String currentJobGroup = (StringUtility.isNullOrEmpty(jobMonitorInfo.getJobGroup())
+                                ? "" : jobMonitorInfo.getJobGroup());
+
                         stu.lanyu.springdocker.domain.JobMonitorInfo findedJobMonitorInfo = taskMonitorInfo.getJobs().stream()
-                                .filter(j -> j.getJobName().equals(monitorInfo.getJobName()) && j.getJobGroup().equals(monitorInfo.getJobGroup()))
+                                .filter(j -> currentJobName.equals(j.getJobName()) && currentJobGroup.equals(j.getJobGroup()))
                                 .findFirst()
-                                .get();
+                                .orElse(null);
 
                         if (findedJobMonitorInfo == null) {
 
                             findedJobMonitorInfo = new stu.lanyu.springdocker.domain.JobMonitorInfo();
-                            findedJobMonitorInfo.setJobName(monitorInfo.getJobName());
-                            findedJobMonitorInfo.setJobGroup(monitorInfo.getJobGroup());
+                            findedJobMonitorInfo.setJobName(jobMonitorInfo.getJobName());
+                            findedJobMonitorInfo.setJobGroup(jobMonitorInfo.getJobGroup());
                             findedJobMonitorInfo.setServiceIdentity(serviceIdentity);
                             taskMonitorInfo.getJobs().add(findedJobMonitorInfo);
                         }
 
                         taskMonitorInfo.getJobs().forEach(r -> {
 
-                            r.setFiredTimes(monitorInfo.getFiredTimes());
-                            r.setJobCompletedLastTime(new Date(monitorInfo.getJobCompletedLastTime()));
-                            r.setJobFiredLastTime(new Date(monitorInfo.getJobFiredLastTime()));
-                            r.setJobMissfiredLastTime(new Date(monitorInfo.getJobMissfireLastTime()));
-                            r.setMissfireTimes(monitorInfo.getMissfireTimes());
-                            r.setVeto(monitorInfo.isVeto());
+                            if (r.getJobName() == jobMonitorInfo.getJobName() && r.getJobGroup() == jobMonitorInfo.getJobGroup()) {
+
+                                r.setFiredTimes(jobMonitorInfo.getFiredTimes());
+                                r.setJobCompletedLastTime(new Date(jobMonitorInfo.getJobCompletedLastTime()));
+                                r.setJobFiredLastTime(new Date(jobMonitorInfo.getJobFiredLastTime()));
+                                r.setJobMissfiredLastTime(new Date(jobMonitorInfo.getJobMissfireLastTime()));
+                                r.setMissfireTimes(jobMonitorInfo.getMissfireTimes());
+                                r.setVeto(jobMonitorInfo.isVeto());
+                            }
                         });
                     }
                 }
 
                 taskMonitorInfoService.save(taskMonitorInfo);
+
+                List<stu.lanyu.springdocker.domain.JobMonitorInfo> deletedJobList = new ArrayList<>();
+
+                taskMonitorInfo.getJobs().stream().forEach(r -> {
+
+                    for (JobMonitorInfo jobMonitorInfo : heartbeatInfo.getMonitorInfos()
+                         ) {
+
+                        String currentJobName = (StringUtility.isNullOrEmpty(jobMonitorInfo.getJobName())
+                                ? "" : jobMonitorInfo.getJobName());
+                        String currentJobGroup = (StringUtility.isNullOrEmpty(jobMonitorInfo.getJobGroup())
+                                ? "" : jobMonitorInfo.getJobGroup());
+
+                        if (currentJobName.equals(r.getJobName()) && currentJobGroup.equals(r.getJobGroup())) {
+
+                            deletedJobList.add(r);
+                        }
+                    }
+                });
+
+                jobMonitorInfoService.delete(deletedJobList);
             } catch (ConnectException e) {
                 e.printStackTrace();
-            } catch (IOException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
