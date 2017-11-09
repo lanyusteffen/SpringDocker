@@ -64,18 +64,20 @@ public class HeartbeatSchedule {
 
                 TaskMonitorInfo taskMonitorInfo = taskMonitorInfoQueryService.getListPagedByServiceIdentity(serviceIdentity);
 
+                if (taskMonitorInfo == null) {
+
+                    taskMonitorInfo = new TaskMonitorInfo();
+                    taskMonitorInfo.setJobs(new ArrayList<>());
+                }
+
                 if (resp.code() != 200) {
 
                     taskMonitorInfo.setHeartbeatBreak(true);
-
-                    taskMonitorInfoService.save(taskMonitorInfo);
                 }
                 else {
 
                     taskMonitorInfo.setVeto(heartbeatInfo.isVetoForTask());
                     taskMonitorInfo.setHeartbeatBreak(false);
-
-                    List<stu.lanyu.springdocker.domain.JobMonitorInfo> notRunningJobMonitorInfoList = new ArrayList<stu.lanyu.springdocker.domain.JobMonitorInfo>();
 
                     for (JobMonitorInfo monitorInfo : heartbeatInfo.getMonitorInfos()) {
                         stu.lanyu.springdocker.domain.JobMonitorInfo findedJobMonitorInfo = taskMonitorInfo.getJobs().stream()
@@ -83,23 +85,28 @@ public class HeartbeatSchedule {
                                 .findFirst()
                                 .get();
 
-                        if (findedJobMonitorInfo != null) {
+                        if (findedJobMonitorInfo == null) {
 
-                            findedJobMonitorInfo.setFiredTimes(monitorInfo.getFiredTimes());
-                            findedJobMonitorInfo.setJobCompletedLastTime(new Date(monitorInfo.getJobCompletedLastTime()));
-                            findedJobMonitorInfo.setJobFiredLastTime(new Date(monitorInfo.getJobFiredLastTime()));
-                            findedJobMonitorInfo.setJobMissfiredLastTime(new Date(monitorInfo.getJobMissfireLastTime()));
-                            findedJobMonitorInfo.setMissfireTimes(monitorInfo.getMissfireTimes());
-                            findedJobMonitorInfo.setVeto(monitorInfo.isVeto());
+                            findedJobMonitorInfo = new stu.lanyu.springdocker.domain.JobMonitorInfo();
+                            findedJobMonitorInfo.setJobName(monitorInfo.getJobName());
+                            findedJobMonitorInfo.setJobGroup(monitorInfo.getJobGroup());
+                            findedJobMonitorInfo.setServiceIdentity(serviceIdentity);
+                            taskMonitorInfo.getJobs().add(findedJobMonitorInfo);
                         }
-                        else {
 
-                            notRunningJobMonitorInfoList.add(findedJobMonitorInfo);
-                        }
+                        taskMonitorInfo.getJobs().forEach(r -> {
+
+                            r.setFiredTimes(monitorInfo.getFiredTimes());
+                            r.setJobCompletedLastTime(new Date(monitorInfo.getJobCompletedLastTime()));
+                            r.setJobFiredLastTime(new Date(monitorInfo.getJobFiredLastTime()));
+                            r.setJobMissfiredLastTime(new Date(monitorInfo.getJobMissfireLastTime()));
+                            r.setMissfireTimes(monitorInfo.getMissfireTimes());
+                            r.setVeto(monitorInfo.isVeto());
+                        });
                     }
-
-                    jobMonitorInfoService.delete(notRunningJobMonitorInfoList);
                 }
+
+                taskMonitorInfoService.save(taskMonitorInfo);
             } catch (ConnectException e) {
                 e.printStackTrace();
             } catch (IOException e) {
