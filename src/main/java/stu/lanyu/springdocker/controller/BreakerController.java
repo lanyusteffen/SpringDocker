@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import stu.lanyu.springdocker.config.GlobalConfig;
 import stu.lanyu.springdocker.contract.entity.JobBreaker;
 import stu.lanyu.springdocker.contract.entity.ServiceBreaker;
-import stu.lanyu.springdocker.domain.RegisterTask;
+import stu.lanyu.springdocker.redis.entity.RegisterTask;
 
 import java.io.IOException;
 import java.net.ConnectException;

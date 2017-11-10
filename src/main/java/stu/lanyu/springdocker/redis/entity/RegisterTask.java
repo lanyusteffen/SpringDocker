@@ -1,4 +1,4 @@
-package stu.lanyu.springdocker.domain;
+package stu.lanyu.springdocker.redis.entity;
 
 import java.io.Serializable;
 import java.util.ArrayList;

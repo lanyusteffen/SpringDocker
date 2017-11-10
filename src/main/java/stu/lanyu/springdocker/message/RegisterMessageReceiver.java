@@ -7,8 +7,8 @@ import org.springframework.data.redis.connection.Message;
 import org.springframework.data.redis.connection.MessageListener;
 import org.springframework.data.redis.core.RedisTemplate;
 import stu.lanyu.springdocker.config.GlobalConfig;
-import stu.lanyu.springdocker.domain.RegisterJob;
-import stu.lanyu.springdocker.domain.RegisterTask;
+import stu.lanyu.springdocker.redis.entity.RegisterJob;
+import stu.lanyu.springdocker.redis.entity.RegisterTask;
 
 import java.util.ArrayList;
 import java.util.Base64;
