@@ -64,6 +64,7 @@ public class HeartbeatSchedule {
 
                     taskMonitorInfo = new TaskMonitorInfo();
                     taskMonitorInfo.setJobs(new ArrayList<>());
+                    taskMonitorInfo.setServiceIdentity(serviceIdentity);
                 }
 
                 if (resp.code() != 200) {

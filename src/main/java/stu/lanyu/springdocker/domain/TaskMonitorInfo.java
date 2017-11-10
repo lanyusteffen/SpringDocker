@@ -12,7 +12,7 @@ public class TaskMonitorInfo extends AbstractEntity implements Serializable {
     private boolean heartbeatBreak;
     private boolean isVeto;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "service_identity", referencedColumnName = "service_identity")
     @OrderBy("service_identity ASC")
     private List<JobMonitorInfo> jobs;

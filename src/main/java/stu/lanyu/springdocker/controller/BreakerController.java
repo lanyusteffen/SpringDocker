@@ -109,7 +109,7 @@ public class BreakerController {
         RegisterTask task = entries.entrySet().stream()
                 .filter(map -> map.getKey() == serviceIdentity)
                 .map(map -> RegisterTask.class.cast(map.getValue()))
-                .findFirst().get();
+                .findFirst().orElse(null);
 
         if (task != null) {
 
@@ -130,7 +130,7 @@ public class BreakerController {
         RegisterTask task = entries.entrySet().stream()
                 .filter(map -> map.getKey() == serviceIdentity)
                 .map(map -> RegisterTask.class.cast(map.getValue()))
-                .findFirst().get();
+                .findFirst().orElse(null);
 
         if (task != null) {
 
