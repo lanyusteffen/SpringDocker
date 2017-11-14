@@ -4,4 +4,3 @@ set base_dir=%~dp0
 pushd %base_dir%
 docker build -t stelylanlife/spring-boot-docker %~dp0/build/docker
 popd
-pause
