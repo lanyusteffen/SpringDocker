@@ -36,17 +36,16 @@ public class HeartbeatSchedule {
     @Autowired
     private stu.lanyu.springdocker.business.readwrite.JobMonitorInfoService jobMonitorInfoService;
 
-    private boolean doCheckHeartbeat(String url, OkHttpClient httpClient, Gson gson, HeartbeatInfo heartbeatInfo) {
+    private HeartbeatInfo doCheckHeartbeat(String url, OkHttpClient httpClient, Gson gson) {
 
-        heartbeatInfo = null;
-        boolean result = false;
+        HeartbeatInfo result = null;
 
         try {
             Request req = new Request.Builder()
                     .url(url).build();
             Response resp = httpClient.newCall(req).execute();
-            heartbeatInfo = gson.fromJson(resp.body().string(), HeartbeatInfo.class);
-            result = true;
+
+            result = gson.fromJson(resp.body().string(), HeartbeatInfo.class);
         }
         catch (ConnectException e) {
             e.printStackTrace();
@@ -55,6 +54,40 @@ public class HeartbeatSchedule {
         }
 
         return result;
+    }
+
+    private void saveHeartbeatInfo(TaskMonitorInfo taskMonitorInfo, HeartbeatInfo result) {
+
+        taskMonitorInfoService.save(taskMonitorInfo);
+
+        List<stu.lanyu.springdocker.domain.JobMonitorInfo> deletedJobList = new ArrayList<>();
+
+        taskMonitorInfo.getJobs().stream().forEach(r -> {
+
+            boolean isExisted = false;
+
+            for (JobMonitorInfo jobMonitorInfo : result.getMonitorInfos()
+                    ) {
+
+                String currentJobName = (StringUtility.isNullOrEmpty(jobMonitorInfo.getJobName())
+                        ? "" : jobMonitorInfo.getJobName());
+                String currentJobGroup = (StringUtility.isNullOrEmpty(jobMonitorInfo.getJobGroup())
+                        ? "" : jobMonitorInfo.getJobGroup());
+
+                if (currentJobName.equals(r.getJobName()) && currentJobGroup.equals(r.getJobGroup())) {
+                    isExisted = true;
+                    break;
+                }
+            }
+
+            if (!isExisted) {
+                deletedJobList.add(r);
+            }
+        });
+
+        if (deletedJobList.size() > 0) {
+            jobMonitorInfoService.delete(deletedJobList);
+        }
     }
 
     @Scheduled(fixedDelay = 60000)
@@ -72,8 +105,7 @@ public class HeartbeatSchedule {
             String serviceIdentity = entry.getKey().toString();
 
             try {
-                HeartbeatInfo heartbeatInfo = null;
-                boolean result = doCheckHeartbeat(url, httpClient, gson, heartbeatInfo);
+                HeartbeatInfo result = doCheckHeartbeat(url, httpClient, gson);
 
                 TaskMonitorInfo taskMonitorInfo = taskMonitorInfoQueryService.getListPagedByServiceIdentity(serviceIdentity);
 
@@ -87,14 +119,14 @@ public class HeartbeatSchedule {
                 taskMonitorInfo.setLastHeartbeatTime(new Date());
                 taskMonitorInfo.setHeartbeatUrl(url);
 
-                if (!result) {
+                if (result == null) {
                     taskMonitorInfo.setHeartbeatBreak(true);
                 }
                 else {
-                    taskMonitorInfo.setTaskVeto(heartbeatInfo.isVetoForTask());
+                    taskMonitorInfo.setTaskVeto(result.isVetoForTask());
                     taskMonitorInfo.setHeartbeatBreak(false);
 
-                    for (JobMonitorInfo jobMonitorInfo : heartbeatInfo.getMonitorInfos()) {
+                    for (JobMonitorInfo jobMonitorInfo : result.getMonitorInfos()) {
 
                         String currentJobName = (StringUtility.isNullOrEmpty(jobMonitorInfo.getJobName())
                                 ? "" : jobMonitorInfo.getJobName());
@@ -129,37 +161,8 @@ public class HeartbeatSchedule {
                             }
                         });
                     }
-                }
 
-                taskMonitorInfoService.save(taskMonitorInfo);
-
-                List<stu.lanyu.springdocker.domain.JobMonitorInfo> deletedJobList = new ArrayList<>();
-
-                taskMonitorInfo.getJobs().stream().forEach(r -> {
-
-                    boolean isExisted = false;
-
-                    for (JobMonitorInfo jobMonitorInfo : heartbeatInfo.getMonitorInfos()
-                         ) {
-
-                        String currentJobName = (StringUtility.isNullOrEmpty(jobMonitorInfo.getJobName())
-                                ? "" : jobMonitorInfo.getJobName());
-                        String currentJobGroup = (StringUtility.isNullOrEmpty(jobMonitorInfo.getJobGroup())
-                                ? "" : jobMonitorInfo.getJobGroup());
-
-                        if (currentJobName.equals(r.getJobName()) && currentJobGroup.equals(r.getJobGroup())) {
-                            isExisted = true;
-                            break;
-                        }
-                    }
-
-                    if (!isExisted) {
-                        deletedJobList.add(r);
-                    }
-                });
-
-                if (deletedJobList.size() > 0) {
-                    jobMonitorInfoService.delete(deletedJobList);
+                    saveHeartbeatInfo(taskMonitorInfo, result);
                 }
             } catch (Exception e) {
                 e.printStackTrace();
