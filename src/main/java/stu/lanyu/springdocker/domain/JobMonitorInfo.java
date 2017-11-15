@@ -6,12 +6,12 @@ import java.util.Date;
 
 @Entity
 @Table(name = "job_monitor_info", uniqueConstraints={
-        @UniqueConstraint(columnNames = {"service_identity", "jobName", "jobGroup"})})
+        @UniqueConstraint(columnNames = {"id", "service_identity", "jobName", "jobGroup"})})
 public class JobMonitorInfo extends AbstractEntity implements Serializable {
 
     private static final long serialVersionUID = 3710843911288040526L;
 
-    private boolean isVeto;
+    private boolean jobVeto;
     private String jobName;
     private String jobGroup;
 
@@ -24,12 +24,12 @@ public class JobMonitorInfo extends AbstractEntity implements Serializable {
     private Date jobCompletedLastTime;
     private Date jobMissfiredLastTime;
 
-    public boolean isVeto() {
-        return isVeto;
+    public boolean isJobVeto() {
+        return jobVeto;
     }
 
-    public void setVeto(boolean veto) {
-        isVeto = veto;
+    public void setJobVeto(boolean jobVeto) {
+        this.jobVeto = jobVeto;
     }
 
     public String getJobName() {

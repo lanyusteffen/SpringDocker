@@ -70,7 +70,9 @@ public class RedisMessageConfig {
     }
 
     @Bean
-    RedisMessageListenerContainer redisContainer(WarningMessageReceiver warningMessageReceiver, LogCollectMessageReceiver logCollectMessageReceiver, HeartbeatMessageReceiver heartbeatMessageReceiver, RegisterMessageReceiver registerMessageReceiver) {
+    RedisMessageListenerContainer redisContainer(WarningMessageReceiver warningMessageReceiver, LogCollectMessageReceiver logCollectMessageReceiver,
+                                                 HeartbeatMessageReceiver heartbeatMessageReceiver, RegisterMessageReceiver registerMessageReceiver,
+                                                 JedisConnectionFactory jedisConnectionFactory) {
         final RedisMessageListenerContainer container = new RedisMessageListenerContainer();
 
         container.setConnectionFactory(getRedisMessageConnectionFactory());

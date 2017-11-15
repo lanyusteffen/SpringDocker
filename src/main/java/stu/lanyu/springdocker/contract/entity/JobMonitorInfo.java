@@ -2,7 +2,7 @@ package stu.lanyu.springdocker.contract.entity;
 
 public class JobMonitorInfo {
 
-    private boolean IsVeto;
+    private boolean JobVeto;
     private String JobName;
     private String JobGroup;
     private int FiredTimes;
@@ -11,12 +11,12 @@ public class JobMonitorInfo {
     private long JobCompletedLastTime;
     private long JobMissfireLastTime;
 
-    public boolean isVeto() {
-        return IsVeto;
+    public boolean isJobVeto() {
+        return JobVeto;
     }
 
-    public void setVeto(boolean veto) {
-        IsVeto = veto;
+    public void setJobVeto(boolean jobVeto) {
+        JobVeto = jobVeto;
     }
 
     public String getJobName() {

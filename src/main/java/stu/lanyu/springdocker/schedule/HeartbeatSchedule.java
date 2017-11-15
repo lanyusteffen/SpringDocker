@@ -36,6 +36,27 @@ public class HeartbeatSchedule {
     @Autowired
     private stu.lanyu.springdocker.business.readwrite.JobMonitorInfoService jobMonitorInfoService;
 
+    private boolean doCheckHeartbeat(String url, OkHttpClient httpClient, Gson gson, HeartbeatInfo heartbeatInfo) {
+
+        heartbeatInfo = null;
+        boolean result = false;
+
+        try {
+            Request req = new Request.Builder()
+                    .url(url).build();
+            Response resp = httpClient.newCall(req).execute();
+            heartbeatInfo = gson.fromJson(resp.body().string(), HeartbeatInfo.class);
+            result = true;
+        }
+        catch (ConnectException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return result;
+    }
+
     @Scheduled(fixedDelay = 60000)
     public void checkHeartbeat() {
 
@@ -51,12 +72,8 @@ public class HeartbeatSchedule {
             String serviceIdentity = entry.getKey().toString();
 
             try {
-
-                Request req = new Request.Builder()
-                        .url(url).build();
-
-                Response resp = httpClient.newCall(req).execute();
-                HeartbeatInfo heartbeatInfo = gson.fromJson(resp.body().string(), HeartbeatInfo.class);
+                HeartbeatInfo heartbeatInfo = null;
+                boolean result = doCheckHeartbeat(url, httpClient, gson, heartbeatInfo);
 
                 TaskMonitorInfo taskMonitorInfo = taskMonitorInfoQueryService.getListPagedByServiceIdentity(serviceIdentity);
 
@@ -67,13 +84,14 @@ public class HeartbeatSchedule {
                     taskMonitorInfo.setServiceIdentity(serviceIdentity);
                 }
 
-                if (resp.code() != 200) {
+                taskMonitorInfo.setLastHeartbeatTime(new Date());
+                taskMonitorInfo.setHeartbeatUrl(url);
 
+                if (!result) {
                     taskMonitorInfo.setHeartbeatBreak(true);
                 }
                 else {
-
-                    taskMonitorInfo.setVeto(heartbeatInfo.isVetoForTask());
+                    taskMonitorInfo.setTaskVeto(heartbeatInfo.isVetoForTask());
                     taskMonitorInfo.setHeartbeatBreak(false);
 
                     for (JobMonitorInfo jobMonitorInfo : heartbeatInfo.getMonitorInfos()) {
@@ -94,6 +112,7 @@ public class HeartbeatSchedule {
                             findedJobMonitorInfo.setJobName(jobMonitorInfo.getJobName());
                             findedJobMonitorInfo.setJobGroup(jobMonitorInfo.getJobGroup());
                             findedJobMonitorInfo.setServiceIdentity(serviceIdentity);
+                            findedJobMonitorInfo.setJobVeto(jobMonitorInfo.isJobVeto());
                             taskMonitorInfo.getJobs().add(findedJobMonitorInfo);
                         }
 
@@ -106,7 +125,7 @@ public class HeartbeatSchedule {
                                 r.setJobFiredLastTime(new Date(jobMonitorInfo.getJobFiredLastTime()));
                                 r.setJobMissfiredLastTime(new Date(jobMonitorInfo.getJobMissfireLastTime()));
                                 r.setMissfireTimes(jobMonitorInfo.getMissfireTimes());
-                                r.setVeto(jobMonitorInfo.isVeto());
+                                r.setJobVeto(jobMonitorInfo.isJobVeto());
                             }
                         });
                     }
@@ -118,6 +137,8 @@ public class HeartbeatSchedule {
 
                 taskMonitorInfo.getJobs().stream().forEach(r -> {
 
+                    boolean isExisted = false;
+
                     for (JobMonitorInfo jobMonitorInfo : heartbeatInfo.getMonitorInfos()
                          ) {
 
@@ -127,15 +148,19 @@ public class HeartbeatSchedule {
                                 ? "" : jobMonitorInfo.getJobGroup());
 
                         if (currentJobName.equals(r.getJobName()) && currentJobGroup.equals(r.getJobGroup())) {
-
-                            deletedJobList.add(r);
+                            isExisted = true;
+                            break;
                         }
+                    }
+
+                    if (!isExisted) {
+                        deletedJobList.add(r);
                     }
                 });
 
-                jobMonitorInfoService.delete(deletedJobList);
-            } catch (ConnectException e) {
-                e.printStackTrace();
+                if (deletedJobList.size() > 0) {
+                    jobMonitorInfoService.delete(deletedJobList);
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }

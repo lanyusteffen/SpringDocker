@@ -2,30 +2,50 @@ package stu.lanyu.springdocker.domain;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table(name = "task_monitor_info")
+@Table(name = "task_monitor_info", uniqueConstraints={
+        @UniqueConstraint(columnNames = {"id", "service_identity"})})
 public class TaskMonitorInfo extends AbstractEntity implements Serializable {
 
     private static final long serialVersionUID = -1204482456956189973L;
     private boolean heartbeatBreak;
-    private boolean isVeto;
+    private boolean taskVeto;
+    private String heartbeatUrl;
+    private Date lastHeartbeatTime;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "service_identity", referencedColumnName = "service_identity")
     @OrderBy("service_identity ASC")
     private List<JobMonitorInfo> jobs;
 
-    @Column(unique = true, name = "service_identity")
+    @Column(name = "service_identity")
     private String serviceIdentity;
 
-    public boolean isVeto() {
-        return isVeto;
+    public Date getLastHeartbeatTime() {
+        return lastHeartbeatTime;
     }
 
-    public void setVeto(boolean veto) {
-        isVeto = veto;
+    public void setLastHeartbeatTime(Date lastHeartbeatTime) {
+        this.lastHeartbeatTime = lastHeartbeatTime;
+    }
+
+    public boolean isTaskVeto() {
+        return taskVeto;
+    }
+
+    public void setTaskVeto(boolean taskVeto) {
+        this.taskVeto = taskVeto;
+    }
+
+    public String isHeartbeatUrl() {
+        return heartbeatUrl;
+    }
+
+    public void setHeartbeatUrl(String heartbeatUrl) {
+        this.heartbeatUrl = heartbeatUrl;
     }
 
     public String getServiceIdentity() {
