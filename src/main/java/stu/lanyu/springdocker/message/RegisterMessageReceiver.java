@@ -56,9 +56,7 @@ public class RegisterMessageReceiver implements MessageListener {
 
             registerTask.setRegisterJobs(registerJobs);
 
-            if (redisTemplate.opsForHash().putIfAbsent(GlobalConfig.Redis.REGISTER_TASK_CACHE_KEY, proto.getServiceIdentity(), registerTask)) {
-                // TODO 记录日志
-            }
+            redisTemplate.opsForHash().put(GlobalConfig.Redis.REGISTER_TASK_CACHE_KEY, proto.getServiceIdentity(), registerTask);
         } catch (InvalidProtocolBufferException e) {
             e.printStackTrace();
         }

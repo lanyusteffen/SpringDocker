@@ -25,9 +25,8 @@ public class HeartbeatMessageReceiver implements MessageListener {
             byte[] decodedData = Base64.getDecoder().decode(message.getBody());
             proto = MessageProto.HeartbeatProto.parseFrom(decodedData);
 
-            if (redisTemplate.opsForHash().putIfAbsent(GlobalConfig.Redis.REGISTER_HEARTBEAT_CACHE_KEY, proto.getServiceIdentity(), proto.getHeartbeatUrl())) {
-                // TODO 记录日志
-            }
+            redisTemplate.opsForHash().put(GlobalConfig.Redis.REGISTER_HEARTBEAT_CACHE_KEY, proto.getServiceIdentity(),
+                    proto.getHeartbeatUrl());
         } catch (InvalidProtocolBufferException e) {
             e.printStackTrace();
         }
