@@ -875,6 +875,15 @@ public final class MessageProto {
      */
     com.google.protobuf.ByteString
         getLevelBytes();
+
+    /**
+     * <code>optional int64 LogTime = 3;</code>
+     */
+    boolean hasLogTime();
+    /**
+     * <code>optional int64 LogTime = 3;</code>
+     */
+    long getLogTime();
   }
   /**
    * Protobuf type {@code message.LogProto}
@@ -938,6 +947,11 @@ public final class MessageProto {
               com.google.protobuf.ByteString bs = input.readBytes();
               bitField0_ |= 0x00000002;
               level_ = bs;
+              break;
+            }
+            case 24: {
+              bitField0_ |= 0x00000004;
+              logTime_ = input.readInt64();
               break;
             }
           }
@@ -1064,9 +1078,25 @@ public final class MessageProto {
       }
     }
 
+    public static final int LOGTIME_FIELD_NUMBER = 3;
+    private long logTime_;
+    /**
+     * <code>optional int64 LogTime = 3;</code>
+     */
+    public boolean hasLogTime() {
+      return ((bitField0_ & 0x00000004) == 0x00000004);
+    }
+    /**
+     * <code>optional int64 LogTime = 3;</code>
+     */
+    public long getLogTime() {
+      return logTime_;
+    }
+
     private void initFields() {
       body_ = "";
       level_ = "";
+      logTime_ = 0L;
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -1087,6 +1117,9 @@ public final class MessageProto {
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
         output.writeBytes(2, getLevelBytes());
       }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        output.writeInt64(3, logTime_);
+      }
       getUnknownFields().writeTo(output);
     }
 
@@ -1103,6 +1136,10 @@ public final class MessageProto {
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
         size += com.google.protobuf.CodedOutputStream
           .computeBytesSize(2, getLevelBytes());
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(3, logTime_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -1225,6 +1262,8 @@ public final class MessageProto {
         bitField0_ = (bitField0_ & ~0x00000001);
         level_ = "";
         bitField0_ = (bitField0_ & ~0x00000002);
+        logTime_ = 0L;
+        bitField0_ = (bitField0_ & ~0x00000004);
         return this;
       }
 
@@ -1261,6 +1300,10 @@ public final class MessageProto {
           to_bitField0_ |= 0x00000002;
         }
         result.level_ = level_;
+        if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
+          to_bitField0_ |= 0x00000004;
+        }
+        result.logTime_ = logTime_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -1286,6 +1329,9 @@ public final class MessageProto {
           bitField0_ |= 0x00000002;
           level_ = other.level_;
           onChanged();
+        }
+        if (other.hasLogTime()) {
+          setLogTime(other.getLogTime());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
@@ -1462,6 +1508,38 @@ public final class MessageProto {
   }
   bitField0_ |= 0x00000002;
         level_ = value;
+        onChanged();
+        return this;
+      }
+
+      private long logTime_ ;
+      /**
+       * <code>optional int64 LogTime = 3;</code>
+       */
+      public boolean hasLogTime() {
+        return ((bitField0_ & 0x00000004) == 0x00000004);
+      }
+      /**
+       * <code>optional int64 LogTime = 3;</code>
+       */
+      public long getLogTime() {
+        return logTime_;
+      }
+      /**
+       * <code>optional int64 LogTime = 3;</code>
+       */
+      public Builder setLogTime(long value) {
+        bitField0_ |= 0x00000004;
+        logTime_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional int64 LogTime = 3;</code>
+       */
+      public Builder clearLogTime() {
+        bitField0_ = (bitField0_ & ~0x00000004);
+        logTime_ = 0L;
         onChanged();
         return this;
       }
@@ -5586,22 +5664,22 @@ public final class MessageProto {
     java.lang.String[] descriptorData = {
       "\n\022MessageProto.proto\022\007message\"K\n\017LogColl" +
       "ectProto\022\037\n\004Logs\030\001 \003(\0132\021.message.LogProt" +
-      "o\022\027\n\017ServiceIdentity\030\002 \001(\t\"\'\n\010LogProto\022\014" +
-      "\n\004Body\030\001 \001(\t\022\r\n\005Level\030\002 \001(\t\"\237\001\n\024Register" +
-      "ServiceProto\022\027\n\017ServiceIdentity\030\001 \001(\t\022\024\n" +
-      "\014RegisterTime\030\002 \001(\003\022\023\n\013ActionToken\030\003 \001(\t" +
-      "\022\022\n\nBreakerUrl\030\004 \001(\t\022/\n\014RegisterJobs\030\005 \003" +
-      "(\0132\031.message.RegisterJobProto\"\243\001\n\020Regist" +
-      "erJobProto\022\017\n\007JobName\030\001 \001(\t\022\020\n\010JogGroup\030" +
-      "\002 \001(\t\022\024\n\014JobClassType\030\003 \001(\t\022\023\n\013TriggerNa",
-      "me\030\004 \001(\t\022\024\n\014TriggerGroup\030\005 \001(\t\022\023\n\013Repeat" +
-      "Count\030\006 \001(\005\022\026\n\016RepeatInterval\030\007 \001(\005\"a\n\014W" +
-      "arningProto\022\027\n\017ServiceIdentity\030\001 \001(\t\022\017\n\007" +
-      "JobName\030\002 \001(\t\022\020\n\010JobGroup\030\003 \001(\t\022\025\n\rWarni" +
-      "ngReason\030\004 \001(\t\"?\n\016HeartbeatProto\022\024\n\014Hear" +
-      "tbeatUrl\030\001 \001(\t\022\027\n\017ServiceIdentity\030\002 \001(\tB" +
-      ".\n\036stu.lanyu.springdocker.messageB\014Messa" +
-      "geProto"
+      "o\022\027\n\017ServiceIdentity\030\002 \001(\t\"8\n\010LogProto\022\014" +
+      "\n\004Body\030\001 \001(\t\022\r\n\005Level\030\002 \001(\t\022\017\n\007LogTime\030\003" +
+      " \001(\003\"\237\001\n\024RegisterServiceProto\022\027\n\017Service" +
+      "Identity\030\001 \001(\t\022\024\n\014RegisterTime\030\002 \001(\003\022\023\n\013" +
+      "ActionToken\030\003 \001(\t\022\022\n\nBreakerUrl\030\004 \001(\t\022/\n" +
+      "\014RegisterJobs\030\005 \003(\0132\031.message.RegisterJo" +
+      "bProto\"\243\001\n\020RegisterJobProto\022\017\n\007JobName\030\001" +
+      " \001(\t\022\020\n\010JogGroup\030\002 \001(\t\022\024\n\014JobClassType\030\003",
+      " \001(\t\022\023\n\013TriggerName\030\004 \001(\t\022\024\n\014TriggerGrou" +
+      "p\030\005 \001(\t\022\023\n\013RepeatCount\030\006 \001(\005\022\026\n\016RepeatIn" +
+      "terval\030\007 \001(\005\"a\n\014WarningProto\022\027\n\017ServiceI" +
+      "dentity\030\001 \001(\t\022\017\n\007JobName\030\002 \001(\t\022\020\n\010JobGro" +
+      "up\030\003 \001(\t\022\025\n\rWarningReason\030\004 \001(\t\"?\n\016Heart" +
+      "beatProto\022\024\n\014HeartbeatUrl\030\001 \001(\t\022\027\n\017Servi" +
+      "ceIdentity\030\002 \001(\tB.\n\036stu.lanyu.springdock" +
+      "er.messageB\014MessageProto"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -5626,7 +5704,7 @@ public final class MessageProto {
     internal_static_message_LogProto_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_message_LogProto_descriptor,
-        new java.lang.String[] { "Body", "Level", });
+        new java.lang.String[] { "Body", "Level", "LogTime", });
     internal_static_message_RegisterServiceProto_descriptor =
       getDescriptor().getMessageTypes().get(2);
     internal_static_message_RegisterServiceProto_fieldAccessorTable = new
