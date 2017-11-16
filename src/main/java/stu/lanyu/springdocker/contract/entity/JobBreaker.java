@@ -2,26 +2,17 @@ package stu.lanyu.springdocker.contract.entity;
 
 public class JobBreaker {
 
-    private boolean IsStartCommand;
-    private boolean IsStopCommand;
+    private boolean JobVeto;
     private String JobName;
     private String JobGroup;
     private boolean BreakerResult;
 
-    public boolean isStartCommand() {
-        return IsStartCommand;
+    public boolean isJobVeto() {
+        return JobVeto;
     }
 
-    public void setStartCommand(boolean startCommand) {
-        IsStartCommand = startCommand;
-    }
-
-    public boolean isStopCommand() {
-        return IsStopCommand;
-    }
-
-    public void setStopCommand(boolean stopCommand) {
-        IsStopCommand = stopCommand;
+    public void setJobVeto(boolean jobVeto) {
+        JobVeto = jobVeto;
     }
 
     public String getJobName() {

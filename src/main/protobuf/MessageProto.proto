@@ -15,6 +15,7 @@ message LogProto
 {
     optional string Body = 1;
     optional string Level = 2;
+    optional int64 LogTime = 3;
 }
 
 message RegisterServiceProto

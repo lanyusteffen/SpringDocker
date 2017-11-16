@@ -44,7 +44,6 @@ public class HeartbeatSchedule {
             Request req = new Request.Builder()
                     .url(url).build();
             Response resp = httpClient.newCall(req).execute();
-
             result = gson.fromJson(resp.body().string(), HeartbeatInfo.class);
         }
         catch (ConnectException e) {

@@ -33,32 +33,25 @@ public class BreakerController {
     @Autowired
     private RedisTemplate<String, RegisterTask> redisTemplate;
 
-    private ServiceBreaker getServiceBreaker(RegisterTask task, boolean isForTask, boolean isStartCommand, boolean isStopCommand, String jobName, String jobGroup) {
+    private ServiceBreaker getServiceBreaker(RegisterTask task, boolean isForTask, boolean isVeto, String jobName, String jobGroup) {
 
         ServiceBreaker serviceBreaker = new ServiceBreaker();
 
         if (isForTask) {
-
+            serviceBreaker.setBreakerForTask(true);
             serviceBreaker.setActionToken(task.getActionToken());
             serviceBreaker.setAuthenticationFailure(false);
             serviceBreaker.setBreakerResult(false);
             serviceBreaker.setServiceIdentity(task.getServiceIdentity());
-            serviceBreaker.setStartCommand(isStartCommand);
-            serviceBreaker.setStopCommand(isStopCommand);
+            serviceBreaker.setTaskVeto(isVeto);
         }
         else {
-
-            serviceBreaker.setStopCommand(false);
-            serviceBreaker.setStartCommand(false);
+            serviceBreaker.setBreakerForTask(false);
             serviceBreaker.setAuthenticationFailure(false);
-            serviceBreaker.setBreakerResult(false);
-            serviceBreaker.setStartCommand(false);
-            serviceBreaker.setStopCommand(false);
 
             JobBreaker jobBreaker = new JobBreaker();
 
-            jobBreaker.setStartCommand(isStartCommand);
-            jobBreaker.setStopCommand(isStopCommand);
+            jobBreaker.setJobVeto(isVeto);
             jobBreaker.setBreakerResult(false);
             jobBreaker.setJobGroup(jobGroup);
             jobBreaker.setJobName(jobName);
@@ -73,9 +66,9 @@ public class BreakerController {
     /**
      * 访问指定任务的断路WCF服务
      */
-    private ServiceBreaker doBreakerService(RegisterTask task, boolean isForTask, boolean isStartCommand, boolean isStopCommand, String jobName, String jobGroup) {
+    private ServiceBreaker doBreakerService(RegisterTask task, boolean isForTask, boolean isVeto, String jobName, String jobGroup) {
 
-        ServiceBreaker serviceBreaker = getServiceBreaker(task, isForTask, isStartCommand, isStopCommand, jobName, jobGroup);
+        ServiceBreaker serviceBreaker = getServiceBreaker(task, isForTask, isVeto, jobName, jobGroup);
 
         try {
 
@@ -102,7 +95,7 @@ public class BreakerController {
     }
 
     @RequestMapping(value ="/doForTask", method = RequestMethod.GET)
-    public boolean doForTask(boolean isStartCommand, boolean isStopCommand, String serviceIdentity) {
+    public boolean doForTask(String serviceIdentity, boolean isVeto) {
 
         Map<Object, Object> entries = redisTemplate.opsForHash().entries(GlobalConfig.Redis.REGISTER_TASK_CACHE_KEY);
 
@@ -113,7 +106,7 @@ public class BreakerController {
 
         if (task != null) {
 
-           ServiceBreaker serviceBreaker = doBreakerService(task, true, isStartCommand, isStopCommand, null, null);
+           ServiceBreaker serviceBreaker = doBreakerService(task, true, isVeto, null, null);
            return serviceBreaker.isBreakerResult();
         }
 
@@ -121,7 +114,7 @@ public class BreakerController {
     }
 
     @RequestMapping(value = "/doForJob", method = RequestMethod.GET)
-    public boolean doForJob(boolean isStartCommand, boolean isStopCommand, String serviceIdentity, String jobName, String jobGroup) {
+    public boolean doForJob(String serviceIdentity, String jobName, String jobGroup, boolean isVeto) {
 
         Map<Object, Object> entries = redisTemplate.opsForHash().entries(GlobalConfig.Redis.REGISTER_TASK_CACHE_KEY);
 
@@ -134,7 +127,7 @@ public class BreakerController {
 
         if (task != null) {
 
-            ServiceBreaker serviceBreaker = doBreakerService(task, false, isStartCommand, isStopCommand, jobName, jobGroup);
+            ServiceBreaker serviceBreaker = doBreakerService(task, false, isVeto, jobName, jobGroup);
             return serviceBreaker.isBreakerResult();
         }
 

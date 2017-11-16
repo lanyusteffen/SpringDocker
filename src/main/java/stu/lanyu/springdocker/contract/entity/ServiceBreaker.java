@@ -3,12 +3,20 @@ package stu.lanyu.springdocker.contract.entity;
 public class ServiceBreaker {
 
     private String ActionToken;
-    private boolean IsStartCommand;
+    private boolean TaskVeto;
     private boolean IsAuthenticationFailure;
-    private boolean IsStopCommand;
     private String ServiceIdentity;
     private boolean BreakerResult;
     private JobBreaker[] JobBreakers;
+    private boolean BreakerForTask;
+
+    public boolean isBreakerForTask() {
+        return BreakerForTask;
+    }
+
+    public void setBreakerForTask(boolean breakerForTask) {
+        BreakerForTask = breakerForTask;
+    }
 
     public String getActionToken() {
         return ActionToken;
@@ -18,12 +26,12 @@ public class ServiceBreaker {
         ActionToken = actionToken;
     }
 
-    public boolean isStartCommand() {
-        return IsStartCommand;
+    public boolean isTaskVeto() {
+        return TaskVeto;
     }
 
-    public void setStartCommand(boolean startCommand) {
-        IsStartCommand = startCommand;
+    public void setTaskVeto(boolean taskVeto) {
+        TaskVeto = taskVeto;
     }
 
     public boolean isAuthenticationFailure() {
@@ -32,14 +40,6 @@ public class ServiceBreaker {
 
     public void setAuthenticationFailure(boolean authenticationFailure) {
         IsAuthenticationFailure = authenticationFailure;
-    }
-
-    public boolean isStopCommand() {
-        return IsStopCommand;
-    }
-
-    public void setStopCommand(boolean stopCommand) {
-        IsStopCommand = stopCommand;
     }
 
     public String getServiceIdentity() {
