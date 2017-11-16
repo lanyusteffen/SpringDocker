@@ -28,15 +28,13 @@ public class LogCollectMessageReceiver implements MessageListener {
             byte[] decodedData = Base64.getDecoder().decode(message.getBody());
             proto = MessageProto.LogCollectProto.parseFrom(decodedData);
 
-            Date addTime = new Date();
-
             ArrayList<LogCollect> logCollectArrayList = new ArrayList<LogCollect>();
 
             for (MessageProto.LogProto log : proto.getLogsList()) {
 
                 LogCollect logCollect = new LogCollect();
 
-                logCollect.setAddTime(addTime);
+                logCollect.setLogTime(new Date(log.getLogTime()));
                 logCollect.setBody(log.getBody());
                 logCollect.setLevel(log.getLevel());
                 logCollect.setServiceIdentity(proto.getServiceIdentity());

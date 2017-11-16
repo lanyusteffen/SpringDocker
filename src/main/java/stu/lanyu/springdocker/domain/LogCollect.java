@@ -14,7 +14,7 @@ public class LogCollect extends AbstractEntity implements Serializable {
     private String body;
     private String serviceIdentity;
     private String level;
-    private Date addTime;
+    private Date logTime;
 
     public String getBody() {
         return body;
@@ -40,11 +40,11 @@ public class LogCollect extends AbstractEntity implements Serializable {
         this.level = category;
     }
 
-    public Date getAddTime() {
-        return addTime;
+    public Date getLogTime() {
+        return logTime;
     }
 
-    public void setAddTime(Date addTime) {
-        this.addTime = addTime;
+    public void setLogTime(Date addTime) {
+        this.logTime = addTime;
     }
 }

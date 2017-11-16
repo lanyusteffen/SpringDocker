@@ -19,12 +19,12 @@ public class LogCollectService {
     private LogCollectRepository logCollectRepository;
 
     public Page<LogCollect> getListPaged(int pageIndex, int pageSize) {
-        Pageable pageable = new PageRequest(pageIndex, pageSize, Sort.Direction.ASC, "id");
+        Pageable pageable = new PageRequest(pageIndex, pageSize, Sort.Direction.ASC, "logTime");
         return logCollectRepository.findAll(pageable);
     }
 
     public Page<LogCollect> getListPagedByServiceIdentity(String serviceIdentity, int pageIndex, int pageSize) {
-        Pageable pageable = new PageRequest(pageIndex, pageSize, Sort.Direction.ASC, "id");
+        Pageable pageable = new PageRequest(pageIndex, pageSize, Sort.Direction.ASC, "logTime");
         return logCollectRepository.findAllByServiceIdentity(serviceIdentity, pageable);
     }
 }

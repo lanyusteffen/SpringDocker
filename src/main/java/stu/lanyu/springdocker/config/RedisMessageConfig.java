@@ -76,6 +76,7 @@ public class RedisMessageConfig {
         final RedisMessageListenerContainer container = new RedisMessageListenerContainer();
 
         container.setConnectionFactory(getRedisMessageConnectionFactory());
+        container.afterPropertiesSet();
 
         container.addMessageListener(logCollectMessageReceiver,
                 new ChannelTopic(GlobalConfig.Redis.ESFTASK_PUSHLOG_CHANNEL));
