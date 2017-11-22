@@ -70,9 +70,7 @@ public class RedisMessageConfig {
     }
 
     @Bean
-    RedisMessageListenerContainer redisContainer(WarningMessageReceiver warningMessageReceiver, LogCollectMessageReceiver logCollectMessageReceiver,
-                                                 HeartbeatMessageReceiver heartbeatMessageReceiver, RegisterMessageReceiver registerMessageReceiver,
-                                                 JedisConnectionFactory jedisConnectionFactory) {
+    RedisMessageListenerContainer redisLogCollectContainer(LogCollectMessageReceiver logCollectMessageReceiver) {
         final RedisMessageListenerContainer container = new RedisMessageListenerContainer();
 
         container.setConnectionFactory(getRedisMessageConnectionFactory());
@@ -81,14 +79,44 @@ public class RedisMessageConfig {
         container.addMessageListener(logCollectMessageReceiver,
                 new ChannelTopic(GlobalConfig.Redis.ESFTASK_PUSHLOG_CHANNEL));
 
+        return container;
+    }
+
+    @Bean
+    RedisMessageListenerContainer redisWarningContainer(WarningMessageReceiver warningMessageReceiver) {
+        final RedisMessageListenerContainer container = new RedisMessageListenerContainer();
+
+        container.setConnectionFactory(getRedisMessageConnectionFactory());
+        container.afterPropertiesSet();
+
         container.addMessageListener(warningMessageReceiver,
                 new ChannelTopic(GlobalConfig.Redis.ESFTASK_WARNING_CHANNEL));
 
-        container.addMessageListener(heartbeatMessageReceiver,
-                new ChannelTopic(GlobalConfig.Redis.ESFTASK_HEARTBEAT_CHANNEL));
+        return container;
+    }
+
+    @Bean
+    RedisMessageListenerContainer redisRegisterContainer(RegisterMessageReceiver registerMessageReceiver) {
+        final RedisMessageListenerContainer container = new RedisMessageListenerContainer();
+
+        container.setConnectionFactory(getRedisMessageConnectionFactory());
+        container.afterPropertiesSet();
 
         container.addMessageListener(registerMessageReceiver,
                 new ChannelTopic(GlobalConfig.Redis.ESFTASK_REGISTER_CHANNEL));
+
+        return container;
+    }
+
+    @Bean
+    RedisMessageListenerContainer redisLogCollectContainer(HeartbeatMessageReceiver heartbeatMessageReceiver) {
+        final RedisMessageListenerContainer container = new RedisMessageListenerContainer();
+
+        container.setConnectionFactory(getRedisMessageConnectionFactory());
+        container.afterPropertiesSet();
+
+        container.addMessageListener(heartbeatMessageReceiver,
+                new ChannelTopic(GlobalConfig.Redis.ESFTASK_HEARTBEAT_CHANNEL));
 
         return container;
     }
