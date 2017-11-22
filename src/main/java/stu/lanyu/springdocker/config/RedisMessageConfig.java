@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.listener.ChannelTopic;
 import org.springframework.data.redis.listener.RedisMessageListenerContainer;
+import org.springframework.data.redis.listener.adapter.MessageListenerAdapter;
 import redis.clients.jedis.JedisPoolConfig;
 import stu.lanyu.springdocker.message.HeartbeatMessageReceiver;
 import stu.lanyu.springdocker.message.LogCollectMessageReceiver;
@@ -74,9 +75,8 @@ public class RedisMessageConfig {
         final RedisMessageListenerContainer container = new RedisMessageListenerContainer();
 
         container.setConnectionFactory(getRedisMessageConnectionFactory());
-        container.afterPropertiesSet();
 
-        container.addMessageListener(logCollectMessageReceiver,
+        container.addMessageListener(new MessageListenerAdapter(logCollectMessageReceiver),
                 new ChannelTopic(GlobalConfig.Redis.ESFTASK_PUSHLOG_CHANNEL));
 
         return container;
@@ -87,9 +87,8 @@ public class RedisMessageConfig {
         final RedisMessageListenerContainer container = new RedisMessageListenerContainer();
 
         container.setConnectionFactory(getRedisMessageConnectionFactory());
-        container.afterPropertiesSet();
 
-        container.addMessageListener(warningMessageReceiver,
+        container.addMessageListener(new MessageListenerAdapter(warningMessageReceiver),
                 new ChannelTopic(GlobalConfig.Redis.ESFTASK_WARNING_CHANNEL));
 
         return container;
@@ -100,9 +99,8 @@ public class RedisMessageConfig {
         final RedisMessageListenerContainer container = new RedisMessageListenerContainer();
 
         container.setConnectionFactory(getRedisMessageConnectionFactory());
-        container.afterPropertiesSet();
 
-        container.addMessageListener(registerMessageReceiver,
+        container.addMessageListener(new MessageListenerAdapter(registerMessageReceiver),
                 new ChannelTopic(GlobalConfig.Redis.ESFTASK_REGISTER_CHANNEL));
 
         return container;
@@ -113,9 +111,8 @@ public class RedisMessageConfig {
         final RedisMessageListenerContainer container = new RedisMessageListenerContainer();
 
         container.setConnectionFactory(getRedisMessageConnectionFactory());
-        container.afterPropertiesSet();
 
-        container.addMessageListener(heartbeatMessageReceiver,
+        container.addMessageListener(new MessageListenerAdapter(heartbeatMessageReceiver),
                 new ChannelTopic(GlobalConfig.Redis.ESFTASK_HEARTBEAT_CHANNEL));
 
         return container;
