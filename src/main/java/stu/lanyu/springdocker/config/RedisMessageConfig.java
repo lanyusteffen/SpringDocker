@@ -109,7 +109,7 @@ public class RedisMessageConfig {
     }
 
     @Bean
-    RedisMessageListenerContainer redisLogCollectContainer(HeartbeatMessageReceiver heartbeatMessageReceiver) {
+    RedisMessageListenerContainer redisHeartbeatContainer(HeartbeatMessageReceiver heartbeatMessageReceiver) {
         final RedisMessageListenerContainer container = new RedisMessageListenerContainer();
 
         container.setConnectionFactory(getRedisMessageConnectionFactory());
