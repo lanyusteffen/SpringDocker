@@ -1,5 +1,6 @@
 package stu.lanyu.springdocker.domain;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import java.io.Serializable;
@@ -11,6 +12,7 @@ public class LogCollect extends AbstractEntity implements Serializable {
 
     private static final long serialVersionUID = 8377365962665342929L;
 
+    @Column(columnDefinition="TEXT")
     private String body;
     private String serviceIdentity;
     private String level;
