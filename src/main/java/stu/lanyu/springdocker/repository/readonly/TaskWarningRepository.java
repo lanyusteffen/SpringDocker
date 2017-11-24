@@ -14,5 +14,5 @@ import stu.lanyu.springdocker.domain.User;
 @Transactional(readOnly = true)
 public interface TaskWarningRepository extends JpaRepository<TaskWarning, Long> {
     Page<TaskWarning> findAllByJobNameAndJobGroup(String jobName, String jobGroup, Pageable pageable);
-    Page<TaskWarning> findAllByServiceIdentity(String serviceIdentity, Pageable pageable);
+    Page<TaskWarning> findOneByServiceIdentity(String serviceIdentity, Pageable pageable);
 }

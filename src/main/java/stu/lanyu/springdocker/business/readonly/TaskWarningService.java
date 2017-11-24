@@ -26,7 +26,7 @@ public class TaskWarningService {
 
     public Page<TaskWarning> getListPagedByServiceIdentity(String serviceIdentity, int pageIndex, int pageSize) {
         Pageable pageable = new PageRequest(pageIndex, pageSize, Sort.Direction.ASC, "id");
-        return taskWarningRepository.findAllByServiceIdentity(serviceIdentity, pageable);
+        return taskWarningRepository.findOneByServiceIdentity(serviceIdentity, pageable);
     }
 
     public Page<TaskWarning> getListPagedByJob(String jobName, String jobGroup, int pageIndex, int pageSize) {

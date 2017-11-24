@@ -71,6 +71,7 @@ public class HeartbeatSchedule {
     private void saveHeartbeatInfo(TaskMonitorInfo taskMonitorInfo, HeartbeatInfo result) {
 
         taskMonitorInfoService.save(taskMonitorInfo);
+        jobMonitorInfoService.saveBatch(taskMonitorInfo.getJobs());
 
         List<stu.lanyu.springdocker.domain.JobMonitorInfo> deletedJobList = new ArrayList<>();
 
@@ -98,7 +99,7 @@ public class HeartbeatSchedule {
         });
 
         if (deletedJobList.size() > 0) {
-            jobMonitorInfoService.delete(deletedJobList);
+            jobMonitorInfoService.deleteBatch(deletedJobList);
         }
     }
 
@@ -190,7 +191,7 @@ public class HeartbeatSchedule {
 
         if (serviceHeartbeatFacade != null) {
 
-            if (serviceHeartbeatFacade.getScheduleExecutorService().isTerminated() || serviceHeartbeatFacade.getScheduleExecutorService().isShutdown()) {
+            if (serviceHeartbeatFacade.getScheduleExecutorService().isShutdown()) {
 
                 serviceHeartbeatFacade.setScheduleExecutorService(getHeartbeatScheduledExecutorService());
             }
@@ -200,7 +201,7 @@ public class HeartbeatSchedule {
 
         if (serviceLogCollectFacade != null) {
 
-            if (serviceLogCollectFacade.getScheduleExecutorService().isTerminated() || serviceLogCollectFacade.getScheduleExecutorService().isShutdown()) {
+            if (serviceLogCollectFacade.getScheduleExecutorService().isShutdown()) {
 
                 serviceLogCollectFacade.setScheduleExecutorService(getLogCollectScheduledExecutorService());
             }
@@ -210,7 +211,7 @@ public class HeartbeatSchedule {
 
         if (serviceWarningFacade != null) {
 
-            if (serviceWarningFacade.getScheduleExecutorService().isTerminated() || serviceWarningFacade.getScheduleExecutorService().isShutdown()) {
+            if (serviceWarningFacade.getScheduleExecutorService().isShutdown()) {
 
                 serviceWarningFacade.setScheduleExecutorService(getWarningScheduledExecutorService());
             }
@@ -220,7 +221,7 @@ public class HeartbeatSchedule {
 
         if (serviceRegisterFacade != null) {
 
-            if (serviceRegisterFacade.getScheduleExecutorService().isTerminated() || serviceRegisterFacade.getScheduleExecutorService().isShutdown()) {
+            if (serviceRegisterFacade.getScheduleExecutorService().isShutdown()) {
 
                 serviceRegisterFacade.setScheduleExecutorService(getRegisterScheduledExecutorService());
             }

@@ -13,6 +13,5 @@ import stu.lanyu.springdocker.domain.JobMonitorInfo;
 @Transactional(readOnly = true)
 public interface JobMonitorInfoRepository extends JpaRepository<JobMonitorInfo, Long> {
     Page<JobMonitorInfo> findAllByJobNameAndJobGroup(String jobName, String jobGroup, Pageable pageable);
-
     Page<JobMonitorInfo> findAllByServiceIdentity(String serviceIdentity, Pageable pageable);
 }
