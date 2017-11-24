@@ -43,6 +43,7 @@ message WarningProto {
     optional string JobName = 2;
     optional string JobGroup = 3;
     optional string WarningReason = 4;
+    optional int64 WarningTime = 5;
 }
 
 message HeartbeatProto {

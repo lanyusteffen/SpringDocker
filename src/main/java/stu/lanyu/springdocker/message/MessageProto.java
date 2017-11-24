@@ -4102,6 +4102,15 @@ public final class MessageProto {
      */
     com.google.protobuf.ByteString
         getWarningReasonBytes();
+
+    /**
+     * <code>optional int64 WarningTime = 5;</code>
+     */
+    boolean hasWarningTime();
+    /**
+     * <code>optional int64 WarningTime = 5;</code>
+     */
+    long getWarningTime();
   }
   /**
    * Protobuf type {@code message.WarningProto}
@@ -4177,6 +4186,11 @@ public final class MessageProto {
               com.google.protobuf.ByteString bs = input.readBytes();
               bitField0_ |= 0x00000008;
               warningReason_ = bs;
+              break;
+            }
+            case 40: {
+              bitField0_ |= 0x00000010;
+              warningTime_ = input.readInt64();
               break;
             }
           }
@@ -4387,11 +4401,27 @@ public final class MessageProto {
       }
     }
 
+    public static final int WARNINGTIME_FIELD_NUMBER = 5;
+    private long warningTime_;
+    /**
+     * <code>optional int64 WarningTime = 5;</code>
+     */
+    public boolean hasWarningTime() {
+      return ((bitField0_ & 0x00000010) == 0x00000010);
+    }
+    /**
+     * <code>optional int64 WarningTime = 5;</code>
+     */
+    public long getWarningTime() {
+      return warningTime_;
+    }
+
     private void initFields() {
       serviceIdentity_ = "";
       jobName_ = "";
       jobGroup_ = "";
       warningReason_ = "";
+      warningTime_ = 0L;
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -4418,6 +4448,9 @@ public final class MessageProto {
       if (((bitField0_ & 0x00000008) == 0x00000008)) {
         output.writeBytes(4, getWarningReasonBytes());
       }
+      if (((bitField0_ & 0x00000010) == 0x00000010)) {
+        output.writeInt64(5, warningTime_);
+      }
       getUnknownFields().writeTo(output);
     }
 
@@ -4442,6 +4475,10 @@ public final class MessageProto {
       if (((bitField0_ & 0x00000008) == 0x00000008)) {
         size += com.google.protobuf.CodedOutputStream
           .computeBytesSize(4, getWarningReasonBytes());
+      }
+      if (((bitField0_ & 0x00000010) == 0x00000010)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(5, warningTime_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -4568,6 +4605,8 @@ public final class MessageProto {
         bitField0_ = (bitField0_ & ~0x00000004);
         warningReason_ = "";
         bitField0_ = (bitField0_ & ~0x00000008);
+        warningTime_ = 0L;
+        bitField0_ = (bitField0_ & ~0x00000010);
         return this;
       }
 
@@ -4612,6 +4651,10 @@ public final class MessageProto {
           to_bitField0_ |= 0x00000008;
         }
         result.warningReason_ = warningReason_;
+        if (((from_bitField0_ & 0x00000010) == 0x00000010)) {
+          to_bitField0_ |= 0x00000010;
+        }
+        result.warningTime_ = warningTime_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -4647,6 +4690,9 @@ public final class MessageProto {
           bitField0_ |= 0x00000008;
           warningReason_ = other.warningReason_;
           onChanged();
+        }
+        if (other.hasWarningTime()) {
+          setWarningTime(other.getWarningTime());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
@@ -4975,6 +5021,38 @@ public final class MessageProto {
   }
   bitField0_ |= 0x00000008;
         warningReason_ = value;
+        onChanged();
+        return this;
+      }
+
+      private long warningTime_ ;
+      /**
+       * <code>optional int64 WarningTime = 5;</code>
+       */
+      public boolean hasWarningTime() {
+        return ((bitField0_ & 0x00000010) == 0x00000010);
+      }
+      /**
+       * <code>optional int64 WarningTime = 5;</code>
+       */
+      public long getWarningTime() {
+        return warningTime_;
+      }
+      /**
+       * <code>optional int64 WarningTime = 5;</code>
+       */
+      public Builder setWarningTime(long value) {
+        bitField0_ |= 0x00000010;
+        warningTime_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional int64 WarningTime = 5;</code>
+       */
+      public Builder clearWarningTime() {
+        bitField0_ = (bitField0_ & ~0x00000010);
+        warningTime_ = 0L;
         onChanged();
         return this;
       }
@@ -5674,12 +5752,13 @@ public final class MessageProto {
       " \001(\t\022\020\n\010JogGroup\030\002 \001(\t\022\024\n\014JobClassType\030\003",
       " \001(\t\022\023\n\013TriggerName\030\004 \001(\t\022\024\n\014TriggerGrou" +
       "p\030\005 \001(\t\022\023\n\013RepeatCount\030\006 \001(\005\022\026\n\016RepeatIn" +
-      "terval\030\007 \001(\005\"a\n\014WarningProto\022\027\n\017ServiceI" +
+      "terval\030\007 \001(\005\"v\n\014WarningProto\022\027\n\017ServiceI" +
       "dentity\030\001 \001(\t\022\017\n\007JobName\030\002 \001(\t\022\020\n\010JobGro" +
-      "up\030\003 \001(\t\022\025\n\rWarningReason\030\004 \001(\t\"?\n\016Heart" +
-      "beatProto\022\024\n\014HeartbeatUrl\030\001 \001(\t\022\027\n\017Servi" +
-      "ceIdentity\030\002 \001(\tB.\n\036stu.lanyu.springdock" +
-      "er.messageB\014MessageProto"
+      "up\030\003 \001(\t\022\025\n\rWarningReason\030\004 \001(\t\022\023\n\013Warni" +
+      "ngTime\030\005 \001(\003\"?\n\016HeartbeatProto\022\024\n\014Heartb" +
+      "eatUrl\030\001 \001(\t\022\027\n\017ServiceIdentity\030\002 \001(\tB.\n" +
+      "\036stu.lanyu.springdocker.messageB\014Message" +
+      "Proto"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -5722,7 +5801,7 @@ public final class MessageProto {
     internal_static_message_WarningProto_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_message_WarningProto_descriptor,
-        new java.lang.String[] { "ServiceIdentity", "JobName", "JobGroup", "WarningReason", });
+        new java.lang.String[] { "ServiceIdentity", "JobName", "JobGroup", "WarningReason", "WarningTime", });
     internal_static_message_HeartbeatProto_descriptor =
       getDescriptor().getMessageTypes().get(5);
     internal_static_message_HeartbeatProto_fieldAccessorTable = new
