@@ -37,7 +37,7 @@ public class WarningMessageReceiver implements MessageListener {
             taskWarning.setJobGroup(proto.getJobGroup());
             taskWarning.setJobName(proto.getJobName());
             taskWarning.setWarningReason(proto.getWarningReason());
-            taskWarning.setAddTime(new Date());
+            taskWarning.setAddTime(new Date(proto.getWarningTime()));
 
             taskWarningService.save(taskWarning);
         } catch (InvalidProtocolBufferException e) {

@@ -5,15 +5,25 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.listener.RedisMessageListenerContainer;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
+import redis.clients.jedis.Jedis;
+import redis.clients.jedis.JedisPool;
+import redis.clients.jedis.JedisPoolConfig;
 import stu.lanyu.springdocker.business.readonly.TaskMonitorInfoService;
 import stu.lanyu.springdocker.config.GlobalConfig;
+import stu.lanyu.springdocker.config.RedisMessageProperties;
 import stu.lanyu.springdocker.contract.entity.HeartbeatInfo;
 import stu.lanyu.springdocker.contract.entity.JobMonitorInfo;
 import stu.lanyu.springdocker.domain.TaskMonitorInfo;
+import stu.lanyu.springdocker.message.ScheduledExecutorServiceFacade;
+import stu.lanyu.springdocker.message.subscriber.HeartbeatSubscriber;
+import stu.lanyu.springdocker.message.subscriber.LogCollectSubscriber;
+import stu.lanyu.springdocker.message.subscriber.RegisterSubscriber;
+import stu.lanyu.springdocker.message.subscriber.WarningSubscriber;
 import stu.lanyu.springdocker.utility.StringUtility;
 
 import java.net.ConnectException;
@@ -21,6 +31,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
 
 @Component
 public class HeartbeatSchedule {
@@ -90,7 +102,132 @@ public class HeartbeatSchedule {
         }
     }
 
-    @Scheduled(fixedDelay = 60000)
+    @Autowired(required = true)
+    private ApplicationContext context;
+
+    @Autowired(required = true)
+    private RedisMessageProperties redisMessageProperties;
+
+    private JedisPool getRedisMessagePool() {
+
+        JedisPoolConfig poolConfig = new JedisPoolConfig();
+
+        poolConfig.setMaxIdle(redisMessageProperties.getMaxIdle());
+        poolConfig.setMinIdle(redisMessageProperties.getMinIdle());
+        poolConfig.setMaxTotal(redisMessageProperties.getMaxTotal());
+        poolConfig.setMaxWaitMillis(redisMessageProperties.getMaxWaitMillis());
+
+        JedisPool jedisPool = new JedisPool(poolConfig, redisMessageProperties.getHost(), redisMessageProperties.getPort(),
+                redisMessageProperties.getTimeOut(), redisMessageProperties.getPassword());
+
+        return jedisPool;
+    }
+
+    private ScheduledExecutorService getHeartbeatScheduledExecutorService() {
+        HeartbeatSubscriber heartbeatSubscriber = context.getBean(HeartbeatSubscriber.class);
+        ScheduledExecutorService service = Executors.newSingleThreadScheduledExecutor();
+        service.execute(() -> {
+            try {
+                JedisPool pool = getRedisMessagePool();
+                Jedis jedis = pool.getResource();
+                jedis.subscribe(heartbeatSubscriber, GlobalConfig.Redis.ESFTASK_HEARTBEAT_CHANNEL);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+        return service;
+    }
+
+    private ScheduledExecutorService getWarningScheduledExecutorService() {
+        WarningSubscriber warningSubscriber = context.getBean(WarningSubscriber.class);
+        ScheduledExecutorService service = Executors.newSingleThreadScheduledExecutor();
+        service.execute(() -> {
+            try {
+                JedisPool pool = getRedisMessagePool();
+                Jedis jedis = pool.getResource();
+                jedis.subscribe(warningSubscriber, GlobalConfig.Redis.ESFTASK_WARNING_CHANNEL);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+        return service;
+    }
+
+    private ScheduledExecutorService getRegisterScheduledExecutorService() {
+        RegisterSubscriber registerSubscriber = context.getBean(RegisterSubscriber.class);
+        ScheduledExecutorService service = Executors.newSingleThreadScheduledExecutor();
+        service.execute(() -> {
+            try {
+                JedisPool pool = getRedisMessagePool();
+                Jedis jedis = pool.getResource();
+                jedis.subscribe(registerSubscriber, GlobalConfig.Redis.ESFTASK_REGISTER_CHANNEL);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+        return service;
+    }
+
+    private ScheduledExecutorService getLogCollectScheduledExecutorService() {
+        LogCollectSubscriber logCollectSubscriber = context.getBean(LogCollectSubscriber.class);
+        ScheduledExecutorService service = Executors.newSingleThreadScheduledExecutor();
+        service.execute(() -> {
+            try {
+                JedisPool pool = getRedisMessagePool();
+                Jedis jedis = pool.getResource();
+                jedis.subscribe(logCollectSubscriber, GlobalConfig.Redis.ESFTASK_PUSHLOG_CHANNEL);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+        return service;
+    }
+
+    @Scheduled(fixedDelay = 300000, initialDelay = 300000)
+    public void checkSubscriber() {
+
+        ScheduledExecutorServiceFacade serviceHeartbeatFacade = context.getBean("HeartbeatExecutorService", ScheduledExecutorServiceFacade.class);
+
+        if (serviceHeartbeatFacade != null) {
+
+            if (serviceHeartbeatFacade.getScheduleExecutorService().isTerminated() || serviceHeartbeatFacade.getScheduleExecutorService().isShutdown()) {
+
+                serviceHeartbeatFacade.setScheduleExecutorService(getHeartbeatScheduledExecutorService());
+            }
+        }
+
+        ScheduledExecutorServiceFacade serviceLogCollectFacade = context.getBean("LogCollectExecutorService", ScheduledExecutorServiceFacade.class);
+
+        if (serviceLogCollectFacade != null) {
+
+            if (serviceLogCollectFacade.getScheduleExecutorService().isTerminated() || serviceLogCollectFacade.getScheduleExecutorService().isShutdown()) {
+
+                serviceLogCollectFacade.setScheduleExecutorService(getLogCollectScheduledExecutorService());
+            }
+        }
+
+        ScheduledExecutorServiceFacade serviceWarningFacade = context.getBean("WarningExecutorService", ScheduledExecutorServiceFacade.class);
+
+        if (serviceWarningFacade != null) {
+
+            if (serviceWarningFacade.getScheduleExecutorService().isTerminated() || serviceWarningFacade.getScheduleExecutorService().isShutdown()) {
+
+                serviceWarningFacade.setScheduleExecutorService(getWarningScheduledExecutorService());
+            }
+        }
+
+        ScheduledExecutorServiceFacade serviceRegisterFacade = context.getBean("RegisterExecutorService", ScheduledExecutorServiceFacade.class);
+
+        if (serviceRegisterFacade != null) {
+
+            if (serviceRegisterFacade.getScheduleExecutorService().isTerminated() || serviceRegisterFacade.getScheduleExecutorService().isShutdown()) {
+
+                serviceRegisterFacade.setScheduleExecutorService(getRegisterScheduledExecutorService());
+            }
+        }
+    }
+
+    @Scheduled(fixedDelay = 60000, initialDelay = 60000)
     public void checkHeartbeat() {
 
         Map<Object, Object> entries = redisTemplate.opsForHash().entries(GlobalConfig.Redis.REGISTER_HEARTBEAT_CACHE_KEY);

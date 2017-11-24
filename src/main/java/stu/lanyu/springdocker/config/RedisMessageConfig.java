@@ -9,6 +9,7 @@ import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
+import stu.lanyu.springdocker.message.ScheduledExecutorServiceFacade;
 import stu.lanyu.springdocker.message.subscriber.HeartbeatSubscriber;
 import stu.lanyu.springdocker.message.subscriber.LogCollectSubscriber;
 import stu.lanyu.springdocker.message.subscriber.RegisterSubscriber;
@@ -93,7 +94,7 @@ public class RedisMessageConfig {
 
     @Bean(name = "HeartbeatExecutorService")
     @Scope("singleton")
-    ScheduledExecutorService getHeartbeatScheduleExecutorService(HeartbeatSubscriber heartbeatSubscriber) {
+    ScheduledExecutorServiceFacade getHeartbeatScheduleExecutorService(HeartbeatSubscriber heartbeatSubscriber) {
         ScheduledExecutorService service = Executors.newSingleThreadScheduledExecutor();
         service.execute(() -> {
             try {
@@ -105,12 +106,16 @@ public class RedisMessageConfig {
             }
         });
 
-        return service;
+        ScheduledExecutorServiceFacade serviceFacade = new ScheduledExecutorServiceFacade();
+
+        serviceFacade.setScheduleExecutorService(service);
+
+        return serviceFacade;
     }
 
     @Bean(name = "LogCollectExecutorService")
     @Scope("singleton")
-    ScheduledExecutorService getLogCollectScheduleExecutorService(LogCollectSubscriber logCollectSubscriber) {
+    ScheduledExecutorServiceFacade getLogCollectScheduleExecutorService(LogCollectSubscriber logCollectSubscriber) {
         ScheduledExecutorService service = Executors.newSingleThreadScheduledExecutor();
         service.execute(() -> {
             try {
@@ -121,12 +126,17 @@ public class RedisMessageConfig {
                 e.printStackTrace();
             }
         });
-        return service;
+
+        ScheduledExecutorServiceFacade serviceFacade = new ScheduledExecutorServiceFacade();
+
+        serviceFacade.setScheduleExecutorService(service);
+
+        return serviceFacade;
     }
 
     @Bean(name = "WarningExecutorService")
     @Scope("singleton")
-    ScheduledExecutorService getWarningScheduleExecutorService(WarningSubscriber warningSubscriber) {
+    ScheduledExecutorServiceFacade getWarningScheduleExecutorService(WarningSubscriber warningSubscriber) {
         ScheduledExecutorService service = Executors.newSingleThreadScheduledExecutor();
         service.execute(() -> {
 
@@ -138,12 +148,17 @@ public class RedisMessageConfig {
                 e.printStackTrace();
             }
         });
-        return service;
+
+        ScheduledExecutorServiceFacade serviceFacade = new ScheduledExecutorServiceFacade();
+
+        serviceFacade.setScheduleExecutorService(service);
+
+        return serviceFacade;
     }
 
     @Bean(name = "RegisterExecutorService")
     @Scope("singleton")
-    ScheduledExecutorService getRegisterScheduleExecutorService(RegisterSubscriber registerSubscriber) {
+    ScheduledExecutorServiceFacade getRegisterScheduleExecutorService(RegisterSubscriber registerSubscriber) {
         ScheduledExecutorService service = Executors.newSingleThreadScheduledExecutor();
         service.execute(() -> {
 
@@ -156,7 +171,11 @@ public class RedisMessageConfig {
             }
         });
 
-        return service;
+        ScheduledExecutorServiceFacade serviceFacade = new ScheduledExecutorServiceFacade();
+
+        serviceFacade.setScheduleExecutorService(service);
+
+        return serviceFacade;
     }
 
     @Bean
