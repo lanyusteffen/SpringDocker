@@ -1,32 +1,29 @@
-package stu.lanyu.springdocker.message;
+package stu.lanyu.springdocker.message.subscriber;
 
 import com.google.protobuf.InvalidProtocolBufferException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.data.redis.connection.Message;
-import org.springframework.data.redis.connection.MessageListener;
 import org.springframework.data.redis.core.RedisTemplate;
+import redis.clients.jedis.JedisPubSub;
 import stu.lanyu.springdocker.config.GlobalConfig;
+import stu.lanyu.springdocker.message.MessageProto;
 import stu.lanyu.springdocker.redis.entity.RegisterJob;
 import stu.lanyu.springdocker.redis.entity.RegisterTask;
 
 import java.util.ArrayList;
 import java.util.Base64;
 
-@Configuration
-public class RegisterMessageReceiver implements MessageListener {
+public class RegisterSubscriber extends JedisPubSub {
 
     @Autowired
     private RedisTemplate<String, RegisterTask> redisTemplate;
 
-    @Override
-    public void onMessage(Message message, byte[] pattern) {
+    public void onMessage(String channel, String message) {
 
         MessageProto.RegisterServiceProto proto = null;
 
         try {
 
-            byte[] decodedData = Base64.getDecoder().decode(message.getBody());
+            byte[] decodedData = Base64.getDecoder().decode(message);
             proto = MessageProto.RegisterServiceProto.parseFrom(decodedData);
 
             RegisterTask registerTask = new RegisterTask();
@@ -39,7 +36,7 @@ public class RegisterMessageReceiver implements MessageListener {
             ArrayList<RegisterJob> registerJobs = new ArrayList<RegisterJob>();
 
             for (stu.lanyu.springdocker.message.MessageProto.RegisterJobProto registerJobProto : proto.getRegisterJobsList()
-                 ) {
+                    ) {
 
                 RegisterJob registerJob = new RegisterJob();
 
@@ -63,5 +60,15 @@ public class RegisterMessageReceiver implements MessageListener {
         catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public void onSubscribe(String channel, int subscribedChannels) {
+        System.out.println(String.format("subscribe redis channel '%s' success",
+                channel));
+    }
+
+    public void onUnsubscribe(String channel, int subscribedChannels) {
+        System.out.println(String.format("unsubscribe redis channel '%s'",
+                channel));
     }
 }

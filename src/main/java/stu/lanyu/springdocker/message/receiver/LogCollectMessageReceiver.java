@@ -1,4 +1,4 @@
-package stu.lanyu.springdocker.message;
+package stu.lanyu.springdocker.message.receiver;
 
 import com.google.protobuf.InvalidProtocolBufferException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +7,7 @@ import org.springframework.data.redis.connection.Message;
 import org.springframework.data.redis.connection.MessageListener;
 import stu.lanyu.springdocker.business.readwrite.LogCollectService;
 import stu.lanyu.springdocker.domain.LogCollect;
+import stu.lanyu.springdocker.message.MessageProto;
 
 import java.util.ArrayList;
 import java.util.Base64;

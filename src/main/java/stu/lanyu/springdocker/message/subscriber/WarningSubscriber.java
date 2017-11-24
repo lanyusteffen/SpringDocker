@@ -1,32 +1,29 @@
-package stu.lanyu.springdocker.message;
+package stu.lanyu.springdocker.message.subscriber;
 
 import com.google.protobuf.InvalidProtocolBufferException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.data.redis.connection.Message;
-import org.springframework.data.redis.connection.MessageListener;
+import redis.clients.jedis.JedisPubSub;
 import stu.lanyu.springdocker.business.readwrite.TaskWarningService;
 import stu.lanyu.springdocker.domain.TaskWarning;
+import stu.lanyu.springdocker.message.MessageProto;
 
 import java.util.Base64;
 import java.util.Date;
 
-@Configuration
-public class WarningMessageReceiver implements MessageListener {
+public class WarningSubscriber extends JedisPubSub {
 
     @Qualifier(value = "TaskWarningServiceReadwrite")
     @Autowired(required = true)
     private TaskWarningService taskWarningService;
 
-    @Override
-    public void onMessage(Message message, byte[] pattern) {
+    public void onMessage(String channel, String message) {
 
         MessageProto.WarningProto proto = null;
 
         try {
 
-            byte[] decodedData = Base64.getDecoder().decode(message.getBody());
+            byte[] decodedData = Base64.getDecoder().decode(message);
 
             proto = MessageProto.WarningProto.parseFrom(decodedData);
 
@@ -45,5 +42,15 @@ public class WarningMessageReceiver implements MessageListener {
         catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public void onSubscribe(String channel, int subscribedChannels) {
+        System.out.println(String.format("subscribe redis channel '%s' success",
+                channel));
+    }
+
+    public void onUnsubscribe(String channel, int subscribedChannels) {
+        System.out.println(String.format("unsubscribe redis channel '%s'",
+                channel));
     }
 }
