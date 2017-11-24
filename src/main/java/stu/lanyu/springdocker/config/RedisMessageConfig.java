@@ -2,6 +2,7 @@ package stu.lanyu.springdocker.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
@@ -104,6 +105,9 @@ public class RedisMessageConfig {
             } catch (Exception e) {
                 e.printStackTrace();
             }
+
+            ScheduledExecutorService serviceHost = context.getBean("HeartbeatExecutorService", ScheduledExecutorService.class);
+            serviceHost.shutdownNow();
         });
 
         ScheduledExecutorServiceFacade serviceFacade = new ScheduledExecutorServiceFacade();
@@ -125,6 +129,9 @@ public class RedisMessageConfig {
             } catch (Exception e) {
                 e.printStackTrace();
             }
+
+            ScheduledExecutorService serviceHost = context.getBean("LogCollectExecutorService", ScheduledExecutorService.class);
+            serviceHost.shutdownNow();
         });
 
         ScheduledExecutorServiceFacade serviceFacade = new ScheduledExecutorServiceFacade();
@@ -139,7 +146,6 @@ public class RedisMessageConfig {
     ScheduledExecutorServiceFacade getWarningScheduleExecutorService(WarningSubscriber warningSubscriber) {
         ScheduledExecutorService service = Executors.newSingleThreadScheduledExecutor();
         service.execute(() -> {
-
             try {
                 JedisPool pool = getRedisMessagePool();
                 Jedis jedis = pool.getResource();
@@ -147,6 +153,9 @@ public class RedisMessageConfig {
             } catch (Exception e) {
                 e.printStackTrace();
             }
+
+            ScheduledExecutorService serviceHost = context.getBean("WarningExecutorService", ScheduledExecutorService.class);
+            serviceHost.shutdownNow();
         });
 
         ScheduledExecutorServiceFacade serviceFacade = new ScheduledExecutorServiceFacade();
@@ -155,6 +164,9 @@ public class RedisMessageConfig {
 
         return serviceFacade;
     }
+
+    @Autowired(required = true)
+    private ApplicationContext context;
 
     @Bean(name = "RegisterExecutorService")
     @Scope("singleton")
@@ -169,6 +181,9 @@ public class RedisMessageConfig {
             } catch (Exception e) {
                 e.printStackTrace();
             }
+
+            ScheduledExecutorService serviceHost = context.getBean("RegisterExecutorService", ScheduledExecutorService.class);
+            serviceHost.shutdownNow();
         });
 
         ScheduledExecutorServiceFacade serviceFacade = new ScheduledExecutorServiceFacade();
