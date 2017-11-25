@@ -6,6 +6,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
@@ -35,7 +36,9 @@ public class RedisMessageConfig {
     @Autowired(required = true)
     private RedisMessageProperties redisMessageProperties;
 
-    private JedisConnectionFactory getRedisMessageConnectionFactory(){
+    @Bean("RedisSubscriberConnectionFactory")
+    @Scope("singleton")
+    JedisConnectionFactory getRedisMessageConnectionFactory(){
 
         JedisConnectionFactory jedisConnectionFactory = new JedisConnectionFactory();
         jedisConnectionFactory.setHostName(redisMessageProperties.getHost());
@@ -58,7 +61,9 @@ public class RedisMessageConfig {
         return jedisConnectionFactory;
     }
 
-    private JedisPool getRedisMessagePool() {
+    @Bean("RedisSubscriberMessagePool")
+    @Scope("singleton")
+    JedisPool getRedisMessagePool() {
 
         JedisPoolConfig poolConfig = new JedisPoolConfig();
 
@@ -98,12 +103,20 @@ public class RedisMessageConfig {
     ScheduledExecutorServiceFacade getHeartbeatScheduleExecutorService(HeartbeatSubscriber heartbeatSubscriber) {
         ScheduledExecutorService service = Executors.newSingleThreadScheduledExecutor();
         service.execute(() -> {
+
+            JedisPool pool = context.getBean("RedisSubscriberMessagePool",
+                    JedisPool.class);
+            Jedis jedis = null;
+
             try {
-                JedisPool pool = getRedisMessagePool();
-                Jedis jedis = pool.getResource();
+                jedis = pool.getResource();
                 jedis.subscribe(heartbeatSubscriber, GlobalConfig.Redis.ESFTASK_HEARTBEAT_CHANNEL);
             } catch (Exception e) {
                 e.printStackTrace();
+            }
+            finally {
+                if (jedis != null)
+                    jedis.close();
             }
 
             ScheduledExecutorService serviceHost = context.getBean("HeartbeatExecutorService", ScheduledExecutorService.class);
@@ -122,12 +135,20 @@ public class RedisMessageConfig {
     ScheduledExecutorServiceFacade getLogCollectScheduleExecutorService(LogCollectSubscriber logCollectSubscriber) {
         ScheduledExecutorService service = Executors.newSingleThreadScheduledExecutor();
         service.execute(() -> {
+
+            JedisPool pool = context.getBean("RedisSubscriberMessagePool",
+                    JedisPool.class);
+            Jedis jedis = null;
+
             try {
-                JedisPool pool = getRedisMessagePool();
-                Jedis jedis = pool.getResource();
+                jedis = pool.getResource();
                 jedis.subscribe(logCollectSubscriber, GlobalConfig.Redis.ESFTASK_PUSHLOG_CHANNEL);
             } catch (Exception e) {
                 e.printStackTrace();
+            }
+            finally {
+                if (jedis != null)
+                    jedis.close();
             }
 
             ScheduledExecutorService serviceHost = context.getBean("LogCollectExecutorService", ScheduledExecutorService.class);
@@ -146,12 +167,20 @@ public class RedisMessageConfig {
     ScheduledExecutorServiceFacade getWarningScheduleExecutorService(WarningSubscriber warningSubscriber) {
         ScheduledExecutorService service = Executors.newSingleThreadScheduledExecutor();
         service.execute(() -> {
+
+            JedisPool pool = context.getBean("RedisSubscriberMessagePool",
+                    JedisPool.class);
+            Jedis jedis = null;
+
             try {
-                JedisPool pool = getRedisMessagePool();
-                Jedis jedis = pool.getResource();
+                jedis = pool.getResource();
                 jedis.subscribe(warningSubscriber, GlobalConfig.Redis.ESFTASK_WARNING_CHANNEL);
             } catch (Exception e) {
                 e.printStackTrace();
+            }
+            finally {
+                if (jedis != null)
+                    jedis.close();
             }
 
             ScheduledExecutorService serviceHost = context.getBean("WarningExecutorService", ScheduledExecutorService.class);
@@ -174,12 +203,19 @@ public class RedisMessageConfig {
         ScheduledExecutorService service = Executors.newSingleThreadScheduledExecutor();
         service.execute(() -> {
 
+            JedisPool pool = context.getBean("RedisSubscriberMessagePool",
+                    JedisPool.class);
+            Jedis jedis = null;
+
             try {
-                JedisPool pool = getRedisMessagePool();
-                Jedis jedis = pool.getResource();
+                jedis = pool.getResource();
                 jedis.subscribe(registerSubscriber, GlobalConfig.Redis.ESFTASK_REGISTER_CHANNEL);
             } catch (Exception e) {
                 e.printStackTrace();
+            }
+            finally {
+                if (jedis != null)
+                    jedis.close();
             }
 
             ScheduledExecutorService serviceHost = context.getBean("RegisterExecutorService", ScheduledExecutorService.class);
