@@ -7,12 +7,10 @@ import okhttp3.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.listener.RedisMessageListenerContainer;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
-import redis.clients.jedis.JedisPoolConfig;
 import stu.lanyu.springdocker.business.readonly.TaskMonitorInfoService;
 import stu.lanyu.springdocker.config.GlobalConfig;
 import stu.lanyu.springdocker.config.RedisMessageProperties;
@@ -71,7 +69,7 @@ public class HeartbeatSchedule {
     private void saveHeartbeatInfo(TaskMonitorInfo taskMonitorInfo, HeartbeatInfo result) {
 
         taskMonitorInfoService.save(taskMonitorInfo);
-        jobMonitorInfoService.saveBatch(taskMonitorInfo.getJobs());
+//        jobMonitorInfoService.saveBatch(taskMonitorInfo.getJobs());
 
         List<stu.lanyu.springdocker.domain.JobMonitorInfo> deletedJobList = new ArrayList<>();
 

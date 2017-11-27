@@ -16,7 +16,7 @@ public class TaskMonitorInfo extends AbstractEntity implements Serializable {
     private String heartbeatUrl;
     private Date lastHeartbeatTime;
 
-    @OneToMany(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
+    @OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE }, fetch = FetchType.LAZY)
     @JoinColumn(name = "service_identity", referencedColumnName = "service_identity")
     @OrderBy("service_identity ASC")
     private List<JobMonitorInfo> jobs;
