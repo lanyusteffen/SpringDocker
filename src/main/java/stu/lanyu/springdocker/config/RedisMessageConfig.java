@@ -17,6 +17,7 @@ import stu.lanyu.springdocker.message.subscriber.LogCollectSubscriber;
 import stu.lanyu.springdocker.message.subscriber.RegisterSubscriber;
 import stu.lanyu.springdocker.message.subscriber.WarningSubscriber;
 import stu.lanyu.springdocker.schedule.HeartbeatSchedule;
+import stu.lanyu.springdocker.schedule.MaintainSchedule;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -233,6 +234,9 @@ public class RedisMessageConfig {
     HeartbeatSchedule getHeartbeatSchedule() {
         return new HeartbeatSchedule();
     }
+
+    @Bean
+    MaintainSchedule getMaintainSchedule() { return new MaintainSchedule(); }
 
 //    @Bean
 //    RegisterMessageReceiver getRegisterMessageReceiver() {
