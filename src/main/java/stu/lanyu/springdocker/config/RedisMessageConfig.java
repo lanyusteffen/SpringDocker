@@ -250,14 +250,6 @@ public class RedisMessageConfig {
         return serviceFacade;
     }
 
-    @Bean
-    HeartbeatSchedule getHeartbeatSchedule() {
-        return new HeartbeatSchedule();
-    }
-
-    @Bean
-    MaintainSchedule getMaintainSchedule() { return new MaintainSchedule(); }
-
 //    @Bean
 //    RegisterMessageReceiver getRegisterMessageReceiver() {
 //        return new RegisterMessageReceiver();
