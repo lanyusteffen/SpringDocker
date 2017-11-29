@@ -42,12 +42,16 @@ public class MaintainSchedule {
             try {
                 jedis = pool.getResource();
                 jedis.subscribe(heartbeatSubscriber, GlobalConfig.Redis.ESFTASK_HEARTBEAT_CHANNEL);
+                System.out.println("ESFTask.Commands.ESFTaskHeartbeatChannel end!");
             } catch (Exception e) {
-                e.printStackTrace();
+                System.out.println("ESFTask.Commands.ESFTaskHeartbeatChannel error: " + e.getMessage());
             }
             finally {
-                if (jedis != null)
+                if (jedis != null){
+                    jedis.quit();
                     jedis.close();
+                }
+                jedis = null;
             }
         });
         return service;
@@ -64,12 +68,16 @@ public class MaintainSchedule {
             try {
                 jedis = pool.getResource();
                 jedis.subscribe(warningSubscriber, GlobalConfig.Redis.ESFTASK_WARNING_CHANNEL);
+                System.out.println("ESFTask.Commands.ESFTaskWarningChannel end!");
             } catch (Exception e) {
-                e.printStackTrace();
+                System.out.println("ESFTask.Commands.ESFTaskWarningChannel error: " + e.getMessage());
             }
             finally {
-                if (jedis != null)
+                if (jedis != null){
+                    jedis.quit();
                     jedis.close();
+                }
+                jedis = null;
             }
         });
         return service;
@@ -86,12 +94,16 @@ public class MaintainSchedule {
             try {
                 jedis = pool.getResource();
                 jedis.subscribe(registerSubscriber, GlobalConfig.Redis.ESFTASK_REGISTER_CHANNEL);
+                System.out.println("ESFTask.Commands.ESFTaskRegisterChannel end!");
             } catch (Exception e) {
-                e.printStackTrace();
+                System.out.println("ESFTask.Commands.ESFTaskRegisterChannel error: " + e.getMessage());
             }
             finally {
-                if (jedis != null)
+                if (jedis != null){
+                    jedis.quit();
                     jedis.close();
+                }
+                jedis = null;
             }
         });
         return service;
@@ -108,12 +120,16 @@ public class MaintainSchedule {
             try {
                 jedis = pool.getResource();
                 jedis.subscribe(logCollectSubscriber, GlobalConfig.Redis.ESFTASK_PUSHLOG_CHANNEL);
+                System.out.println("ESFTask.Commands.ESFTaskPushLogChannel end!");
             } catch (Exception e) {
-                e.printStackTrace();
+                System.out.println("ESFTask.Commands.ESFTaskPushLogChannel error: " + e.getMessage());
             }
             finally {
-                if (jedis != null)
+                if (jedis != null){
+                    jedis.quit();
                     jedis.close();
+                }
+                jedis = null;
             }
         });
         return service;
