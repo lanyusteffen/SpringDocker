@@ -51,7 +51,6 @@ public class MaintainSchedule {
                     jedis.quit();
                     jedis.close();
                 }
-                jedis = null;
             }
         });
         return service;
@@ -77,7 +76,6 @@ public class MaintainSchedule {
                     jedis.quit();
                     jedis.close();
                 }
-                jedis = null;
             }
         });
         return service;
@@ -103,7 +101,6 @@ public class MaintainSchedule {
                     jedis.quit();
                     jedis.close();
                 }
-                jedis = null;
             }
         });
         return service;
@@ -129,13 +126,12 @@ public class MaintainSchedule {
                     jedis.quit();
                     jedis.close();
                 }
-                jedis = null;
             }
         });
         return service;
     }
 
-    @Scheduled(fixedDelay = 50000, initialDelay = 50000)
+    @Scheduled(fixedDelay = 60000, initialDelay = 30000)
     public void checkSubscriber() {
 
         ScheduledExecutorServiceFacade serviceHeartbeatFacade = context.getBean("HeartbeatExecutorService", ScheduledExecutorServiceFacade.class);
