@@ -18,6 +18,7 @@ import stu.lanyu.springdocker.message.subscriber.RegisterSubscriber;
 import stu.lanyu.springdocker.message.subscriber.WarningSubscriber;
 import stu.lanyu.springdocker.utility.DateUtility;
 
+import java.util.Date;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 
@@ -109,29 +110,36 @@ public class RedisMessageConfig {
             Jedis jedis = null;
 
             try {
-                System.out.println("[" + DateUtility.getDateNowFormat(null) + "]" + "Start subscribe channel ESFTask.Commands.ESFTaskHeartbeatChannel!");
+                System.out.println("[" + DateUtility.getDateNowFormat(null) + "]" +
+                        "Start subscribe channel ESFTask.Commands.ESFTaskHeartbeatChannel!");
                 jedis = pool.getResource();
                 jedis.subscribe(heartbeatSubscriber, GlobalConfig.Redis.ESFTASK_HEARTBEAT_CHANNEL);
                 try {
                     jedis.quit();
                 } catch (Exception e) {
-                    System.out.println("[" + DateUtility.getDateNowFormat(null) + "]" + "ESFTask.Commands.ESFTaskHeartbeatChannel jedis quit error: " + e.getMessage());
+                    System.out.println("[" + DateUtility.getDateNowFormat(null) + "]" +
+                            "ESFTask.Commands.ESFTaskHeartbeatChannel jedis quit error: " + e.getMessage());
                 }
-                System.out.println("[" + DateUtility.getDateNowFormat(null) + "]" + "End subscribe channel ESFTask.Commands.ESFTaskHeartbeatChannel!");
+                System.out.println("[" + DateUtility.getDateNowFormat(null) + "]" +
+                        "End subscribe channel ESFTask.Commands.ESFTaskHeartbeatChannel!");
             } catch (Exception e) {
-                System.out.println("[" + DateUtility.getDateNowFormat(null) + "]" + "ESFTask.Commands.ESFTaskHeartbeatChannel subscribe error: " + e.getMessage());
+                System.out.println("[" + DateUtility.getDateNowFormat(null) + "]" +
+                        "ESFTask.Commands.ESFTaskHeartbeatChannel subscribe error: " + e.getMessage());
             }
             finally {
                 if (jedis != null)
                     jedis.close();
             }
 
-            ScheduledExecutorServiceFacade serviceFacade = context.getBean("HeartbeatExecutorService", ScheduledExecutorServiceFacade.class);
+            ScheduledExecutorServiceFacade serviceFacade = context.getBean("HeartbeatExecutorService",
+                    ScheduledExecutorServiceFacade.class);
             serviceFacade.getScheduleExecutorService().shutdownNow();
         });
 
         ScheduledExecutorServiceFacade serviceFacade = new ScheduledExecutorServiceFacade();
         serviceFacade.setScheduleExecutorService(service);
+        serviceFacade.setLastSubscribeTime(new Date());
+        serviceFacade.setSubscriber(heartbeatSubscriber);
 
         return serviceFacade;
     }
@@ -147,29 +155,36 @@ public class RedisMessageConfig {
             Jedis jedis = null;
 
             try {
-                System.out.println("[" + DateUtility.getDateNowFormat(null) + "]" + "Start subscribe channel ESFTask.Commands.ESFTaskPushLogChannel!");
+                System.out.println("[" + DateUtility.getDateNowFormat(null) + "]" +
+                        "Start subscribe channel ESFTask.Commands.ESFTaskPushLogChannel!");
                 jedis = pool.getResource();
                 jedis.subscribe(logCollectSubscriber, GlobalConfig.Redis.ESFTASK_PUSHLOG_CHANNEL);
                 try {
                     jedis.quit();
                 } catch (Exception e) {
-                    System.out.println("[" + DateUtility.getDateNowFormat(null) + "]" + "ESFTask.Commands.ESFTaskPushLogChannel jedis quit error: " + e.getMessage());
+                    System.out.println("[" + DateUtility.getDateNowFormat(null) + "]" +
+                            "ESFTask.Commands.ESFTaskPushLogChannel jedis quit error: " + e.getMessage());
                 }
-                System.out.println("[" + DateUtility.getDateNowFormat(null) + "]" + "End subscribe channel ESFTask.Commands.ESFTaskPushLogChannel!");
+                System.out.println("[" + DateUtility.getDateNowFormat(null) + "]" +
+                        "End subscribe channel ESFTask.Commands.ESFTaskPushLogChannel!");
             } catch (Exception e) {
-                System.out.println("[" + DateUtility.getDateNowFormat(null) + "]" + "ESFTask.Commands.ESFTaskPushLogChannel subscribe error: " + e.getMessage());
+                System.out.println("[" + DateUtility.getDateNowFormat(null) + "]" +
+                        "ESFTask.Commands.ESFTaskPushLogChannel subscribe error: " + e.getMessage());
             }
             finally {
                 if (jedis != null)
                     jedis.close();
             }
 
-            ScheduledExecutorServiceFacade serviceFacade = context.getBean("LogCollectExecutorService", ScheduledExecutorServiceFacade.class);
+            ScheduledExecutorServiceFacade serviceFacade = context.getBean("LogCollectExecutorService",
+                    ScheduledExecutorServiceFacade.class);
             serviceFacade.getScheduleExecutorService().shutdownNow();
         });
 
         ScheduledExecutorServiceFacade serviceFacade = new ScheduledExecutorServiceFacade();
         serviceFacade.setScheduleExecutorService(service);
+        serviceFacade.setLastSubscribeTime(new Date());
+        serviceFacade.setSubscriber(logCollectSubscriber);
 
         return serviceFacade;
     }
@@ -185,29 +200,36 @@ public class RedisMessageConfig {
             Jedis jedis = null;
 
             try {
-                System.out.println("[" + DateUtility.getDateNowFormat(null) + "]" + "Start subscribe channel ESFTask.Commands.ESFTaskWarningChannel!");
+                System.out.println("[" + DateUtility.getDateNowFormat(null) + "]" +
+                        "Start subscribe channel ESFTask.Commands.ESFTaskWarningChannel!");
                 jedis = pool.getResource();
                 jedis.subscribe(warningSubscriber, GlobalConfig.Redis.ESFTASK_WARNING_CHANNEL);
                 try {
                     jedis.quit();
                 } catch (Exception e) {
-                    System.out.println("[" + DateUtility.getDateNowFormat(null) + "]" + "ESFTask.Commands.ESFTaskWarningChannel jedis quit error: " + e.getMessage());
+                    System.out.println("[" + DateUtility.getDateNowFormat(null) + "]" +
+                            "ESFTask.Commands.ESFTaskWarningChannel jedis quit error: " + e.getMessage());
                 }
-                System.out.println("[" + DateUtility.getDateNowFormat(null) + "]" + "End subscribe channel ESFTask.Commands.ESFTaskWarningChannel!");
+                System.out.println("[" + DateUtility.getDateNowFormat(null) + "]" +
+                        "End subscribe channel ESFTask.Commands.ESFTaskWarningChannel!");
             } catch (Exception e) {
-                System.out.println("[" + DateUtility.getDateNowFormat(null) + "]" + "ESFTask.Commands.ESFTaskWarningChannel subscribe error: " + e.getMessage());
+                System.out.println("[" + DateUtility.getDateNowFormat(null) + "]" +
+                        "ESFTask.Commands.ESFTaskWarningChannel subscribe error: " + e.getMessage());
             }
             finally {
                 if (jedis != null)
                     jedis.close();
             }
 
-            ScheduledExecutorServiceFacade serviceFacade = context.getBean("WarningExecutorService", ScheduledExecutorServiceFacade.class);
+            ScheduledExecutorServiceFacade serviceFacade = context.getBean("WarningExecutorService",
+                    ScheduledExecutorServiceFacade.class);
             serviceFacade.getScheduleExecutorService().shutdownNow();
         });
 
         ScheduledExecutorServiceFacade serviceFacade = new ScheduledExecutorServiceFacade();
         serviceFacade.setScheduleExecutorService(service);
+        serviceFacade.setLastSubscribeTime(new Date());
+        serviceFacade.setSubscriber(warningSubscriber);
 
         return serviceFacade;
     }
@@ -240,12 +262,15 @@ public class RedisMessageConfig {
                     jedis.close();
             }
 
-            ScheduledExecutorServiceFacade serviceFacade = context.getBean("RegisterExecutorService", ScheduledExecutorServiceFacade.class);
+            ScheduledExecutorServiceFacade serviceFacade = context.getBean("RegisterExecutorService",
+                    ScheduledExecutorServiceFacade.class);
             serviceFacade.getScheduleExecutorService().shutdownNow();
         });
 
         ScheduledExecutorServiceFacade serviceFacade = new ScheduledExecutorServiceFacade();
         serviceFacade.setScheduleExecutorService(service);
+        serviceFacade.setLastSubscribeTime(new Date());
+        serviceFacade.setSubscriber(registerSubscriber);
 
         return serviceFacade;
     }

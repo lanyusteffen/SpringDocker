@@ -15,6 +15,7 @@ import stu.lanyu.springdocker.message.subscriber.RegisterSubscriber;
 import stu.lanyu.springdocker.message.subscriber.WarningSubscriber;
 import stu.lanyu.springdocker.utility.DateUtility;
 
+import java.util.Date;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 
@@ -24,15 +25,12 @@ public class MaintainSchedule {
     @Autowired(required = true)
     private ApplicationContext context;
 
-    @Autowired(required = true)
-    private RedisMessageProperties redisMessageProperties;
-
     private JedisPool getJedisPool() {
         return context.getBean("RedisSubscriberMessagePool",
                 JedisPool.class);
     }
 
-    private ScheduledExecutorService getHeartbeatScheduledExecutorService() {
+    private ScheduledExecutorService getHeartbeatScheduledExecutorService(ScheduledExecutorServiceFacade serviceHeartbeatFacade) {
         HeartbeatSubscriber heartbeatSubscriber = context.getBean(HeartbeatSubscriber.class);
         ScheduledExecutorService service = Executors.newSingleThreadScheduledExecutor();
         service.execute(() -> {
@@ -44,7 +42,7 @@ public class MaintainSchedule {
                 System.out.println("[" + DateUtility.getDateNowFormat(null) + "]" + "Start restore subscribe channel ESFTask.Commands.ESFTaskHeartbeatChannel!");
                 jedis = pool.getResource();
                 try {
-                    heartbeatSubscriber.unsubscribe(GlobalConfig.Redis.ESFTASK_HEARTBEAT_CHANNEL);
+                    serviceHeartbeatFacade.getSubscriber().unsubscribe(GlobalConfig.Redis.ESFTASK_HEARTBEAT_CHANNEL);
                 }catch (Exception e) {
                     System.out.println("[" + DateUtility.getDateNowFormat(null) + "]" + "ESFTask.Commands.ESFTaskHeartbeatChannel unsubscribe error: " + e.getMessage());
                 }
@@ -65,13 +63,17 @@ public class MaintainSchedule {
                     jedis.close();
             }
 
-            ScheduledExecutorServiceFacade serviceFacade = context.getBean("HeartbeatExecutorService", ScheduledExecutorServiceFacade.class);
-            serviceFacade.getScheduleExecutorService().shutdownNow();
+            serviceHeartbeatFacade.getScheduleExecutorService().shutdownNow();
         });
+
+        serviceHeartbeatFacade.setScheduleExecutorService(service);
+        serviceHeartbeatFacade.setLastSubscribeTime(new Date());
+        serviceHeartbeatFacade.setSubscriber(heartbeatSubscriber);
+
         return service;
     }
 
-    private ScheduledExecutorService getWarningScheduledExecutorService() {
+    private ScheduledExecutorService getWarningScheduledExecutorService(ScheduledExecutorServiceFacade serviceWarningFacade) {
         WarningSubscriber warningSubscriber = context.getBean(WarningSubscriber.class);
         ScheduledExecutorService service = Executors.newSingleThreadScheduledExecutor();
         service.execute(() -> {
@@ -83,8 +85,8 @@ public class MaintainSchedule {
                 System.out.println("[" + DateUtility.getDateNowFormat(null) + "]" + "Start restore subscribe channel ESFTask.Commands.ESFTaskWarningChannel!");
                 jedis = pool.getResource();
                 try {
-                    warningSubscriber.unsubscribe(GlobalConfig.Redis.ESFTASK_WARNING_CHANNEL);
-                }catch (Exception e) {
+                    serviceWarningFacade.getSubscriber().unsubscribe(GlobalConfig.Redis.ESFTASK_WARNING_CHANNEL);
+                } catch (Exception e) {
                     System.out.println("[" + DateUtility.getDateNowFormat(null) + "]" + "ESFTask.Commands.ESFTaskWarningChannel unsubscribe error: " + e.getMessage());
                 }
 
@@ -104,13 +106,17 @@ public class MaintainSchedule {
                     jedis.close();
             }
 
-            ScheduledExecutorServiceFacade serviceFacade = context.getBean("WarningExecutorService", ScheduledExecutorServiceFacade.class);
-            serviceFacade.getScheduleExecutorService().shutdownNow();
+            serviceWarningFacade.getScheduleExecutorService().shutdownNow();
         });
+
+        serviceWarningFacade.setScheduleExecutorService(service);
+        serviceWarningFacade.setLastSubscribeTime(new Date());
+        serviceWarningFacade.setSubscriber(warningSubscriber);
+
         return service;
     }
 
-    private ScheduledExecutorService getRegisterScheduledExecutorService() {
+    private ScheduledExecutorService getRegisterScheduledExecutorService(ScheduledExecutorServiceFacade serviceRegisterFacade) {
         RegisterSubscriber registerSubscriber = context.getBean(RegisterSubscriber.class);
         ScheduledExecutorService service = Executors.newSingleThreadScheduledExecutor();
         service.execute(() -> {
@@ -122,7 +128,7 @@ public class MaintainSchedule {
                 System.out.println("[" + DateUtility.getDateNowFormat(null) + "]" + "Start restore subscribe channel ESFTask.Commands.ESFTaskRegisterChannel!");
                 jedis = pool.getResource();
                 try {
-                    registerSubscriber.unsubscribe(GlobalConfig.Redis.ESFTASK_REGISTER_CHANNEL);
+                    serviceRegisterFacade.getSubscriber().unsubscribe(GlobalConfig.Redis.ESFTASK_REGISTER_CHANNEL);
                 }catch (Exception e) {
                     System.out.println("[" + DateUtility.getDateNowFormat(null) + "]" + "ESFTask.Commands.ESFTaskRegisterChannel unsubscribe error: " + e.getMessage());
                 }
@@ -143,13 +149,17 @@ public class MaintainSchedule {
                     jedis.close();
             }
 
-            ScheduledExecutorServiceFacade serviceFacade = context.getBean("RegisterExecutorService", ScheduledExecutorServiceFacade.class);
-            serviceFacade.getScheduleExecutorService().shutdownNow();
+            serviceRegisterFacade.getScheduleExecutorService().shutdownNow();
         });
+
+        serviceRegisterFacade.setScheduleExecutorService(service);
+        serviceRegisterFacade.setLastSubscribeTime(new Date());
+        serviceRegisterFacade.setSubscriber(registerSubscriber);
+
         return service;
     }
 
-    private ScheduledExecutorService getLogCollectScheduledExecutorService() {
+    private ScheduledExecutorService getLogCollectScheduledExecutorService(ScheduledExecutorServiceFacade serviceLogCollectFacade) {
         LogCollectSubscriber logCollectSubscriber = context.getBean(LogCollectSubscriber.class);
         ScheduledExecutorService service = Executors.newSingleThreadScheduledExecutor();
         service.execute(() -> {
@@ -161,7 +171,7 @@ public class MaintainSchedule {
                 System.out.println("[" + DateUtility.getDateNowFormat(null) + "]" + "Start restore subscribe channel ESFTask.Commands.ESFTaskPushLogChannel!");
                 jedis = pool.getResource();
                 try {
-                    logCollectSubscriber.unsubscribe(GlobalConfig.Redis.ESFTASK_PUSHLOG_CHANNEL);
+                    serviceLogCollectFacade.getSubscriber().unsubscribe(GlobalConfig.Redis.ESFTASK_PUSHLOG_CHANNEL);
                 }catch (Exception e) {
                     System.out.println("[" + DateUtility.getDateNowFormat(null) + "]" + "ESFTask.Commands.ESFTaskPushLogChannel unsubscribe error: " + e.getMessage());
                 }
@@ -182,9 +192,13 @@ public class MaintainSchedule {
                     jedis.close();
             }
 
-            ScheduledExecutorServiceFacade serviceFacade = context.getBean("LogCollectExecutorService", ScheduledExecutorServiceFacade.class);
-            serviceFacade.getScheduleExecutorService().shutdownNow();
+            serviceLogCollectFacade.getScheduleExecutorService().shutdownNow();
         });
+
+        serviceLogCollectFacade.setScheduleExecutorService(service);
+        serviceLogCollectFacade.setLastSubscribeTime(new Date());
+        serviceLogCollectFacade.setSubscriber(logCollectSubscriber);
+
         return service;
     }
 
@@ -193,43 +207,75 @@ public class MaintainSchedule {
 
         System.out.println("[" + DateUtility.getDateNowFormat(null) + "]" + "Start MaintainSchedule!");
 
-        ScheduledExecutorServiceFacade serviceHeartbeatFacade = context.getBean("HeartbeatExecutorService", ScheduledExecutorServiceFacade.class);
+        ScheduledExecutorServiceFacade serviceHeartbeatFacade = context.getBean("HeartbeatExecutorService",
+                ScheduledExecutorServiceFacade.class);
 
         if (serviceHeartbeatFacade != null) {
 
             if (serviceHeartbeatFacade.getScheduleExecutorService().isShutdown()) {
 
-                serviceHeartbeatFacade.setScheduleExecutorService(getHeartbeatScheduledExecutorService());
+                getHeartbeatScheduledExecutorService(serviceHeartbeatFacade);
+            }
+            else {
+
+                if (DateUtility.compareFormNowByHour(serviceHeartbeatFacade.getLastSubscribeTime()) > 1.00) {
+
+                    getHeartbeatScheduledExecutorService(serviceHeartbeatFacade);
+                }
             }
         }
 
-        ScheduledExecutorServiceFacade serviceLogCollectFacade = context.getBean("LogCollectExecutorService", ScheduledExecutorServiceFacade.class);
+        ScheduledExecutorServiceFacade serviceLogCollectFacade = context.getBean("LogCollectExecutorService",
+                ScheduledExecutorServiceFacade.class);
 
         if (serviceLogCollectFacade != null) {
 
             if (serviceLogCollectFacade.getScheduleExecutorService().isShutdown()) {
 
-                serviceLogCollectFacade.setScheduleExecutorService(getLogCollectScheduledExecutorService());
+                getLogCollectScheduledExecutorService(serviceLogCollectFacade);
+            }
+            else {
+
+                if (DateUtility.compareFormNowByHour(serviceHeartbeatFacade.getLastSubscribeTime()) > 1.00) {
+
+                    getLogCollectScheduledExecutorService(serviceLogCollectFacade);
+                }
             }
         }
 
-        ScheduledExecutorServiceFacade serviceWarningFacade = context.getBean("WarningExecutorService", ScheduledExecutorServiceFacade.class);
+        ScheduledExecutorServiceFacade serviceWarningFacade = context.getBean("WarningExecutorService",
+                ScheduledExecutorServiceFacade.class);
 
         if (serviceWarningFacade != null) {
 
             if (serviceWarningFacade.getScheduleExecutorService().isShutdown()) {
 
-                serviceWarningFacade.setScheduleExecutorService(getWarningScheduledExecutorService());
+                getWarningScheduledExecutorService(serviceWarningFacade);
+            }
+            else {
+
+                if (DateUtility.compareFormNowByHour(serviceHeartbeatFacade.getLastSubscribeTime()) > 1.00) {
+
+                    getWarningScheduledExecutorService(serviceWarningFacade);
+                }
             }
         }
 
-        ScheduledExecutorServiceFacade serviceRegisterFacade = context.getBean("RegisterExecutorService", ScheduledExecutorServiceFacade.class);
+        ScheduledExecutorServiceFacade serviceRegisterFacade = context.getBean("RegisterExecutorService",
+                ScheduledExecutorServiceFacade.class);
 
         if (serviceRegisterFacade != null) {
 
             if (serviceRegisterFacade.getScheduleExecutorService().isShutdown()) {
 
-                serviceRegisterFacade.setScheduleExecutorService(getRegisterScheduledExecutorService());
+                getRegisterScheduledExecutorService(serviceRegisterFacade);
+            }
+            else {
+
+                if (DateUtility.compareFormNowByHour(serviceHeartbeatFacade.getLastSubscribeTime()) > 1.00) {
+
+                    getRegisterScheduledExecutorService(serviceRegisterFacade);
+                }
             }
         }
 
