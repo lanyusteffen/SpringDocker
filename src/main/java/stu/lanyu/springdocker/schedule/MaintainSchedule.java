@@ -220,7 +220,7 @@ public class MaintainSchedule {
 
                 if (DateUtility.compareFormNowByHour(serviceHeartbeatFacade.getLastSubscribeTime()) > 1.00) {
 
-                    getHeartbeatScheduledExecutorService(serviceHeartbeatFacade);
+                    serviceHeartbeatFacade.getScheduleExecutorService().shutdownNow();
                 }
             }
         }
@@ -238,7 +238,7 @@ public class MaintainSchedule {
 
                 if (DateUtility.compareFormNowByHour(serviceHeartbeatFacade.getLastSubscribeTime()) > 1.00) {
 
-                    getLogCollectScheduledExecutorService(serviceLogCollectFacade);
+                    serviceLogCollectFacade.getScheduleExecutorService().shutdownNow();
                 }
             }
         }
@@ -256,7 +256,7 @@ public class MaintainSchedule {
 
                 if (DateUtility.compareFormNowByHour(serviceHeartbeatFacade.getLastSubscribeTime()) > 1.00) {
 
-                    getWarningScheduledExecutorService(serviceWarningFacade);
+                    serviceWarningFacade.getScheduleExecutorService().shutdownNow();
                 }
             }
         }
@@ -274,7 +274,7 @@ public class MaintainSchedule {
 
                 if (DateUtility.compareFormNowByHour(serviceHeartbeatFacade.getLastSubscribeTime()) > 1.00) {
 
-                    getRegisterScheduledExecutorService(serviceRegisterFacade);
+                    serviceRegisterFacade.getScheduleExecutorService().shutdownNow();
                 }
             }
         }
