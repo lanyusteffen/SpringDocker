@@ -13,6 +13,7 @@ import stu.lanyu.springdocker.message.subscriber.HeartbeatSubscriber;
 import stu.lanyu.springdocker.message.subscriber.LogCollectSubscriber;
 import stu.lanyu.springdocker.message.subscriber.RegisterSubscriber;
 import stu.lanyu.springdocker.message.subscriber.WarningSubscriber;
+import stu.lanyu.springdocker.utility.DateUtility;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -40,18 +41,32 @@ public class MaintainSchedule {
             Jedis jedis = null;
 
             try {
+                System.out.println("[" + DateUtility.getDateNowFormat(null) + "]" + "Start restore subscribe channel ESFTask.Commands.ESFTaskHeartbeatChannel!");
                 jedis = pool.getResource();
+                try {
+                    heartbeatSubscriber.unsubscribe(GlobalConfig.Redis.ESFTASK_HEARTBEAT_CHANNEL);
+                }catch (Exception e) {
+                    System.out.println("[" + DateUtility.getDateNowFormat(null) + "]" + "ESFTask.Commands.ESFTaskHeartbeatChannel unsubscribe error: " + e.getMessage());
+                }
+
                 jedis.subscribe(heartbeatSubscriber, GlobalConfig.Redis.ESFTASK_HEARTBEAT_CHANNEL);
-                System.out.println("ESFTask.Commands.ESFTaskHeartbeatChannel end!");
+
+                try {
+                    jedis.quit();
+                } catch (Exception e) {
+                    System.out.println("[" + DateUtility.getDateNowFormat(null) + "]" + "ESFTask.Commands.ESFTaskHeartbeatChannel jedis quit error: " + e.getMessage());
+                }
+                System.out.println("[" + DateUtility.getDateNowFormat(null) + "]" + "End restore subscribe channel ESFTask.Commands.ESFTaskHeartbeatChannel!");
             } catch (Exception e) {
-                System.out.println("ESFTask.Commands.ESFTaskHeartbeatChannel error: " + e.getMessage());
+                System.out.println("[" + DateUtility.getDateNowFormat(null) + "]" + "ESFTask.Commands.ESFTaskHeartbeatChannel restore error: " + e.getMessage());
             }
             finally {
-                if (jedis != null){
-                    jedis.quit();
+                if (jedis != null)
                     jedis.close();
-                }
             }
+
+            ScheduledExecutorServiceFacade serviceFacade = context.getBean("HeartbeatExecutorService", ScheduledExecutorServiceFacade.class);
+            serviceFacade.getScheduleExecutorService().shutdownNow();
         });
         return service;
     }
@@ -65,18 +80,32 @@ public class MaintainSchedule {
             Jedis jedis = null;
 
             try {
+                System.out.println("[" + DateUtility.getDateNowFormat(null) + "]" + "Start restore subscribe channel ESFTask.Commands.ESFTaskWarningChannel!");
                 jedis = pool.getResource();
+                try {
+                    warningSubscriber.unsubscribe(GlobalConfig.Redis.ESFTASK_WARNING_CHANNEL);
+                }catch (Exception e) {
+                    System.out.println("[" + DateUtility.getDateNowFormat(null) + "]" + "ESFTask.Commands.ESFTaskWarningChannel unsubscribe error: " + e.getMessage());
+                }
+
                 jedis.subscribe(warningSubscriber, GlobalConfig.Redis.ESFTASK_WARNING_CHANNEL);
-                System.out.println("ESFTask.Commands.ESFTaskWarningChannel end!");
+
+                try {
+                    jedis.quit();
+                } catch (Exception e) {
+                    System.out.println("[" + DateUtility.getDateNowFormat(null) + "]" + "ESFTask.Commands.ESFTaskWarningChannel jedis quit error: " + e.getMessage());
+                }
+                System.out.println("[" + DateUtility.getDateNowFormat(null) + "]" + "End restore subscribe channel ESFTask.Commands.ESFTaskWarningChannel!");
             } catch (Exception e) {
-                System.out.println("ESFTask.Commands.ESFTaskWarningChannel error: " + e.getMessage());
+                System.out.println("[" + DateUtility.getDateNowFormat(null) + "]" + "ESFTask.Commands.ESFTaskWarningChannel restore error: " + e.getMessage());
             }
             finally {
-                if (jedis != null){
-                    jedis.quit();
+                if (jedis != null)
                     jedis.close();
-                }
             }
+
+            ScheduledExecutorServiceFacade serviceFacade = context.getBean("WarningExecutorService", ScheduledExecutorServiceFacade.class);
+            serviceFacade.getScheduleExecutorService().shutdownNow();
         });
         return service;
     }
@@ -90,18 +119,32 @@ public class MaintainSchedule {
             Jedis jedis = null;
 
             try {
+                System.out.println("[" + DateUtility.getDateNowFormat(null) + "]" + "Start restore subscribe channel ESFTask.Commands.ESFTaskRegisterChannel!");
                 jedis = pool.getResource();
+                try {
+                    registerSubscriber.unsubscribe(GlobalConfig.Redis.ESFTASK_REGISTER_CHANNEL);
+                }catch (Exception e) {
+                    System.out.println("[" + DateUtility.getDateNowFormat(null) + "]" + "ESFTask.Commands.ESFTaskRegisterChannel unsubscribe error: " + e.getMessage());
+                }
+
                 jedis.subscribe(registerSubscriber, GlobalConfig.Redis.ESFTASK_REGISTER_CHANNEL);
-                System.out.println("ESFTask.Commands.ESFTaskRegisterChannel end!");
+
+                try {
+                    jedis.quit();
+                } catch (Exception e) {
+                    System.out.println("[" + DateUtility.getDateNowFormat(null) + "]" + "ESFTask.Commands.ESFTaskRegisterChannel jedis quit error: " + e.getMessage());
+                }
+                System.out.println("[" + DateUtility.getDateNowFormat(null) + "]" + "End restore subscribe channel ESFTask.Commands.ESFTaskRegisterChannel!");
             } catch (Exception e) {
-                System.out.println("ESFTask.Commands.ESFTaskRegisterChannel error: " + e.getMessage());
+                System.out.println("[" + DateUtility.getDateNowFormat(null) + "]" + "ESFTask.Commands.ESFTaskRegisterChannel restore error: " + e.getMessage());
             }
             finally {
-                if (jedis != null){
-                    jedis.quit();
+                if (jedis != null)
                     jedis.close();
-                }
             }
+
+            ScheduledExecutorServiceFacade serviceFacade = context.getBean("RegisterExecutorService", ScheduledExecutorServiceFacade.class);
+            serviceFacade.getScheduleExecutorService().shutdownNow();
         });
         return service;
     }
@@ -115,24 +158,40 @@ public class MaintainSchedule {
             Jedis jedis = null;
 
             try {
+                System.out.println("[" + DateUtility.getDateNowFormat(null) + "]" + "Start restore subscribe channel ESFTask.Commands.ESFTaskPushLogChannel!");
                 jedis = pool.getResource();
+                try {
+                    logCollectSubscriber.unsubscribe(GlobalConfig.Redis.ESFTASK_PUSHLOG_CHANNEL);
+                }catch (Exception e) {
+                    System.out.println("[" + DateUtility.getDateNowFormat(null) + "]" + "ESFTask.Commands.ESFTaskPushLogChannel unsubscribe error: " + e.getMessage());
+                }
+
                 jedis.subscribe(logCollectSubscriber, GlobalConfig.Redis.ESFTASK_PUSHLOG_CHANNEL);
-                System.out.println("ESFTask.Commands.ESFTaskPushLogChannel end!");
+
+                try {
+                    jedis.quit();
+                } catch (Exception e) {
+                    System.out.println("[" + DateUtility.getDateNowFormat(null) + "]" + "ESFTask.Commands.ESFTaskPushLogChannel jedis quit error: " + e.getMessage());
+                }
+                System.out.println("[" + DateUtility.getDateNowFormat(null) + "]" + "End restore subscribe channel ESFTask.Commands.ESFTaskPushLogChannel!");
             } catch (Exception e) {
-                System.out.println("ESFTask.Commands.ESFTaskPushLogChannel error: " + e.getMessage());
+                System.out.println("[" + DateUtility.getDateNowFormat(null) + "]" + "ESFTask.Commands.ESFTaskPushLogChannel restore error: " + e.getMessage());
             }
             finally {
-                if (jedis != null){
-                    jedis.quit();
+                if (jedis != null)
                     jedis.close();
-                }
             }
+
+            ScheduledExecutorServiceFacade serviceFacade = context.getBean("LogCollectExecutorService", ScheduledExecutorServiceFacade.class);
+            serviceFacade.getScheduleExecutorService().shutdownNow();
         });
         return service;
     }
 
     @Scheduled(fixedDelay = 60000, initialDelay = 30000)
     public void checkSubscriber() {
+
+        System.out.println("[" + DateUtility.getDateNowFormat(null) + "]" + "Start MaintainSchedule!");
 
         ScheduledExecutorServiceFacade serviceHeartbeatFacade = context.getBean("HeartbeatExecutorService", ScheduledExecutorServiceFacade.class);
 
@@ -173,5 +232,7 @@ public class MaintainSchedule {
                 serviceRegisterFacade.setScheduleExecutorService(getRegisterScheduledExecutorService());
             }
         }
+
+        System.out.println("[" + DateUtility.getDateNowFormat(null) + "]" + "End MaintainSchedule!");
     }
 }
