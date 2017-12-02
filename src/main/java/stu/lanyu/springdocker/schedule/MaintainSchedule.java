@@ -7,7 +7,6 @@ import org.springframework.stereotype.Component;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import stu.lanyu.springdocker.config.GlobalConfig;
-import stu.lanyu.springdocker.config.RedisMessageProperties;
 import stu.lanyu.springdocker.message.ScheduledExecutorServiceFacade;
 import stu.lanyu.springdocker.message.subscriber.HeartbeatSubscriber;
 import stu.lanyu.springdocker.message.subscriber.LogCollectSubscriber;
@@ -40,13 +39,8 @@ public class MaintainSchedule {
 
             try {
                 System.out.println("[" + DateUtility.getDateNowFormat(null) + "]" + "Start restore subscribe channel ESFTask.Commands.ESFTaskHeartbeatChannel!");
-                jedis = pool.getResource();
-                try {
-                    serviceHeartbeatFacade.getSubscriber().unsubscribe(GlobalConfig.Redis.ESFTASK_HEARTBEAT_CHANNEL);
-                }catch (Exception e) {
-                    System.out.println("[" + DateUtility.getDateNowFormat(null) + "]" + "ESFTask.Commands.ESFTaskHeartbeatChannel unsubscribe error: " + e.getMessage());
-                }
 
+                jedis = pool.getResource();
                 jedis.subscribe(heartbeatSubscriber, GlobalConfig.Redis.ESFTASK_HEARTBEAT_CHANNEL);
 
                 try {
@@ -83,13 +77,8 @@ public class MaintainSchedule {
 
             try {
                 System.out.println("[" + DateUtility.getDateNowFormat(null) + "]" + "Start restore subscribe channel ESFTask.Commands.ESFTaskWarningChannel!");
-                jedis = pool.getResource();
-                try {
-                    serviceWarningFacade.getSubscriber().unsubscribe(GlobalConfig.Redis.ESFTASK_WARNING_CHANNEL);
-                } catch (Exception e) {
-                    System.out.println("[" + DateUtility.getDateNowFormat(null) + "]" + "ESFTask.Commands.ESFTaskWarningChannel unsubscribe error: " + e.getMessage());
-                }
 
+                jedis = pool.getResource();
                 jedis.subscribe(warningSubscriber, GlobalConfig.Redis.ESFTASK_WARNING_CHANNEL);
 
                 try {
@@ -126,13 +115,8 @@ public class MaintainSchedule {
 
             try {
                 System.out.println("[" + DateUtility.getDateNowFormat(null) + "]" + "Start restore subscribe channel ESFTask.Commands.ESFTaskRegisterChannel!");
-                jedis = pool.getResource();
-                try {
-                    serviceRegisterFacade.getSubscriber().unsubscribe(GlobalConfig.Redis.ESFTASK_REGISTER_CHANNEL);
-                }catch (Exception e) {
-                    System.out.println("[" + DateUtility.getDateNowFormat(null) + "]" + "ESFTask.Commands.ESFTaskRegisterChannel unsubscribe error: " + e.getMessage());
-                }
 
+                jedis = pool.getResource();
                 jedis.subscribe(registerSubscriber, GlobalConfig.Redis.ESFTASK_REGISTER_CHANNEL);
 
                 try {
@@ -169,13 +153,8 @@ public class MaintainSchedule {
 
             try {
                 System.out.println("[" + DateUtility.getDateNowFormat(null) + "]" + "Start restore subscribe channel ESFTask.Commands.ESFTaskPushLogChannel!");
-                jedis = pool.getResource();
-                try {
-                    serviceLogCollectFacade.getSubscriber().unsubscribe(GlobalConfig.Redis.ESFTASK_PUSHLOG_CHANNEL);
-                }catch (Exception e) {
-                    System.out.println("[" + DateUtility.getDateNowFormat(null) + "]" + "ESFTask.Commands.ESFTaskPushLogChannel unsubscribe error: " + e.getMessage());
-                }
 
+                jedis = pool.getResource();
                 jedis.subscribe(logCollectSubscriber, GlobalConfig.Redis.ESFTASK_PUSHLOG_CHANNEL);
 
                 try {
@@ -220,6 +199,12 @@ public class MaintainSchedule {
 
                 if (DateUtility.compareFormNowByHour(serviceHeartbeatFacade.getLastSubscribeTime()) > 1.00) {
 
+                    try {
+                        serviceHeartbeatFacade.getSubscriber().unsubscribe(GlobalConfig.Redis.ESFTASK_HEARTBEAT_CHANNEL);
+                    }catch (Exception e) {
+                        System.out.println("[" + DateUtility.getDateNowFormat(null) + "]" + "ESFTask.Commands.ESFTaskHeartbeatChannel unsubscribe error: " + e.getMessage());
+                    }
+
                     serviceHeartbeatFacade.getScheduleExecutorService().shutdownNow();
                 }
             }
@@ -237,6 +222,12 @@ public class MaintainSchedule {
             else {
 
                 if (DateUtility.compareFormNowByHour(serviceHeartbeatFacade.getLastSubscribeTime()) > 1.00) {
+
+                    try {
+                        serviceLogCollectFacade.getSubscriber().unsubscribe(GlobalConfig.Redis.ESFTASK_PUSHLOG_CHANNEL);
+                    }catch (Exception e) {
+                        System.out.println("[" + DateUtility.getDateNowFormat(null) + "]" + "ESFTask.Commands.ESFTaskPushLogChannel unsubscribe error: " + e.getMessage());
+                    }
 
                     serviceLogCollectFacade.getScheduleExecutorService().shutdownNow();
                 }
@@ -256,6 +247,12 @@ public class MaintainSchedule {
 
                 if (DateUtility.compareFormNowByHour(serviceHeartbeatFacade.getLastSubscribeTime()) > 1.00) {
 
+                    try {
+                        serviceWarningFacade.getSubscriber().unsubscribe(GlobalConfig.Redis.ESFTASK_WARNING_CHANNEL);
+                    } catch (Exception e) {
+                        System.out.println("[" + DateUtility.getDateNowFormat(null) + "]" + "ESFTask.Commands.ESFTaskWarningChannel unsubscribe error: " + e.getMessage());
+                    }
+
                     serviceWarningFacade.getScheduleExecutorService().shutdownNow();
                 }
             }
@@ -273,6 +270,13 @@ public class MaintainSchedule {
             else {
 
                 if (DateUtility.compareFormNowByHour(serviceHeartbeatFacade.getLastSubscribeTime()) > 1.00) {
+
+                    try {
+                        serviceRegisterFacade.getSubscriber().unsubscribe(GlobalConfig.Redis.ESFTASK_REGISTER_CHANNEL);
+                    }catch (Exception e) {
+                        System.out.println("[" + DateUtility.getDateNowFormat(null) + "]" +
+                                "ESFTask.Commands.ESFTaskRegisterChannel unsubscribe error: " + e.getMessage());
+                    }
 
                     serviceRegisterFacade.getScheduleExecutorService().shutdownNow();
                 }
