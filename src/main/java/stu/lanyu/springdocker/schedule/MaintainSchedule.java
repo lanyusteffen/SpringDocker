@@ -197,7 +197,7 @@ public class MaintainSchedule {
             }
             else {
 
-                if (DateUtility.compareFormNowByHour(serviceHeartbeatFacade.getLastSubscribeTime()) > 1.00) {
+                if (DateUtility.compareFormNowByHour(serviceHeartbeatFacade.getLastSubscribeTime()) > GlobalConfig.WebConfig.REDIS_SUBSCRIBER_EXPIRE) {
 
                     try {
                         serviceHeartbeatFacade.getSubscriber().unsubscribe(GlobalConfig.Redis.ESFTASK_HEARTBEAT_CHANNEL);
@@ -221,7 +221,7 @@ public class MaintainSchedule {
             }
             else {
 
-                if (DateUtility.compareFormNowByHour(serviceHeartbeatFacade.getLastSubscribeTime()) > 1.00) {
+                if (DateUtility.compareFormNowByHour(serviceHeartbeatFacade.getLastSubscribeTime()) > GlobalConfig.WebConfig.REDIS_SUBSCRIBER_EXPIRE) {
 
                     try {
                         serviceLogCollectFacade.getSubscriber().unsubscribe(GlobalConfig.Redis.ESFTASK_PUSHLOG_CHANNEL);
@@ -245,7 +245,7 @@ public class MaintainSchedule {
             }
             else {
 
-                if (DateUtility.compareFormNowByHour(serviceHeartbeatFacade.getLastSubscribeTime()) > 1.00) {
+                if (DateUtility.compareFormNowByHour(serviceHeartbeatFacade.getLastSubscribeTime()) > GlobalConfig.WebConfig.REDIS_SUBSCRIBER_EXPIRE) {
 
                     try {
                         serviceWarningFacade.getSubscriber().unsubscribe(GlobalConfig.Redis.ESFTASK_WARNING_CHANNEL);
@@ -269,7 +269,7 @@ public class MaintainSchedule {
             }
             else {
 
-                if (DateUtility.compareFormNowByHour(serviceHeartbeatFacade.getLastSubscribeTime()) > 1.00) {
+                if (DateUtility.compareFormNowByHour(serviceHeartbeatFacade.getLastSubscribeTime()) > GlobalConfig.WebConfig.REDIS_SUBSCRIBER_EXPIRE) {
 
                     try {
                         serviceRegisterFacade.getSubscriber().unsubscribe(GlobalConfig.Redis.ESFTASK_REGISTER_CHANNEL);

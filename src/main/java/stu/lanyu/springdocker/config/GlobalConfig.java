@@ -24,6 +24,11 @@ public class GlobalConfig {
         public static final String ESFTASK_HEARTBEAT_CHANNEL = "ESFTask.Commands.ESFTaskHeartbeatChannel";
     }
 
+    public class WebConfig {
+
+        public static final double REDIS_SUBSCRIBER_EXPIRE = 0.50;
+    }
+
     public static class WCFHost {
 
         public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
