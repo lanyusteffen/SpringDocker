@@ -13,6 +13,7 @@ import stu.lanyu.springdocker.config.GlobalConfig;
 import stu.lanyu.springdocker.contract.entity.HeartbeatInfo;
 import stu.lanyu.springdocker.contract.entity.JobMonitorInfo;
 import stu.lanyu.springdocker.domain.TaskMonitorInfo;
+import stu.lanyu.springdocker.utility.DateUtility;
 import stu.lanyu.springdocker.utility.StringUtility;
 
 import java.net.ConnectException;
@@ -66,15 +67,20 @@ public class HeartbeatSchedule {
 
             boolean isExisted = false;
 
+            String eachJobName = (StringUtility.isNullOrEmpty(r.getJobName())
+                    ? "" : r.getJobName());
+            String eachJobGroup = (StringUtility.isNullOrEmpty(r.getJobGroup())
+                    ? "" : r.getJobGroup());
+
             for (JobMonitorInfo jobMonitorInfo : result.getMonitorInfos()
                     ) {
 
-                String currentJobName = (StringUtility.isNullOrEmpty(jobMonitorInfo.getJobName())
+                String findJobNameInResult = (StringUtility.isNullOrEmpty(jobMonitorInfo.getJobName())
                         ? "" : jobMonitorInfo.getJobName());
-                String currentJobGroup = (StringUtility.isNullOrEmpty(jobMonitorInfo.getJobGroup())
+                String findJobGroupInResult = (StringUtility.isNullOrEmpty(jobMonitorInfo.getJobGroup())
                         ? "" : jobMonitorInfo.getJobGroup());
 
-                if (currentJobName.equals(r.getJobName()) && currentJobGroup.equals(r.getJobGroup())) {
+                if (eachJobName.equals(findJobNameInResult) && eachJobGroup.equals(findJobGroupInResult)) {
                     isExisted = true;
                     break;
                 }
@@ -86,6 +92,15 @@ public class HeartbeatSchedule {
         });
 
         if (deletedJobList.size() > 0) {
+
+            for(int i = 0; i < deletedJobList.size(); i++) {
+
+                stu.lanyu.springdocker.domain.JobMonitorInfo job = deletedJobList.get(i);
+
+                System.out.println("[" + DateUtility.getDateNowFormat(null) + "]" +
+                        "Delete job '" + (StringUtility.isNullOrEmpty(job.getJobGroup()) ? "" : job.getJobGroup() + "-") + job.getJobName() + "' in task '" + job.getServiceIdentity() + "'!");
+            }
+
             jobMonitorInfoService.deleteBatch(deletedJobList);
         }
     }
@@ -150,13 +165,20 @@ public class HeartbeatSchedule {
 
                         taskMonitorInfo.getJobs().forEach(r -> {
 
-                            if (r.getJobName() == jobMonitorInfo.getJobName() && r.getJobGroup() == jobMonitorInfo.getJobGroup()) {
+                            String eachJobName = (StringUtility.isNullOrEmpty(r.getJobName())
+                                    ? "" : r.getJobName());
+                            String eachJobGroup = (StringUtility.isNullOrEmpty(r.getJobGroup())
+                                    ? "" : r.getJobGroup());
+
+                            if (eachJobName.equals(currentJobName) && eachJobGroup.equals(currentJobGroup)) {
 
                                 r.setFiredTimes(jobMonitorInfo.getFiredTimes());
+                                r.setMissfireTimes(jobMonitorInfo.getMissfireTimes());
+
                                 r.setJobCompletedLastTime(new Date(jobMonitorInfo.getJobCompletedLastTime()));
                                 r.setJobFiredLastTime(new Date(jobMonitorInfo.getJobFiredLastTime()));
                                 r.setJobMissfiredLastTime(new Date(jobMonitorInfo.getJobMissfireLastTime()));
-                                r.setMissfireTimes(jobMonitorInfo.getMissfireTimes());
+
                                 r.setJobVeto(jobMonitorInfo.isJobVeto());
                             }
                         });

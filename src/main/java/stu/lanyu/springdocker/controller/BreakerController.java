@@ -100,12 +100,11 @@ public class BreakerController {
         Map<Object, Object> entries = redisTemplate.opsForHash().entries(GlobalConfig.Redis.REGISTER_TASK_CACHE_KEY);
 
         RegisterTask task = entries.entrySet().stream()
-                .filter(map -> map.getKey() == serviceIdentity)
+                .filter(map -> serviceIdentity.equals(map.getKey().toString()))
                 .map(map -> RegisterTask.class.cast(map.getValue()))
                 .findFirst().orElse(null);
 
         if (task != null) {
-
            ServiceBreaker serviceBreaker = doBreakerService(task, true, isVeto, null, null);
            return serviceBreaker.isBreakerResult();
         }
@@ -121,7 +120,7 @@ public class BreakerController {
         OkHttpClient httpClient = new OkHttpClient();
 
         RegisterTask task = entries.entrySet().stream()
-                .filter(map -> map.getKey() == serviceIdentity)
+                .filter(map -> serviceIdentity.equals(map.getKey().toString()))
                 .map(map -> RegisterTask.class.cast(map.getValue()))
                 .findFirst().orElse(null);
 

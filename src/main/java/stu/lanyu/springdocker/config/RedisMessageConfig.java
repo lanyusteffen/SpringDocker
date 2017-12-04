@@ -2,11 +2,13 @@ package stu.lanyu.springdocker.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.autoconfigure.data.redis.RedisProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
+import org.springframework.data.redis.connection.RedisSentinelConfiguration;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
@@ -32,17 +34,56 @@ public class RedisMessageConfig {
     @Autowired(required = true)
     private ApplicationContext context;
 
+    @Autowired(required = true)
+    private RedisProperties properties;
+
+    // Construct the RedisSentinelConfiguration using all the nodes in RedisSentinelNodes
+    RedisSentinelConfiguration sentinelConfiguration () {
+        RedisSentinelConfiguration sentinelConfig = new RedisSentinelConfiguration()
+                .master(properties.getSentinel().getMaster());
+
+        String[] nodes = properties.getSentinel().getNodes().split(",");
+
+        for (int i = 0; i < nodes.length; i++) {
+            String node  = nodes[i];
+            String[] ipAndPort = node.split(":");
+
+            sentinelConfig.sentinel(ipAndPort[0], Integer.parseInt(ipAndPort[1]));
+        }
+
+        return sentinelConfig;
+    }
+
     @Bean
-    @Qualifier("RedisDefault")
-    @Scope("singleton")
-    JedisConnectionFactory getRedisDefaultConnectionFactory() {
-        return new JedisConnectionFactory();
+    JedisConnectionFactory redisConnectionFactory() {
+
+        JedisConnectionFactory jedisConnectionFactory = new JedisConnectionFactory(sentinelConfiguration());
+        jedisConnectionFactory.setUsePool(true);
+
+        jedisConnectionFactory.setPassword(properties.getPassword());
+
+        JedisPoolConfig poolConfig = jedisConnectionFactory.getPoolConfig();
+        poolConfig.setMaxIdle(properties.getPool().getMaxIdle());
+        poolConfig.setMinIdle(properties.getPool().getMinIdle());
+        poolConfig.setMaxTotal(properties.getPool().getMaxActive());
+        // poolConfig.setMaxTotal(properties.getPool().getMaxTotal);
+        poolConfig.setMaxWaitMillis(properties.getPool().getMaxWait());
+
+        poolConfig.setTestOnBorrow(true);
+        poolConfig.setTestOnReturn(true);
+        poolConfig.setTestWhileIdle(true);
+
+        jedisConnectionFactory.setPoolConfig(poolConfig);
+
+        jedisConnectionFactory.afterPropertiesSet();
+
+        return jedisConnectionFactory;
     }
 
     @Bean
     @Qualifier("RedisSubscriberConnectionFactory")
     @Scope("singleton")
-    JedisConnectionFactory getRedisMessageConnectionFactory(){
+    JedisConnectionFactory getRedisSubscriberConnectionFactory(){
 
         JedisConnectionFactory jedisConnectionFactory = new JedisConnectionFactory();
         jedisConnectionFactory.setHostName(redisMessageProperties.getHost());
@@ -57,8 +98,10 @@ public class RedisMessageConfig {
         poolConfig.setMinIdle(redisMessageProperties.getMinIdle());
         poolConfig.setMaxTotal(redisMessageProperties.getMaxTotal());
         poolConfig.setMaxWaitMillis(redisMessageProperties.getMaxWaitMillis());
-        poolConfig.setTestOnReturn(true);
+
         poolConfig.setTestOnBorrow(true);
+        poolConfig.setTestOnReturn(true);
+        poolConfig.setTestWhileIdle(true);
 
         jedisConnectionFactory.setPoolConfig(poolConfig);
 
