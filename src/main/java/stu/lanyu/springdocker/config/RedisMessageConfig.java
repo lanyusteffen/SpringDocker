@@ -33,6 +33,13 @@ public class RedisMessageConfig {
     private ApplicationContext context;
 
     @Bean
+    @Qualifier("RedisDefault")
+    @Scope("singleton")
+    JedisConnectionFactory getRedisDefaultConnectionFactory() {
+        return new JedisConnectionFactory();
+    }
+
+    @Bean
     @Qualifier("RedisSubscriberConnectionFactory")
     @Scope("singleton")
     JedisConnectionFactory getRedisMessageConnectionFactory(){

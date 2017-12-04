@@ -12,20 +12,33 @@ import stu.lanyu.springdocker.domain.User;
 import stu.lanyu.springdocker.redis.RedisObjectSerializer;
 
 @Configuration
-public class RedisConfig {
+public class RedisTemplateConfig {
 
     @Autowired
-    @Qualifier("RedisSubscriberConnectionFactory")
+    @Qualifier("RedisDefault")
     private JedisConnectionFactory jedisConnectionFactory;
 
     @Bean
-    public RedisTemplate<String, User> redisTemplate() {
+    public RedisTemplate<String, User> redisUserTemplate() {
 
         RedisTemplate redisTemplate = new RedisTemplate();
 
         redisTemplate.setConnectionFactory(jedisConnectionFactory);
         redisTemplate.setKeySerializer(new StringRedisSerializer());
         redisTemplate.setValueSerializer(new RedisObjectSerializer());
+        redisTemplate.afterPropertiesSet();
+
+        return redisTemplate;
+    }
+
+    @Bean
+    public RedisTemplate<String, String> redisStringTemplate() {
+
+        RedisTemplate redisTemplate = new RedisTemplate();
+
+        redisTemplate.setConnectionFactory(jedisConnectionFactory);
+        redisTemplate.setKeySerializer(new StringRedisSerializer());
+        redisTemplate.setValueSerializer(new StringRedisSerializer());
         redisTemplate.afterPropertiesSet();
 
         return redisTemplate;

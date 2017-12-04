@@ -7,7 +7,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import stu.lanyu.springdocker.interceptor.RateLimitInterceptor;
 
 @Component
-public class WebRateLimitInterceptorConfig extends WebMvcConfigurerAdapter {
+public class WebRateLimitInterCeptorConfig extends WebMvcConfigurerAdapter {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
