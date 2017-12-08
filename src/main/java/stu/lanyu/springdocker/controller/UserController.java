@@ -2,7 +2,6 @@ package stu.lanyu.springdocker.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
 import stu.lanyu.springdocker.business.readwrite.UserService;
