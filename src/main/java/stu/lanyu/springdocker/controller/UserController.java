@@ -29,7 +29,6 @@ public class UserController {
     @Autowired
     private RedisTemplate<String, User> redisTemplate;
 
-    @CrossOrigin
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public boolean Register(@RequestBody RegisterRequest registerRequest)
             throws ValidationException {
@@ -57,7 +56,6 @@ public class UserController {
         return true;
     }
 
-    @CrossOrigin
     @RequestMapping(value = "/newRegister", method = RequestMethod.GET)
     public @ResponseBody List<User> getLastRegisterUser(int lastCount) {
         Set<User> users = redisTemplate.opsForZSet().range(GlobalConfig.Redis.REGISTER_NEWUSER_CACHE_KEY, 0, -1);
@@ -66,7 +64,6 @@ public class UserController {
         return userList;
     }
 
-    @CrossOrigin
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public boolean login(@RequestBody LoginRequest loginRequest) throws ValidationException {
         try {
