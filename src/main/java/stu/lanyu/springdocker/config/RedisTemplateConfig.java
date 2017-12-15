@@ -21,7 +21,7 @@ public class RedisTemplateConfig {
     @Bean
     public RedisTemplate<String, User> redisUserTemplate() {
 
-        RedisTemplate redisTemplate = new RedisTemplate();
+        RedisTemplate<String, User> redisTemplate = new RedisTemplate<String, User>();
 
         redisTemplate.setConnectionFactory(jedisConnectionFactory);
         redisTemplate.setKeySerializer(new StringRedisSerializer());
@@ -34,7 +34,7 @@ public class RedisTemplateConfig {
     @Bean
     public RedisTemplate<String, RegisterTask> redisRegisterTaskTemplate() {
 
-        RedisTemplate redisTemplate = new RedisTemplate();
+        RedisTemplate<String, RegisterTask> redisTemplate = new RedisTemplate<String, RegisterTask>();
 
         redisTemplate.setConnectionFactory(jedisConnectionFactory);
         redisTemplate.setKeySerializer(new StringRedisSerializer());

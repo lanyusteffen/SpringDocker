@@ -7,9 +7,12 @@ import org.springframework.web.bind.annotation.*;
 import stu.lanyu.springdocker.business.readwrite.UserService;
 import stu.lanyu.springdocker.config.GlobalConfig;
 import stu.lanyu.springdocker.domain.User;
-import stu.lanyu.springdocker.exception.ValidationException;
+import stu.lanyu.springdocker.exception.DomainException;
 import stu.lanyu.springdocker.request.LoginRequest;
 import stu.lanyu.springdocker.request.RegisterRequest;
+import stu.lanyu.springdocker.response.ApiResponse;
+import stu.lanyu.springdocker.response.ValidationError;
+import stu.lanyu.springdocker.response.ValidationErrors;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,30 +33,41 @@ public class UserController {
     private RedisTemplate<String, User> redisTemplate;
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public boolean Register(@RequestBody RegisterRequest registerRequest)
-            throws ValidationException {
+    public ApiResponse Register(@RequestBody RegisterRequest registerRequest) {
+
+        ApiResponse response = null;
+
         try {
-            registerRequest.Validation();
-        }
-        catch (ValidationException ve) {
-            throw ve;
-        }
+            registerRequest.validation();
 
-        User user = registerRequest.mapToDomain();
+            User user = registerRequest.mapToDomain();
 
-        if (this.userQueryService.isExistedUserByName(user.getName())) {
-            throw new ValidationException("已包含昵称为'" + user.getName() + "'用户");
-        }
+            if (this.userQueryService.findUserByPassport(user.getPassport()) != null) {
+                ValidationErrors errors = new ValidationErrors();
+                errors.getErrorItems().add(new ValidationError("Passport", "登录名'" + user.getPassport() + "'已注册", null));
+                response = ApiResponse.createDomainFailure(errors);
+            }
 
-        long timestamp = System.currentTimeMillis() / 1000;
-        if (redisTemplate.opsForZSet().add(GlobalConfig.Redis.REGISTER_NEWUSER_CACHE_KEY, user, timestamp)) {
+            if (!response.isValid)
+                return response;
+
             this.userService.register(user);
+
+            if (user.getId() > 0) {
+                response = ApiResponse.createDomainSuccess(user.getId());
+            } else {
+                response = ApiResponse.createDomainFailure("发生未知异常, 注册失败, 请通知服务提供商", null);
+            }
+
+            long timestamp = System.currentTimeMillis() / 1000;
+            redisTemplate.opsForZSet().add(GlobalConfig.Redis.REGISTER_NEWUSER_CACHE_KEY, user, timestamp);
         }
-        else {
-            return false;
+        catch (DomainException de) {
+            ValidationErrors errors = de.getValidationErrors();
+            response.createDomainFailure(de.getMessage(), errors);
         }
 
-        return true;
+        return response;
     }
 
     @RequestMapping(value = "/newRegister", method = RequestMethod.GET)
@@ -65,13 +79,31 @@ public class UserController {
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public boolean login(@RequestBody LoginRequest loginRequest) throws ValidationException {
+    public ApiResponse login(@RequestBody LoginRequest loginRequest) {
+
+        ApiResponse response = null;
+
         try {
-            loginRequest.Validation();
+            loginRequest.validation();
+
+            User user = this.userQueryService.findUserByPassport(loginRequest.getPassport());
+
+            if (user == null) {
+                ValidationErrors errors = new ValidationErrors();
+                errors.getErrorItems().add(new ValidationError("Passport", "登陆名'" + loginRequest.getPassport() + "'不存在!", null));
+                response = ApiResponse.createDomainFailure(errors);
+            }
+
+            loginRequest.makePasswordSecurity(user);
+            loginRequest.setPassword(user.getPassword());
+
+            response = ApiResponse.createDomainSuccess(this.userQueryService.login(loginRequest.getPassport(), loginRequest.getPassword()));
         }
-        catch (ValidationException ve) {
-            throw ve;
+        catch (DomainException de) {
+            ValidationErrors errors = de.getValidationErrors();
+            response.createDomainFailure(de.getMessage(), errors);
         }
-        return this.userQueryService.login(loginRequest.getPassport(), loginRequest.getPassword());
+
+        return response;
     }
 }

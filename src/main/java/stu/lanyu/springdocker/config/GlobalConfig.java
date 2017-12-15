@@ -27,6 +27,7 @@ public class GlobalConfig {
     public class WebConfig {
 
         public static final double REDIS_SUBSCRIBER_EXPIRE = 0.50;
+        public static final String PASSWORD_NOSECURITY = "NONE";
     }
 
     public static class WCFHost {

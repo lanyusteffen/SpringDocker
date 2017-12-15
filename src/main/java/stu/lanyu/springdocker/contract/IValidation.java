@@ -1,7 +1,7 @@
 package stu.lanyu.springdocker.contract;
 
-import stu.lanyu.springdocker.exception.ValidationException;
+import stu.lanyu.springdocker.exception.DomainException;
 
 public interface IValidation {
-    void Validation() throws ValidationException;
+    void validation() throws DomainException;
 }

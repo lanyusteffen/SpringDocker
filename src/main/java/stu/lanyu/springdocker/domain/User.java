@@ -13,7 +13,7 @@ public class User extends AbstractEntity implements Serializable {
     private static final long serialVersionUID = -202216414794259675L;
 
     @Column(nullable = false)
-    private String name;
+    private String nickName;
     private String firstName;
     private String lastName;
     private String password;
@@ -22,16 +22,19 @@ public class User extends AbstractEntity implements Serializable {
     private int loginTime;
     private Date lastLoginTime;
     private Date registerTime;
+    private boolean auditToUse;
+    private String privateKey;
+    private String publicKey;
 
     @Column(unique = true, nullable = false)
     private String passport;
 
-    public String getName() {
-        return name;
+    public String getNickName() {
+        return nickName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
     }
 
     public String getFirstName() {
@@ -96,5 +99,29 @@ public class User extends AbstractEntity implements Serializable {
 
     public void setRegisterTime(Date registerTime) {
         this.registerTime = registerTime;
+    }
+
+    public boolean isAuditToUse() {
+        return auditToUse;
+    }
+
+    public void setAuditToUse(boolean auditToUse) {
+        this.auditToUse = auditToUse;
+    }
+
+    public String getPrivateKey() {
+        return privateKey;
+    }
+
+    public void setPrivateKey(String privateKey) {
+        this.privateKey = privateKey;
+    }
+
+    public String getPublicKey() {
+        return publicKey;
+    }
+
+    public void setPublicKey(String publicKey) {
+        this.publicKey = publicKey;
     }
 }
