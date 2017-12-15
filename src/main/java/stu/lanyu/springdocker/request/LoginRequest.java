@@ -33,12 +33,12 @@ public class LoginRequest extends AbstractRequest implements IValidation {
     public void validation() throws DomainException {
         ValidationErrors errors = new ValidationErrors();
         if (StringUtility.isNullOrEmpty(this.passport)) {
-            errors.getErrorItems().add(new ValidationError("Passport", "登录名不能为空", null));
-            throw new DomainException("登录失败: ", errors);
+            errors.getErrorItems().add(new ValidationError("Passport", null));
+            throw new DomainException("登录名不能为空", errors);
         }
         if (StringUtility.isNullOrEmpty(this.password)) {
-            errors.getErrorItems().add(new ValidationError("Password", "登录密码不能为空", null));
-            throw new DomainException("登录失败: ", errors);
+            errors.getErrorItems().add(new ValidationError("Password", null));
+            throw new DomainException("登录密码不能为空", errors);
         }
     }
 

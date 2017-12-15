@@ -84,16 +84,16 @@ public class RegisterRequest extends AbstractRequest implements IMapRequest<User
     public void validation() throws DomainException {
         ValidationErrors errors = new ValidationErrors();
         if (StringUtility.isNullOrEmpty(this.nickName)) {
-            errors.getErrorItems().add(new ValidationError("NickName", "用户昵称不能为空", null));
-            throw new DomainException("注册失败: ", errors);
+            errors.getErrorItems().add(new ValidationError("NickName", null));
+            throw new DomainException("用户昵称不能为空", errors);
         }
         if (StringUtility.isNullOrEmpty(this.passport)) {
-            errors.getErrorItems().add(new ValidationError("Passport", "登录名不能为空", null));
-            throw new DomainException("注册失败: ", errors);
+            errors.getErrorItems().add(new ValidationError("Passport", null));
+            throw new DomainException("登录名不能为空", errors);
         }
         if (StringUtility.isNullOrEmpty(this.password)) {
-            errors.getErrorItems().add(new ValidationError("Password", "登录密码不能为空", null));
-            throw new DomainException("注册失败: ", errors);
+            errors.getErrorItems().add(new ValidationError("Password", null));
+            throw new DomainException("登录密码不能为空", errors);
         }
     }
 

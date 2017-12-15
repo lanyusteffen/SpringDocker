@@ -18,23 +18,19 @@ public class ValidationErrors extends AbstractResponse implements Serializable {
 
     private List<ValidationError> errorItems;
 
-    public ValidationErrors AddError(String propertyName, String errorMessage, String attemptedValue) {
+    public ValidationErrors AddError(String propertyName, String attemptedValue) {
 
         if (StringUtility.isNullOrEmpty(propertyName))
             throw new NullPointerException("propertyName");
 
-        if (StringUtility.isNullOrEmpty(errorMessage))
-            throw new NullPointerException("errorMessage");
-
-        this.errorItems.add(new ValidationError(propertyName, errorMessage, attemptedValue));
+        this.errorItems.add(new ValidationError(propertyName, attemptedValue));
 
         return this;
     }
 
     public ValidationErrors AddUnhandledException(Exception ex) {
         this.errorItems.clear();
-        this.errorItems.add(new ValidationError("UnhandledException", "系统发生未知异常: " + ex.getMessage()
-                + ", 请联系服务提供商!", ExceptionUtils.getStackTrace(ex)));
+        this.errorItems.add(new ValidationError("UnhandledException", ExceptionUtils.getStackTrace(ex)));
         return this;
     }
 

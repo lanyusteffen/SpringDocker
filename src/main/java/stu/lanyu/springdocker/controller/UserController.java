@@ -44,8 +44,8 @@ public class UserController {
 
             if (this.userQueryService.findUserByPassport(user.getPassport()) != null) {
                 ValidationErrors errors = new ValidationErrors();
-                errors.getErrorItems().add(new ValidationError("Passport", "登录名'" + user.getPassport() + "'已注册", null));
-                response = ApiResponse.createDomainFailure(errors);
+                errors.getErrorItems().add(new ValidationError("Passport", null));
+                response = ApiResponse.createDomainFailure("登录名'" + user.getPassport() + "'已注册", errors);
             }
 
             if (!response.isValid)
@@ -90,9 +90,12 @@ public class UserController {
 
             if (user == null) {
                 ValidationErrors errors = new ValidationErrors();
-                errors.getErrorItems().add(new ValidationError("Passport", "登陆名'" + loginRequest.getPassport() + "'不存在!", null));
-                response = ApiResponse.createDomainFailure(errors);
+                errors.getErrorItems().add(new ValidationError("Passport", null));
+                response = ApiResponse.createDomainFailure("登陆名'" + loginRequest.getPassport() + "'不存在!", errors);
             }
+
+            if (!response.isValid)
+                return response;
 
             loginRequest.makePasswordSecurity(user);
             loginRequest.setPassword(user.getPassword());

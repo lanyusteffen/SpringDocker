@@ -47,7 +47,7 @@ public class ApiResponse extends AbstractResponse implements Serializable {
         if (errors != null && errors.getErrorItems().size() > 0) {
             response.errors = new ValidationErrors();
             for (ValidationError error : errors.getErrorItems()) {
-                response.errors.AddError(error.getPropertyName(), error.getErrorMessage(), error.getAttemptedValue());
+                response.errors.AddError(error.getPropertyName(), error.getAttemptedValue());
             }
         }
         return response;
