@@ -104,7 +104,7 @@ public class UserController {
         }
         catch (DomainException de) {
             ValidationErrors errors = de.getValidationErrors();
-            response.createDomainFailure(de.getMessage(), errors);
+            response = ApiResponse.createDomainFailure(de.getMessage(), errors);
         }
 
         return response;
