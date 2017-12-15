@@ -35,8 +35,7 @@ public class HeartbeatController {
     private RedisTemplate<String, RegisterTask> redisTaskTemplate;
 
     @RequestMapping(value = "/getAll", method = RequestMethod.GET)
-    public @ResponseBody
-    List<TaskMonitorInfo> getAll(int pageIndex, int pageSize) {
+    public @ResponseBody List<TaskMonitorInfo> getAll(int pageIndex, int pageSize) {
         Page<TaskMonitorInfo> taskMonitorInfoPage = taskMonitorInfoQueryService.getListPaged(pageIndex, pageSize);
         return taskMonitorInfoPage.getContent();
     }

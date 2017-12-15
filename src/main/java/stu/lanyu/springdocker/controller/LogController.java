@@ -21,8 +21,7 @@ public class LogController {
     private stu.lanyu.springdocker.business.readonly.LogCollectService logCollectQueryService;
 
     @RequestMapping(value = "/getAll", method = RequestMethod.GET)
-    public @ResponseBody
-    List<LogCollect> getAll(int pageIndex, int pageSize) {
+    public @ResponseBody List<LogCollect> getAll(int pageIndex, int pageSize) {
         Page<LogCollect> logCollectPage = logCollectQueryService.getListPaged(pageIndex, pageSize);
         return logCollectPage.getContent();
     }

@@ -2,9 +2,11 @@ package stu.lanyu.springdocker.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
 import stu.lanyu.springdocker.business.readwrite.UserService;
+import stu.lanyu.springdocker.config.GlobalAppSettingsProperties;
 import stu.lanyu.springdocker.config.GlobalConfig;
 import stu.lanyu.springdocker.domain.User;
 import stu.lanyu.springdocker.exception.DomainException;
@@ -13,6 +15,8 @@ import stu.lanyu.springdocker.request.RegisterRequest;
 import stu.lanyu.springdocker.response.ApiResponse;
 import stu.lanyu.springdocker.response.ValidationError;
 import stu.lanyu.springdocker.response.ValidationErrors;
+import stu.lanyu.springdocker.security.AESUtils;
+import stu.lanyu.springdocker.security.RSAUtils;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -21,6 +25,7 @@ import java.util.Set;
 
 @RestController
 @RequestMapping(value = "/user")
+@EnableConfigurationProperties(GlobalAppSettingsProperties.class)
 public class UserController {
 
     @Qualifier(value = "UserServiceReadwrite")
@@ -30,34 +35,39 @@ public class UserController {
     @Autowired(required = true)
     private stu.lanyu.springdocker.business.readonly.UserService userQueryService;
 
+    @Autowired(required = true)
+    private GlobalAppSettingsProperties globalAppSettingsProperties;
+
     @Autowired
     private RedisTemplate<String, User> redisTemplate;
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public ApiResponse Register(@RequestBody RegisterRequest registerRequest) {
+    public ApiResponse register(@RequestBody RegisterRequest registerRequest) {
 
-        ApiResponse response = null;
+        ApiResponse response = ApiResponse.createDomainSuccess();
 
         try {
             registerRequest.validation();
 
             User user = registerRequest.mapToDomain();
+            registerRequest.makePasswordSecurity(user, null, null, globalAppSettingsProperties.getPwdType());
 
             if (this.userQueryService.findUserByPassport(user.getPassport()) != null) {
                 ValidationErrors errors = new ValidationErrors();
                 errors.getErrorItems().add(new ValidationError("Passport", null));
-                response = ApiResponse.createDomainFailure("登录名'" + user.getPassport() + "'已注册", errors);
+                response.setDomainFailure("登录名'" + user.getPassport() + "'已注册", errors);
             }
 
-            if (response != null && !response.isValid)
+            if (!response.isValid)
                 return response;
 
             this.userService.register(user);
 
             if (user.getId() > 0) {
-                response = ApiResponse.createDomainSuccess(user.getId());
+                response.setEntityId(user.getId());
+                response.setEntity(user);
             } else {
-                response = ApiResponse.createDomainFailure("发生未知异常, 注册失败, 请通知服务提供商", null);
+                response.setDomainFailure("发生未知异常, 注册失败, 请通知服务提供商", null);
             }
 
             long timestamp = System.currentTimeMillis() / 1000;
@@ -65,10 +75,28 @@ public class UserController {
         }
         catch (DomainException de) {
             ValidationErrors errors = de.getValidationErrors();
-            response.createDomainFailure(de.getMessage(), errors);
+            response.setDomainFailure(de.getMessage(), errors);
         }
 
         return response;
+    }
+
+    @RequestMapping(value = "/getSecurityKey", method = RequestMethod.GET)
+    public @ResponseBody List<String> getPrivateKey() {
+        List<String> keys = new ArrayList<>();
+        switch (globalAppSettingsProperties.getPwdType()) {
+            case "AES":
+                keys.add(AESUtils.convertAESKeyToString(AESUtils.generateKey()));
+                keys.add("");
+                break;
+            case "RSA":
+                keys.add("");
+                keys.add("");
+                break;
+            default:
+                break;
+        }
+        return keys;
     }
 
     @RequestMapping(value = "/newRegister", method = RequestMethod.GET)
@@ -82,7 +110,7 @@ public class UserController {
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public ApiResponse login(@RequestBody LoginRequest loginRequest) {
 
-        ApiResponse response = null;
+        ApiResponse response = ApiResponse.createDomainSuccess();
 
         try {
             loginRequest.validation();
@@ -92,23 +120,25 @@ public class UserController {
             if (user == null) {
                 ValidationErrors errors = new ValidationErrors();
                 errors.getErrorItems().add(new ValidationError("Passport", null));
-                response = ApiResponse.createDomainFailure("登陆名'" + loginRequest.getPassport() + "'不存在!", errors);
+                response.setDomainFailure("登陆名'" + loginRequest.getPassport() + "'不存在!", errors);
             }
 
-            if (response != null && !response.isValid)
+            if (!response.isValid)
                 return response;
 
-            loginRequest.makePasswordSecurity(user);
+            loginRequest.makePasswordSecurity(user, globalAppSettingsProperties.getPrivateKey(),
+                    globalAppSettingsProperties.getPublicKey(), user.getPwdType());
             loginRequest.setPassword(user.getPassword());
 
-            response = ApiResponse.createDomainSuccess(this.userQueryService.login(loginRequest.getPassport(), loginRequest.getPassword()));
+            response.setJudgeResult(this.userQueryService.login(loginRequest.getPassport(), loginRequest.getPassword()));
+            response.setEntity(user);
             user.setLastLoginTime(new Date());
             user.setLoginTime(user.getLoginTime() + 1);
             this.userService.register(user);
         }
         catch (DomainException de) {
             ValidationErrors errors = de.getValidationErrors();
-            response = ApiResponse.createDomainFailure(de.getMessage(), errors);
+            response.setDomainFailure(de.getMessage(), errors);
         }
 
         return response;

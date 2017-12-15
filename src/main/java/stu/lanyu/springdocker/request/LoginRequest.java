@@ -6,6 +6,7 @@ import stu.lanyu.springdocker.exception.DomainException;
 import stu.lanyu.springdocker.response.ValidationError;
 import stu.lanyu.springdocker.response.ValidationErrors;
 import stu.lanyu.springdocker.security.RSAUtils;
+import stu.lanyu.springdocker.utility.DateUtility;
 import stu.lanyu.springdocker.utility.StringUtility;
 
 public class LoginRequest extends AbstractRequest implements IValidation {
@@ -43,30 +44,15 @@ public class LoginRequest extends AbstractRequest implements IValidation {
     }
 
     @Override
-    public void makePasswordSecurity(User user) {
+    public void makePasswordSecurity(User user, String privateKey, String publicKey, String pwdType) {
 
         try {
-
-            switch (globalAppSettingsProperties.pwdType) {
-
-                case "AES":
-
-                    user.setPassword(encryptedPassword(this.password, user.getPrivateKey(), null));
-                    break;
-
-                case "RSA":
-
-                    user.setPassword(RSAUtils.encrypt(RSAUtils.getPublicKey(user.getPublicKey().getBytes()), this.password.getBytes()).toString());
-                    break;
-
-                default:
-
-                    user.setPassport(this.passport);
-                    break;
-            }
+            user.setPassword(encryptedPassword(this.password, user.getPrivateKey(), user.getPublicKey(), user.getPwdType()));
         }
         catch (Exception ex) {
-            user.setPassport(this.passport);
+            System.out.println("[" + DateUtility.getDateNowFormat(null) + "]" +
+                    "LoginRequest encrypt type '" + user.getPwdType() + "' occur error: " + ex.getMessage());
+            user.setPassword(this.password);
         }
     }
 }

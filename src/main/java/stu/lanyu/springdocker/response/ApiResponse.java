@@ -12,7 +12,7 @@ public class ApiResponse extends AbstractResponse implements Serializable {
 
     public long entityId;
     public ValidationErrors errors;
-    public String additional;
+    public Object entity;
     public boolean judgeResult;
     public boolean isValid;
     public String errorMessage;
@@ -35,7 +35,7 @@ public class ApiResponse extends AbstractResponse implements Serializable {
         return response;
     }
 
-    public  static ApiResponse createDomainFailure(String errorMessage, ValidationErrors errors) {
+    public static ApiResponse createDomainFailure(String errorMessage, ValidationErrors errors) {
         ApiResponse response = createDomainFailure(errors);
         response.errorMessage = errorMessage;
         return  response;
@@ -45,12 +45,30 @@ public class ApiResponse extends AbstractResponse implements Serializable {
         ApiResponse response = new ApiResponse();
         response.isValid = false;
         if (errors != null && errors.getErrorItems().size() > 0) {
-            response.errors = new ValidationErrors();
             for (ValidationError error : errors.getErrorItems()) {
                 response.errors.AddError(error.getPropertyName(), error.getAttemptedValue());
             }
         }
         return response;
+    }
+
+    public void setDomainFailure(String errorMessage, ValidationErrors errors) {
+        this.isValid = false;
+        this.errorMessage = errorMessage;
+        if (errors != null && errors.getErrorItems().size() > 0) {
+            for (ValidationError error : errors.getErrorItems()) {
+                this.errors.AddError(error.getPropertyName(), error.getAttemptedValue());
+            }
+        }
+    }
+
+    public void setDomainFailure(ValidationErrors errors) {
+        this.isValid = false;
+        if (errors != null && errors.getErrorItems().size() > 0) {
+            for (ValidationError error : errors.getErrorItems()) {
+                this.errors.AddError(error.getPropertyName(), error.getAttemptedValue());
+            }
+        }
     }
 
     public long getEntityId() {
@@ -67,14 +85,6 @@ public class ApiResponse extends AbstractResponse implements Serializable {
 
     public void setErrors(ValidationErrors errors) {
         this.errors = errors;
-    }
-
-    public String getAdditional() {
-        return additional;
-    }
-
-    public void setAdditional(String additional) {
-        this.additional = additional;
     }
 
     public boolean isJudgeResult() {
@@ -99,5 +109,13 @@ public class ApiResponse extends AbstractResponse implements Serializable {
 
     public void setErrorMessage(String errorMessage) {
         this.errorMessage = errorMessage;
+    }
+
+    public Object getEntity() {
+        return entity;
+    }
+
+    public void setEntity(Object entity) {
+        this.entity = entity;
     }
 }

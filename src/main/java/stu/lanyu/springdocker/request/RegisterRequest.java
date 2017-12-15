@@ -9,6 +9,7 @@ import stu.lanyu.springdocker.response.ValidationError;
 import stu.lanyu.springdocker.response.ValidationErrors;
 import stu.lanyu.springdocker.security.AESUtils;
 import stu.lanyu.springdocker.security.RSAUtils;
+import stu.lanyu.springdocker.utility.DateUtility;
 import stu.lanyu.springdocker.utility.StringUtility;
 
 import javax.crypto.SecretKey;
@@ -22,47 +23,49 @@ public class RegisterRequest extends AbstractRequest implements IMapRequest<User
     private String password;
     private String nickName;
 
-    public void makePasswordSecurity(User user) {
+    public void makePasswordSecurity(User user, String privateKey, String publicKey, String pwdType) {
 
         try {
 
-            switch (globalAppSettingsProperties.pwdType) {
+            switch (pwdType) {
 
                 case "AES":
 
                     SecretKey secretKey = AESUtils.generateKey();
                     user.setPrivateKey(AESUtils.convertAESKeyToString(secretKey));
-                    user.setPassword(encryptedPassword(this.password, user.getPrivateKey(), null));
+                    user.setPassword(encryptedPassword(this.password, user.getPrivateKey(), null, pwdType));
 
                     if (user.getPassword() == this.password) {
                         user.setPwdType(GlobalConfig.WebConfig.PASSWORD_NOSECURITY);
                     } else {
-                        user.setPwdType(globalAppSettingsProperties.pwdType);
+                        user.setPwdType(pwdType);
                     }
                     break;
 
                 case "RSA":
 
-                    user.setPassword(RSAUtils.encrypt(RSAUtils.getPublicKey(globalAppSettingsProperties.publicKey.getBytes()), this.password.getBytes()).toString());
-                    user.setPrivateKey(globalAppSettingsProperties.privateKey);
-                    user.setPublicKey(globalAppSettingsProperties.publicKey);
+                    user.setPassword(encryptedPassword(this.password, privateKey, publicKey, pwdType));
+                    user.setPrivateKey(privateKey);
+                    user.setPublicKey(publicKey);
 
                     if (user.getPassword() == this.password) {
                         user.setPwdType(GlobalConfig.WebConfig.PASSWORD_NOSECURITY);
                     } else {
-                        user.setPwdType(globalAppSettingsProperties.pwdType);
+                        user.setPwdType(pwdType);
                     }
                     break;
 
                 default:
 
-                    user.setPassport(this.passport);
+                    user.setPassword(this.password);
                     user.setPwdType(GlobalConfig.WebConfig.PASSWORD_NOSECURITY);
                     break;
             }
         }
         catch (Exception ex) {
-            user.setPassport(this.passport);
+            System.out.println("[" + DateUtility.getDateNowFormat(null) + "]" +
+                    "RegisterRequest encrypt type '" + pwdType + "' occur error: " + ex.getMessage());
+            user.setPassword(this.password);
             user.setPwdType(GlobalConfig.WebConfig.PASSWORD_NOSECURITY);
         }
     }
@@ -76,7 +79,6 @@ public class RegisterRequest extends AbstractRequest implements IMapRequest<User
         user.setRegisterTime(new Date());
         user.setPassport(this.passport);
         user.setAuditToUse(false);
-        makePasswordSecurity(user);
         return user;
     }
 

@@ -1,7 +1,5 @@
 package stu.lanyu.springdocker.request;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import stu.lanyu.springdocker.config.GlobalAppSettingsProperties;
 import stu.lanyu.springdocker.domain.User;
 import stu.lanyu.springdocker.security.AESUtils;
 import stu.lanyu.springdocker.security.RSAUtils;
@@ -10,27 +8,24 @@ import javax.crypto.SecretKey;
 
 public abstract class AbstractRequest {
 
-    @Autowired(required = true)
-    protected GlobalAppSettingsProperties globalAppSettingsProperties;
+    public abstract void makePasswordSecurity(User user, String privateKey, String publicKey, String pwdType);
 
-    public abstract void makePasswordSecurity(User user);
-
-    protected String encryptedPassword(String password, String privateKey, String publicKey) {
+    protected String encryptedPassword(String password, String privateKey, String publicKey, String pwdType) {
 
         String encrypedPassword = null;
 
         try {
-            switch (globalAppSettingsProperties.pwdType) {
+            switch (pwdType) {
 
                 case "AES":
 
                     SecretKey secretKey = AESUtils.convertAESKeyFromString(privateKey);
-                    encrypedPassword = AESUtils.encrypt(secretKey, password.getBytes()).toString();
+                    encrypedPassword = new String(AESUtils.encrypt(secretKey, password.getBytes()));
                     break;
 
                 case "RSA":
 
-                    encrypedPassword = RSAUtils.encrypt(RSAUtils.getPublicKey(publicKey.getBytes()), password.getBytes()).toString();
+                    encrypedPassword = new String(RSAUtils.encrypt(RSAUtils.getPublicKey(publicKey.getBytes()), password.getBytes()));
                     break;
 
                 default:
