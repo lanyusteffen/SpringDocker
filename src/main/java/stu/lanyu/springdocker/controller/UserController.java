@@ -48,7 +48,7 @@ public class UserController {
                 response = ApiResponse.createDomainFailure("登录名'" + user.getPassport() + "'已注册", errors);
             }
 
-            if (!response.isValid)
+            if (response != null && !response.isValid)
                 return response;
 
             this.userService.register(user);
@@ -94,7 +94,7 @@ public class UserController {
                 response = ApiResponse.createDomainFailure("登陆名'" + loginRequest.getPassport() + "'不存在!", errors);
             }
 
-            if (!response.isValid)
+            if (response != null && !response.isValid)
                 return response;
 
             loginRequest.makePasswordSecurity(user);
