@@ -15,6 +15,7 @@ import stu.lanyu.springdocker.response.ValidationError;
 import stu.lanyu.springdocker.response.ValidationErrors;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -101,6 +102,9 @@ public class UserController {
             loginRequest.setPassword(user.getPassword());
 
             response = ApiResponse.createDomainSuccess(this.userQueryService.login(loginRequest.getPassport(), loginRequest.getPassword()));
+            user.setLastLoginTime(new Date());
+            user.setLoginTime(user.getLoginTime() + 1);
+            this.userService.register(user);
         }
         catch (DomainException de) {
             ValidationErrors errors = de.getValidationErrors();

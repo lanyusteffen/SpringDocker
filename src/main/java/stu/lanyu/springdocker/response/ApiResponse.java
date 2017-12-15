@@ -13,7 +13,7 @@ public class ApiResponse extends AbstractResponse implements Serializable {
     public long entityId;
     public ValidationErrors errors;
     public String additional;
-    public boolean judageResult;
+    public boolean judgeResult;
     public boolean isValid;
     public String errorMessage;
 
@@ -31,7 +31,7 @@ public class ApiResponse extends AbstractResponse implements Serializable {
 
     public static ApiResponse createDomainSuccess(boolean judageResult) {
         ApiResponse response = createDomainSuccess();
-        response.judageResult = judageResult;
+        response.judgeResult = judageResult;
         return response;
     }
 
@@ -77,12 +77,12 @@ public class ApiResponse extends AbstractResponse implements Serializable {
         this.additional = additional;
     }
 
-    public boolean isJudageResult() {
-        return judageResult;
+    public boolean isJudgeResult() {
+        return judgeResult;
     }
 
-    public void setJudageResult(boolean judageResult) {
-        this.judageResult = judageResult;
+    public void setJudgeResult(boolean judgeResult) {
+        this.judgeResult = judgeResult;
     }
 
     public boolean isValid() {
