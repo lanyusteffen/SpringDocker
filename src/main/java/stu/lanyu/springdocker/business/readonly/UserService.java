@@ -24,6 +24,6 @@ public class UserService {
         if (user == null)
             return false;
 
-        return true;
+        return user.isAuditToUse();
     }
 }
