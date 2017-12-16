@@ -5,7 +5,6 @@ import stu.lanyu.springdocker.domain.User;
 import stu.lanyu.springdocker.exception.DomainException;
 import stu.lanyu.springdocker.response.ValidationError;
 import stu.lanyu.springdocker.response.ValidationErrors;
-import stu.lanyu.springdocker.security.RSAUtils;
 import stu.lanyu.springdocker.utility.DateUtility;
 import stu.lanyu.springdocker.utility.StringUtility;
 
@@ -43,8 +42,7 @@ public class LoginRequest extends AbstractRequest implements IValidation {
         }
     }
 
-    @Override
-    public void makePasswordSecurity(User user, String privateKey, String publicKey, String pwdType) {
+    public void makePasswordSecurity(User user) {
 
         try {
             user.setPassword(encryptedPassword(this.password, user.getPrivateKey(), user.getPublicKey(), user.getPwdType()));

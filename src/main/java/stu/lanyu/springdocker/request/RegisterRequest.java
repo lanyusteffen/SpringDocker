@@ -7,12 +7,9 @@ import stu.lanyu.springdocker.domain.User;
 import stu.lanyu.springdocker.exception.DomainException;
 import stu.lanyu.springdocker.response.ValidationError;
 import stu.lanyu.springdocker.response.ValidationErrors;
-import stu.lanyu.springdocker.security.AESUtils;
-import stu.lanyu.springdocker.security.RSAUtils;
 import stu.lanyu.springdocker.utility.DateUtility;
 import stu.lanyu.springdocker.utility.StringUtility;
 
-import javax.crypto.SecretKey;
 import java.util.Date;
 
 public class RegisterRequest extends AbstractRequest implements IMapRequest<User>, IValidation {
@@ -31,9 +28,8 @@ public class RegisterRequest extends AbstractRequest implements IMapRequest<User
 
                 case "AES":
 
-                    SecretKey secretKey = AESUtils.generateKey();
-                    user.setPrivateKey(AESUtils.convertAESKeyToString(secretKey));
-                    user.setPassword(encryptedPassword(this.password, user.getPrivateKey(), null, pwdType));
+                    user.setPrivateKey(privateKey);
+                    user.setPassword(encryptedPassword(this.password, privateKey, null, pwdType));
 
                     if (user.getPassword() == this.password) {
                         user.setPwdType(GlobalConfig.WebConfig.PASSWORD_NOSECURITY);
@@ -44,9 +40,9 @@ public class RegisterRequest extends AbstractRequest implements IMapRequest<User
 
                 case "RSA":
 
-                    user.setPassword(encryptedPassword(this.password, privateKey, publicKey, pwdType));
                     user.setPrivateKey(privateKey);
                     user.setPublicKey(publicKey);
+                    user.setPassword(encryptedPassword(this.password, privateKey, publicKey, pwdType));
 
                     if (user.getPassword() == this.password) {
                         user.setPwdType(GlobalConfig.WebConfig.PASSWORD_NOSECURITY);

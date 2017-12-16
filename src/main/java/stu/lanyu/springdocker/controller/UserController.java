@@ -50,7 +50,8 @@ public class UserController {
             registerRequest.validation();
 
             User user = registerRequest.mapToDomain();
-            registerRequest.makePasswordSecurity(user, null, null, globalAppSettingsProperties.getPwdType());
+            registerRequest.makePasswordSecurity(user, globalAppSettingsProperties.getPrivateKey(),
+                    globalAppSettingsProperties.getPublicKey(), globalAppSettingsProperties.getPwdType());
 
             if (this.userQueryService.findUserByPassport(user.getPassport()) != null) {
                 ValidationErrors errors = new ValidationErrors();

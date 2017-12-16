@@ -1,14 +1,12 @@
 package stu.lanyu.springdocker.request;
 
-import stu.lanyu.springdocker.domain.User;
 import stu.lanyu.springdocker.security.AESUtils;
 import stu.lanyu.springdocker.security.RSAUtils;
 
 import javax.crypto.SecretKey;
+import java.util.Base64;
 
 public abstract class AbstractRequest {
-
-    public abstract void makePasswordSecurity(User user, String privateKey, String publicKey, String pwdType);
 
     protected String encryptedPassword(String password, String privateKey, String publicKey, String pwdType) {
 
@@ -20,12 +18,13 @@ public abstract class AbstractRequest {
                 case "AES":
 
                     SecretKey secretKey = AESUtils.convertAESKeyFromString(privateKey);
-                    encrypedPassword = new String(AESUtils.encrypt(secretKey, password.getBytes()));
+                    encrypedPassword = Base64.getEncoder().encodeToString(AESUtils.encrypt(secretKey, password.getBytes()));
                     break;
 
                 case "RSA":
 
-                    encrypedPassword = new String(RSAUtils.encrypt(RSAUtils.getPublicKey(publicKey.getBytes()), password.getBytes()));
+                    encrypedPassword = Base64.getEncoder().encodeToString(RSAUtils.encrypt(RSAUtils.getPublicKey(publicKey.getBytes()),
+                            password.getBytes()));
                     break;
 
                 default:
