@@ -127,8 +127,7 @@ public class UserController {
             if (!response.isValid)
                 return response;
 
-            loginRequest.makePasswordSecurity(user, globalAppSettingsProperties.getPrivateKey(),
-                    globalAppSettingsProperties.getPublicKey(), user.getPwdType());
+            loginRequest.makePasswordSecurity(user);
             loginRequest.setPassword(user.getPassword());
 
             response.setJudgeResult(this.userQueryService.login(loginRequest.getPassport(), loginRequest.getPassword()));
