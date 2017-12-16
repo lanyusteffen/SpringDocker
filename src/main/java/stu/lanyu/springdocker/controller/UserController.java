@@ -66,7 +66,6 @@ public class UserController {
 
             if (user.getId() > 0) {
                 response.setEntityId(user.getId());
-                response.setEntity(user);
             } else {
                 response.setDomainFailure("发生未知异常, 注册失败, 请通知服务提供商", null);
             }
@@ -131,7 +130,7 @@ public class UserController {
             loginRequest.setPassword(user.getPassword());
 
             response.setJudgeResult(this.userQueryService.login(loginRequest.getPassport(), loginRequest.getPassword()));
-            response.setEntity(user);
+
             user.setLastLoginTime(new Date());
             user.setLoginTime(user.getLoginTime() + 1);
             this.userService.register(user);
