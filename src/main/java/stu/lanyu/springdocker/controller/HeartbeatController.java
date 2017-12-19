@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import stu.lanyu.springdocker.annotation.Approve;
 import stu.lanyu.springdocker.business.readwrite.TaskMonitorInfoService;
 import stu.lanyu.springdocker.config.GlobalConfig;
 import stu.lanyu.springdocker.domain.TaskMonitorInfo;
@@ -34,12 +35,14 @@ public class HeartbeatController {
     @Autowired
     private RedisTemplate<String, RegisterTask> redisTaskTemplate;
 
+    @Approve
     @RequestMapping(value = "/getAll", method = RequestMethod.GET)
     public @ResponseBody List<TaskMonitorInfo> getAll(int pageIndex, int pageSize) {
         Page<TaskMonitorInfo> taskMonitorInfoPage = taskMonitorInfoQueryService.getListPaged(pageIndex, pageSize);
         return taskMonitorInfoPage.getContent();
     }
 
+    @Approve
     @RequestMapping(value = "/getAllHeartbeatUrl", method = RequestMethod.GET)
     public @ResponseBody List<String> getAllHeartbeatUrl() {
         return redisTemplate.opsForHash().values(GlobalConfig.Redis.REGISTER_HEARTBEAT_CACHE_KEY).stream()
@@ -47,6 +50,7 @@ public class HeartbeatController {
                 .collect(Collectors.toList());
     }
 
+    @Approve
     @RequestMapping(value = "/getAllRegisterService", method = RequestMethod.GET)
     public @ResponseBody List<RegisterTask> getAllRegisterService() {
         return redisTaskTemplate.opsForHash().values(GlobalConfig.Redis.REGISTER_TASK_CACHE_KEY).stream()

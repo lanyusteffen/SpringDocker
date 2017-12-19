@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
+import stu.lanyu.springdocker.annotation.Approve;
 import stu.lanyu.springdocker.business.readwrite.UserService;
 import stu.lanyu.springdocker.config.GlobalAppSettingsProperties;
 import stu.lanyu.springdocker.config.GlobalConfig;
@@ -25,7 +26,6 @@ import java.util.Set;
 
 @RestController
 @RequestMapping(value = "/user")
-@EnableConfigurationProperties(GlobalAppSettingsProperties.class)
 public class UserController {
 
     @Qualifier(value = "UserServiceReadwrite")
@@ -35,6 +35,7 @@ public class UserController {
     @Autowired(required = true)
     private stu.lanyu.springdocker.business.readonly.UserService userQueryService;
 
+    @Qualifier(value = "GlobalAppSettings")
     @Autowired(required = true)
     private GlobalAppSettingsProperties globalAppSettingsProperties;
 
@@ -81,6 +82,7 @@ public class UserController {
         return response;
     }
 
+    @Approve
     @RequestMapping(value = "/getSecurityKey", method = RequestMethod.GET)
     public @ResponseBody List<String> getPrivateKey() {
         List<String> keys = new ArrayList<>();
@@ -99,6 +101,7 @@ public class UserController {
         return keys;
     }
 
+    @Approve
     @RequestMapping(value = "/newRegister", method = RequestMethod.GET)
     public @ResponseBody List<User> getLastRegisterUser(int lastCount) {
         Set<User> users = redisTemplate.opsForZSet().range(GlobalConfig.Redis.REGISTER_NEWUSER_CACHE_KEY, 0, -1);
@@ -130,6 +133,7 @@ public class UserController {
             loginRequest.setPassword(user.getPassword());
 
             response.setJudgeResult(this.userQueryService.login(loginRequest.getPassport(), loginRequest.getPassword()));
+            response.setEntity(user.getId());
 
             user.setLastLoginTime(new Date());
             user.setLoginTime(user.getLoginTime() + 1);

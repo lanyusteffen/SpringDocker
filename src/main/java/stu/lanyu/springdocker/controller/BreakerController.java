@@ -10,6 +10,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import stu.lanyu.springdocker.annotation.Approve;
 import stu.lanyu.springdocker.config.GlobalConfig;
 import stu.lanyu.springdocker.contract.entity.JobBreaker;
 import stu.lanyu.springdocker.contract.entity.ServiceBreaker;
@@ -94,6 +95,7 @@ public class BreakerController {
         return serviceBreaker;
     }
 
+    @Approve
     @RequestMapping(value ="/doForTask", method = RequestMethod.GET)
     public boolean doForTask(String serviceIdentity, boolean isVeto) {
 
@@ -112,6 +114,7 @@ public class BreakerController {
         return false;
     }
 
+    @Approve
     @RequestMapping(value = "/doForJob", method = RequestMethod.GET)
     public boolean doForJob(String serviceIdentity, String jobName, String jobGroup, boolean isVeto) {
 
