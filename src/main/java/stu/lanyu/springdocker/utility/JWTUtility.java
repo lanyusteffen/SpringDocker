@@ -1,13 +1,10 @@
 package stu.lanyu.springdocker.utility;
 
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.JwtBuilder;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
+import io.jsonwebtoken.*;
+import stu.lanyu.springdocker.RunnerContext;
 import stu.lanyu.springdocker.config.GlobalAppSettingsProperties;
 import stu.lanyu.springdocker.config.GlobalConfig;
+import stu.lanyu.springdocker.response.AuthToken;
 
 import javax.crypto.spec.SecretKeySpec;
 import javax.xml.bind.DatatypeConverter;
@@ -18,7 +15,8 @@ import java.util.Map;
 
 public class JWTUtility {
 
-    public static String createJWT(long userId, String role) {
+    public static String createJWT(String id, long userId, String role,
+                                    long ttlMillis) {
 
         // The JWT signature algorithm we will be using to sign the token
         SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
@@ -31,15 +29,15 @@ public class JWTUtility {
         Key signingKey = new SecretKeySpec(apiKeySecretBytes, signatureAlgorithm.getJcaName());
 
         // Let's set the JWT Claims
-        JwtBuilder builder = Jwts.builder().setId(GlobalConfig.JWTConfig.id)
+        JwtBuilder builder = Jwts.builder().setId(id)
                 .setIssuedAt(now)
-                .setSubject(GlobalConfig.JWTConfig.subject)
-                .setIssuer(GlobalConfig.JWTConfig.issuser)
+                .setSubject(GlobalConfig.JWTConfig.SUBJECT)
+                .setIssuer(GlobalConfig.JWTConfig.IISUSER)
                 .signWith(signatureAlgorithm, signingKey);
 
         // if it has been specified, let's add the expiration
-        if (GlobalConfig.JWTConfig.ttlMillis >= 0) {
-            long expMillis = nowMillis + GlobalConfig.JWTConfig.ttlMillis;
+        if (ttlMillis >= 0) {
+            long expMillis = nowMillis + ttlMillis;
             Date exp = new Date(expMillis);
             builder.setExpiration(exp);
         }
@@ -55,24 +53,46 @@ public class JWTUtility {
         return builder.compact();
     }
 
-    public static Claims parseJWT(String jwt) {
+    public static AuthToken createAuthToken(long userId, String role) {
+
+        AuthToken tokens = new AuthToken();
+
+        tokens.setAccessToken(createJWT(GlobalConfig.JWTConfig.JWTID, userId, role,
+                GlobalConfig.JWTConfig.TTLMILLIS));
+        tokens.setRefreshToken(createJWT(GlobalConfig.JWTConfig.JWTREFRESHID, userId, role,
+                GlobalConfig.JWTConfig.REFRESHTTLMILLIS));
+
+        return tokens;
+    }
+
+    public static Jws<Claims> parseRefreshJWT(String jwt) {
         // This line will throw an exception if it is not a signed JWS (as expected)
-        Claims claims = Jwts.parser()
-                .requireSubject(GlobalConfig.JWTConfig.subject)
-                .requireIssuer(GlobalConfig.JWTConfig.issuser)
+        Jws<Claims> claims = Jwts.parser()
+                .requireId(GlobalConfig.JWTConfig.JWTREFRESHID)
+                .requireSubject(GlobalConfig.JWTConfig.SUBJECT)
+                .requireIssuer(GlobalConfig.JWTConfig.IISUSER)
                 .setSigningKey(DatatypeConverter.parseBase64Binary(getSecret()))
-                .parseClaimsJws(jwt).getBody();
+                .parseClaimsJws(jwt);
 
         return claims;
     }
 
-    @Autowired(required = true)
-    private static ApplicationContext context;
+    public static Jws<Claims> parseJWT(String jwt) {
+        // This line will throw an exception if it is not a signed JWS (as expected)
+        Jws<Claims> claims = Jwts.parser()
+                .requireId(GlobalConfig.JWTConfig.JWTID)
+                .requireSubject(GlobalConfig.JWTConfig.SUBJECT)
+                .requireIssuer(GlobalConfig.JWTConfig.IISUSER)
+                .setSigningKey(DatatypeConverter.parseBase64Binary(getSecret()))
+                .parseClaimsJws(jwt);
+
+        return claims;
+    }
 
     private static String getSecret() {
 
         GlobalAppSettingsProperties globalAppSettingsProperties =
-                context.getBean("GlobalAppSettings", GlobalAppSettingsProperties.class);
+                RunnerContext.getBean("GlobalAppSettings", GlobalAppSettingsProperties.class);
         return globalAppSettingsProperties.getPrivateKey();
     }
 }

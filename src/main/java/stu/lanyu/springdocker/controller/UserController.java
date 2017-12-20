@@ -2,9 +2,9 @@ package stu.lanyu.springdocker.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
+import stu.lanyu.springdocker.RunnerContext;
 import stu.lanyu.springdocker.annotation.Approve;
 import stu.lanyu.springdocker.business.readwrite.UserService;
 import stu.lanyu.springdocker.config.GlobalAppSettingsProperties;
@@ -17,7 +17,7 @@ import stu.lanyu.springdocker.response.ApiResponse;
 import stu.lanyu.springdocker.response.ValidationError;
 import stu.lanyu.springdocker.response.ValidationErrors;
 import stu.lanyu.springdocker.security.AESUtils;
-import stu.lanyu.springdocker.security.RSAUtils;
+import stu.lanyu.springdocker.utility.JWTUtility;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -35,10 +35,6 @@ public class UserController {
     @Autowired(required = true)
     private stu.lanyu.springdocker.business.readonly.UserService userQueryService;
 
-    @Qualifier(value = "GlobalAppSettings")
-    @Autowired(required = true)
-    private GlobalAppSettingsProperties globalAppSettingsProperties;
-
     @Autowired
     private RedisTemplate<String, User> redisTemplate;
 
@@ -51,8 +47,7 @@ public class UserController {
             registerRequest.validation();
 
             User user = registerRequest.mapToDomain();
-            registerRequest.makePasswordSecurity(user, globalAppSettingsProperties.getPrivateKey(),
-                    globalAppSettingsProperties.getPublicKey(), globalAppSettingsProperties.getPwdType());
+            registerRequest.makePasswordSecurity(user);
 
             if (this.userQueryService.findUserByPassport(user.getPassport()) != null) {
                 ValidationErrors errors = new ValidationErrors();
@@ -86,7 +81,9 @@ public class UserController {
     @RequestMapping(value = "/getSecurityKey", method = RequestMethod.GET)
     public @ResponseBody List<String> getPrivateKey() {
         List<String> keys = new ArrayList<>();
-        switch (globalAppSettingsProperties.getPwdType()) {
+        GlobalAppSettingsProperties properties = (GlobalAppSettingsProperties)RunnerContext
+                .getBean("GlobalAppSettingsProperties");
+        switch (properties.getPwdType()) {
             case "AES":
                 keys.add(AESUtils.convertAESKeyToString(AESUtils.generateKey()));
                 keys.add("");
@@ -132,8 +129,10 @@ public class UserController {
             loginRequest.makePasswordSecurity(user);
             loginRequest.setPassword(user.getPassword());
 
-            response.setJudgeResult(this.userQueryService.login(loginRequest.getPassport(), loginRequest.getPassword()));
-            response.setEntity(user.getId());
+            response.setJudgeResult(this.userQueryService
+                    .login(loginRequest.getPassport(), loginRequest.getPassword()));
+            response.setEntity(JWTUtility.createAuthToken(user.getId(),
+                    GlobalConfig.WebConfig.DEFAULT_ROLE));
 
             user.setLastLoginTime(new Date());
             user.setLoginTime(user.getLoginTime() + 1);

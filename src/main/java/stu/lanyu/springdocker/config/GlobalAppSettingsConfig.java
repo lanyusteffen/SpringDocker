@@ -1,7 +1,6 @@
 package stu.lanyu.springdocker.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,8 +12,7 @@ public class GlobalAppSettingsConfig {
     @Autowired(required = true)
     private GlobalAppSettingsProperties globalAppSettingsProperties;
 
-    @Bean
-    @Qualifier("GlobalAppSettings")
+    @Bean("GlobalAppSettings")
     @Scope("singleton")
     GlobalAppSettingsProperties getGlobalAppSettings(){
 

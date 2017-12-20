@@ -11,9 +11,19 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        InterceptorRegistration registration = registry.addInterceptor(new ApproveInterceptor());
+
+        InterceptorRegistration registration = registry
+                .addInterceptor(new RateLimitInterceptor());
+
         registration.addPathPatterns("/**");
         registration.excludePathPatterns("/**.html");
+
+        registration = registry
+                .addInterceptor(new ApproveInterceptor());
+        registration.addPathPatterns("/**");
+        registration.excludePathPatterns("/**.html");
+
+
     }
 
     @Override

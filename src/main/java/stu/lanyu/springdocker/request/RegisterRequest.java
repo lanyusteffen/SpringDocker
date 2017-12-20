@@ -1,5 +1,7 @@
 package stu.lanyu.springdocker.request;
 
+import stu.lanyu.springdocker.RunnerContext;
+import stu.lanyu.springdocker.config.GlobalAppSettingsProperties;
 import stu.lanyu.springdocker.config.GlobalConfig;
 import stu.lanyu.springdocker.contract.IMapRequest;
 import stu.lanyu.springdocker.contract.IValidation;
@@ -20,7 +22,14 @@ public class RegisterRequest extends AbstractRequest implements IMapRequest<User
     private String password;
     private String nickName;
 
-    public void makePasswordSecurity(User user, String privateKey, String publicKey, String pwdType) {
+    public void makePasswordSecurity(User user) {
+
+        GlobalAppSettingsProperties properties = (GlobalAppSettingsProperties)RunnerContext
+                .getBean("GlobalAppSettings");
+
+        String pwdType = properties.getPwdType();
+        String privateKey = properties.getPrivateKey();
+        String publicKey = properties.getPublicKey();
 
         try {
 

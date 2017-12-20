@@ -30,16 +30,19 @@ public class GlobalConfig {
         public static final String PASSWORD_NOSECURITY = "NONE";
         public static final String DEFAULT_ROLE = "DEFAULT";
         public static final String HEADER_AUTHORIZE = "Approve";
+        public static final String HEADER_REFRESHTOKEN = "RefreshToken";
         public static final String CLAIMS_USER_KEY = "UserId";
         public static final String CLAIMS_ROLE_KEY = "Role";
     }
 
     public class JWTConfig {
 
-        public static final String id = "ESFTask Access Token";
-        public static final String subject = "Online JWT Builder";
-        public static final String issuser = "StelyLan";
-        public static final long ttlMillis = 1000 * 60 *60 * 2;
+        public static final String JWTID = "SpringDocker Access Token";
+        public static final String JWTREFRESHID = "SpringDocker Refresh Token";
+        public static final String SUBJECT = "Online JWT Builder";
+        public static final String IISUSER = "StelyLan";
+        public static final long TTLMILLIS = 1000 * 60 *60 * 2;
+        public static final long REFRESHTTLMILLIS = 1000 * 60 * 60 * 12;
     }
 
     public static class WCFHost {
