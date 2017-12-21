@@ -3,7 +3,6 @@ package stu.lanyu.springdocker.config;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.*;
 import stu.lanyu.springdocker.interceptor.ApproveInterceptor;
-import stu.lanyu.springdocker.interceptor.RateLimitInterceptor;
 
 @Configuration
 @EnableWebMvc
@@ -13,17 +12,9 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
     public void addInterceptors(InterceptorRegistry registry) {
 
         InterceptorRegistration registration = registry
-                .addInterceptor(new RateLimitInterceptor());
-
-        registration.addPathPatterns("/**");
-        registration.excludePathPatterns("/**.html");
-
-        registration = registry
                 .addInterceptor(new ApproveInterceptor());
         registration.addPathPatterns("/**");
         registration.excludePathPatterns("/**.html");
-
-
     }
 
     @Override

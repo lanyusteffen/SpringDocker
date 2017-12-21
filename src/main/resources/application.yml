@@ -1,0 +1,12 @@
+hystrix:
+    command:
+        default:
+            circuitBreaker:
+               errorThresholdPercentage: 50 # 50%
+               sleepWindowInMilliseconds: 5000 # 5s
+        customCommandKey:
+            fallback:
+               enabled: false
+            circuitBreaker:
+               errorThresholdPercentage: 75 # 75%
+               sleepWindowInMilliseconds: 15000 # 15s

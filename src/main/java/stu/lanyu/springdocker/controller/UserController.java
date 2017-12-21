@@ -1,5 +1,6 @@
 package stu.lanyu.springdocker.controller;
 
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -38,6 +39,7 @@ public class UserController {
     @Autowired
     private RedisTemplate<String, User> redisTemplate;
 
+    @HystrixCommand(fallbackMethod = "registerBreak")
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public ApiResponse register(@RequestBody RegisterRequest registerRequest) {
 
@@ -107,6 +109,7 @@ public class UserController {
         return userList;
     }
 
+    @HystrixCommand(fallbackMethod = "loginBreak")
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public ApiResponse login(@RequestBody LoginRequest loginRequest) {
 
@@ -144,5 +147,19 @@ public class UserController {
         }
 
         return response;
+    }
+
+    public ApiResponse loginBreak() {
+        ValidationErrors errors = new ValidationErrors();
+        errors.getErrorItems().add(new ValidationError(null, null));
+        ApiResponse breakResponse = ApiResponse.createDomainFailure("登录服务当前不可用", errors);
+        return breakResponse;
+    }
+
+    public ApiResponse registerBreak() {
+        ValidationErrors errors = new ValidationErrors();
+        errors.getErrorItems().add(new ValidationError(null, null));
+        ApiResponse breakResponse = ApiResponse.createDomainFailure("注册服务当前不可用", errors);
+        return breakResponse;
     }
 }

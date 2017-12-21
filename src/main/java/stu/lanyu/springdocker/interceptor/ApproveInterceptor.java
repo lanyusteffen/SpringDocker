@@ -47,11 +47,11 @@ public class ApproveInterceptor extends HandlerInterceptorAdapter {
         if (!StringUtility.isNullOrEmpty(refreshToken)) {
             try {
                 claimsJws = JWTUtility.parseRefreshJWT(refreshToken);
-            } catch (ExpiredJwtException e) { }
-            catch (UnsupportedJwtException e) { }
-            catch (MalformedJwtException e) { }
-            catch (SignatureException e) { }
-            catch (IllegalArgumentException e) { }
+            } catch (ExpiredJwtException e) { e.printStackTrace(); }
+            catch (UnsupportedJwtException e) { e.printStackTrace(); }
+            catch (MalformedJwtException e) { e.printStackTrace(); }
+            catch (SignatureException e) { e.printStackTrace(); }
+            catch (IllegalArgumentException e) { e.printStackTrace(); }
         }
 
         return claimsJws;
