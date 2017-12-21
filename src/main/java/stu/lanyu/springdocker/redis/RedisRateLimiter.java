@@ -2,52 +2,63 @@ package stu.lanyu.springdocker.redis;
 
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.Transaction;
-import redis.clients.jedis.ZParams;
+import stu.lanyu.springdocker.config.GlobalConfig;
 
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class RedisRateLimiter {
-    private static final String BUCKET = "BUCKET_";
-    private static final String BUCKET_COUNT = "BUCKET_COUNT";
-    private static final String BUCKET_MONITOR = "BUCKET_MONITOR_";
 
-    public static String acquireTokenFromBucket(
-            Jedis jedis, String point, int limit, long timeout) {
-        String identifier = UUID.randomUUID().toString();
+    /**
+     * 分布式令牌桶算法实现限流
+     * @param jedis Redis访问实例
+     * @param method 限流方法名
+     * @param qps 单位时间间隔内允许放入的令牌数量
+     * @param interval 单位时间间隔, 单位:毫秒
+     * @param minTimeSinceLastRequest 最小令盘获取时间差, 单位:毫秒
+     * @return
+     */
+    public static boolean acquireToken(Jedis jedis, String method, int qps, int interval, int minTimeSinceLastRequest) {
         long now = System.currentTimeMillis();
+
         Transaction transaction = jedis.multi();
 
-        // 删除信号量
-        transaction.zremrangeByScore((BUCKET_MONITOR + point).getBytes(), "-inf".getBytes(), String.valueOf(now - timeout).getBytes());
-        ZParams params = new ZParams();
-        params.weightsByDouble(1.0, 0.0);
-        transaction.zinterstore(BUCKET + point, params, BUCKET + point, BUCKET_MONITOR + point);
+        String clearBefore = String.valueOf(now - interval);
 
-        // 计数器自增
-        transaction.incr(BUCKET_COUNT);
+        String id = GlobalConfig.RateLimiter.TOKEN_BUCKET_IDENTITIEFER + method;
+
+        // 移除已超时的令牌
+        transaction.zremrangeByScore(id, "0", clearBefore);
+
+        transaction.zrange(id, 0, -1);
+        transaction.zadd(id, now, UUID.randomUUID().toString());
+
+        // 设置令牌超时过期时间 双保险
+        transaction.expire(id, (int)interval / 1000);
+
         List<Object> results = transaction.exec();
-        long counter = (Long) results.get(results.size() - 1);
 
-        transaction = jedis.multi();
-        transaction.zadd(BUCKET_MONITOR + point, now, identifier);
-        transaction.zadd(BUCKET + point, counter, identifier);
-        transaction.zrank(BUCKET + point, identifier);
-        results = transaction.exec();
+        List<Long> timestamps = IntStream.range(0, results.size())
+                        .filter(i -> i % 2 == 0)
+                        .mapToObj(results::get)
+                        .map(x -> Long.valueOf(x.toString()))
+                        .collect(Collectors.toList());
 
-        // 获取排名，判断请求是否取得了信号量
-        long rank = (Long) results.get(results.size() - 1);
+        // qps超标
+        boolean tooManyInInterval = (timestamps.size() > qps);
 
-        if (rank < limit) {
-            return identifier;
-        } else {
-            // 没有获取到信号量，清理之前放入redis 中垃圾数据
-            transaction = jedis.multi();
-            transaction.zrem(BUCKET_MONITOR + point, identifier);
-            transaction.zrem(BUCKET + point, identifier);
-            transaction.exec();
-        }
+        if (tooManyInInterval)
+            return false;
 
-        return null;
+        long timeSinceLastRequest = now - timestamps.get(timestamps.size() - 1);
+
+        boolean tooBusyInInterval = (timeSinceLastRequest <= minTimeSinceLastRequest);
+
+        if (tooBusyInInterval)
+            return false;
+
+        return true;
     }
 }

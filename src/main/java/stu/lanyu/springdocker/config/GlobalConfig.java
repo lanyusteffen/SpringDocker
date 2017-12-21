@@ -45,6 +45,11 @@ public class GlobalConfig {
         public static final long REFRESHTTLMILLIS = 1000 * 60 * 60 * 2;
     }
 
+    public static class RateLimiter {
+
+        public static final String TOKEN_BUCKET_IDENTITIEFER = "TOKEN_BUCKET_";
+    }
+
     public static class WCFHost {
 
         public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
