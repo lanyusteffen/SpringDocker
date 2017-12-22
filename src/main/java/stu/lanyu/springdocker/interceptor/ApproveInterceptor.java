@@ -27,16 +27,16 @@ public class ApproveInterceptor extends HandlerInterceptorAdapter {
         }
     }
 
-    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
-                           ModelAndView modelAndView) throws Exception {
-        if (response.getStatus() == 500) {
-            modelAndView.setViewName("/error/500");
-        } else if (response.getStatus() == 404) {
-            modelAndView.setViewName("/error/404");
-        } else {
-            super.postHandle(request, response, handler, modelAndView);
-        }
-    }
+//    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
+//                           ModelAndView modelAndView) throws Exception {
+//        if (response.getStatus() == 500) {
+//            modelAndView.setViewName("/error/500");
+//        } else if (response.getStatus() == 404) {
+//            modelAndView.setViewName("/error/404");
+//        } else {
+//            super.postHandle(request, response, handler, modelAndView);
+//        }
+//    }
 
     private Jws<Claims> judgeRefreshToken(HttpServletRequest request, HttpServletResponse
                                       response, Object handler) {

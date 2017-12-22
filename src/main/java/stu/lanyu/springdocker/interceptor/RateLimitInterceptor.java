@@ -7,7 +7,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 import redis.clients.jedis.Jedis;
-import stu.lanyu.springdocker.annotation.Approve;
 import stu.lanyu.springdocker.annotation.RateLimiter;
 import stu.lanyu.springdocker.redis.RedisRateLimiter;
 

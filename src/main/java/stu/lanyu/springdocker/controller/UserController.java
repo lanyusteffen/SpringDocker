@@ -39,7 +39,7 @@ public class UserController {
     @Autowired
     private RedisTemplate<String, User> redisTemplate;
 
-    @HystrixCommand(fallbackMethod = "registerBreak")
+//    @HystrixCommand(fallbackMethod = "registerBreak")
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public ApiResponse register(@RequestBody RegisterRequest registerRequest) {
 
@@ -109,7 +109,7 @@ public class UserController {
         return userList;
     }
 
-    @HystrixCommand(fallbackMethod = "loginBreak")
+//    @HystrixCommand(fallbackMethod = "loginBreak")
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public ApiResponse login(@RequestBody LoginRequest loginRequest) {
 
