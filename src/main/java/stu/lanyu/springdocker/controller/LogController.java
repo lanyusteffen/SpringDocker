@@ -3,12 +3,12 @@ package stu.lanyu.springdocker.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 import stu.lanyu.springdocker.annotation.Approve;
-import stu.lanyu.springdocker.business.readwrite.LogCollectService;
 import stu.lanyu.springdocker.domain.LogCollect;
-
-import java.util.List;
 
 @RestController
 @RequestMapping(value = "/log")

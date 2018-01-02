@@ -40,7 +40,7 @@ public class TaskMonitorInfo extends AbstractEntity implements Serializable {
         this.taskVeto = taskVeto;
     }
 
-    public String isHeartbeatUrl() {
+    public String getHeartbeatUrl() {
         return heartbeatUrl;
     }
 
