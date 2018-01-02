@@ -37,9 +37,16 @@ public class HeartbeatController {
 
     @Approve
     @RequestMapping(value = "/getAll", method = RequestMethod.GET)
-    public @ResponseBody List<TaskMonitorInfo> getAll(int pageIndex, int pageSize) {
+    public @ResponseBody Page<TaskMonitorInfo> getAll(int pageIndex, int pageSize) {
         Page<TaskMonitorInfo> taskMonitorInfoPage = taskMonitorInfoQueryService.getListPaged(pageIndex, pageSize);
-        return taskMonitorInfoPage.getContent();
+        return taskMonitorInfoPage;
+    }
+
+    @Approve
+    @RequestMapping(value = "/getDetail", method = RequestMethod.GET)
+    public @ResponseBody TaskMonitorInfo getDetail(long id) {
+        TaskMonitorInfo taskMonitorInfo = taskMonitorInfoQueryService.getDetail(id);
+        return taskMonitorInfo;
     }
 
     @Approve

@@ -3,10 +3,7 @@ package stu.lanyu.springdocker.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import stu.lanyu.springdocker.annotation.Approve;
 import stu.lanyu.springdocker.business.readwrite.LogCollectService;
 import stu.lanyu.springdocker.domain.LogCollect;
@@ -23,15 +20,22 @@ public class LogController {
 
     @Approve
     @RequestMapping(value = "/getAll", method = RequestMethod.GET)
-    public @ResponseBody List<LogCollect> getAll(int pageIndex, int pageSize) {
+    public @ResponseBody Page<LogCollect> getAll(int pageIndex, int pageSize) {
         Page<LogCollect> logCollectPage = logCollectQueryService.getListPaged(pageIndex, pageSize);
-        return logCollectPage.getContent();
+        return logCollectPage;
+    }
+
+    @Approve
+    @RequestMapping(value = "/getDetail", method = RequestMethod.GET)
+    public @ResponseBody LogCollect getDetail(long id) {
+        LogCollect logCollect = logCollectQueryService.getDetail(id);
+        return  logCollect;
     }
 
     @Approve
     @RequestMapping(value = "/getAllEachService", method = RequestMethod.GET)
-    public @ResponseBody List<LogCollect> getAllEachService(int pageIndex, int pageSize, String serviceIdentity) {
+    public @ResponseBody Page<LogCollect> getAllEachService(int pageIndex, int pageSize, String serviceIdentity) {
         Page<LogCollect> logCollectPage = logCollectQueryService.getListPagedByServiceIdentity(serviceIdentity, pageIndex, pageSize);
-        return logCollectPage.getContent();
+        return logCollectPage;
     }
 }

@@ -23,6 +23,10 @@ public class LogCollectService {
         return logCollectRepository.findAll(pageable);
     }
 
+    public LogCollect getDetail(long id) {
+        return logCollectRepository.getOne(id);
+    }
+
     public Page<LogCollect> getListPagedByServiceIdentity(String serviceIdentity, int pageIndex, int pageSize) {
         Pageable pageable = new PageRequest(pageIndex, pageSize, Sort.Direction.ASC, "logTime");
         return logCollectRepository.findAllByServiceIdentity(serviceIdentity, pageable);

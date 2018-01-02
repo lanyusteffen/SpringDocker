@@ -22,6 +22,10 @@ public class TaskMonitorInfoService {
         return taskMonitorInfoRepository.findAll(pageable);
     }
 
+    public TaskMonitorInfo getDetail(long id) {
+        return taskMonitorInfoRepository.getOne(id);
+    }
+
     public TaskMonitorInfo getListPagedByServiceIdentity(String serviceIdentity) {
         return taskMonitorInfoRepository.findOneByServiceIdentity(serviceIdentity);
     }

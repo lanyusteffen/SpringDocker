@@ -23,22 +23,29 @@ public class TaskWarningController {
 
     @Approve
     @RequestMapping(value = "/getAll", method = RequestMethod.GET)
-    public @ResponseBody List<TaskWarning> getAll(int pageIndex, int pageSize) {
+    public @ResponseBody Page<TaskWarning> getAll(int pageIndex, int pageSize) {
         Page<TaskWarning> taskWarningPage = taskWarningQueryService.getListPaged(pageIndex, pageSize);
-        return taskWarningPage.getContent();
+        return taskWarningPage;
+    }
+
+    @Approve
+    @RequestMapping(value = "/getDetail", method = RequestMethod.GET)
+    public @ResponseBody TaskWarning getDetail(long id) {
+        TaskWarning taskWarning = taskWarningQueryService.getDetail(id);
+        return taskWarning;
     }
 
     @Approve
     @RequestMapping(value = "/getAllEachService", method = RequestMethod.GET)
-    public @ResponseBody List<TaskWarning> getAllEachService(int pageIndex, int pageSize, String serviceIdentity) {
+    public @ResponseBody Page<TaskWarning> getAllEachService(int pageIndex, int pageSize, String serviceIdentity) {
         Page<TaskWarning> taskWarningPage = taskWarningQueryService.getListPagedByServiceIdentity(serviceIdentity, pageIndex, pageSize);
-        return taskWarningPage.getContent();
+        return taskWarningPage;
     }
 
     @Approve
     @RequestMapping(value = "/getAllByJob", method = RequestMethod.GET)
-    public @ResponseBody List<TaskWarning> getAllByJob(int pageIndex, int pageSize, String jobName, String jobGroup) {
+    public @ResponseBody Page<TaskWarning> getAllByJob(int pageIndex, int pageSize, String jobName, String jobGroup) {
         Page<TaskWarning> taskWarningPage = taskWarningQueryService.getListPagedByJob(jobName, jobGroup, pageIndex, pageSize);
-        return taskWarningPage.getContent();
+        return taskWarningPage;
     }
 }

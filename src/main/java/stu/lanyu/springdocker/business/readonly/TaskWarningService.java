@@ -24,6 +24,10 @@ public class TaskWarningService {
         return taskWarningRepository.findAll(pageable);
     }
 
+    public TaskWarning getDetail(long id) {
+        return taskWarningRepository.getOne(id);
+    }
+
     public Page<TaskWarning> getListPagedByServiceIdentity(String serviceIdentity, int pageIndex, int pageSize) {
         Pageable pageable = new PageRequest(pageIndex, pageSize, Sort.Direction.ASC, "id");
         return taskWarningRepository.findOneByServiceIdentity(serviceIdentity, pageable);
