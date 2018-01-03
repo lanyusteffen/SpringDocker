@@ -76,7 +76,8 @@ public class BreakerController {
             Gson gson = new Gson();
 
             RequestBody body = RequestBody.create(GlobalConfig.WCFHost.JSON, gson.toJson(serviceBreaker));
-
+            System.out.println(task.getBreakerUrl());
+            System.out.println(gson.toJson(serviceBreaker));
             Request req = new Request.Builder()
                     .url(task.getBreakerUrl())
                     .post(body)
@@ -85,6 +86,7 @@ public class BreakerController {
             Response resp = httpClient.newCall(req).execute();
 
             String respJson = resp.body().string();
+            System.out.println(respJson);
             serviceBreaker = gson.fromJson(respJson, ServiceBreaker.class);
         } catch (ConnectException e) {
             e.printStackTrace();
