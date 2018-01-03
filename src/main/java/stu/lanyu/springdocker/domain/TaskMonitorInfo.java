@@ -1,11 +1,14 @@
 package stu.lanyu.springdocker.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
 @Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Table(name = "task_monitor_info", uniqueConstraints={
         @UniqueConstraint(columnNames = {"id", "service_identity"})})
 public class TaskMonitorInfo extends AbstractEntity implements Serializable {

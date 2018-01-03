@@ -1,5 +1,7 @@
 package stu.lanyu.springdocker.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -7,6 +9,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 @Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Table(name = "user_account")
 public class User extends AbstractEntity implements Serializable {
 

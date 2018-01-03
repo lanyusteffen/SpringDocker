@@ -20,7 +20,7 @@ public class TaskWarningService {
     private TaskWarningRepository taskWarningRepository;
 
     public Page<TaskWarning> getListPaged(int pageIndex, int pageSize) {
-        Pageable pageable = new PageRequest(pageIndex, pageSize, Sort.Direction.ASC, "id");
+        Pageable pageable = new PageRequest(pageIndex, pageSize, Sort.Direction.DESC, "id");
         return taskWarningRepository.findAll(pageable);
     }
 
@@ -29,12 +29,12 @@ public class TaskWarningService {
     }
 
     public Page<TaskWarning> getListPagedByServiceIdentity(String serviceIdentity, int pageIndex, int pageSize) {
-        Pageable pageable = new PageRequest(pageIndex, pageSize, Sort.Direction.ASC, "id");
+        Pageable pageable = new PageRequest(pageIndex, pageSize, Sort.Direction.DESC, "id");
         return taskWarningRepository.findOneByServiceIdentity(serviceIdentity, pageable);
     }
 
     public Page<TaskWarning> getListPagedByJob(String jobName, String jobGroup, int pageIndex, int pageSize) {
-        Pageable pageable = new PageRequest(pageIndex, pageSize, Sort.Direction.ASC, "Id");
+        Pageable pageable = new PageRequest(pageIndex, pageSize, Sort.Direction.DESC, "Id");
         return taskWarningRepository.findAllByJobNameAndJobGroup(jobName, jobGroup, pageable);
     }
 }

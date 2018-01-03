@@ -19,7 +19,7 @@ public class LogCollectService {
     private LogCollectRepository logCollectRepository;
 
     public Page<LogCollect> getListPaged(int pageIndex, int pageSize) {
-        Pageable pageable = new PageRequest(pageIndex, pageSize, Sort.Direction.ASC, "logTime");
+        Pageable pageable = new PageRequest(pageIndex, pageSize, Sort.Direction.DESC, "logTime");
         return logCollectRepository.findAll(pageable);
     }
 
@@ -28,7 +28,7 @@ public class LogCollectService {
     }
 
     public Page<LogCollect> getListPagedByServiceIdentity(String serviceIdentity, int pageIndex, int pageSize) {
-        Pageable pageable = new PageRequest(pageIndex, pageSize, Sort.Direction.ASC, "logTime");
+        Pageable pageable = new PageRequest(pageIndex, pageSize, Sort.Direction.DESC, "logTime");
         return logCollectRepository.findAllByServiceIdentity(serviceIdentity, pageable);
     }
 }

@@ -1,11 +1,14 @@
 package stu.lanyu.springdocker.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.Date;
 
 @Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Table(name = "task_warning")
 public class TaskWarning extends AbstractEntity implements Serializable {
 
