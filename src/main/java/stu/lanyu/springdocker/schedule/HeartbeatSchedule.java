@@ -122,7 +122,7 @@ public class HeartbeatSchedule {
             try {
                 HeartbeatInfo result = doCheckHeartbeat(url, httpClient, gson);
 
-                TaskMonitorInfo taskMonitorInfo = taskMonitorInfoQueryService.getListPagedByServiceIdentity(serviceIdentity);
+                TaskMonitorInfo taskMonitorInfo = taskMonitorInfoQueryService.getTaskMonitorInfoByServiceIdentity(serviceIdentity);
 
                 if (taskMonitorInfo == null) {
 

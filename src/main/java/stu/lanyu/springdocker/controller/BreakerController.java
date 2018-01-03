@@ -6,15 +6,19 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import stu.lanyu.springdocker.annotation.Approve;
+import stu.lanyu.springdocker.business.readonly.TaskMonitorInfoService;
 import stu.lanyu.springdocker.config.GlobalConfig;
 import stu.lanyu.springdocker.contract.entity.JobBreaker;
 import stu.lanyu.springdocker.contract.entity.ServiceBreaker;
+import stu.lanyu.springdocker.domain.TaskMonitorInfo;
 import stu.lanyu.springdocker.redis.entity.RegisterTask;
+import stu.lanyu.springdocker.utility.StringUtility;
 
 import java.io.IOException;
 import java.net.ConnectException;
@@ -23,6 +27,14 @@ import java.util.Map;
 @RestController
 @RequestMapping(value = "/breaker")
 public class BreakerController {
+
+    @Qualifier(value = "TaskMonitorInfoServiceReadwrite")
+    @Autowired(required = true)
+    private stu.lanyu.springdocker.business.readwrite.TaskMonitorInfoService taskMonitorInfoService;
+
+    @Qualifier(value = "TaskMonitorInfoServiceReadonly")
+    @Autowired(required = true)
+    private TaskMonitorInfoService taskMonitorInfoQueryService;
 
     private OkHttpClient httpClient = null;
 
@@ -76,8 +88,7 @@ public class BreakerController {
             Gson gson = new Gson();
 
             RequestBody body = RequestBody.create(GlobalConfig.WCFHost.JSON, gson.toJson(serviceBreaker));
-            System.out.println(task.getBreakerUrl());
-            System.out.println(gson.toJson(serviceBreaker));
+
             Request req = new Request.Builder()
                     .url(task.getBreakerUrl())
                     .post(body)
@@ -86,7 +97,6 @@ public class BreakerController {
             Response resp = httpClient.newCall(req).execute();
 
             String respJson = resp.body().string();
-            System.out.println(respJson);
             serviceBreaker = gson.fromJson(respJson, ServiceBreaker.class);
         } catch (ConnectException e) {
             e.printStackTrace();
@@ -95,6 +105,13 @@ public class BreakerController {
         }
 
         return serviceBreaker;
+    }
+
+    private void saveTaskMonitorBreakerResult(String serviceIdentity, boolean isVeto) {
+
+        TaskMonitorInfo taskMonitorInfo = taskMonitorInfoQueryService.getTaskMonitorInfoByServiceIdentity(serviceIdentity);
+        taskMonitorInfo.setTaskVeto(isVeto);
+        taskMonitorInfoService.save(taskMonitorInfo);
     }
 
     @Approve
@@ -110,10 +127,39 @@ public class BreakerController {
 
         if (task != null) {
            ServiceBreaker serviceBreaker = doBreakerService(task, true, isVeto, null, null);
-           return serviceBreaker.isBreakerResult();
+
+           boolean result = serviceBreaker.isBreakerResult();
+
+           if (result) {
+               saveTaskMonitorBreakerResult(serviceIdentity, isVeto);
+           }
+
+           return result;
         }
 
         return false;
+    }
+
+    private void setJobMonitorBreakerResult(String serviceIdentity, String jobName, String jobGroup, boolean isVeto) {
+
+        TaskMonitorInfo taskMonitorInfo = taskMonitorInfoQueryService.getTaskMonitorInfoByServiceIdentity(serviceIdentity);
+        taskMonitorInfo.setTaskVeto(isVeto);
+        taskMonitorInfoService.save(taskMonitorInfo);
+
+        taskMonitorInfo.getJobs().forEach(r -> {
+
+            String eachJobName = (StringUtility.isNullOrEmpty(r.getJobName())
+                    ? "" : r.getJobName());
+            String eachJobGroup = (StringUtility.isNullOrEmpty(r.getJobGroup())
+                    ? "" : r.getJobGroup());
+
+            if (eachJobName.equals(jobName) && eachJobGroup.equals(jobGroup)) {
+
+                r.setJobVeto(isVeto);
+                taskMonitorInfoService.save(taskMonitorInfo);
+                // TODO break逻辑
+            }
+        });
     }
 
     @Approve
@@ -132,7 +178,13 @@ public class BreakerController {
         if (task != null) {
 
             ServiceBreaker serviceBreaker = doBreakerService(task, false, isVeto, jobName, jobGroup);
-            return serviceBreaker.isBreakerResult();
+            boolean result = serviceBreaker.isBreakerResult();
+
+            if (result) {
+                setJobMonitorBreakerResult(serviceIdentity, jobName, jobGroup, isVeto);
+            }
+
+            return result;
         }
 
         return false;

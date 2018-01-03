@@ -26,7 +26,7 @@ public class TaskMonitorInfoService {
         return taskMonitorInfoRepository.getOne(id);
     }
 
-    public TaskMonitorInfo getListPagedByServiceIdentity(String serviceIdentity) {
+    public TaskMonitorInfo getTaskMonitorInfoByServiceIdentity(String serviceIdentity) {
         return taskMonitorInfoRepository.findOneByServiceIdentity(serviceIdentity);
     }
 }
