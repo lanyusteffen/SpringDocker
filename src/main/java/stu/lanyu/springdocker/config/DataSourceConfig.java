@@ -1,6 +1,6 @@
 package stu.lanyu.springdocker.config;
 
-import org.springframework.boot.autoconfigure.jdbc.DataSourceBuilder;
+import com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceBuilder;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,15 +12,15 @@ import javax.sql.DataSource;
 public class DataSourceConfig {
 
     @Bean(name = "readWriteDataSource")
-    @ConfigurationProperties(prefix = "spring.datasource.readwrite")
+    @ConfigurationProperties(prefix = "spring.datasource.druid.readwrite")
     @Primary
     public DataSource readWriteDataSource(){
-        return DataSourceBuilder.create().build();
+        return DruidDataSourceBuilder.create().build();
     }
 
     @Bean(name = "readOnlyDataSource")
-    @ConfigurationProperties(prefix = "spring.datasource.readonly")
+    @ConfigurationProperties(prefix = "spring.datasource.druid.readonly")
     public DataSource readOnlyDataSource(){
-        return DataSourceBuilder.create().build();
+        return DruidDataSourceBuilder.create().build();
     }
 }
