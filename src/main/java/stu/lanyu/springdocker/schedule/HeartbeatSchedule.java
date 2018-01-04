@@ -138,7 +138,7 @@ public class HeartbeatSchedule {
                     taskMonitorInfo.setHeartbeatBreak(true);
                 }
                 else {
-                    taskMonitorInfo.setTaskVeto(result.isVetoForTask());
+                    taskMonitorInfo.setTaskVeto(result.isTaskVeto());
                     taskMonitorInfo.setHeartbeatBreak(false);
 
                     for (JobMonitorInfo jobMonitorInfo : result.getMonitorInfos()) {
