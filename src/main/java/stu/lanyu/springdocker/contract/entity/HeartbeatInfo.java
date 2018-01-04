@@ -2,15 +2,15 @@ package stu.lanyu.springdocker.contract.entity;
 
 public class HeartbeatInfo {
 
-    private boolean IsVetoForTask;
+    private boolean TaskVeto;
     private JobMonitorInfo[] MonitorInfos;
 
-    public boolean isVetoForTask() {
-        return IsVetoForTask;
+    public boolean isTaskVeto() {
+        return TaskVeto;
     }
 
-    public void setVetoForTask(boolean vetoForTask) {
-        IsVetoForTask = vetoForTask;
+    public void setTaskVeto(boolean taskVeto) {
+        TaskVeto = taskVeto;
     }
 
     public JobMonitorInfo[] getMonitorInfos() {
