@@ -22,6 +22,7 @@ import stu.lanyu.springdocker.utility.StringUtility;
 
 import java.io.IOException;
 import java.net.ConnectException;
+import java.util.Arrays;
 import java.util.Map;
 
 @RestController
@@ -50,17 +51,17 @@ public class BreakerController {
 
         ServiceBreaker serviceBreaker = new ServiceBreaker();
 
+        serviceBreaker.setActionToken(task.getActionToken());
+        serviceBreaker.setAuthenticationFailure(false);
+        serviceBreaker.setBreakerResult(false);
+        serviceBreaker.setServiceIdentity(task.getServiceIdentity());
+
         if (isForTask) {
             serviceBreaker.setBreakerForTask(true);
-            serviceBreaker.setActionToken(task.getActionToken());
-            serviceBreaker.setAuthenticationFailure(false);
-            serviceBreaker.setBreakerResult(false);
-            serviceBreaker.setServiceIdentity(task.getServiceIdentity());
             serviceBreaker.setTaskVeto(isVeto);
         }
         else {
             serviceBreaker.setBreakerForTask(false);
-            serviceBreaker.setAuthenticationFailure(false);
 
             JobBreaker jobBreaker = new JobBreaker();
 
@@ -88,7 +89,8 @@ public class BreakerController {
             Gson gson = new Gson();
 
             RequestBody body = RequestBody.create(GlobalConfig.WCFHost.JSON, gson.toJson(serviceBreaker));
-
+            System.out.println(gson.toJson(serviceBreaker));
+            System.out.println(task.getBreakerUrl());
             Request req = new Request.Builder()
                     .url(task.getBreakerUrl())
                     .post(body)
@@ -143,8 +145,6 @@ public class BreakerController {
     private void setJobMonitorBreakerResult(String serviceIdentity, String jobName, String jobGroup, boolean isVeto) {
 
         TaskMonitorInfo taskMonitorInfo = taskMonitorInfoQueryService.getTaskMonitorInfoByServiceIdentity(serviceIdentity);
-        taskMonitorInfo.setTaskVeto(isVeto);
-        taskMonitorInfoService.save(taskMonitorInfo);
 
         taskMonitorInfo.getJobs().forEach(r -> {
 
@@ -156,10 +156,11 @@ public class BreakerController {
             if (eachJobName.equals(jobName) && eachJobGroup.equals(jobGroup)) {
 
                 r.setJobVeto(isVeto);
-                taskMonitorInfoService.save(taskMonitorInfo);
                 // TODO break逻辑
             }
         });
+
+        taskMonitorInfoService.save(taskMonitorInfo);
     }
 
     @Approve
@@ -178,7 +179,7 @@ public class BreakerController {
         if (task != null) {
 
             ServiceBreaker serviceBreaker = doBreakerService(task, false, isVeto, jobName, jobGroup);
-            boolean result = serviceBreaker.isBreakerResult();
+            boolean result = serviceBreaker.getJobBreakers()[0].isBreakerResult();
 
             if (result) {
                 setJobMonitorBreakerResult(serviceIdentity, jobName, jobGroup, isVeto);
