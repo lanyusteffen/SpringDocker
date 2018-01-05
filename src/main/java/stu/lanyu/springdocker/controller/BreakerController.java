@@ -89,8 +89,7 @@ public class BreakerController {
             Gson gson = new Gson();
 
             RequestBody body = RequestBody.create(GlobalConfig.WCFHost.JSON, gson.toJson(serviceBreaker));
-            System.out.println(gson.toJson(serviceBreaker));
-            System.out.println(task.getBreakerUrl());
+
             Request req = new Request.Builder()
                     .url(task.getBreakerUrl())
                     .post(body)
