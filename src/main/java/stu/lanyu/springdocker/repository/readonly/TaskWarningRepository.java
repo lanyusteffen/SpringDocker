@@ -10,6 +10,7 @@ import stu.lanyu.springdocker.annotation.ReadOnly;
 import stu.lanyu.springdocker.domain.TaskWarning;
 
 import java.util.Date;
+import java.util.List;
 
 @Repository("TaskWarningRepositoryReadonly")
 @ReadOnly
@@ -17,6 +18,8 @@ import java.util.Date;
 public interface TaskWarningRepository extends JpaRepository<TaskWarning, Long> {
     Page<TaskWarning> findAllByJobNameAndJobGroup(String jobName, String jobGroup, Pageable pageable);
     Page<TaskWarning> findOneByServiceIdentity(String serviceIdentity, Pageable pageable);
-    @Query("SELECT e FROM task_warning e WHERE e.addTime BETWEEN :startDate AND :endDate")
-    Page<TaskWarning> findAllByDashboard(Date beginDate, Date endDate, Pageable pageable);
+    @Query(value = "SELECT t FROM task_warning t WHERE t.addTime BETWEEN ?1 AND ?2",
+            countQuery = "SELECT COUNT(1) FROM task_warning WHERE add_time BETWEEN ?1 AND ?2",
+            nativeQuery = true)
+    List<TaskWarning> findAllByAddTime(Date beginDate, Date endDate);
 }

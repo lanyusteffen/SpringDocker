@@ -11,6 +11,8 @@ import stu.lanyu.springdocker.business.AbstractBusinessService;
 import stu.lanyu.springdocker.domain.TaskWarning;
 import stu.lanyu.springdocker.repository.readonly.TaskWarningRepository;
 
+import java.util.List;
+
 @Service("TaskWarningServiceReadonly")
 public class TaskWarningService extends AbstractBusinessService {
 
@@ -37,9 +39,8 @@ public class TaskWarningService extends AbstractBusinessService {
         return taskWarningRepository.findAllByJobNameAndJobGroup(jobName, jobGroup, pageable);
     }
 
-    public Page<TaskWarning> getDashboard() {
-        Pageable pageable = new PageRequest(1, Integer.MAX_VALUE, Sort.Direction.DESC, "Id");
-        AbstractBusinessService.TodaySearchDate searchDate = getTodaySearchDate();
-        return taskWarningRepository.findAllByDashboard(searchDate.getBeginDate(), searchDate.getEndDate(), pageable);
+    public List<TaskWarning> getDashboard() {
+        AbstractBusinessService.SearchDateStamp searchDate = getTodaySearchDate();
+        return taskWarningRepository.findAllByAddTime(searchDate.getBeginDate(), searchDate.getEndDate());
     }
 }

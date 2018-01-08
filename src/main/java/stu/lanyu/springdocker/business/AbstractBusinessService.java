@@ -1,13 +1,15 @@
 package stu.lanyu.springdocker.business;
 
-import java.util.Calendar;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Date;
 
 public abstract class AbstractBusinessService {
 
-    protected class TodaySearchDate {
+    protected class SearchDateStamp {
 
-        protected TodaySearchDate(Date beginDate, Date endDate) {
+        protected SearchDateStamp(Date beginDate, Date endDate) {
             this.beginDate = beginDate;
             this.endDate = endDate;
         }
@@ -32,13 +34,14 @@ public abstract class AbstractBusinessService {
         }
     }
 
-    protected TodaySearchDate getTodaySearchDate() {
+    protected SearchDateStamp getTodaySearchDate() {
 
-        Calendar cal = Calendar.getInstance();
+        LocalDate lt = LocalDate.now();
+        Instant instant = lt.atStartOfDay(ZoneId.systemDefault()).toInstant();
+        Date beginDate = Date.from(instant);
 
-        Date beginDate = new Date(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH));
-        Date endDate = new Date();
+        Date endDate = Date.from(Instant.now());
 
-        return new TodaySearchDate(beginDate, endDate);
+        return new SearchDateStamp(beginDate, endDate);
     }
 }

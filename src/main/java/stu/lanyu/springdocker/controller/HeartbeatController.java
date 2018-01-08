@@ -43,8 +43,8 @@ public class HeartbeatController {
 
     @Approve
     @RequestMapping(value = "/getDashBoard", method = RequestMethod.GET)
-    public @ResponseBody Page<TaskMonitorInfo> getDashBoard() {
-        Page<TaskMonitorInfo> taskMonitorInfoPage = taskMonitorInfoQueryService.getDashboard();
+    public @ResponseBody List<TaskMonitorInfo> getDashBoard() {
+        List<TaskMonitorInfo> taskMonitorInfoPage = taskMonitorInfoQueryService.getDashboard();
         return taskMonitorInfoPage;
     }
 

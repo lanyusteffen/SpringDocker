@@ -11,6 +11,8 @@ import stu.lanyu.springdocker.business.AbstractBusinessService;
 import stu.lanyu.springdocker.domain.LogCollect;
 import stu.lanyu.springdocker.repository.readonly.LogCollectRepository;
 
+import java.util.List;
+
 @Service("LogCollectServiceReadonly")
 public class LogCollectService extends AbstractBusinessService {
 
@@ -27,10 +29,9 @@ public class LogCollectService extends AbstractBusinessService {
         return logCollectRepository.getOne(id);
     }
 
-    public Page<LogCollect> getDashboard() {
-        Pageable pageable = new PageRequest(1, Integer.MAX_VALUE, Sort.Direction.DESC, "Id");
-        AbstractBusinessService.TodaySearchDate searchDate = getTodaySearchDate();
-        return logCollectRepository.findAllByDashboard(searchDate.getBeginDate(), searchDate.getEndDate(), pageable);
+    public List<LogCollect> getDashboard() {
+        AbstractBusinessService.SearchDateStamp searchDate = getTodaySearchDate();
+        return logCollectRepository.findAllByLogTime(searchDate.getBeginDate(), searchDate.getEndDate());
     }
 
     public Page<LogCollect> getListPagedByServiceIdentity(String serviceIdentity, int pageIndex, int pageSize) {

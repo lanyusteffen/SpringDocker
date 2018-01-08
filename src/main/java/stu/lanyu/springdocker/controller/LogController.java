@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RestController;
 import stu.lanyu.springdocker.annotation.Approve;
 import stu.lanyu.springdocker.domain.LogCollect;
 
+import java.util.List;
+
 @RestController
 @RequestMapping(value = "/log")
 public class LogController {
@@ -34,8 +36,8 @@ public class LogController {
 
     @Approve
     @RequestMapping(value = "/getDashBoard", method = RequestMethod.GET)
-    public @ResponseBody Page<LogCollect> getDashBoard() {
-        Page<LogCollect> logCollectPage = logCollectQueryService.getDashboard();
+    public @ResponseBody List<LogCollect> getDashBoard() {
+        List<LogCollect> logCollectPage = logCollectQueryService.getDashboard();
         return logCollectPage;
     }
 

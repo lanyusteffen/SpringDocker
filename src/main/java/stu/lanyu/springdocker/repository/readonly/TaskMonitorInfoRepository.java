@@ -10,12 +10,15 @@ import stu.lanyu.springdocker.annotation.ReadOnly;
 import stu.lanyu.springdocker.domain.TaskMonitorInfo;
 
 import java.util.Date;
+import java.util.List;
 
 @Repository("TaskMonitorInfoRepositoryReadonly")
 @ReadOnly
 @Transactional(readOnly = true)
 public interface TaskMonitorInfoRepository extends JpaRepository<TaskMonitorInfo, Long> {
     TaskMonitorInfo findOneByServiceIdentity(String serviceIdentity);
-    @Query("SELECT e FROM task_monitor_info e WHERE e.lastHeartbeatTime NOT BETWEEN :startDate AND :endDate")
-    Page<TaskMonitorInfo> findAllByDashboard(Date beginDate, Date endDate, Pageable pageable);
+    @Query(value = "SELECT t FROM task_monitor_info t WHERE t.lastHeartbeatTime NOT BETWEEN ?1 AND ?2",
+            countQuery = "SELECT COUNT(1) FROM task_monitor_info WHERE last_heartbeat_time NOT BETWEEN ?1 AND ?2",
+            nativeQuery = true)
+    List<TaskMonitorInfo> getAllByLastHeartbeatTime(Date beginDate, Date endDate);
 }

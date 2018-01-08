@@ -10,12 +10,15 @@ import stu.lanyu.springdocker.annotation.ReadOnly;
 import stu.lanyu.springdocker.domain.LogCollect;
 
 import java.util.Date;
+import java.util.List;
 
 @Repository("LogCollectRepositoryReadonly")
 @ReadOnly
 @Transactional(readOnly = true)
 public interface LogCollectRepository extends JpaRepository<LogCollect, Long> {
     Page<LogCollect> findAllByServiceIdentity(String serviceIdentity, Pageable pageable);
-    @Query("SELECT e FROM log_collect e WHERE e.logTime BETWEEN :startDate AND :endDate")
-    Page<LogCollect> findAllByDashboard(Date beginDate, Date endDate, Pageable pageable);
+    @Query(value = "SELECT l FROM log_collect l WHERE l.logTime BETWEEN ?1 AND ?2",
+            countQuery = "SELECT COUNT(1) FROM log_collect WHERE log_time BETWEEN ?1 AND ?2",
+            nativeQuery = true)
+    List<LogCollect> findAllByLogTime(Date beginDate, Date endDate);
 }
