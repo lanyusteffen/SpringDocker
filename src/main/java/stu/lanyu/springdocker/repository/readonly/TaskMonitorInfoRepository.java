@@ -17,7 +17,7 @@ import java.util.List;
 @Transactional(readOnly = true)
 public interface TaskMonitorInfoRepository extends JpaRepository<TaskMonitorInfo, Long> {
     TaskMonitorInfo findOneByServiceIdentity(String serviceIdentity);
-    @Query(value = "SELECT t FROM task_monitor_info t WHERE t.lastHeartbeatTime NOT BETWEEN ?1 AND ?2",
+    @Query(value = "SELECT t FROM task_monitor_info t WHERE t.last_heartbeat_time NOT BETWEEN ?1 AND ?2",
             countQuery = "SELECT COUNT(1) FROM task_monitor_info WHERE last_heartbeat_time NOT BETWEEN ?1 AND ?2",
             nativeQuery = true)
     List<TaskMonitorInfo> getAllByLastHeartbeatTime(Date beginDate, Date endDate);
