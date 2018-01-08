@@ -31,7 +31,7 @@ public class LogCollectService extends AbstractBusinessService {
 
     public List<LogCollect> getDashboard() {
         AbstractBusinessService.SearchDateStamp searchDate = getTodaySearchDate();
-        return logCollectRepository.findAllByLogTime(searchDate.getBeginDate(), searchDate.getEndDate());
+        return logCollectRepository.findAllByLogTimeBetween(searchDate.getBeginDate(), searchDate.getEndDate());
     }
 
     public Page<LogCollect> getListPagedByServiceIdentity(String serviceIdentity, int pageIndex, int pageSize) {

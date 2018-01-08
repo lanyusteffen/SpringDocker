@@ -17,7 +17,5 @@ import java.util.List;
 @Transactional(readOnly = true)
 public interface LogCollectRepository extends JpaRepository<LogCollect, Long> {
     Page<LogCollect> findAllByServiceIdentity(String serviceIdentity, Pageable pageable);
-    @Query(value = "SELECT t FROM log_collect t WHERE t.log_time BETWEEN ?1 AND ?2",
-            nativeQuery = true)
-    List<LogCollect> findAllByLogTime(Date beginDate, Date endDate);
+    List<LogCollect> findAllByLogTimeBetween(Date beginDate, Date endDate);
 }

@@ -41,6 +41,6 @@ public class TaskWarningService extends AbstractBusinessService {
 
     public List<TaskWarning> getDashboard() {
         AbstractBusinessService.SearchDateStamp searchDate = getTodaySearchDate();
-        return taskWarningRepository.findAllByAddTime(searchDate.getBeginDate(), searchDate.getEndDate());
+        return taskWarningRepository.findAllByAddTimeBetween(searchDate.getBeginDate(), searchDate.getEndDate());
     }
 }
