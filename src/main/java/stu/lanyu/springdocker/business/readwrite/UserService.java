@@ -4,11 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
+import stu.lanyu.springdocker.business.AbstractBusinessService;
 import stu.lanyu.springdocker.domain.User;
 import stu.lanyu.springdocker.repository.readwrite.UserRepository;
 
 @Service("UserServiceReadwrite")
-public class UserService {
+public class UserService extends AbstractBusinessService {
 
     @Autowired(required = true)
     @Qualifier("UserRepositoryReadwrite")

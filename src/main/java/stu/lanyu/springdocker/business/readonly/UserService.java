@@ -3,6 +3,7 @@ package stu.lanyu.springdocker.business.readonly;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import stu.lanyu.springdocker.business.AbstractBusinessService;
 import stu.lanyu.springdocker.domain.User;
 import stu.lanyu.springdocker.exception.DomainException;
 import stu.lanyu.springdocker.repository.readonly.UserRepository;
@@ -10,7 +11,7 @@ import stu.lanyu.springdocker.response.ValidationError;
 import stu.lanyu.springdocker.response.ValidationErrors;
 
 @Service("UserServiceReadonly")
-public class UserService {
+public class UserService extends AbstractBusinessService {
 
     @Autowired(required = true)
     @Qualifier("UserRepositoryReadonly")

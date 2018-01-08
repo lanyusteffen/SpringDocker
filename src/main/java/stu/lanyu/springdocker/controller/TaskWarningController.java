@@ -8,10 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import stu.lanyu.springdocker.annotation.Approve;
-import stu.lanyu.springdocker.business.readwrite.TaskWarningService;
 import stu.lanyu.springdocker.domain.TaskWarning;
-
-import java.util.List;
 
 @RestController
 @RequestMapping(value = "/taskwarning")
@@ -39,6 +36,13 @@ public class TaskWarningController {
     @RequestMapping(value = "/getAllEachService", method = RequestMethod.GET)
     public @ResponseBody Page<TaskWarning> getAllEachService(int pageIndex, int pageSize, String serviceIdentity) {
         Page<TaskWarning> taskWarningPage = taskWarningQueryService.getListPagedByServiceIdentity(serviceIdentity, pageIndex, pageSize);
+        return taskWarningPage;
+    }
+
+    @Approve
+    @RequestMapping(value = "/getDashBoard", method = RequestMethod.GET)
+    public @ResponseBody Page<TaskWarning> getDashBoard() {
+        Page<TaskWarning> taskWarningPage = taskWarningQueryService.getDashboard();
         return taskWarningPage;
     }
 

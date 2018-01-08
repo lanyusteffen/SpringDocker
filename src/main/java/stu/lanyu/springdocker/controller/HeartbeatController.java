@@ -15,7 +15,6 @@ import stu.lanyu.springdocker.domain.TaskMonitorInfo;
 import stu.lanyu.springdocker.redis.entity.RegisterTask;
 
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 @RestController
@@ -39,6 +38,13 @@ public class HeartbeatController {
     @RequestMapping(value = "/getAll", method = RequestMethod.GET)
     public @ResponseBody Page<TaskMonitorInfo> getAll(int pageIndex, int pageSize) {
         Page<TaskMonitorInfo> taskMonitorInfoPage = taskMonitorInfoQueryService.getListPaged(pageIndex, pageSize);
+        return taskMonitorInfoPage;
+    }
+
+    @Approve
+    @RequestMapping(value = "/getDashBoard", method = RequestMethod.GET)
+    public @ResponseBody Page<TaskMonitorInfo> getDashBoard() {
+        Page<TaskMonitorInfo> taskMonitorInfoPage = taskMonitorInfoQueryService.getDashboard();
         return taskMonitorInfoPage;
     }
 

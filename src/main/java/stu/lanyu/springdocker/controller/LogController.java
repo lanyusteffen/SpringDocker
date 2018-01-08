@@ -33,6 +33,13 @@ public class LogController {
     }
 
     @Approve
+    @RequestMapping(value = "/getDashBoard", method = RequestMethod.GET)
+    public @ResponseBody Page<LogCollect> getDashBoard() {
+        Page<LogCollect> logCollectPage = logCollectQueryService.getDashboard();
+        return logCollectPage;
+    }
+
+    @Approve
     @RequestMapping(value = "/getAllEachService", method = RequestMethod.GET)
     public @ResponseBody Page<LogCollect> getAllEachService(int pageIndex, int pageSize, String serviceIdentity) {
         Page<LogCollect> logCollectPage = logCollectQueryService.getListPagedByServiceIdentity(serviceIdentity, pageIndex, pageSize);

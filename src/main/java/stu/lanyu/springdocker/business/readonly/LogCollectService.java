@@ -7,12 +7,12 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import stu.lanyu.springdocker.business.AbstractBusinessService;
 import stu.lanyu.springdocker.domain.LogCollect;
-import stu.lanyu.springdocker.domain.TaskWarning;
 import stu.lanyu.springdocker.repository.readonly.LogCollectRepository;
 
 @Service("LogCollectServiceReadonly")
-public class LogCollectService {
+public class LogCollectService extends AbstractBusinessService {
 
     @Autowired(required = true)
     @Qualifier("LogCollectRepositoryReadonly")
@@ -25,6 +25,12 @@ public class LogCollectService {
 
     public LogCollect getDetail(long id) {
         return logCollectRepository.getOne(id);
+    }
+
+    public Page<LogCollect> getDashboard() {
+        Pageable pageable = new PageRequest(1, Integer.MAX_VALUE, Sort.Direction.DESC, "Id");
+        AbstractBusinessService.TodaySearchDate searchDate = getTodaySearchDate();
+        return logCollectRepository.findAllByDashboard(searchDate.getBeginDate(), searchDate.getEndDate(), pageable);
     }
 
     public Page<LogCollect> getListPagedByServiceIdentity(String serviceIdentity, int pageIndex, int pageSize) {

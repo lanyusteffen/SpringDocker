@@ -7,13 +7,12 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import stu.lanyu.springdocker.business.AbstractBusinessService;
 import stu.lanyu.springdocker.domain.TaskWarning;
 import stu.lanyu.springdocker.repository.readonly.TaskWarningRepository;
 
-import java.util.List;
-
 @Service("TaskWarningServiceReadonly")
-public class TaskWarningService {
+public class TaskWarningService extends AbstractBusinessService {
 
     @Autowired(required = true)
     @Qualifier("TaskWarningRepositoryReadonly")
@@ -36,5 +35,11 @@ public class TaskWarningService {
     public Page<TaskWarning> getListPagedByJob(String jobName, String jobGroup, int pageIndex, int pageSize) {
         Pageable pageable = new PageRequest(pageIndex, pageSize, Sort.Direction.DESC, "Id");
         return taskWarningRepository.findAllByJobNameAndJobGroup(jobName, jobGroup, pageable);
+    }
+
+    public Page<TaskWarning> getDashboard() {
+        Pageable pageable = new PageRequest(1, Integer.MAX_VALUE, Sort.Direction.DESC, "Id");
+        AbstractBusinessService.TodaySearchDate searchDate = getTodaySearchDate();
+        return taskWarningRepository.findAllByDashboard(searchDate.getBeginDate(), searchDate.getEndDate(), pageable);
     }
 }
