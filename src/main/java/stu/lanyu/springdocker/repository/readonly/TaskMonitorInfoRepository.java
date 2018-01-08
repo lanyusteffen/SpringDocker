@@ -1,7 +1,5 @@
 package stu.lanyu.springdocker.repository.readonly;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -18,7 +16,6 @@ import java.util.List;
 public interface TaskMonitorInfoRepository extends JpaRepository<TaskMonitorInfo, Long> {
     TaskMonitorInfo findOneByServiceIdentity(String serviceIdentity);
     @Query(value = "SELECT t FROM task_monitor_info t WHERE t.last_heartbeat_time NOT BETWEEN ?1 AND ?2",
-            countQuery = "SELECT COUNT(1) FROM task_monitor_info WHERE last_heartbeat_time NOT BETWEEN ?1 AND ?2",
             nativeQuery = true)
-    List<TaskMonitorInfo> getAllByLastHeartbeatTime(Date beginDate, Date endDate);
+    List<TaskMonitorInfo> findAllByLastHeartbeatTime(Date beginDate, Date endDate);
 }
