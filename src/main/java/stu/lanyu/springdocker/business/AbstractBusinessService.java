@@ -34,13 +34,26 @@ public abstract class AbstractBusinessService {
         }
     }
 
-    protected SearchDateStamp getTodaySearchDate() {
+    protected SearchDateStamp getBeforeTodaySearchDate() {
 
         LocalDate lt = LocalDate.now();
         Instant instant = lt.atStartOfDay(ZoneId.systemDefault()).toInstant();
         Date beginDate = Date.from(instant);
 
         Date endDate = Date.from(Instant.now());
+
+        return new SearchDateStamp(beginDate, endDate);
+    }
+
+    protected SearchDateStamp getTodaySearchDate() {
+
+        LocalDate localEndDate = LocalDate.now();
+        Instant instantForEnd = localEndDate.atStartOfDay(ZoneId.systemDefault()).toInstant();
+        Date endDate = Date.from(instantForEnd);
+
+        LocalDate localBeginDate = localEndDate.minusYears(1);
+        Instant instantForBegin = localBeginDate.atStartOfDay(ZoneId.systemDefault()).toInstant();
+        Date beginDate = Date.from(instantForBegin);
 
         return new SearchDateStamp(beginDate, endDate);
     }

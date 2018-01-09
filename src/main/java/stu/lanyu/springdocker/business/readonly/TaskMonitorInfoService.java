@@ -26,8 +26,8 @@ public class TaskMonitorInfoService extends AbstractBusinessService {
     }
 
     public List<TaskMonitorInfo> getDashboard() {
-        SearchDateStamp searchDate = getTodaySearchDate();
-        return taskMonitorInfoRepository.findAllByLastHeartbeatTimeLessTran(searchDate.getBeginDate());
+        SearchDateStamp searchDate = getBeforeTodaySearchDate();
+        return taskMonitorInfoRepository.findAllByLastHeartbeatTimeBetween(searchDate.getBeginDate(), searchDate.getEndDate());
     }
 
     public TaskMonitorInfo getDetail(long id) {
