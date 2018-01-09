@@ -15,5 +15,5 @@ import java.util.List;
 @Transactional(readOnly = true)
 public interface TaskMonitorInfoRepository extends JpaRepository<TaskMonitorInfo, Long> {
     TaskMonitorInfo findOneByServiceIdentity(String serviceIdentity);
-    List<TaskMonitorInfo> findAllByLastHeartbeatTimeBetween(Date beginDate, Date endDate);
+    List<TaskMonitorInfo> findAllByLastHeartbeatTimeNotBetween(Date beginDate, Date endDate);
 }
