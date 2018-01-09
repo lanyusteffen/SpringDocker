@@ -9,7 +9,7 @@ public abstract class AbstractBusinessService {
 
     protected class SearchDateStamp {
 
-        protected SearchDateStamp(Date beginDate, Date endDate) {
+        public SearchDateStamp(Date beginDate, Date endDate) {
             this.beginDate = beginDate;
             this.endDate = endDate;
         }
@@ -34,7 +34,7 @@ public abstract class AbstractBusinessService {
         }
     }
 
-    protected SearchDateStamp getBeforeTodaySearchDate() {
+    protected SearchDateStamp getTodaySearchDate() {
 
         LocalDate lt = LocalDate.now();
         Instant instant = lt.atStartOfDay(ZoneId.systemDefault()).toInstant();
@@ -45,7 +45,7 @@ public abstract class AbstractBusinessService {
         return new SearchDateStamp(beginDate, endDate);
     }
 
-    protected SearchDateStamp getTodaySearchDate() {
+    protected SearchDateStamp getBeforeTodaySearchDate() {
 
         LocalDate localEndDate = LocalDate.now();
         Instant instantForEnd = localEndDate.atStartOfDay(ZoneId.systemDefault()).toInstant();

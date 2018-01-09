@@ -26,13 +26,14 @@ public class GlobalConfig {
 
     public class WebConfig {
 
-        public static final double REDIS_SUBSCRIBER_EXPIRE = 0.50;
+        public static final double REDIS_SUBSCRIBER_EXPIRE_HOUR = 0.50;
         public static final String PASSWORD_NOSECURITY = "NONE";
         public static final String DEFAULT_ROLE = "DEFAULT";
         public static final String HEADER_AUTHORIZE = "Approve";
         public static final String HEADER_REFRESHTOKEN = "RefreshToken";
         public static final String CLAIMS_USER_KEY = "UserId";
         public static final String CLAIMS_ROLE_KEY = "Role";
+        public static final long BAD_HEARTBEAT_DASHBOARD_SHOWRULE = 1000 * 60 * 20;
     }
 
     public class JWTConfig {
