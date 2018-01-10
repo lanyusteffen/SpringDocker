@@ -34,25 +34,25 @@ public abstract class AbstractBusinessService {
         }
     }
 
-    protected SearchDateStamp getTodaySearchDate() {
+    protected SearchDateStamp getTodaySearchDate(boolean useUTC) {
 
         LocalDate lt = LocalDate.now();
-        Instant instant = lt.atStartOfDay(ZoneId.systemDefault()).toInstant();
+        Instant instant = lt.atStartOfDay(useUTC ? ZoneId.of("UTC") : ZoneId.systemDefault()).toInstant();
         Date beginDate = Date.from(instant);
 
-        Date endDate = Date.from(Instant.now());
+        Date endDate = Date.from(Instant.now().atZone(useUTC ? ZoneId.of("UTC") : ZoneId.systemDefault()).toInstant());
 
         return new SearchDateStamp(beginDate, endDate);
     }
 
-    protected SearchDateStamp getBeforeTodaySearchDate() {
+    protected SearchDateStamp getBeforeTodaySearchDate(boolean useUTC) {
 
         LocalDate localEndDate = LocalDate.now();
-        Instant instantForEnd = localEndDate.atStartOfDay(ZoneId.systemDefault()).toInstant();
+        Instant instantForEnd = localEndDate.atStartOfDay(useUTC ? ZoneId.of("UTC") : ZoneId.systemDefault()).toInstant();
         Date endDate = Date.from(instantForEnd);
 
         LocalDate localBeginDate = localEndDate.minusYears(1);
-        Instant instantForBegin = localBeginDate.atStartOfDay(ZoneId.systemDefault()).toInstant();
+        Instant instantForBegin = localBeginDate.atStartOfDay(useUTC ? ZoneId.of("UTC") : ZoneId.systemDefault()).toInstant();
         Date beginDate = Date.from(instantForBegin);
 
         return new SearchDateStamp(beginDate, endDate);

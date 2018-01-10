@@ -30,7 +30,7 @@ public class LogCollectService extends AbstractBusinessService {
     }
 
     public List<LogCollect> getDashboard() {
-        AbstractBusinessService.SearchDateStamp searchDate = getTodaySearchDate();
+        AbstractBusinessService.SearchDateStamp searchDate = getTodaySearchDate(true);
         return logCollectRepository.findAllByLogTimeBetween(searchDate.getBeginDate(), searchDate.getEndDate());
     }
 

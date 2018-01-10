@@ -40,7 +40,7 @@ public class TaskWarningService extends AbstractBusinessService {
     }
 
     public List<TaskWarning> getDashboard() {
-        AbstractBusinessService.SearchDateStamp searchDate = getTodaySearchDate();
+        AbstractBusinessService.SearchDateStamp searchDate = getTodaySearchDate(true);
         return taskWarningRepository.findAllByAddTimeBetween(searchDate.getBeginDate(), searchDate.getEndDate());
     }
 }

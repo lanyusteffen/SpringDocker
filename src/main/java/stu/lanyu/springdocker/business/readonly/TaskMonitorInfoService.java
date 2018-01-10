@@ -32,19 +32,19 @@ public class TaskMonitorInfoService extends AbstractBusinessService {
         return taskMonitorInfoRepository.findAll(pageable);
     }
 
-    private SearchDateStamp getHeartbeatDashboardShowRule() {
+    private SearchDateStamp getHeartbeatDashboardShowRule(boolean useUTC) {
 
-        Date endDate = Date.from(Instant.now().minusMillis(GlobalConfig.WebConfig.BAD_HEARTBEAT_DASHBOARD_SHOWRULE));
+        Date endDate = Date.from(Instant.now().atZone(useUTC ? ZoneId.of("UTC") : ZoneId.systemDefault()).toInstant().minusMillis(GlobalConfig.WebConfig.BAD_HEARTBEAT_DASHBOARD_SHOWRULE));
 
         LocalDate localBeginDate = LocalDate.now().minusYears(1);
-        Instant instantForBegin = localBeginDate.atStartOfDay(ZoneId.systemDefault()).toInstant();
+        Instant instantForBegin = localBeginDate.atStartOfDay(useUTC ? ZoneId.of("UTC") : ZoneId.systemDefault()).toInstant();
         Date beginDate = Date.from(instantForBegin);
 
         return new SearchDateStamp(beginDate, endDate);
     }
 
     public List<TaskMonitorInfo> getDashboard() {
-        SearchDateStamp searchDate = getHeartbeatDashboardShowRule();
+        SearchDateStamp searchDate = getHeartbeatDashboardShowRule(true);
         return taskMonitorInfoRepository.findAllByLastHeartbeatTimeBetween(searchDate.getBeginDate(), searchDate.getEndDate());
     }
 
