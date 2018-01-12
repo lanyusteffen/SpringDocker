@@ -16,7 +16,7 @@ apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
 
 // This is used as the docker image prefix (org)
-group = 'stelylanlife'
+group = 'stelylan'
 sourceCompatibility = 1.8
 
 repositories {
