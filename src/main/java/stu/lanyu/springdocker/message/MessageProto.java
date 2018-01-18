@@ -8,6 +8,682 @@ public final class MessageProto {
   public static void registerAllExtensions(
       com.google.protobuf.ExtensionRegistry registry) {
   }
+  public interface LogCollectBatchProtoOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:message.LogCollectBatchProto)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>repeated .message.LogCollectProto LogBatch = 1;</code>
+     */
+    java.util.List<stu.lanyu.springdocker.message.MessageProto.LogCollectProto> 
+        getLogBatchList();
+    /**
+     * <code>repeated .message.LogCollectProto LogBatch = 1;</code>
+     */
+    stu.lanyu.springdocker.message.MessageProto.LogCollectProto getLogBatch(int index);
+    /**
+     * <code>repeated .message.LogCollectProto LogBatch = 1;</code>
+     */
+    int getLogBatchCount();
+    /**
+     * <code>repeated .message.LogCollectProto LogBatch = 1;</code>
+     */
+    java.util.List<? extends stu.lanyu.springdocker.message.MessageProto.LogCollectProtoOrBuilder> 
+        getLogBatchOrBuilderList();
+    /**
+     * <code>repeated .message.LogCollectProto LogBatch = 1;</code>
+     */
+    stu.lanyu.springdocker.message.MessageProto.LogCollectProtoOrBuilder getLogBatchOrBuilder(
+        int index);
+  }
+  /**
+   * Protobuf type {@code message.LogCollectBatchProto}
+   */
+  public static final class LogCollectBatchProto extends
+      com.google.protobuf.GeneratedMessage implements
+      // @@protoc_insertion_point(message_implements:message.LogCollectBatchProto)
+      LogCollectBatchProtoOrBuilder {
+    // Use LogCollectBatchProto.newBuilder() to construct.
+    private LogCollectBatchProto(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      super(builder);
+      this.unknownFields = builder.getUnknownFields();
+    }
+    private LogCollectBatchProto(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
+
+    private static final LogCollectBatchProto defaultInstance;
+    public static LogCollectBatchProto getDefaultInstance() {
+      return defaultInstance;
+    }
+
+    public LogCollectBatchProto getDefaultInstanceForType() {
+      return defaultInstance;
+    }
+
+    private final com.google.protobuf.UnknownFieldSet unknownFields;
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+        getUnknownFields() {
+      return this.unknownFields;
+    }
+    private LogCollectBatchProto(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      initFields();
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 10: {
+              if (!((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+                logBatch_ = new java.util.ArrayList<stu.lanyu.springdocker.message.MessageProto.LogCollectProto>();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              logBatch_.add(input.readMessage(stu.lanyu.springdocker.message.MessageProto.LogCollectProto.PARSER, extensionRegistry));
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e.getMessage()).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+          logBatch_ = java.util.Collections.unmodifiableList(logBatch_);
+        }
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return stu.lanyu.springdocker.message.MessageProto.internal_static_message_LogCollectBatchProto_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return stu.lanyu.springdocker.message.MessageProto.internal_static_message_LogCollectBatchProto_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              stu.lanyu.springdocker.message.MessageProto.LogCollectBatchProto.class, stu.lanyu.springdocker.message.MessageProto.LogCollectBatchProto.Builder.class);
+    }
+
+    public static com.google.protobuf.Parser<LogCollectBatchProto> PARSER =
+        new com.google.protobuf.AbstractParser<LogCollectBatchProto>() {
+      public LogCollectBatchProto parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new LogCollectBatchProto(input, extensionRegistry);
+      }
+    };
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<LogCollectBatchProto> getParserForType() {
+      return PARSER;
+    }
+
+    public static final int LOGBATCH_FIELD_NUMBER = 1;
+    private java.util.List<stu.lanyu.springdocker.message.MessageProto.LogCollectProto> logBatch_;
+    /**
+     * <code>repeated .message.LogCollectProto LogBatch = 1;</code>
+     */
+    public java.util.List<stu.lanyu.springdocker.message.MessageProto.LogCollectProto> getLogBatchList() {
+      return logBatch_;
+    }
+    /**
+     * <code>repeated .message.LogCollectProto LogBatch = 1;</code>
+     */
+    public java.util.List<? extends stu.lanyu.springdocker.message.MessageProto.LogCollectProtoOrBuilder> 
+        getLogBatchOrBuilderList() {
+      return logBatch_;
+    }
+    /**
+     * <code>repeated .message.LogCollectProto LogBatch = 1;</code>
+     */
+    public int getLogBatchCount() {
+      return logBatch_.size();
+    }
+    /**
+     * <code>repeated .message.LogCollectProto LogBatch = 1;</code>
+     */
+    public stu.lanyu.springdocker.message.MessageProto.LogCollectProto getLogBatch(int index) {
+      return logBatch_.get(index);
+    }
+    /**
+     * <code>repeated .message.LogCollectProto LogBatch = 1;</code>
+     */
+    public stu.lanyu.springdocker.message.MessageProto.LogCollectProtoOrBuilder getLogBatchOrBuilder(
+        int index) {
+      return logBatch_.get(index);
+    }
+
+    private void initFields() {
+      logBatch_ = java.util.Collections.emptyList();
+    }
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      for (int i = 0; i < logBatch_.size(); i++) {
+        output.writeMessage(1, logBatch_.get(i));
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    private int memoizedSerializedSize = -1;
+    public int getSerializedSize() {
+      int size = memoizedSerializedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      for (int i = 0; i < logBatch_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(1, logBatch_.get(i));
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSerializedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    protected java.lang.Object writeReplace()
+        throws java.io.ObjectStreamException {
+      return super.writeReplace();
+    }
+
+    public static stu.lanyu.springdocker.message.MessageProto.LogCollectBatchProto parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static stu.lanyu.springdocker.message.MessageProto.LogCollectBatchProto parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static stu.lanyu.springdocker.message.MessageProto.LogCollectBatchProto parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static stu.lanyu.springdocker.message.MessageProto.LogCollectBatchProto parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static stu.lanyu.springdocker.message.MessageProto.LogCollectBatchProto parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static stu.lanyu.springdocker.message.MessageProto.LogCollectBatchProto parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+    public static stu.lanyu.springdocker.message.MessageProto.LogCollectBatchProto parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input);
+    }
+    public static stu.lanyu.springdocker.message.MessageProto.LogCollectBatchProto parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+    }
+    public static stu.lanyu.springdocker.message.MessageProto.LogCollectBatchProto parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static stu.lanyu.springdocker.message.MessageProto.LogCollectBatchProto parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+
+    public static Builder newBuilder() { return Builder.create(); }
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder(stu.lanyu.springdocker.message.MessageProto.LogCollectBatchProto prototype) {
+      return newBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() { return newBuilder(this); }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code message.LogCollectBatchProto}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:message.LogCollectBatchProto)
+        stu.lanyu.springdocker.message.MessageProto.LogCollectBatchProtoOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return stu.lanyu.springdocker.message.MessageProto.internal_static_message_LogCollectBatchProto_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return stu.lanyu.springdocker.message.MessageProto.internal_static_message_LogCollectBatchProto_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                stu.lanyu.springdocker.message.MessageProto.LogCollectBatchProto.class, stu.lanyu.springdocker.message.MessageProto.LogCollectBatchProto.Builder.class);
+      }
+
+      // Construct using stu.lanyu.springdocker.message.MessageProto.LogCollectBatchProto.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+          getLogBatchFieldBuilder();
+        }
+      }
+      private static Builder create() {
+        return new Builder();
+      }
+
+      public Builder clear() {
+        super.clear();
+        if (logBatchBuilder_ == null) {
+          logBatch_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+        } else {
+          logBatchBuilder_.clear();
+        }
+        return this;
+      }
+
+      public Builder clone() {
+        return create().mergeFrom(buildPartial());
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return stu.lanyu.springdocker.message.MessageProto.internal_static_message_LogCollectBatchProto_descriptor;
+      }
+
+      public stu.lanyu.springdocker.message.MessageProto.LogCollectBatchProto getDefaultInstanceForType() {
+        return stu.lanyu.springdocker.message.MessageProto.LogCollectBatchProto.getDefaultInstance();
+      }
+
+      public stu.lanyu.springdocker.message.MessageProto.LogCollectBatchProto build() {
+        stu.lanyu.springdocker.message.MessageProto.LogCollectBatchProto result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public stu.lanyu.springdocker.message.MessageProto.LogCollectBatchProto buildPartial() {
+        stu.lanyu.springdocker.message.MessageProto.LogCollectBatchProto result = new stu.lanyu.springdocker.message.MessageProto.LogCollectBatchProto(this);
+        int from_bitField0_ = bitField0_;
+        if (logBatchBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) == 0x00000001)) {
+            logBatch_ = java.util.Collections.unmodifiableList(logBatch_);
+            bitField0_ = (bitField0_ & ~0x00000001);
+          }
+          result.logBatch_ = logBatch_;
+        } else {
+          result.logBatch_ = logBatchBuilder_.build();
+        }
+        onBuilt();
+        return result;
+      }
+
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof stu.lanyu.springdocker.message.MessageProto.LogCollectBatchProto) {
+          return mergeFrom((stu.lanyu.springdocker.message.MessageProto.LogCollectBatchProto)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(stu.lanyu.springdocker.message.MessageProto.LogCollectBatchProto other) {
+        if (other == stu.lanyu.springdocker.message.MessageProto.LogCollectBatchProto.getDefaultInstance()) return this;
+        if (logBatchBuilder_ == null) {
+          if (!other.logBatch_.isEmpty()) {
+            if (logBatch_.isEmpty()) {
+              logBatch_ = other.logBatch_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+            } else {
+              ensureLogBatchIsMutable();
+              logBatch_.addAll(other.logBatch_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.logBatch_.isEmpty()) {
+            if (logBatchBuilder_.isEmpty()) {
+              logBatchBuilder_.dispose();
+              logBatchBuilder_ = null;
+              logBatch_ = other.logBatch_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+              logBatchBuilder_ = 
+                com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders ?
+                   getLogBatchFieldBuilder() : null;
+            } else {
+              logBatchBuilder_.addAllMessages(other.logBatch_);
+            }
+          }
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        stu.lanyu.springdocker.message.MessageProto.LogCollectBatchProto parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (stu.lanyu.springdocker.message.MessageProto.LogCollectBatchProto) e.getUnfinishedMessage();
+          throw e;
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private java.util.List<stu.lanyu.springdocker.message.MessageProto.LogCollectProto> logBatch_ =
+        java.util.Collections.emptyList();
+      private void ensureLogBatchIsMutable() {
+        if (!((bitField0_ & 0x00000001) == 0x00000001)) {
+          logBatch_ = new java.util.ArrayList<stu.lanyu.springdocker.message.MessageProto.LogCollectProto>(logBatch_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilder<
+          stu.lanyu.springdocker.message.MessageProto.LogCollectProto, stu.lanyu.springdocker.message.MessageProto.LogCollectProto.Builder, stu.lanyu.springdocker.message.MessageProto.LogCollectProtoOrBuilder> logBatchBuilder_;
+
+      /**
+       * <code>repeated .message.LogCollectProto LogBatch = 1;</code>
+       */
+      public java.util.List<stu.lanyu.springdocker.message.MessageProto.LogCollectProto> getLogBatchList() {
+        if (logBatchBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(logBatch_);
+        } else {
+          return logBatchBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <code>repeated .message.LogCollectProto LogBatch = 1;</code>
+       */
+      public int getLogBatchCount() {
+        if (logBatchBuilder_ == null) {
+          return logBatch_.size();
+        } else {
+          return logBatchBuilder_.getCount();
+        }
+      }
+      /**
+       * <code>repeated .message.LogCollectProto LogBatch = 1;</code>
+       */
+      public stu.lanyu.springdocker.message.MessageProto.LogCollectProto getLogBatch(int index) {
+        if (logBatchBuilder_ == null) {
+          return logBatch_.get(index);
+        } else {
+          return logBatchBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <code>repeated .message.LogCollectProto LogBatch = 1;</code>
+       */
+      public Builder setLogBatch(
+          int index, stu.lanyu.springdocker.message.MessageProto.LogCollectProto value) {
+        if (logBatchBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureLogBatchIsMutable();
+          logBatch_.set(index, value);
+          onChanged();
+        } else {
+          logBatchBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .message.LogCollectProto LogBatch = 1;</code>
+       */
+      public Builder setLogBatch(
+          int index, stu.lanyu.springdocker.message.MessageProto.LogCollectProto.Builder builderForValue) {
+        if (logBatchBuilder_ == null) {
+          ensureLogBatchIsMutable();
+          logBatch_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          logBatchBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .message.LogCollectProto LogBatch = 1;</code>
+       */
+      public Builder addLogBatch(stu.lanyu.springdocker.message.MessageProto.LogCollectProto value) {
+        if (logBatchBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureLogBatchIsMutable();
+          logBatch_.add(value);
+          onChanged();
+        } else {
+          logBatchBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .message.LogCollectProto LogBatch = 1;</code>
+       */
+      public Builder addLogBatch(
+          int index, stu.lanyu.springdocker.message.MessageProto.LogCollectProto value) {
+        if (logBatchBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureLogBatchIsMutable();
+          logBatch_.add(index, value);
+          onChanged();
+        } else {
+          logBatchBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .message.LogCollectProto LogBatch = 1;</code>
+       */
+      public Builder addLogBatch(
+          stu.lanyu.springdocker.message.MessageProto.LogCollectProto.Builder builderForValue) {
+        if (logBatchBuilder_ == null) {
+          ensureLogBatchIsMutable();
+          logBatch_.add(builderForValue.build());
+          onChanged();
+        } else {
+          logBatchBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .message.LogCollectProto LogBatch = 1;</code>
+       */
+      public Builder addLogBatch(
+          int index, stu.lanyu.springdocker.message.MessageProto.LogCollectProto.Builder builderForValue) {
+        if (logBatchBuilder_ == null) {
+          ensureLogBatchIsMutable();
+          logBatch_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          logBatchBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .message.LogCollectProto LogBatch = 1;</code>
+       */
+      public Builder addAllLogBatch(
+          java.lang.Iterable<? extends stu.lanyu.springdocker.message.MessageProto.LogCollectProto> values) {
+        if (logBatchBuilder_ == null) {
+          ensureLogBatchIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, logBatch_);
+          onChanged();
+        } else {
+          logBatchBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .message.LogCollectProto LogBatch = 1;</code>
+       */
+      public Builder clearLogBatch() {
+        if (logBatchBuilder_ == null) {
+          logBatch_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+          onChanged();
+        } else {
+          logBatchBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .message.LogCollectProto LogBatch = 1;</code>
+       */
+      public Builder removeLogBatch(int index) {
+        if (logBatchBuilder_ == null) {
+          ensureLogBatchIsMutable();
+          logBatch_.remove(index);
+          onChanged();
+        } else {
+          logBatchBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .message.LogCollectProto LogBatch = 1;</code>
+       */
+      public stu.lanyu.springdocker.message.MessageProto.LogCollectProto.Builder getLogBatchBuilder(
+          int index) {
+        return getLogBatchFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <code>repeated .message.LogCollectProto LogBatch = 1;</code>
+       */
+      public stu.lanyu.springdocker.message.MessageProto.LogCollectProtoOrBuilder getLogBatchOrBuilder(
+          int index) {
+        if (logBatchBuilder_ == null) {
+          return logBatch_.get(index);  } else {
+          return logBatchBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <code>repeated .message.LogCollectProto LogBatch = 1;</code>
+       */
+      public java.util.List<? extends stu.lanyu.springdocker.message.MessageProto.LogCollectProtoOrBuilder> 
+           getLogBatchOrBuilderList() {
+        if (logBatchBuilder_ != null) {
+          return logBatchBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(logBatch_);
+        }
+      }
+      /**
+       * <code>repeated .message.LogCollectProto LogBatch = 1;</code>
+       */
+      public stu.lanyu.springdocker.message.MessageProto.LogCollectProto.Builder addLogBatchBuilder() {
+        return getLogBatchFieldBuilder().addBuilder(
+            stu.lanyu.springdocker.message.MessageProto.LogCollectProto.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .message.LogCollectProto LogBatch = 1;</code>
+       */
+      public stu.lanyu.springdocker.message.MessageProto.LogCollectProto.Builder addLogBatchBuilder(
+          int index) {
+        return getLogBatchFieldBuilder().addBuilder(
+            index, stu.lanyu.springdocker.message.MessageProto.LogCollectProto.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .message.LogCollectProto LogBatch = 1;</code>
+       */
+      public java.util.List<stu.lanyu.springdocker.message.MessageProto.LogCollectProto.Builder> 
+           getLogBatchBuilderList() {
+        return getLogBatchFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilder<
+          stu.lanyu.springdocker.message.MessageProto.LogCollectProto, stu.lanyu.springdocker.message.MessageProto.LogCollectProto.Builder, stu.lanyu.springdocker.message.MessageProto.LogCollectProtoOrBuilder> 
+          getLogBatchFieldBuilder() {
+        if (logBatchBuilder_ == null) {
+          logBatchBuilder_ = new com.google.protobuf.RepeatedFieldBuilder<
+              stu.lanyu.springdocker.message.MessageProto.LogCollectProto, stu.lanyu.springdocker.message.MessageProto.LogCollectProto.Builder, stu.lanyu.springdocker.message.MessageProto.LogCollectProtoOrBuilder>(
+                  logBatch_,
+                  ((bitField0_ & 0x00000001) == 0x00000001),
+                  getParentForChildren(),
+                  isClean());
+          logBatch_ = null;
+        }
+        return logBatchBuilder_;
+      }
+
+      // @@protoc_insertion_point(builder_scope:message.LogCollectBatchProto)
+    }
+
+    static {
+      defaultInstance = new LogCollectBatchProto(true);
+      defaultInstance.initFields();
+    }
+
+    // @@protoc_insertion_point(class_scope:message.LogCollectBatchProto)
+  }
+
   public interface LogCollectProtoOrBuilder extends
       // @@protoc_insertion_point(interface_extends:message.LogCollectProto)
       com.google.protobuf.MessageOrBuilder {
@@ -1555,8 +2231,844 @@ public final class MessageProto {
     // @@protoc_insertion_point(class_scope:message.LogProto)
   }
 
-  public interface RegisterServiceProtoOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:message.RegisterServiceProto)
+  public interface MonitorProtoOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:message.MonitorProto)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>repeated .message.MonitorTaskProto RegisterTaskBatch = 1;</code>
+     */
+    java.util.List<stu.lanyu.springdocker.message.MessageProto.MonitorTaskProto> 
+        getRegisterTaskBatchList();
+    /**
+     * <code>repeated .message.MonitorTaskProto RegisterTaskBatch = 1;</code>
+     */
+    stu.lanyu.springdocker.message.MessageProto.MonitorTaskProto getRegisterTaskBatch(int index);
+    /**
+     * <code>repeated .message.MonitorTaskProto RegisterTaskBatch = 1;</code>
+     */
+    int getRegisterTaskBatchCount();
+    /**
+     * <code>repeated .message.MonitorTaskProto RegisterTaskBatch = 1;</code>
+     */
+    java.util.List<? extends stu.lanyu.springdocker.message.MessageProto.MonitorTaskProtoOrBuilder> 
+        getRegisterTaskBatchOrBuilderList();
+    /**
+     * <code>repeated .message.MonitorTaskProto RegisterTaskBatch = 1;</code>
+     */
+    stu.lanyu.springdocker.message.MessageProto.MonitorTaskProtoOrBuilder getRegisterTaskBatchOrBuilder(
+        int index);
+
+    /**
+     * <code>optional string BreakerUrl = 2;</code>
+     */
+    boolean hasBreakerUrl();
+    /**
+     * <code>optional string BreakerUrl = 2;</code>
+     */
+    java.lang.String getBreakerUrl();
+    /**
+     * <code>optional string BreakerUrl = 2;</code>
+     */
+    com.google.protobuf.ByteString
+        getBreakerUrlBytes();
+  }
+  /**
+   * Protobuf type {@code message.MonitorProto}
+   */
+  public static final class MonitorProto extends
+      com.google.protobuf.GeneratedMessage implements
+      // @@protoc_insertion_point(message_implements:message.MonitorProto)
+      MonitorProtoOrBuilder {
+    // Use MonitorProto.newBuilder() to construct.
+    private MonitorProto(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      super(builder);
+      this.unknownFields = builder.getUnknownFields();
+    }
+    private MonitorProto(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
+
+    private static final MonitorProto defaultInstance;
+    public static MonitorProto getDefaultInstance() {
+      return defaultInstance;
+    }
+
+    public MonitorProto getDefaultInstanceForType() {
+      return defaultInstance;
+    }
+
+    private final com.google.protobuf.UnknownFieldSet unknownFields;
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+        getUnknownFields() {
+      return this.unknownFields;
+    }
+    private MonitorProto(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      initFields();
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 10: {
+              if (!((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+                registerTaskBatch_ = new java.util.ArrayList<stu.lanyu.springdocker.message.MessageProto.MonitorTaskProto>();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              registerTaskBatch_.add(input.readMessage(stu.lanyu.springdocker.message.MessageProto.MonitorTaskProto.PARSER, extensionRegistry));
+              break;
+            }
+            case 18: {
+              com.google.protobuf.ByteString bs = input.readBytes();
+              bitField0_ |= 0x00000001;
+              breakerUrl_ = bs;
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e.getMessage()).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+          registerTaskBatch_ = java.util.Collections.unmodifiableList(registerTaskBatch_);
+        }
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return stu.lanyu.springdocker.message.MessageProto.internal_static_message_MonitorProto_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return stu.lanyu.springdocker.message.MessageProto.internal_static_message_MonitorProto_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              stu.lanyu.springdocker.message.MessageProto.MonitorProto.class, stu.lanyu.springdocker.message.MessageProto.MonitorProto.Builder.class);
+    }
+
+    public static com.google.protobuf.Parser<MonitorProto> PARSER =
+        new com.google.protobuf.AbstractParser<MonitorProto>() {
+      public MonitorProto parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new MonitorProto(input, extensionRegistry);
+      }
+    };
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<MonitorProto> getParserForType() {
+      return PARSER;
+    }
+
+    private int bitField0_;
+    public static final int REGISTERTASKBATCH_FIELD_NUMBER = 1;
+    private java.util.List<stu.lanyu.springdocker.message.MessageProto.MonitorTaskProto> registerTaskBatch_;
+    /**
+     * <code>repeated .message.MonitorTaskProto RegisterTaskBatch = 1;</code>
+     */
+    public java.util.List<stu.lanyu.springdocker.message.MessageProto.MonitorTaskProto> getRegisterTaskBatchList() {
+      return registerTaskBatch_;
+    }
+    /**
+     * <code>repeated .message.MonitorTaskProto RegisterTaskBatch = 1;</code>
+     */
+    public java.util.List<? extends stu.lanyu.springdocker.message.MessageProto.MonitorTaskProtoOrBuilder> 
+        getRegisterTaskBatchOrBuilderList() {
+      return registerTaskBatch_;
+    }
+    /**
+     * <code>repeated .message.MonitorTaskProto RegisterTaskBatch = 1;</code>
+     */
+    public int getRegisterTaskBatchCount() {
+      return registerTaskBatch_.size();
+    }
+    /**
+     * <code>repeated .message.MonitorTaskProto RegisterTaskBatch = 1;</code>
+     */
+    public stu.lanyu.springdocker.message.MessageProto.MonitorTaskProto getRegisterTaskBatch(int index) {
+      return registerTaskBatch_.get(index);
+    }
+    /**
+     * <code>repeated .message.MonitorTaskProto RegisterTaskBatch = 1;</code>
+     */
+    public stu.lanyu.springdocker.message.MessageProto.MonitorTaskProtoOrBuilder getRegisterTaskBatchOrBuilder(
+        int index) {
+      return registerTaskBatch_.get(index);
+    }
+
+    public static final int BREAKERURL_FIELD_NUMBER = 2;
+    private java.lang.Object breakerUrl_;
+    /**
+     * <code>optional string BreakerUrl = 2;</code>
+     */
+    public boolean hasBreakerUrl() {
+      return ((bitField0_ & 0x00000001) == 0x00000001);
+    }
+    /**
+     * <code>optional string BreakerUrl = 2;</code>
+     */
+    public java.lang.String getBreakerUrl() {
+      java.lang.Object ref = breakerUrl_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          breakerUrl_ = s;
+        }
+        return s;
+      }
+    }
+    /**
+     * <code>optional string BreakerUrl = 2;</code>
+     */
+    public com.google.protobuf.ByteString
+        getBreakerUrlBytes() {
+      java.lang.Object ref = breakerUrl_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        breakerUrl_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private void initFields() {
+      registerTaskBatch_ = java.util.Collections.emptyList();
+      breakerUrl_ = "";
+    }
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      for (int i = 0; i < registerTaskBatch_.size(); i++) {
+        output.writeMessage(1, registerTaskBatch_.get(i));
+      }
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        output.writeBytes(2, getBreakerUrlBytes());
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    private int memoizedSerializedSize = -1;
+    public int getSerializedSize() {
+      int size = memoizedSerializedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      for (int i = 0; i < registerTaskBatch_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(1, registerTaskBatch_.get(i));
+      }
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(2, getBreakerUrlBytes());
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSerializedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    protected java.lang.Object writeReplace()
+        throws java.io.ObjectStreamException {
+      return super.writeReplace();
+    }
+
+    public static stu.lanyu.springdocker.message.MessageProto.MonitorProto parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static stu.lanyu.springdocker.message.MessageProto.MonitorProto parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static stu.lanyu.springdocker.message.MessageProto.MonitorProto parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static stu.lanyu.springdocker.message.MessageProto.MonitorProto parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static stu.lanyu.springdocker.message.MessageProto.MonitorProto parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static stu.lanyu.springdocker.message.MessageProto.MonitorProto parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+    public static stu.lanyu.springdocker.message.MessageProto.MonitorProto parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input);
+    }
+    public static stu.lanyu.springdocker.message.MessageProto.MonitorProto parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+    }
+    public static stu.lanyu.springdocker.message.MessageProto.MonitorProto parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static stu.lanyu.springdocker.message.MessageProto.MonitorProto parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+
+    public static Builder newBuilder() { return Builder.create(); }
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder(stu.lanyu.springdocker.message.MessageProto.MonitorProto prototype) {
+      return newBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() { return newBuilder(this); }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code message.MonitorProto}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:message.MonitorProto)
+        stu.lanyu.springdocker.message.MessageProto.MonitorProtoOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return stu.lanyu.springdocker.message.MessageProto.internal_static_message_MonitorProto_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return stu.lanyu.springdocker.message.MessageProto.internal_static_message_MonitorProto_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                stu.lanyu.springdocker.message.MessageProto.MonitorProto.class, stu.lanyu.springdocker.message.MessageProto.MonitorProto.Builder.class);
+      }
+
+      // Construct using stu.lanyu.springdocker.message.MessageProto.MonitorProto.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+          getRegisterTaskBatchFieldBuilder();
+        }
+      }
+      private static Builder create() {
+        return new Builder();
+      }
+
+      public Builder clear() {
+        super.clear();
+        if (registerTaskBatchBuilder_ == null) {
+          registerTaskBatch_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+        } else {
+          registerTaskBatchBuilder_.clear();
+        }
+        breakerUrl_ = "";
+        bitField0_ = (bitField0_ & ~0x00000002);
+        return this;
+      }
+
+      public Builder clone() {
+        return create().mergeFrom(buildPartial());
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return stu.lanyu.springdocker.message.MessageProto.internal_static_message_MonitorProto_descriptor;
+      }
+
+      public stu.lanyu.springdocker.message.MessageProto.MonitorProto getDefaultInstanceForType() {
+        return stu.lanyu.springdocker.message.MessageProto.MonitorProto.getDefaultInstance();
+      }
+
+      public stu.lanyu.springdocker.message.MessageProto.MonitorProto build() {
+        stu.lanyu.springdocker.message.MessageProto.MonitorProto result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public stu.lanyu.springdocker.message.MessageProto.MonitorProto buildPartial() {
+        stu.lanyu.springdocker.message.MessageProto.MonitorProto result = new stu.lanyu.springdocker.message.MessageProto.MonitorProto(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (registerTaskBatchBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) == 0x00000001)) {
+            registerTaskBatch_ = java.util.Collections.unmodifiableList(registerTaskBatch_);
+            bitField0_ = (bitField0_ & ~0x00000001);
+          }
+          result.registerTaskBatch_ = registerTaskBatch_;
+        } else {
+          result.registerTaskBatch_ = registerTaskBatchBuilder_.build();
+        }
+        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+          to_bitField0_ |= 0x00000001;
+        }
+        result.breakerUrl_ = breakerUrl_;
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof stu.lanyu.springdocker.message.MessageProto.MonitorProto) {
+          return mergeFrom((stu.lanyu.springdocker.message.MessageProto.MonitorProto)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(stu.lanyu.springdocker.message.MessageProto.MonitorProto other) {
+        if (other == stu.lanyu.springdocker.message.MessageProto.MonitorProto.getDefaultInstance()) return this;
+        if (registerTaskBatchBuilder_ == null) {
+          if (!other.registerTaskBatch_.isEmpty()) {
+            if (registerTaskBatch_.isEmpty()) {
+              registerTaskBatch_ = other.registerTaskBatch_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+            } else {
+              ensureRegisterTaskBatchIsMutable();
+              registerTaskBatch_.addAll(other.registerTaskBatch_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.registerTaskBatch_.isEmpty()) {
+            if (registerTaskBatchBuilder_.isEmpty()) {
+              registerTaskBatchBuilder_.dispose();
+              registerTaskBatchBuilder_ = null;
+              registerTaskBatch_ = other.registerTaskBatch_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+              registerTaskBatchBuilder_ = 
+                com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders ?
+                   getRegisterTaskBatchFieldBuilder() : null;
+            } else {
+              registerTaskBatchBuilder_.addAllMessages(other.registerTaskBatch_);
+            }
+          }
+        }
+        if (other.hasBreakerUrl()) {
+          bitField0_ |= 0x00000002;
+          breakerUrl_ = other.breakerUrl_;
+          onChanged();
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        stu.lanyu.springdocker.message.MessageProto.MonitorProto parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (stu.lanyu.springdocker.message.MessageProto.MonitorProto) e.getUnfinishedMessage();
+          throw e;
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private java.util.List<stu.lanyu.springdocker.message.MessageProto.MonitorTaskProto> registerTaskBatch_ =
+        java.util.Collections.emptyList();
+      private void ensureRegisterTaskBatchIsMutable() {
+        if (!((bitField0_ & 0x00000001) == 0x00000001)) {
+          registerTaskBatch_ = new java.util.ArrayList<stu.lanyu.springdocker.message.MessageProto.MonitorTaskProto>(registerTaskBatch_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilder<
+          stu.lanyu.springdocker.message.MessageProto.MonitorTaskProto, stu.lanyu.springdocker.message.MessageProto.MonitorTaskProto.Builder, stu.lanyu.springdocker.message.MessageProto.MonitorTaskProtoOrBuilder> registerTaskBatchBuilder_;
+
+      /**
+       * <code>repeated .message.MonitorTaskProto RegisterTaskBatch = 1;</code>
+       */
+      public java.util.List<stu.lanyu.springdocker.message.MessageProto.MonitorTaskProto> getRegisterTaskBatchList() {
+        if (registerTaskBatchBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(registerTaskBatch_);
+        } else {
+          return registerTaskBatchBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <code>repeated .message.MonitorTaskProto RegisterTaskBatch = 1;</code>
+       */
+      public int getRegisterTaskBatchCount() {
+        if (registerTaskBatchBuilder_ == null) {
+          return registerTaskBatch_.size();
+        } else {
+          return registerTaskBatchBuilder_.getCount();
+        }
+      }
+      /**
+       * <code>repeated .message.MonitorTaskProto RegisterTaskBatch = 1;</code>
+       */
+      public stu.lanyu.springdocker.message.MessageProto.MonitorTaskProto getRegisterTaskBatch(int index) {
+        if (registerTaskBatchBuilder_ == null) {
+          return registerTaskBatch_.get(index);
+        } else {
+          return registerTaskBatchBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <code>repeated .message.MonitorTaskProto RegisterTaskBatch = 1;</code>
+       */
+      public Builder setRegisterTaskBatch(
+          int index, stu.lanyu.springdocker.message.MessageProto.MonitorTaskProto value) {
+        if (registerTaskBatchBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureRegisterTaskBatchIsMutable();
+          registerTaskBatch_.set(index, value);
+          onChanged();
+        } else {
+          registerTaskBatchBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .message.MonitorTaskProto RegisterTaskBatch = 1;</code>
+       */
+      public Builder setRegisterTaskBatch(
+          int index, stu.lanyu.springdocker.message.MessageProto.MonitorTaskProto.Builder builderForValue) {
+        if (registerTaskBatchBuilder_ == null) {
+          ensureRegisterTaskBatchIsMutable();
+          registerTaskBatch_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          registerTaskBatchBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .message.MonitorTaskProto RegisterTaskBatch = 1;</code>
+       */
+      public Builder addRegisterTaskBatch(stu.lanyu.springdocker.message.MessageProto.MonitorTaskProto value) {
+        if (registerTaskBatchBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureRegisterTaskBatchIsMutable();
+          registerTaskBatch_.add(value);
+          onChanged();
+        } else {
+          registerTaskBatchBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .message.MonitorTaskProto RegisterTaskBatch = 1;</code>
+       */
+      public Builder addRegisterTaskBatch(
+          int index, stu.lanyu.springdocker.message.MessageProto.MonitorTaskProto value) {
+        if (registerTaskBatchBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureRegisterTaskBatchIsMutable();
+          registerTaskBatch_.add(index, value);
+          onChanged();
+        } else {
+          registerTaskBatchBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .message.MonitorTaskProto RegisterTaskBatch = 1;</code>
+       */
+      public Builder addRegisterTaskBatch(
+          stu.lanyu.springdocker.message.MessageProto.MonitorTaskProto.Builder builderForValue) {
+        if (registerTaskBatchBuilder_ == null) {
+          ensureRegisterTaskBatchIsMutable();
+          registerTaskBatch_.add(builderForValue.build());
+          onChanged();
+        } else {
+          registerTaskBatchBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .message.MonitorTaskProto RegisterTaskBatch = 1;</code>
+       */
+      public Builder addRegisterTaskBatch(
+          int index, stu.lanyu.springdocker.message.MessageProto.MonitorTaskProto.Builder builderForValue) {
+        if (registerTaskBatchBuilder_ == null) {
+          ensureRegisterTaskBatchIsMutable();
+          registerTaskBatch_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          registerTaskBatchBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .message.MonitorTaskProto RegisterTaskBatch = 1;</code>
+       */
+      public Builder addAllRegisterTaskBatch(
+          java.lang.Iterable<? extends stu.lanyu.springdocker.message.MessageProto.MonitorTaskProto> values) {
+        if (registerTaskBatchBuilder_ == null) {
+          ensureRegisterTaskBatchIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, registerTaskBatch_);
+          onChanged();
+        } else {
+          registerTaskBatchBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .message.MonitorTaskProto RegisterTaskBatch = 1;</code>
+       */
+      public Builder clearRegisterTaskBatch() {
+        if (registerTaskBatchBuilder_ == null) {
+          registerTaskBatch_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+          onChanged();
+        } else {
+          registerTaskBatchBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .message.MonitorTaskProto RegisterTaskBatch = 1;</code>
+       */
+      public Builder removeRegisterTaskBatch(int index) {
+        if (registerTaskBatchBuilder_ == null) {
+          ensureRegisterTaskBatchIsMutable();
+          registerTaskBatch_.remove(index);
+          onChanged();
+        } else {
+          registerTaskBatchBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .message.MonitorTaskProto RegisterTaskBatch = 1;</code>
+       */
+      public stu.lanyu.springdocker.message.MessageProto.MonitorTaskProto.Builder getRegisterTaskBatchBuilder(
+          int index) {
+        return getRegisterTaskBatchFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <code>repeated .message.MonitorTaskProto RegisterTaskBatch = 1;</code>
+       */
+      public stu.lanyu.springdocker.message.MessageProto.MonitorTaskProtoOrBuilder getRegisterTaskBatchOrBuilder(
+          int index) {
+        if (registerTaskBatchBuilder_ == null) {
+          return registerTaskBatch_.get(index);  } else {
+          return registerTaskBatchBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <code>repeated .message.MonitorTaskProto RegisterTaskBatch = 1;</code>
+       */
+      public java.util.List<? extends stu.lanyu.springdocker.message.MessageProto.MonitorTaskProtoOrBuilder> 
+           getRegisterTaskBatchOrBuilderList() {
+        if (registerTaskBatchBuilder_ != null) {
+          return registerTaskBatchBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(registerTaskBatch_);
+        }
+      }
+      /**
+       * <code>repeated .message.MonitorTaskProto RegisterTaskBatch = 1;</code>
+       */
+      public stu.lanyu.springdocker.message.MessageProto.MonitorTaskProto.Builder addRegisterTaskBatchBuilder() {
+        return getRegisterTaskBatchFieldBuilder().addBuilder(
+            stu.lanyu.springdocker.message.MessageProto.MonitorTaskProto.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .message.MonitorTaskProto RegisterTaskBatch = 1;</code>
+       */
+      public stu.lanyu.springdocker.message.MessageProto.MonitorTaskProto.Builder addRegisterTaskBatchBuilder(
+          int index) {
+        return getRegisterTaskBatchFieldBuilder().addBuilder(
+            index, stu.lanyu.springdocker.message.MessageProto.MonitorTaskProto.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .message.MonitorTaskProto RegisterTaskBatch = 1;</code>
+       */
+      public java.util.List<stu.lanyu.springdocker.message.MessageProto.MonitorTaskProto.Builder> 
+           getRegisterTaskBatchBuilderList() {
+        return getRegisterTaskBatchFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilder<
+          stu.lanyu.springdocker.message.MessageProto.MonitorTaskProto, stu.lanyu.springdocker.message.MessageProto.MonitorTaskProto.Builder, stu.lanyu.springdocker.message.MessageProto.MonitorTaskProtoOrBuilder> 
+          getRegisterTaskBatchFieldBuilder() {
+        if (registerTaskBatchBuilder_ == null) {
+          registerTaskBatchBuilder_ = new com.google.protobuf.RepeatedFieldBuilder<
+              stu.lanyu.springdocker.message.MessageProto.MonitorTaskProto, stu.lanyu.springdocker.message.MessageProto.MonitorTaskProto.Builder, stu.lanyu.springdocker.message.MessageProto.MonitorTaskProtoOrBuilder>(
+                  registerTaskBatch_,
+                  ((bitField0_ & 0x00000001) == 0x00000001),
+                  getParentForChildren(),
+                  isClean());
+          registerTaskBatch_ = null;
+        }
+        return registerTaskBatchBuilder_;
+      }
+
+      private java.lang.Object breakerUrl_ = "";
+      /**
+       * <code>optional string BreakerUrl = 2;</code>
+       */
+      public boolean hasBreakerUrl() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      /**
+       * <code>optional string BreakerUrl = 2;</code>
+       */
+      public java.lang.String getBreakerUrl() {
+        java.lang.Object ref = breakerUrl_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            breakerUrl_ = s;
+          }
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>optional string BreakerUrl = 2;</code>
+       */
+      public com.google.protobuf.ByteString
+          getBreakerUrlBytes() {
+        java.lang.Object ref = breakerUrl_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          breakerUrl_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string BreakerUrl = 2;</code>
+       */
+      public Builder setBreakerUrl(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000002;
+        breakerUrl_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string BreakerUrl = 2;</code>
+       */
+      public Builder clearBreakerUrl() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        breakerUrl_ = getDefaultInstance().getBreakerUrl();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string BreakerUrl = 2;</code>
+       */
+      public Builder setBreakerUrlBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000002;
+        breakerUrl_ = value;
+        onChanged();
+        return this;
+      }
+
+      // @@protoc_insertion_point(builder_scope:message.MonitorProto)
+    }
+
+    static {
+      defaultInstance = new MonitorProto(true);
+      defaultInstance.initFields();
+    }
+
+    // @@protoc_insertion_point(class_scope:message.MonitorProto)
+  }
+
+  public interface MonitorTaskProtoOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:message.MonitorTaskProto)
       com.google.protobuf.MessageOrBuilder {
 
     /**
@@ -1597,63 +3109,58 @@ public final class MessageProto {
         getActionTokenBytes();
 
     /**
-     * <code>optional string BreakerUrl = 4;</code>
+     * <code>optional int64 LastHeartbeatTime = 4;</code>
      */
-    boolean hasBreakerUrl();
+    boolean hasLastHeartbeatTime();
     /**
-     * <code>optional string BreakerUrl = 4;</code>
+     * <code>optional int64 LastHeartbeatTime = 4;</code>
      */
-    java.lang.String getBreakerUrl();
-    /**
-     * <code>optional string BreakerUrl = 4;</code>
-     */
-    com.google.protobuf.ByteString
-        getBreakerUrlBytes();
+    long getLastHeartbeatTime();
 
     /**
-     * <code>repeated .message.RegisterJobProto RegisterJobs = 5;</code>
+     * <code>repeated .message.MonitorJobProto Jobs = 5;</code>
      */
-    java.util.List<stu.lanyu.springdocker.message.MessageProto.RegisterJobProto> 
-        getRegisterJobsList();
+    java.util.List<stu.lanyu.springdocker.message.MessageProto.MonitorJobProto> 
+        getJobsList();
     /**
-     * <code>repeated .message.RegisterJobProto RegisterJobs = 5;</code>
+     * <code>repeated .message.MonitorJobProto Jobs = 5;</code>
      */
-    stu.lanyu.springdocker.message.MessageProto.RegisterJobProto getRegisterJobs(int index);
+    stu.lanyu.springdocker.message.MessageProto.MonitorJobProto getJobs(int index);
     /**
-     * <code>repeated .message.RegisterJobProto RegisterJobs = 5;</code>
+     * <code>repeated .message.MonitorJobProto Jobs = 5;</code>
      */
-    int getRegisterJobsCount();
+    int getJobsCount();
     /**
-     * <code>repeated .message.RegisterJobProto RegisterJobs = 5;</code>
+     * <code>repeated .message.MonitorJobProto Jobs = 5;</code>
      */
-    java.util.List<? extends stu.lanyu.springdocker.message.MessageProto.RegisterJobProtoOrBuilder> 
-        getRegisterJobsOrBuilderList();
+    java.util.List<? extends stu.lanyu.springdocker.message.MessageProto.MonitorJobProtoOrBuilder> 
+        getJobsOrBuilderList();
     /**
-     * <code>repeated .message.RegisterJobProto RegisterJobs = 5;</code>
+     * <code>repeated .message.MonitorJobProto Jobs = 5;</code>
      */
-    stu.lanyu.springdocker.message.MessageProto.RegisterJobProtoOrBuilder getRegisterJobsOrBuilder(
+    stu.lanyu.springdocker.message.MessageProto.MonitorJobProtoOrBuilder getJobsOrBuilder(
         int index);
   }
   /**
-   * Protobuf type {@code message.RegisterServiceProto}
+   * Protobuf type {@code message.MonitorTaskProto}
    */
-  public static final class RegisterServiceProto extends
+  public static final class MonitorTaskProto extends
       com.google.protobuf.GeneratedMessage implements
-      // @@protoc_insertion_point(message_implements:message.RegisterServiceProto)
-      RegisterServiceProtoOrBuilder {
-    // Use RegisterServiceProto.newBuilder() to construct.
-    private RegisterServiceProto(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      // @@protoc_insertion_point(message_implements:message.MonitorTaskProto)
+      MonitorTaskProtoOrBuilder {
+    // Use MonitorTaskProto.newBuilder() to construct.
+    private MonitorTaskProto(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
       super(builder);
       this.unknownFields = builder.getUnknownFields();
     }
-    private RegisterServiceProto(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
+    private MonitorTaskProto(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
 
-    private static final RegisterServiceProto defaultInstance;
-    public static RegisterServiceProto getDefaultInstance() {
+    private static final MonitorTaskProto defaultInstance;
+    public static MonitorTaskProto getDefaultInstance() {
       return defaultInstance;
     }
 
-    public RegisterServiceProto getDefaultInstanceForType() {
+    public MonitorTaskProto getDefaultInstanceForType() {
       return defaultInstance;
     }
 
@@ -1663,7 +3170,7 @@ public final class MessageProto {
         getUnknownFields() {
       return this.unknownFields;
     }
-    private RegisterServiceProto(
+    private MonitorTaskProto(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -1703,18 +3210,17 @@ public final class MessageProto {
               actionToken_ = bs;
               break;
             }
-            case 34: {
-              com.google.protobuf.ByteString bs = input.readBytes();
+            case 32: {
               bitField0_ |= 0x00000008;
-              breakerUrl_ = bs;
+              lastHeartbeatTime_ = input.readInt64();
               break;
             }
             case 42: {
               if (!((mutable_bitField0_ & 0x00000010) == 0x00000010)) {
-                registerJobs_ = new java.util.ArrayList<stu.lanyu.springdocker.message.MessageProto.RegisterJobProto>();
+                jobs_ = new java.util.ArrayList<stu.lanyu.springdocker.message.MessageProto.MonitorJobProto>();
                 mutable_bitField0_ |= 0x00000010;
               }
-              registerJobs_.add(input.readMessage(stu.lanyu.springdocker.message.MessageProto.RegisterJobProto.PARSER, extensionRegistry));
+              jobs_.add(input.readMessage(stu.lanyu.springdocker.message.MessageProto.MonitorJobProto.PARSER, extensionRegistry));
               break;
             }
           }
@@ -1726,7 +3232,7 @@ public final class MessageProto {
             e.getMessage()).setUnfinishedMessage(this);
       } finally {
         if (((mutable_bitField0_ & 0x00000010) == 0x00000010)) {
-          registerJobs_ = java.util.Collections.unmodifiableList(registerJobs_);
+          jobs_ = java.util.Collections.unmodifiableList(jobs_);
         }
         this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
@@ -1734,28 +3240,28 @@ public final class MessageProto {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return stu.lanyu.springdocker.message.MessageProto.internal_static_message_RegisterServiceProto_descriptor;
+      return stu.lanyu.springdocker.message.MessageProto.internal_static_message_MonitorTaskProto_descriptor;
     }
 
     protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return stu.lanyu.springdocker.message.MessageProto.internal_static_message_RegisterServiceProto_fieldAccessorTable
+      return stu.lanyu.springdocker.message.MessageProto.internal_static_message_MonitorTaskProto_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              stu.lanyu.springdocker.message.MessageProto.RegisterServiceProto.class, stu.lanyu.springdocker.message.MessageProto.RegisterServiceProto.Builder.class);
+              stu.lanyu.springdocker.message.MessageProto.MonitorTaskProto.class, stu.lanyu.springdocker.message.MessageProto.MonitorTaskProto.Builder.class);
     }
 
-    public static com.google.protobuf.Parser<RegisterServiceProto> PARSER =
-        new com.google.protobuf.AbstractParser<RegisterServiceProto>() {
-      public RegisterServiceProto parsePartialFrom(
+    public static com.google.protobuf.Parser<MonitorTaskProto> PARSER =
+        new com.google.protobuf.AbstractParser<MonitorTaskProto>() {
+      public MonitorTaskProto parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-        return new RegisterServiceProto(input, extensionRegistry);
+        return new MonitorTaskProto(input, extensionRegistry);
       }
     };
 
     @java.lang.Override
-    public com.google.protobuf.Parser<RegisterServiceProto> getParserForType() {
+    public com.google.protobuf.Parser<MonitorTaskProto> getParserForType() {
       return PARSER;
     }
 
@@ -1859,89 +3365,62 @@ public final class MessageProto {
       }
     }
 
-    public static final int BREAKERURL_FIELD_NUMBER = 4;
-    private java.lang.Object breakerUrl_;
+    public static final int LASTHEARTBEATTIME_FIELD_NUMBER = 4;
+    private long lastHeartbeatTime_;
     /**
-     * <code>optional string BreakerUrl = 4;</code>
+     * <code>optional int64 LastHeartbeatTime = 4;</code>
      */
-    public boolean hasBreakerUrl() {
+    public boolean hasLastHeartbeatTime() {
       return ((bitField0_ & 0x00000008) == 0x00000008);
     }
     /**
-     * <code>optional string BreakerUrl = 4;</code>
+     * <code>optional int64 LastHeartbeatTime = 4;</code>
      */
-    public java.lang.String getBreakerUrl() {
-      java.lang.Object ref = breakerUrl_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        if (bs.isValidUtf8()) {
-          breakerUrl_ = s;
-        }
-        return s;
-      }
-    }
-    /**
-     * <code>optional string BreakerUrl = 4;</code>
-     */
-    public com.google.protobuf.ByteString
-        getBreakerUrlBytes() {
-      java.lang.Object ref = breakerUrl_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        breakerUrl_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
+    public long getLastHeartbeatTime() {
+      return lastHeartbeatTime_;
     }
 
-    public static final int REGISTERJOBS_FIELD_NUMBER = 5;
-    private java.util.List<stu.lanyu.springdocker.message.MessageProto.RegisterJobProto> registerJobs_;
+    public static final int JOBS_FIELD_NUMBER = 5;
+    private java.util.List<stu.lanyu.springdocker.message.MessageProto.MonitorJobProto> jobs_;
     /**
-     * <code>repeated .message.RegisterJobProto RegisterJobs = 5;</code>
+     * <code>repeated .message.MonitorJobProto Jobs = 5;</code>
      */
-    public java.util.List<stu.lanyu.springdocker.message.MessageProto.RegisterJobProto> getRegisterJobsList() {
-      return registerJobs_;
+    public java.util.List<stu.lanyu.springdocker.message.MessageProto.MonitorJobProto> getJobsList() {
+      return jobs_;
     }
     /**
-     * <code>repeated .message.RegisterJobProto RegisterJobs = 5;</code>
+     * <code>repeated .message.MonitorJobProto Jobs = 5;</code>
      */
-    public java.util.List<? extends stu.lanyu.springdocker.message.MessageProto.RegisterJobProtoOrBuilder> 
-        getRegisterJobsOrBuilderList() {
-      return registerJobs_;
+    public java.util.List<? extends stu.lanyu.springdocker.message.MessageProto.MonitorJobProtoOrBuilder> 
+        getJobsOrBuilderList() {
+      return jobs_;
     }
     /**
-     * <code>repeated .message.RegisterJobProto RegisterJobs = 5;</code>
+     * <code>repeated .message.MonitorJobProto Jobs = 5;</code>
      */
-    public int getRegisterJobsCount() {
-      return registerJobs_.size();
+    public int getJobsCount() {
+      return jobs_.size();
     }
     /**
-     * <code>repeated .message.RegisterJobProto RegisterJobs = 5;</code>
+     * <code>repeated .message.MonitorJobProto Jobs = 5;</code>
      */
-    public stu.lanyu.springdocker.message.MessageProto.RegisterJobProto getRegisterJobs(int index) {
-      return registerJobs_.get(index);
+    public stu.lanyu.springdocker.message.MessageProto.MonitorJobProto getJobs(int index) {
+      return jobs_.get(index);
     }
     /**
-     * <code>repeated .message.RegisterJobProto RegisterJobs = 5;</code>
+     * <code>repeated .message.MonitorJobProto Jobs = 5;</code>
      */
-    public stu.lanyu.springdocker.message.MessageProto.RegisterJobProtoOrBuilder getRegisterJobsOrBuilder(
+    public stu.lanyu.springdocker.message.MessageProto.MonitorJobProtoOrBuilder getJobsOrBuilder(
         int index) {
-      return registerJobs_.get(index);
+      return jobs_.get(index);
     }
 
     private void initFields() {
       serviceIdentity_ = "";
       registerTime_ = 0L;
       actionToken_ = "";
-      breakerUrl_ = "";
-      registerJobs_ = java.util.Collections.emptyList();
+      lastHeartbeatTime_ = 0L;
+      jobs_ = java.util.Collections.emptyList();
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -1966,10 +3445,10 @@ public final class MessageProto {
         output.writeBytes(3, getActionTokenBytes());
       }
       if (((bitField0_ & 0x00000008) == 0x00000008)) {
-        output.writeBytes(4, getBreakerUrlBytes());
+        output.writeInt64(4, lastHeartbeatTime_);
       }
-      for (int i = 0; i < registerJobs_.size(); i++) {
-        output.writeMessage(5, registerJobs_.get(i));
+      for (int i = 0; i < jobs_.size(); i++) {
+        output.writeMessage(5, jobs_.get(i));
       }
       getUnknownFields().writeTo(output);
     }
@@ -1994,11 +3473,11 @@ public final class MessageProto {
       }
       if (((bitField0_ & 0x00000008) == 0x00000008)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(4, getBreakerUrlBytes());
+          .computeInt64Size(4, lastHeartbeatTime_);
       }
-      for (int i = 0; i < registerJobs_.size(); i++) {
+      for (int i = 0; i < jobs_.size(); i++) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(5, registerJobs_.get(i));
+          .computeMessageSize(5, jobs_.get(i));
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -2012,53 +3491,53 @@ public final class MessageProto {
       return super.writeReplace();
     }
 
-    public static stu.lanyu.springdocker.message.MessageProto.RegisterServiceProto parseFrom(
+    public static stu.lanyu.springdocker.message.MessageProto.MonitorTaskProto parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static stu.lanyu.springdocker.message.MessageProto.RegisterServiceProto parseFrom(
+    public static stu.lanyu.springdocker.message.MessageProto.MonitorTaskProto parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static stu.lanyu.springdocker.message.MessageProto.RegisterServiceProto parseFrom(byte[] data)
+    public static stu.lanyu.springdocker.message.MessageProto.MonitorTaskProto parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static stu.lanyu.springdocker.message.MessageProto.RegisterServiceProto parseFrom(
+    public static stu.lanyu.springdocker.message.MessageProto.MonitorTaskProto parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static stu.lanyu.springdocker.message.MessageProto.RegisterServiceProto parseFrom(java.io.InputStream input)
+    public static stu.lanyu.springdocker.message.MessageProto.MonitorTaskProto parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return PARSER.parseFrom(input);
     }
-    public static stu.lanyu.springdocker.message.MessageProto.RegisterServiceProto parseFrom(
+    public static stu.lanyu.springdocker.message.MessageProto.MonitorTaskProto parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return PARSER.parseFrom(input, extensionRegistry);
     }
-    public static stu.lanyu.springdocker.message.MessageProto.RegisterServiceProto parseDelimitedFrom(java.io.InputStream input)
+    public static stu.lanyu.springdocker.message.MessageProto.MonitorTaskProto parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return PARSER.parseDelimitedFrom(input);
     }
-    public static stu.lanyu.springdocker.message.MessageProto.RegisterServiceProto parseDelimitedFrom(
+    public static stu.lanyu.springdocker.message.MessageProto.MonitorTaskProto parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return PARSER.parseDelimitedFrom(input, extensionRegistry);
     }
-    public static stu.lanyu.springdocker.message.MessageProto.RegisterServiceProto parseFrom(
+    public static stu.lanyu.springdocker.message.MessageProto.MonitorTaskProto parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return PARSER.parseFrom(input);
     }
-    public static stu.lanyu.springdocker.message.MessageProto.RegisterServiceProto parseFrom(
+    public static stu.lanyu.springdocker.message.MessageProto.MonitorTaskProto parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -2067,7 +3546,7 @@ public final class MessageProto {
 
     public static Builder newBuilder() { return Builder.create(); }
     public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder(stu.lanyu.springdocker.message.MessageProto.RegisterServiceProto prototype) {
+    public static Builder newBuilder(stu.lanyu.springdocker.message.MessageProto.MonitorTaskProto prototype) {
       return newBuilder().mergeFrom(prototype);
     }
     public Builder toBuilder() { return newBuilder(this); }
@@ -2079,25 +3558,25 @@ public final class MessageProto {
       return builder;
     }
     /**
-     * Protobuf type {@code message.RegisterServiceProto}
+     * Protobuf type {@code message.MonitorTaskProto}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessage.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:message.RegisterServiceProto)
-        stu.lanyu.springdocker.message.MessageProto.RegisterServiceProtoOrBuilder {
+        // @@protoc_insertion_point(builder_implements:message.MonitorTaskProto)
+        stu.lanyu.springdocker.message.MessageProto.MonitorTaskProtoOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return stu.lanyu.springdocker.message.MessageProto.internal_static_message_RegisterServiceProto_descriptor;
+        return stu.lanyu.springdocker.message.MessageProto.internal_static_message_MonitorTaskProto_descriptor;
       }
 
       protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return stu.lanyu.springdocker.message.MessageProto.internal_static_message_RegisterServiceProto_fieldAccessorTable
+        return stu.lanyu.springdocker.message.MessageProto.internal_static_message_MonitorTaskProto_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                stu.lanyu.springdocker.message.MessageProto.RegisterServiceProto.class, stu.lanyu.springdocker.message.MessageProto.RegisterServiceProto.Builder.class);
+                stu.lanyu.springdocker.message.MessageProto.MonitorTaskProto.class, stu.lanyu.springdocker.message.MessageProto.MonitorTaskProto.Builder.class);
       }
 
-      // Construct using stu.lanyu.springdocker.message.MessageProto.RegisterServiceProto.newBuilder()
+      // Construct using stu.lanyu.springdocker.message.MessageProto.MonitorTaskProto.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
@@ -2109,7 +3588,7 @@ public final class MessageProto {
       }
       private void maybeForceBuilderInitialization() {
         if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
-          getRegisterJobsFieldBuilder();
+          getJobsFieldBuilder();
         }
       }
       private static Builder create() {
@@ -2124,13 +3603,13 @@ public final class MessageProto {
         bitField0_ = (bitField0_ & ~0x00000002);
         actionToken_ = "";
         bitField0_ = (bitField0_ & ~0x00000004);
-        breakerUrl_ = "";
+        lastHeartbeatTime_ = 0L;
         bitField0_ = (bitField0_ & ~0x00000008);
-        if (registerJobsBuilder_ == null) {
-          registerJobs_ = java.util.Collections.emptyList();
+        if (jobsBuilder_ == null) {
+          jobs_ = java.util.Collections.emptyList();
           bitField0_ = (bitField0_ & ~0x00000010);
         } else {
-          registerJobsBuilder_.clear();
+          jobsBuilder_.clear();
         }
         return this;
       }
@@ -2141,23 +3620,23 @@ public final class MessageProto {
 
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return stu.lanyu.springdocker.message.MessageProto.internal_static_message_RegisterServiceProto_descriptor;
+        return stu.lanyu.springdocker.message.MessageProto.internal_static_message_MonitorTaskProto_descriptor;
       }
 
-      public stu.lanyu.springdocker.message.MessageProto.RegisterServiceProto getDefaultInstanceForType() {
-        return stu.lanyu.springdocker.message.MessageProto.RegisterServiceProto.getDefaultInstance();
+      public stu.lanyu.springdocker.message.MessageProto.MonitorTaskProto getDefaultInstanceForType() {
+        return stu.lanyu.springdocker.message.MessageProto.MonitorTaskProto.getDefaultInstance();
       }
 
-      public stu.lanyu.springdocker.message.MessageProto.RegisterServiceProto build() {
-        stu.lanyu.springdocker.message.MessageProto.RegisterServiceProto result = buildPartial();
+      public stu.lanyu.springdocker.message.MessageProto.MonitorTaskProto build() {
+        stu.lanyu.springdocker.message.MessageProto.MonitorTaskProto result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
         return result;
       }
 
-      public stu.lanyu.springdocker.message.MessageProto.RegisterServiceProto buildPartial() {
-        stu.lanyu.springdocker.message.MessageProto.RegisterServiceProto result = new stu.lanyu.springdocker.message.MessageProto.RegisterServiceProto(this);
+      public stu.lanyu.springdocker.message.MessageProto.MonitorTaskProto buildPartial() {
+        stu.lanyu.springdocker.message.MessageProto.MonitorTaskProto result = new stu.lanyu.springdocker.message.MessageProto.MonitorTaskProto(this);
         int from_bitField0_ = bitField0_;
         int to_bitField0_ = 0;
         if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
@@ -2175,15 +3654,15 @@ public final class MessageProto {
         if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
           to_bitField0_ |= 0x00000008;
         }
-        result.breakerUrl_ = breakerUrl_;
-        if (registerJobsBuilder_ == null) {
+        result.lastHeartbeatTime_ = lastHeartbeatTime_;
+        if (jobsBuilder_ == null) {
           if (((bitField0_ & 0x00000010) == 0x00000010)) {
-            registerJobs_ = java.util.Collections.unmodifiableList(registerJobs_);
+            jobs_ = java.util.Collections.unmodifiableList(jobs_);
             bitField0_ = (bitField0_ & ~0x00000010);
           }
-          result.registerJobs_ = registerJobs_;
+          result.jobs_ = jobs_;
         } else {
-          result.registerJobs_ = registerJobsBuilder_.build();
+          result.jobs_ = jobsBuilder_.build();
         }
         result.bitField0_ = to_bitField0_;
         onBuilt();
@@ -2191,16 +3670,16 @@ public final class MessageProto {
       }
 
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof stu.lanyu.springdocker.message.MessageProto.RegisterServiceProto) {
-          return mergeFrom((stu.lanyu.springdocker.message.MessageProto.RegisterServiceProto)other);
+        if (other instanceof stu.lanyu.springdocker.message.MessageProto.MonitorTaskProto) {
+          return mergeFrom((stu.lanyu.springdocker.message.MessageProto.MonitorTaskProto)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(stu.lanyu.springdocker.message.MessageProto.RegisterServiceProto other) {
-        if (other == stu.lanyu.springdocker.message.MessageProto.RegisterServiceProto.getDefaultInstance()) return this;
+      public Builder mergeFrom(stu.lanyu.springdocker.message.MessageProto.MonitorTaskProto other) {
+        if (other == stu.lanyu.springdocker.message.MessageProto.MonitorTaskProto.getDefaultInstance()) return this;
         if (other.hasServiceIdentity()) {
           bitField0_ |= 0x00000001;
           serviceIdentity_ = other.serviceIdentity_;
@@ -2214,34 +3693,32 @@ public final class MessageProto {
           actionToken_ = other.actionToken_;
           onChanged();
         }
-        if (other.hasBreakerUrl()) {
-          bitField0_ |= 0x00000008;
-          breakerUrl_ = other.breakerUrl_;
-          onChanged();
+        if (other.hasLastHeartbeatTime()) {
+          setLastHeartbeatTime(other.getLastHeartbeatTime());
         }
-        if (registerJobsBuilder_ == null) {
-          if (!other.registerJobs_.isEmpty()) {
-            if (registerJobs_.isEmpty()) {
-              registerJobs_ = other.registerJobs_;
+        if (jobsBuilder_ == null) {
+          if (!other.jobs_.isEmpty()) {
+            if (jobs_.isEmpty()) {
+              jobs_ = other.jobs_;
               bitField0_ = (bitField0_ & ~0x00000010);
             } else {
-              ensureRegisterJobsIsMutable();
-              registerJobs_.addAll(other.registerJobs_);
+              ensureJobsIsMutable();
+              jobs_.addAll(other.jobs_);
             }
             onChanged();
           }
         } else {
-          if (!other.registerJobs_.isEmpty()) {
-            if (registerJobsBuilder_.isEmpty()) {
-              registerJobsBuilder_.dispose();
-              registerJobsBuilder_ = null;
-              registerJobs_ = other.registerJobs_;
+          if (!other.jobs_.isEmpty()) {
+            if (jobsBuilder_.isEmpty()) {
+              jobsBuilder_.dispose();
+              jobsBuilder_ = null;
+              jobs_ = other.jobs_;
               bitField0_ = (bitField0_ & ~0x00000010);
-              registerJobsBuilder_ = 
+              jobsBuilder_ = 
                 com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders ?
-                   getRegisterJobsFieldBuilder() : null;
+                   getJobsFieldBuilder() : null;
             } else {
-              registerJobsBuilder_.addAllMessages(other.registerJobs_);
+              jobsBuilder_.addAllMessages(other.jobs_);
             }
           }
         }
@@ -2257,11 +3734,11 @@ public final class MessageProto {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        stu.lanyu.springdocker.message.MessageProto.RegisterServiceProto parsedMessage = null;
+        stu.lanyu.springdocker.message.MessageProto.MonitorTaskProto parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (stu.lanyu.springdocker.message.MessageProto.RegisterServiceProto) e.getUnfinishedMessage();
+          parsedMessage = (stu.lanyu.springdocker.message.MessageProto.MonitorTaskProto) e.getUnfinishedMessage();
           throw e;
         } finally {
           if (parsedMessage != null) {
@@ -2456,335 +3933,291 @@ public final class MessageProto {
         return this;
       }
 
-      private java.lang.Object breakerUrl_ = "";
+      private long lastHeartbeatTime_ ;
       /**
-       * <code>optional string BreakerUrl = 4;</code>
+       * <code>optional int64 LastHeartbeatTime = 4;</code>
        */
-      public boolean hasBreakerUrl() {
+      public boolean hasLastHeartbeatTime() {
         return ((bitField0_ & 0x00000008) == 0x00000008);
       }
       /**
-       * <code>optional string BreakerUrl = 4;</code>
+       * <code>optional int64 LastHeartbeatTime = 4;</code>
        */
-      public java.lang.String getBreakerUrl() {
-        java.lang.Object ref = breakerUrl_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          if (bs.isValidUtf8()) {
-            breakerUrl_ = s;
-          }
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
+      public long getLastHeartbeatTime() {
+        return lastHeartbeatTime_;
       }
       /**
-       * <code>optional string BreakerUrl = 4;</code>
+       * <code>optional int64 LastHeartbeatTime = 4;</code>
        */
-      public com.google.protobuf.ByteString
-          getBreakerUrlBytes() {
-        java.lang.Object ref = breakerUrl_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          breakerUrl_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>optional string BreakerUrl = 4;</code>
-       */
-      public Builder setBreakerUrl(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000008;
-        breakerUrl_ = value;
+      public Builder setLastHeartbeatTime(long value) {
+        bitField0_ |= 0x00000008;
+        lastHeartbeatTime_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional string BreakerUrl = 4;</code>
+       * <code>optional int64 LastHeartbeatTime = 4;</code>
        */
-      public Builder clearBreakerUrl() {
+      public Builder clearLastHeartbeatTime() {
         bitField0_ = (bitField0_ & ~0x00000008);
-        breakerUrl_ = getDefaultInstance().getBreakerUrl();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string BreakerUrl = 4;</code>
-       */
-      public Builder setBreakerUrlBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000008;
-        breakerUrl_ = value;
+        lastHeartbeatTime_ = 0L;
         onChanged();
         return this;
       }
 
-      private java.util.List<stu.lanyu.springdocker.message.MessageProto.RegisterJobProto> registerJobs_ =
+      private java.util.List<stu.lanyu.springdocker.message.MessageProto.MonitorJobProto> jobs_ =
         java.util.Collections.emptyList();
-      private void ensureRegisterJobsIsMutable() {
+      private void ensureJobsIsMutable() {
         if (!((bitField0_ & 0x00000010) == 0x00000010)) {
-          registerJobs_ = new java.util.ArrayList<stu.lanyu.springdocker.message.MessageProto.RegisterJobProto>(registerJobs_);
+          jobs_ = new java.util.ArrayList<stu.lanyu.springdocker.message.MessageProto.MonitorJobProto>(jobs_);
           bitField0_ |= 0x00000010;
          }
       }
 
       private com.google.protobuf.RepeatedFieldBuilder<
-          stu.lanyu.springdocker.message.MessageProto.RegisterJobProto, stu.lanyu.springdocker.message.MessageProto.RegisterJobProto.Builder, stu.lanyu.springdocker.message.MessageProto.RegisterJobProtoOrBuilder> registerJobsBuilder_;
+          stu.lanyu.springdocker.message.MessageProto.MonitorJobProto, stu.lanyu.springdocker.message.MessageProto.MonitorJobProto.Builder, stu.lanyu.springdocker.message.MessageProto.MonitorJobProtoOrBuilder> jobsBuilder_;
 
       /**
-       * <code>repeated .message.RegisterJobProto RegisterJobs = 5;</code>
+       * <code>repeated .message.MonitorJobProto Jobs = 5;</code>
        */
-      public java.util.List<stu.lanyu.springdocker.message.MessageProto.RegisterJobProto> getRegisterJobsList() {
-        if (registerJobsBuilder_ == null) {
-          return java.util.Collections.unmodifiableList(registerJobs_);
+      public java.util.List<stu.lanyu.springdocker.message.MessageProto.MonitorJobProto> getJobsList() {
+        if (jobsBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(jobs_);
         } else {
-          return registerJobsBuilder_.getMessageList();
+          return jobsBuilder_.getMessageList();
         }
       }
       /**
-       * <code>repeated .message.RegisterJobProto RegisterJobs = 5;</code>
+       * <code>repeated .message.MonitorJobProto Jobs = 5;</code>
        */
-      public int getRegisterJobsCount() {
-        if (registerJobsBuilder_ == null) {
-          return registerJobs_.size();
+      public int getJobsCount() {
+        if (jobsBuilder_ == null) {
+          return jobs_.size();
         } else {
-          return registerJobsBuilder_.getCount();
+          return jobsBuilder_.getCount();
         }
       }
       /**
-       * <code>repeated .message.RegisterJobProto RegisterJobs = 5;</code>
+       * <code>repeated .message.MonitorJobProto Jobs = 5;</code>
        */
-      public stu.lanyu.springdocker.message.MessageProto.RegisterJobProto getRegisterJobs(int index) {
-        if (registerJobsBuilder_ == null) {
-          return registerJobs_.get(index);
+      public stu.lanyu.springdocker.message.MessageProto.MonitorJobProto getJobs(int index) {
+        if (jobsBuilder_ == null) {
+          return jobs_.get(index);
         } else {
-          return registerJobsBuilder_.getMessage(index);
+          return jobsBuilder_.getMessage(index);
         }
       }
       /**
-       * <code>repeated .message.RegisterJobProto RegisterJobs = 5;</code>
+       * <code>repeated .message.MonitorJobProto Jobs = 5;</code>
        */
-      public Builder setRegisterJobs(
-          int index, stu.lanyu.springdocker.message.MessageProto.RegisterJobProto value) {
-        if (registerJobsBuilder_ == null) {
+      public Builder setJobs(
+          int index, stu.lanyu.springdocker.message.MessageProto.MonitorJobProto value) {
+        if (jobsBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
           }
-          ensureRegisterJobsIsMutable();
-          registerJobs_.set(index, value);
+          ensureJobsIsMutable();
+          jobs_.set(index, value);
           onChanged();
         } else {
-          registerJobsBuilder_.setMessage(index, value);
+          jobsBuilder_.setMessage(index, value);
         }
         return this;
       }
       /**
-       * <code>repeated .message.RegisterJobProto RegisterJobs = 5;</code>
+       * <code>repeated .message.MonitorJobProto Jobs = 5;</code>
        */
-      public Builder setRegisterJobs(
-          int index, stu.lanyu.springdocker.message.MessageProto.RegisterJobProto.Builder builderForValue) {
-        if (registerJobsBuilder_ == null) {
-          ensureRegisterJobsIsMutable();
-          registerJobs_.set(index, builderForValue.build());
+      public Builder setJobs(
+          int index, stu.lanyu.springdocker.message.MessageProto.MonitorJobProto.Builder builderForValue) {
+        if (jobsBuilder_ == null) {
+          ensureJobsIsMutable();
+          jobs_.set(index, builderForValue.build());
           onChanged();
         } else {
-          registerJobsBuilder_.setMessage(index, builderForValue.build());
+          jobsBuilder_.setMessage(index, builderForValue.build());
         }
         return this;
       }
       /**
-       * <code>repeated .message.RegisterJobProto RegisterJobs = 5;</code>
+       * <code>repeated .message.MonitorJobProto Jobs = 5;</code>
        */
-      public Builder addRegisterJobs(stu.lanyu.springdocker.message.MessageProto.RegisterJobProto value) {
-        if (registerJobsBuilder_ == null) {
+      public Builder addJobs(stu.lanyu.springdocker.message.MessageProto.MonitorJobProto value) {
+        if (jobsBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
           }
-          ensureRegisterJobsIsMutable();
-          registerJobs_.add(value);
+          ensureJobsIsMutable();
+          jobs_.add(value);
           onChanged();
         } else {
-          registerJobsBuilder_.addMessage(value);
+          jobsBuilder_.addMessage(value);
         }
         return this;
       }
       /**
-       * <code>repeated .message.RegisterJobProto RegisterJobs = 5;</code>
+       * <code>repeated .message.MonitorJobProto Jobs = 5;</code>
        */
-      public Builder addRegisterJobs(
-          int index, stu.lanyu.springdocker.message.MessageProto.RegisterJobProto value) {
-        if (registerJobsBuilder_ == null) {
+      public Builder addJobs(
+          int index, stu.lanyu.springdocker.message.MessageProto.MonitorJobProto value) {
+        if (jobsBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
           }
-          ensureRegisterJobsIsMutable();
-          registerJobs_.add(index, value);
+          ensureJobsIsMutable();
+          jobs_.add(index, value);
           onChanged();
         } else {
-          registerJobsBuilder_.addMessage(index, value);
+          jobsBuilder_.addMessage(index, value);
         }
         return this;
       }
       /**
-       * <code>repeated .message.RegisterJobProto RegisterJobs = 5;</code>
+       * <code>repeated .message.MonitorJobProto Jobs = 5;</code>
        */
-      public Builder addRegisterJobs(
-          stu.lanyu.springdocker.message.MessageProto.RegisterJobProto.Builder builderForValue) {
-        if (registerJobsBuilder_ == null) {
-          ensureRegisterJobsIsMutable();
-          registerJobs_.add(builderForValue.build());
+      public Builder addJobs(
+          stu.lanyu.springdocker.message.MessageProto.MonitorJobProto.Builder builderForValue) {
+        if (jobsBuilder_ == null) {
+          ensureJobsIsMutable();
+          jobs_.add(builderForValue.build());
           onChanged();
         } else {
-          registerJobsBuilder_.addMessage(builderForValue.build());
+          jobsBuilder_.addMessage(builderForValue.build());
         }
         return this;
       }
       /**
-       * <code>repeated .message.RegisterJobProto RegisterJobs = 5;</code>
+       * <code>repeated .message.MonitorJobProto Jobs = 5;</code>
        */
-      public Builder addRegisterJobs(
-          int index, stu.lanyu.springdocker.message.MessageProto.RegisterJobProto.Builder builderForValue) {
-        if (registerJobsBuilder_ == null) {
-          ensureRegisterJobsIsMutable();
-          registerJobs_.add(index, builderForValue.build());
+      public Builder addJobs(
+          int index, stu.lanyu.springdocker.message.MessageProto.MonitorJobProto.Builder builderForValue) {
+        if (jobsBuilder_ == null) {
+          ensureJobsIsMutable();
+          jobs_.add(index, builderForValue.build());
           onChanged();
         } else {
-          registerJobsBuilder_.addMessage(index, builderForValue.build());
+          jobsBuilder_.addMessage(index, builderForValue.build());
         }
         return this;
       }
       /**
-       * <code>repeated .message.RegisterJobProto RegisterJobs = 5;</code>
+       * <code>repeated .message.MonitorJobProto Jobs = 5;</code>
        */
-      public Builder addAllRegisterJobs(
-          java.lang.Iterable<? extends stu.lanyu.springdocker.message.MessageProto.RegisterJobProto> values) {
-        if (registerJobsBuilder_ == null) {
-          ensureRegisterJobsIsMutable();
+      public Builder addAllJobs(
+          java.lang.Iterable<? extends stu.lanyu.springdocker.message.MessageProto.MonitorJobProto> values) {
+        if (jobsBuilder_ == null) {
+          ensureJobsIsMutable();
           com.google.protobuf.AbstractMessageLite.Builder.addAll(
-              values, registerJobs_);
+              values, jobs_);
           onChanged();
         } else {
-          registerJobsBuilder_.addAllMessages(values);
+          jobsBuilder_.addAllMessages(values);
         }
         return this;
       }
       /**
-       * <code>repeated .message.RegisterJobProto RegisterJobs = 5;</code>
+       * <code>repeated .message.MonitorJobProto Jobs = 5;</code>
        */
-      public Builder clearRegisterJobs() {
-        if (registerJobsBuilder_ == null) {
-          registerJobs_ = java.util.Collections.emptyList();
+      public Builder clearJobs() {
+        if (jobsBuilder_ == null) {
+          jobs_ = java.util.Collections.emptyList();
           bitField0_ = (bitField0_ & ~0x00000010);
           onChanged();
         } else {
-          registerJobsBuilder_.clear();
+          jobsBuilder_.clear();
         }
         return this;
       }
       /**
-       * <code>repeated .message.RegisterJobProto RegisterJobs = 5;</code>
+       * <code>repeated .message.MonitorJobProto Jobs = 5;</code>
        */
-      public Builder removeRegisterJobs(int index) {
-        if (registerJobsBuilder_ == null) {
-          ensureRegisterJobsIsMutable();
-          registerJobs_.remove(index);
+      public Builder removeJobs(int index) {
+        if (jobsBuilder_ == null) {
+          ensureJobsIsMutable();
+          jobs_.remove(index);
           onChanged();
         } else {
-          registerJobsBuilder_.remove(index);
+          jobsBuilder_.remove(index);
         }
         return this;
       }
       /**
-       * <code>repeated .message.RegisterJobProto RegisterJobs = 5;</code>
+       * <code>repeated .message.MonitorJobProto Jobs = 5;</code>
        */
-      public stu.lanyu.springdocker.message.MessageProto.RegisterJobProto.Builder getRegisterJobsBuilder(
+      public stu.lanyu.springdocker.message.MessageProto.MonitorJobProto.Builder getJobsBuilder(
           int index) {
-        return getRegisterJobsFieldBuilder().getBuilder(index);
+        return getJobsFieldBuilder().getBuilder(index);
       }
       /**
-       * <code>repeated .message.RegisterJobProto RegisterJobs = 5;</code>
+       * <code>repeated .message.MonitorJobProto Jobs = 5;</code>
        */
-      public stu.lanyu.springdocker.message.MessageProto.RegisterJobProtoOrBuilder getRegisterJobsOrBuilder(
+      public stu.lanyu.springdocker.message.MessageProto.MonitorJobProtoOrBuilder getJobsOrBuilder(
           int index) {
-        if (registerJobsBuilder_ == null) {
-          return registerJobs_.get(index);  } else {
-          return registerJobsBuilder_.getMessageOrBuilder(index);
+        if (jobsBuilder_ == null) {
+          return jobs_.get(index);  } else {
+          return jobsBuilder_.getMessageOrBuilder(index);
         }
       }
       /**
-       * <code>repeated .message.RegisterJobProto RegisterJobs = 5;</code>
+       * <code>repeated .message.MonitorJobProto Jobs = 5;</code>
        */
-      public java.util.List<? extends stu.lanyu.springdocker.message.MessageProto.RegisterJobProtoOrBuilder> 
-           getRegisterJobsOrBuilderList() {
-        if (registerJobsBuilder_ != null) {
-          return registerJobsBuilder_.getMessageOrBuilderList();
+      public java.util.List<? extends stu.lanyu.springdocker.message.MessageProto.MonitorJobProtoOrBuilder> 
+           getJobsOrBuilderList() {
+        if (jobsBuilder_ != null) {
+          return jobsBuilder_.getMessageOrBuilderList();
         } else {
-          return java.util.Collections.unmodifiableList(registerJobs_);
+          return java.util.Collections.unmodifiableList(jobs_);
         }
       }
       /**
-       * <code>repeated .message.RegisterJobProto RegisterJobs = 5;</code>
+       * <code>repeated .message.MonitorJobProto Jobs = 5;</code>
        */
-      public stu.lanyu.springdocker.message.MessageProto.RegisterJobProto.Builder addRegisterJobsBuilder() {
-        return getRegisterJobsFieldBuilder().addBuilder(
-            stu.lanyu.springdocker.message.MessageProto.RegisterJobProto.getDefaultInstance());
+      public stu.lanyu.springdocker.message.MessageProto.MonitorJobProto.Builder addJobsBuilder() {
+        return getJobsFieldBuilder().addBuilder(
+            stu.lanyu.springdocker.message.MessageProto.MonitorJobProto.getDefaultInstance());
       }
       /**
-       * <code>repeated .message.RegisterJobProto RegisterJobs = 5;</code>
+       * <code>repeated .message.MonitorJobProto Jobs = 5;</code>
        */
-      public stu.lanyu.springdocker.message.MessageProto.RegisterJobProto.Builder addRegisterJobsBuilder(
+      public stu.lanyu.springdocker.message.MessageProto.MonitorJobProto.Builder addJobsBuilder(
           int index) {
-        return getRegisterJobsFieldBuilder().addBuilder(
-            index, stu.lanyu.springdocker.message.MessageProto.RegisterJobProto.getDefaultInstance());
+        return getJobsFieldBuilder().addBuilder(
+            index, stu.lanyu.springdocker.message.MessageProto.MonitorJobProto.getDefaultInstance());
       }
       /**
-       * <code>repeated .message.RegisterJobProto RegisterJobs = 5;</code>
+       * <code>repeated .message.MonitorJobProto Jobs = 5;</code>
        */
-      public java.util.List<stu.lanyu.springdocker.message.MessageProto.RegisterJobProto.Builder> 
-           getRegisterJobsBuilderList() {
-        return getRegisterJobsFieldBuilder().getBuilderList();
+      public java.util.List<stu.lanyu.springdocker.message.MessageProto.MonitorJobProto.Builder> 
+           getJobsBuilderList() {
+        return getJobsFieldBuilder().getBuilderList();
       }
       private com.google.protobuf.RepeatedFieldBuilder<
-          stu.lanyu.springdocker.message.MessageProto.RegisterJobProto, stu.lanyu.springdocker.message.MessageProto.RegisterJobProto.Builder, stu.lanyu.springdocker.message.MessageProto.RegisterJobProtoOrBuilder> 
-          getRegisterJobsFieldBuilder() {
-        if (registerJobsBuilder_ == null) {
-          registerJobsBuilder_ = new com.google.protobuf.RepeatedFieldBuilder<
-              stu.lanyu.springdocker.message.MessageProto.RegisterJobProto, stu.lanyu.springdocker.message.MessageProto.RegisterJobProto.Builder, stu.lanyu.springdocker.message.MessageProto.RegisterJobProtoOrBuilder>(
-                  registerJobs_,
+          stu.lanyu.springdocker.message.MessageProto.MonitorJobProto, stu.lanyu.springdocker.message.MessageProto.MonitorJobProto.Builder, stu.lanyu.springdocker.message.MessageProto.MonitorJobProtoOrBuilder> 
+          getJobsFieldBuilder() {
+        if (jobsBuilder_ == null) {
+          jobsBuilder_ = new com.google.protobuf.RepeatedFieldBuilder<
+              stu.lanyu.springdocker.message.MessageProto.MonitorJobProto, stu.lanyu.springdocker.message.MessageProto.MonitorJobProto.Builder, stu.lanyu.springdocker.message.MessageProto.MonitorJobProtoOrBuilder>(
+                  jobs_,
                   ((bitField0_ & 0x00000010) == 0x00000010),
                   getParentForChildren(),
                   isClean());
-          registerJobs_ = null;
+          jobs_ = null;
         }
-        return registerJobsBuilder_;
+        return jobsBuilder_;
       }
 
-      // @@protoc_insertion_point(builder_scope:message.RegisterServiceProto)
+      // @@protoc_insertion_point(builder_scope:message.MonitorTaskProto)
     }
 
     static {
-      defaultInstance = new RegisterServiceProto(true);
+      defaultInstance = new MonitorTaskProto(true);
       defaultInstance.initFields();
     }
 
-    // @@protoc_insertion_point(class_scope:message.RegisterServiceProto)
+    // @@protoc_insertion_point(class_scope:message.MonitorTaskProto)
   }
 
-  public interface RegisterJobProtoOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:message.RegisterJobProto)
+  public interface MonitorJobProtoOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:message.MonitorJobProto)
       com.google.protobuf.MessageOrBuilder {
 
     /**
@@ -2874,27 +4307,95 @@ public final class MessageProto {
      * <code>optional int32 RepeatInterval = 7;</code>
      */
     int getRepeatInterval();
+
+    /**
+     * <code>optional int64 JobCompletedLastTime = 8;</code>
+     */
+    boolean hasJobCompletedLastTime();
+    /**
+     * <code>optional int64 JobCompletedLastTime = 8;</code>
+     */
+    long getJobCompletedLastTime();
+
+    /**
+     * <code>optional int64 JobFiredLastTime = 9;</code>
+     */
+    boolean hasJobFiredLastTime();
+    /**
+     * <code>optional int64 JobFiredLastTime = 9;</code>
+     */
+    long getJobFiredLastTime();
+
+    /**
+     * <code>optional int64 JobMissfiredLastTime = 10;</code>
+     */
+    boolean hasJobMissfiredLastTime();
+    /**
+     * <code>optional int64 JobMissfiredLastTime = 10;</code>
+     */
+    long getJobMissfiredLastTime();
+
+    /**
+     * <code>optional bool JobVeto = 11;</code>
+     */
+    boolean hasJobVeto();
+    /**
+     * <code>optional bool JobVeto = 11;</code>
+     */
+    boolean getJobVeto();
+
+    /**
+     * <code>optional string ServiceIdentity = 12;</code>
+     */
+    boolean hasServiceIdentity();
+    /**
+     * <code>optional string ServiceIdentity = 12;</code>
+     */
+    java.lang.String getServiceIdentity();
+    /**
+     * <code>optional string ServiceIdentity = 12;</code>
+     */
+    com.google.protobuf.ByteString
+        getServiceIdentityBytes();
+
+    /**
+     * <code>optional int32 FiredTimes = 13;</code>
+     */
+    boolean hasFiredTimes();
+    /**
+     * <code>optional int32 FiredTimes = 13;</code>
+     */
+    int getFiredTimes();
+
+    /**
+     * <code>optional int32 MissfireTimes = 14;</code>
+     */
+    boolean hasMissfireTimes();
+    /**
+     * <code>optional int32 MissfireTimes = 14;</code>
+     */
+    int getMissfireTimes();
   }
   /**
-   * Protobuf type {@code message.RegisterJobProto}
+   * Protobuf type {@code message.MonitorJobProto}
    */
-  public static final class RegisterJobProto extends
+  public static final class MonitorJobProto extends
       com.google.protobuf.GeneratedMessage implements
-      // @@protoc_insertion_point(message_implements:message.RegisterJobProto)
-      RegisterJobProtoOrBuilder {
-    // Use RegisterJobProto.newBuilder() to construct.
-    private RegisterJobProto(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      // @@protoc_insertion_point(message_implements:message.MonitorJobProto)
+      MonitorJobProtoOrBuilder {
+    // Use MonitorJobProto.newBuilder() to construct.
+    private MonitorJobProto(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
       super(builder);
       this.unknownFields = builder.getUnknownFields();
     }
-    private RegisterJobProto(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
+    private MonitorJobProto(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
 
-    private static final RegisterJobProto defaultInstance;
-    public static RegisterJobProto getDefaultInstance() {
+    private static final MonitorJobProto defaultInstance;
+    public static MonitorJobProto getDefaultInstance() {
       return defaultInstance;
     }
 
-    public RegisterJobProto getDefaultInstanceForType() {
+    public MonitorJobProto getDefaultInstanceForType() {
       return defaultInstance;
     }
 
@@ -2904,7 +4405,7 @@ public final class MessageProto {
         getUnknownFields() {
       return this.unknownFields;
     }
-    private RegisterJobProto(
+    private MonitorJobProto(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -2967,6 +4468,42 @@ public final class MessageProto {
               repeatInterval_ = input.readInt32();
               break;
             }
+            case 64: {
+              bitField0_ |= 0x00000080;
+              jobCompletedLastTime_ = input.readInt64();
+              break;
+            }
+            case 72: {
+              bitField0_ |= 0x00000100;
+              jobFiredLastTime_ = input.readInt64();
+              break;
+            }
+            case 80: {
+              bitField0_ |= 0x00000200;
+              jobMissfiredLastTime_ = input.readInt64();
+              break;
+            }
+            case 88: {
+              bitField0_ |= 0x00000400;
+              jobVeto_ = input.readBool();
+              break;
+            }
+            case 98: {
+              com.google.protobuf.ByteString bs = input.readBytes();
+              bitField0_ |= 0x00000800;
+              serviceIdentity_ = bs;
+              break;
+            }
+            case 104: {
+              bitField0_ |= 0x00001000;
+              firedTimes_ = input.readInt32();
+              break;
+            }
+            case 112: {
+              bitField0_ |= 0x00002000;
+              missfireTimes_ = input.readInt32();
+              break;
+            }
           }
         }
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
@@ -2981,28 +4518,28 @@ public final class MessageProto {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return stu.lanyu.springdocker.message.MessageProto.internal_static_message_RegisterJobProto_descriptor;
+      return stu.lanyu.springdocker.message.MessageProto.internal_static_message_MonitorJobProto_descriptor;
     }
 
     protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return stu.lanyu.springdocker.message.MessageProto.internal_static_message_RegisterJobProto_fieldAccessorTable
+      return stu.lanyu.springdocker.message.MessageProto.internal_static_message_MonitorJobProto_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              stu.lanyu.springdocker.message.MessageProto.RegisterJobProto.class, stu.lanyu.springdocker.message.MessageProto.RegisterJobProto.Builder.class);
+              stu.lanyu.springdocker.message.MessageProto.MonitorJobProto.class, stu.lanyu.springdocker.message.MessageProto.MonitorJobProto.Builder.class);
     }
 
-    public static com.google.protobuf.Parser<RegisterJobProto> PARSER =
-        new com.google.protobuf.AbstractParser<RegisterJobProto>() {
-      public RegisterJobProto parsePartialFrom(
+    public static com.google.protobuf.Parser<MonitorJobProto> PARSER =
+        new com.google.protobuf.AbstractParser<MonitorJobProto>() {
+      public MonitorJobProto parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-        return new RegisterJobProto(input, extensionRegistry);
+        return new MonitorJobProto(input, extensionRegistry);
       }
     };
 
     @java.lang.Override
-    public com.google.protobuf.Parser<RegisterJobProto> getParserForType() {
+    public com.google.protobuf.Parser<MonitorJobProto> getParserForType() {
       return PARSER;
     }
 
@@ -3247,6 +4784,138 @@ public final class MessageProto {
       return repeatInterval_;
     }
 
+    public static final int JOBCOMPLETEDLASTTIME_FIELD_NUMBER = 8;
+    private long jobCompletedLastTime_;
+    /**
+     * <code>optional int64 JobCompletedLastTime = 8;</code>
+     */
+    public boolean hasJobCompletedLastTime() {
+      return ((bitField0_ & 0x00000080) == 0x00000080);
+    }
+    /**
+     * <code>optional int64 JobCompletedLastTime = 8;</code>
+     */
+    public long getJobCompletedLastTime() {
+      return jobCompletedLastTime_;
+    }
+
+    public static final int JOBFIREDLASTTIME_FIELD_NUMBER = 9;
+    private long jobFiredLastTime_;
+    /**
+     * <code>optional int64 JobFiredLastTime = 9;</code>
+     */
+    public boolean hasJobFiredLastTime() {
+      return ((bitField0_ & 0x00000100) == 0x00000100);
+    }
+    /**
+     * <code>optional int64 JobFiredLastTime = 9;</code>
+     */
+    public long getJobFiredLastTime() {
+      return jobFiredLastTime_;
+    }
+
+    public static final int JOBMISSFIREDLASTTIME_FIELD_NUMBER = 10;
+    private long jobMissfiredLastTime_;
+    /**
+     * <code>optional int64 JobMissfiredLastTime = 10;</code>
+     */
+    public boolean hasJobMissfiredLastTime() {
+      return ((bitField0_ & 0x00000200) == 0x00000200);
+    }
+    /**
+     * <code>optional int64 JobMissfiredLastTime = 10;</code>
+     */
+    public long getJobMissfiredLastTime() {
+      return jobMissfiredLastTime_;
+    }
+
+    public static final int JOBVETO_FIELD_NUMBER = 11;
+    private boolean jobVeto_;
+    /**
+     * <code>optional bool JobVeto = 11;</code>
+     */
+    public boolean hasJobVeto() {
+      return ((bitField0_ & 0x00000400) == 0x00000400);
+    }
+    /**
+     * <code>optional bool JobVeto = 11;</code>
+     */
+    public boolean getJobVeto() {
+      return jobVeto_;
+    }
+
+    public static final int SERVICEIDENTITY_FIELD_NUMBER = 12;
+    private java.lang.Object serviceIdentity_;
+    /**
+     * <code>optional string ServiceIdentity = 12;</code>
+     */
+    public boolean hasServiceIdentity() {
+      return ((bitField0_ & 0x00000800) == 0x00000800);
+    }
+    /**
+     * <code>optional string ServiceIdentity = 12;</code>
+     */
+    public java.lang.String getServiceIdentity() {
+      java.lang.Object ref = serviceIdentity_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          serviceIdentity_ = s;
+        }
+        return s;
+      }
+    }
+    /**
+     * <code>optional string ServiceIdentity = 12;</code>
+     */
+    public com.google.protobuf.ByteString
+        getServiceIdentityBytes() {
+      java.lang.Object ref = serviceIdentity_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        serviceIdentity_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int FIREDTIMES_FIELD_NUMBER = 13;
+    private int firedTimes_;
+    /**
+     * <code>optional int32 FiredTimes = 13;</code>
+     */
+    public boolean hasFiredTimes() {
+      return ((bitField0_ & 0x00001000) == 0x00001000);
+    }
+    /**
+     * <code>optional int32 FiredTimes = 13;</code>
+     */
+    public int getFiredTimes() {
+      return firedTimes_;
+    }
+
+    public static final int MISSFIRETIMES_FIELD_NUMBER = 14;
+    private int missfireTimes_;
+    /**
+     * <code>optional int32 MissfireTimes = 14;</code>
+     */
+    public boolean hasMissfireTimes() {
+      return ((bitField0_ & 0x00002000) == 0x00002000);
+    }
+    /**
+     * <code>optional int32 MissfireTimes = 14;</code>
+     */
+    public int getMissfireTimes() {
+      return missfireTimes_;
+    }
+
     private void initFields() {
       jobName_ = "";
       jogGroup_ = "";
@@ -3255,6 +4924,13 @@ public final class MessageProto {
       triggerGroup_ = "";
       repeatCount_ = 0;
       repeatInterval_ = 0;
+      jobCompletedLastTime_ = 0L;
+      jobFiredLastTime_ = 0L;
+      jobMissfiredLastTime_ = 0L;
+      jobVeto_ = false;
+      serviceIdentity_ = "";
+      firedTimes_ = 0;
+      missfireTimes_ = 0;
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -3289,6 +4965,27 @@ public final class MessageProto {
       }
       if (((bitField0_ & 0x00000040) == 0x00000040)) {
         output.writeInt32(7, repeatInterval_);
+      }
+      if (((bitField0_ & 0x00000080) == 0x00000080)) {
+        output.writeInt64(8, jobCompletedLastTime_);
+      }
+      if (((bitField0_ & 0x00000100) == 0x00000100)) {
+        output.writeInt64(9, jobFiredLastTime_);
+      }
+      if (((bitField0_ & 0x00000200) == 0x00000200)) {
+        output.writeInt64(10, jobMissfiredLastTime_);
+      }
+      if (((bitField0_ & 0x00000400) == 0x00000400)) {
+        output.writeBool(11, jobVeto_);
+      }
+      if (((bitField0_ & 0x00000800) == 0x00000800)) {
+        output.writeBytes(12, getServiceIdentityBytes());
+      }
+      if (((bitField0_ & 0x00001000) == 0x00001000)) {
+        output.writeInt32(13, firedTimes_);
+      }
+      if (((bitField0_ & 0x00002000) == 0x00002000)) {
+        output.writeInt32(14, missfireTimes_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -3327,6 +5024,34 @@ public final class MessageProto {
         size += com.google.protobuf.CodedOutputStream
           .computeInt32Size(7, repeatInterval_);
       }
+      if (((bitField0_ & 0x00000080) == 0x00000080)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(8, jobCompletedLastTime_);
+      }
+      if (((bitField0_ & 0x00000100) == 0x00000100)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(9, jobFiredLastTime_);
+      }
+      if (((bitField0_ & 0x00000200) == 0x00000200)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(10, jobMissfiredLastTime_);
+      }
+      if (((bitField0_ & 0x00000400) == 0x00000400)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(11, jobVeto_);
+      }
+      if (((bitField0_ & 0x00000800) == 0x00000800)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(12, getServiceIdentityBytes());
+      }
+      if (((bitField0_ & 0x00001000) == 0x00001000)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(13, firedTimes_);
+      }
+      if (((bitField0_ & 0x00002000) == 0x00002000)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(14, missfireTimes_);
+      }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
       return size;
@@ -3339,53 +5064,53 @@ public final class MessageProto {
       return super.writeReplace();
     }
 
-    public static stu.lanyu.springdocker.message.MessageProto.RegisterJobProto parseFrom(
+    public static stu.lanyu.springdocker.message.MessageProto.MonitorJobProto parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static stu.lanyu.springdocker.message.MessageProto.RegisterJobProto parseFrom(
+    public static stu.lanyu.springdocker.message.MessageProto.MonitorJobProto parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static stu.lanyu.springdocker.message.MessageProto.RegisterJobProto parseFrom(byte[] data)
+    public static stu.lanyu.springdocker.message.MessageProto.MonitorJobProto parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static stu.lanyu.springdocker.message.MessageProto.RegisterJobProto parseFrom(
+    public static stu.lanyu.springdocker.message.MessageProto.MonitorJobProto parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static stu.lanyu.springdocker.message.MessageProto.RegisterJobProto parseFrom(java.io.InputStream input)
+    public static stu.lanyu.springdocker.message.MessageProto.MonitorJobProto parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return PARSER.parseFrom(input);
     }
-    public static stu.lanyu.springdocker.message.MessageProto.RegisterJobProto parseFrom(
+    public static stu.lanyu.springdocker.message.MessageProto.MonitorJobProto parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return PARSER.parseFrom(input, extensionRegistry);
     }
-    public static stu.lanyu.springdocker.message.MessageProto.RegisterJobProto parseDelimitedFrom(java.io.InputStream input)
+    public static stu.lanyu.springdocker.message.MessageProto.MonitorJobProto parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return PARSER.parseDelimitedFrom(input);
     }
-    public static stu.lanyu.springdocker.message.MessageProto.RegisterJobProto parseDelimitedFrom(
+    public static stu.lanyu.springdocker.message.MessageProto.MonitorJobProto parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return PARSER.parseDelimitedFrom(input, extensionRegistry);
     }
-    public static stu.lanyu.springdocker.message.MessageProto.RegisterJobProto parseFrom(
+    public static stu.lanyu.springdocker.message.MessageProto.MonitorJobProto parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return PARSER.parseFrom(input);
     }
-    public static stu.lanyu.springdocker.message.MessageProto.RegisterJobProto parseFrom(
+    public static stu.lanyu.springdocker.message.MessageProto.MonitorJobProto parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -3394,7 +5119,7 @@ public final class MessageProto {
 
     public static Builder newBuilder() { return Builder.create(); }
     public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder(stu.lanyu.springdocker.message.MessageProto.RegisterJobProto prototype) {
+    public static Builder newBuilder(stu.lanyu.springdocker.message.MessageProto.MonitorJobProto prototype) {
       return newBuilder().mergeFrom(prototype);
     }
     public Builder toBuilder() { return newBuilder(this); }
@@ -3406,25 +5131,25 @@ public final class MessageProto {
       return builder;
     }
     /**
-     * Protobuf type {@code message.RegisterJobProto}
+     * Protobuf type {@code message.MonitorJobProto}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessage.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:message.RegisterJobProto)
-        stu.lanyu.springdocker.message.MessageProto.RegisterJobProtoOrBuilder {
+        // @@protoc_insertion_point(builder_implements:message.MonitorJobProto)
+        stu.lanyu.springdocker.message.MessageProto.MonitorJobProtoOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return stu.lanyu.springdocker.message.MessageProto.internal_static_message_RegisterJobProto_descriptor;
+        return stu.lanyu.springdocker.message.MessageProto.internal_static_message_MonitorJobProto_descriptor;
       }
 
       protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return stu.lanyu.springdocker.message.MessageProto.internal_static_message_RegisterJobProto_fieldAccessorTable
+        return stu.lanyu.springdocker.message.MessageProto.internal_static_message_MonitorJobProto_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                stu.lanyu.springdocker.message.MessageProto.RegisterJobProto.class, stu.lanyu.springdocker.message.MessageProto.RegisterJobProto.Builder.class);
+                stu.lanyu.springdocker.message.MessageProto.MonitorJobProto.class, stu.lanyu.springdocker.message.MessageProto.MonitorJobProto.Builder.class);
       }
 
-      // Construct using stu.lanyu.springdocker.message.MessageProto.RegisterJobProto.newBuilder()
+      // Construct using stu.lanyu.springdocker.message.MessageProto.MonitorJobProto.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
@@ -3458,6 +5183,20 @@ public final class MessageProto {
         bitField0_ = (bitField0_ & ~0x00000020);
         repeatInterval_ = 0;
         bitField0_ = (bitField0_ & ~0x00000040);
+        jobCompletedLastTime_ = 0L;
+        bitField0_ = (bitField0_ & ~0x00000080);
+        jobFiredLastTime_ = 0L;
+        bitField0_ = (bitField0_ & ~0x00000100);
+        jobMissfiredLastTime_ = 0L;
+        bitField0_ = (bitField0_ & ~0x00000200);
+        jobVeto_ = false;
+        bitField0_ = (bitField0_ & ~0x00000400);
+        serviceIdentity_ = "";
+        bitField0_ = (bitField0_ & ~0x00000800);
+        firedTimes_ = 0;
+        bitField0_ = (bitField0_ & ~0x00001000);
+        missfireTimes_ = 0;
+        bitField0_ = (bitField0_ & ~0x00002000);
         return this;
       }
 
@@ -3467,23 +5206,23 @@ public final class MessageProto {
 
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return stu.lanyu.springdocker.message.MessageProto.internal_static_message_RegisterJobProto_descriptor;
+        return stu.lanyu.springdocker.message.MessageProto.internal_static_message_MonitorJobProto_descriptor;
       }
 
-      public stu.lanyu.springdocker.message.MessageProto.RegisterJobProto getDefaultInstanceForType() {
-        return stu.lanyu.springdocker.message.MessageProto.RegisterJobProto.getDefaultInstance();
+      public stu.lanyu.springdocker.message.MessageProto.MonitorJobProto getDefaultInstanceForType() {
+        return stu.lanyu.springdocker.message.MessageProto.MonitorJobProto.getDefaultInstance();
       }
 
-      public stu.lanyu.springdocker.message.MessageProto.RegisterJobProto build() {
-        stu.lanyu.springdocker.message.MessageProto.RegisterJobProto result = buildPartial();
+      public stu.lanyu.springdocker.message.MessageProto.MonitorJobProto build() {
+        stu.lanyu.springdocker.message.MessageProto.MonitorJobProto result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
         return result;
       }
 
-      public stu.lanyu.springdocker.message.MessageProto.RegisterJobProto buildPartial() {
-        stu.lanyu.springdocker.message.MessageProto.RegisterJobProto result = new stu.lanyu.springdocker.message.MessageProto.RegisterJobProto(this);
+      public stu.lanyu.springdocker.message.MessageProto.MonitorJobProto buildPartial() {
+        stu.lanyu.springdocker.message.MessageProto.MonitorJobProto result = new stu.lanyu.springdocker.message.MessageProto.MonitorJobProto(this);
         int from_bitField0_ = bitField0_;
         int to_bitField0_ = 0;
         if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
@@ -3514,22 +5253,50 @@ public final class MessageProto {
           to_bitField0_ |= 0x00000040;
         }
         result.repeatInterval_ = repeatInterval_;
+        if (((from_bitField0_ & 0x00000080) == 0x00000080)) {
+          to_bitField0_ |= 0x00000080;
+        }
+        result.jobCompletedLastTime_ = jobCompletedLastTime_;
+        if (((from_bitField0_ & 0x00000100) == 0x00000100)) {
+          to_bitField0_ |= 0x00000100;
+        }
+        result.jobFiredLastTime_ = jobFiredLastTime_;
+        if (((from_bitField0_ & 0x00000200) == 0x00000200)) {
+          to_bitField0_ |= 0x00000200;
+        }
+        result.jobMissfiredLastTime_ = jobMissfiredLastTime_;
+        if (((from_bitField0_ & 0x00000400) == 0x00000400)) {
+          to_bitField0_ |= 0x00000400;
+        }
+        result.jobVeto_ = jobVeto_;
+        if (((from_bitField0_ & 0x00000800) == 0x00000800)) {
+          to_bitField0_ |= 0x00000800;
+        }
+        result.serviceIdentity_ = serviceIdentity_;
+        if (((from_bitField0_ & 0x00001000) == 0x00001000)) {
+          to_bitField0_ |= 0x00001000;
+        }
+        result.firedTimes_ = firedTimes_;
+        if (((from_bitField0_ & 0x00002000) == 0x00002000)) {
+          to_bitField0_ |= 0x00002000;
+        }
+        result.missfireTimes_ = missfireTimes_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
       }
 
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof stu.lanyu.springdocker.message.MessageProto.RegisterJobProto) {
-          return mergeFrom((stu.lanyu.springdocker.message.MessageProto.RegisterJobProto)other);
+        if (other instanceof stu.lanyu.springdocker.message.MessageProto.MonitorJobProto) {
+          return mergeFrom((stu.lanyu.springdocker.message.MessageProto.MonitorJobProto)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(stu.lanyu.springdocker.message.MessageProto.RegisterJobProto other) {
-        if (other == stu.lanyu.springdocker.message.MessageProto.RegisterJobProto.getDefaultInstance()) return this;
+      public Builder mergeFrom(stu.lanyu.springdocker.message.MessageProto.MonitorJobProto other) {
+        if (other == stu.lanyu.springdocker.message.MessageProto.MonitorJobProto.getDefaultInstance()) return this;
         if (other.hasJobName()) {
           bitField0_ |= 0x00000001;
           jobName_ = other.jobName_;
@@ -3561,6 +5328,29 @@ public final class MessageProto {
         if (other.hasRepeatInterval()) {
           setRepeatInterval(other.getRepeatInterval());
         }
+        if (other.hasJobCompletedLastTime()) {
+          setJobCompletedLastTime(other.getJobCompletedLastTime());
+        }
+        if (other.hasJobFiredLastTime()) {
+          setJobFiredLastTime(other.getJobFiredLastTime());
+        }
+        if (other.hasJobMissfiredLastTime()) {
+          setJobMissfiredLastTime(other.getJobMissfiredLastTime());
+        }
+        if (other.hasJobVeto()) {
+          setJobVeto(other.getJobVeto());
+        }
+        if (other.hasServiceIdentity()) {
+          bitField0_ |= 0x00000800;
+          serviceIdentity_ = other.serviceIdentity_;
+          onChanged();
+        }
+        if (other.hasFiredTimes()) {
+          setFiredTimes(other.getFiredTimes());
+        }
+        if (other.hasMissfireTimes()) {
+          setMissfireTimes(other.getMissfireTimes());
+        }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
       }
@@ -3573,11 +5363,11 @@ public final class MessageProto {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        stu.lanyu.springdocker.message.MessageProto.RegisterJobProto parsedMessage = null;
+        stu.lanyu.springdocker.message.MessageProto.MonitorJobProto parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (stu.lanyu.springdocker.message.MessageProto.RegisterJobProto) e.getUnfinishedMessage();
+          parsedMessage = (stu.lanyu.springdocker.message.MessageProto.MonitorJobProto) e.getUnfinishedMessage();
           throw e;
         } finally {
           if (parsedMessage != null) {
@@ -4032,15 +5822,283 @@ public final class MessageProto {
         return this;
       }
 
-      // @@protoc_insertion_point(builder_scope:message.RegisterJobProto)
+      private long jobCompletedLastTime_ ;
+      /**
+       * <code>optional int64 JobCompletedLastTime = 8;</code>
+       */
+      public boolean hasJobCompletedLastTime() {
+        return ((bitField0_ & 0x00000080) == 0x00000080);
+      }
+      /**
+       * <code>optional int64 JobCompletedLastTime = 8;</code>
+       */
+      public long getJobCompletedLastTime() {
+        return jobCompletedLastTime_;
+      }
+      /**
+       * <code>optional int64 JobCompletedLastTime = 8;</code>
+       */
+      public Builder setJobCompletedLastTime(long value) {
+        bitField0_ |= 0x00000080;
+        jobCompletedLastTime_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional int64 JobCompletedLastTime = 8;</code>
+       */
+      public Builder clearJobCompletedLastTime() {
+        bitField0_ = (bitField0_ & ~0x00000080);
+        jobCompletedLastTime_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      private long jobFiredLastTime_ ;
+      /**
+       * <code>optional int64 JobFiredLastTime = 9;</code>
+       */
+      public boolean hasJobFiredLastTime() {
+        return ((bitField0_ & 0x00000100) == 0x00000100);
+      }
+      /**
+       * <code>optional int64 JobFiredLastTime = 9;</code>
+       */
+      public long getJobFiredLastTime() {
+        return jobFiredLastTime_;
+      }
+      /**
+       * <code>optional int64 JobFiredLastTime = 9;</code>
+       */
+      public Builder setJobFiredLastTime(long value) {
+        bitField0_ |= 0x00000100;
+        jobFiredLastTime_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional int64 JobFiredLastTime = 9;</code>
+       */
+      public Builder clearJobFiredLastTime() {
+        bitField0_ = (bitField0_ & ~0x00000100);
+        jobFiredLastTime_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      private long jobMissfiredLastTime_ ;
+      /**
+       * <code>optional int64 JobMissfiredLastTime = 10;</code>
+       */
+      public boolean hasJobMissfiredLastTime() {
+        return ((bitField0_ & 0x00000200) == 0x00000200);
+      }
+      /**
+       * <code>optional int64 JobMissfiredLastTime = 10;</code>
+       */
+      public long getJobMissfiredLastTime() {
+        return jobMissfiredLastTime_;
+      }
+      /**
+       * <code>optional int64 JobMissfiredLastTime = 10;</code>
+       */
+      public Builder setJobMissfiredLastTime(long value) {
+        bitField0_ |= 0x00000200;
+        jobMissfiredLastTime_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional int64 JobMissfiredLastTime = 10;</code>
+       */
+      public Builder clearJobMissfiredLastTime() {
+        bitField0_ = (bitField0_ & ~0x00000200);
+        jobMissfiredLastTime_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      private boolean jobVeto_ ;
+      /**
+       * <code>optional bool JobVeto = 11;</code>
+       */
+      public boolean hasJobVeto() {
+        return ((bitField0_ & 0x00000400) == 0x00000400);
+      }
+      /**
+       * <code>optional bool JobVeto = 11;</code>
+       */
+      public boolean getJobVeto() {
+        return jobVeto_;
+      }
+      /**
+       * <code>optional bool JobVeto = 11;</code>
+       */
+      public Builder setJobVeto(boolean value) {
+        bitField0_ |= 0x00000400;
+        jobVeto_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional bool JobVeto = 11;</code>
+       */
+      public Builder clearJobVeto() {
+        bitField0_ = (bitField0_ & ~0x00000400);
+        jobVeto_ = false;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object serviceIdentity_ = "";
+      /**
+       * <code>optional string ServiceIdentity = 12;</code>
+       */
+      public boolean hasServiceIdentity() {
+        return ((bitField0_ & 0x00000800) == 0x00000800);
+      }
+      /**
+       * <code>optional string ServiceIdentity = 12;</code>
+       */
+      public java.lang.String getServiceIdentity() {
+        java.lang.Object ref = serviceIdentity_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            serviceIdentity_ = s;
+          }
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>optional string ServiceIdentity = 12;</code>
+       */
+      public com.google.protobuf.ByteString
+          getServiceIdentityBytes() {
+        java.lang.Object ref = serviceIdentity_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          serviceIdentity_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string ServiceIdentity = 12;</code>
+       */
+      public Builder setServiceIdentity(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000800;
+        serviceIdentity_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string ServiceIdentity = 12;</code>
+       */
+      public Builder clearServiceIdentity() {
+        bitField0_ = (bitField0_ & ~0x00000800);
+        serviceIdentity_ = getDefaultInstance().getServiceIdentity();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string ServiceIdentity = 12;</code>
+       */
+      public Builder setServiceIdentityBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000800;
+        serviceIdentity_ = value;
+        onChanged();
+        return this;
+      }
+
+      private int firedTimes_ ;
+      /**
+       * <code>optional int32 FiredTimes = 13;</code>
+       */
+      public boolean hasFiredTimes() {
+        return ((bitField0_ & 0x00001000) == 0x00001000);
+      }
+      /**
+       * <code>optional int32 FiredTimes = 13;</code>
+       */
+      public int getFiredTimes() {
+        return firedTimes_;
+      }
+      /**
+       * <code>optional int32 FiredTimes = 13;</code>
+       */
+      public Builder setFiredTimes(int value) {
+        bitField0_ |= 0x00001000;
+        firedTimes_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional int32 FiredTimes = 13;</code>
+       */
+      public Builder clearFiredTimes() {
+        bitField0_ = (bitField0_ & ~0x00001000);
+        firedTimes_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int missfireTimes_ ;
+      /**
+       * <code>optional int32 MissfireTimes = 14;</code>
+       */
+      public boolean hasMissfireTimes() {
+        return ((bitField0_ & 0x00002000) == 0x00002000);
+      }
+      /**
+       * <code>optional int32 MissfireTimes = 14;</code>
+       */
+      public int getMissfireTimes() {
+        return missfireTimes_;
+      }
+      /**
+       * <code>optional int32 MissfireTimes = 14;</code>
+       */
+      public Builder setMissfireTimes(int value) {
+        bitField0_ |= 0x00002000;
+        missfireTimes_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional int32 MissfireTimes = 14;</code>
+       */
+      public Builder clearMissfireTimes() {
+        bitField0_ = (bitField0_ & ~0x00002000);
+        missfireTimes_ = 0;
+        onChanged();
+        return this;
+      }
+
+      // @@protoc_insertion_point(builder_scope:message.MonitorJobProto)
     }
 
     static {
-      defaultInstance = new RegisterJobProto(true);
+      defaultInstance = new MonitorJobProto(true);
       defaultInstance.initFields();
     }
 
-    // @@protoc_insertion_point(class_scope:message.RegisterJobProto)
+    // @@protoc_insertion_point(class_scope:message.MonitorJobProto)
   }
 
   public interface WarningProtoOrBuilder extends
@@ -5068,58 +7126,54 @@ public final class MessageProto {
     // @@protoc_insertion_point(class_scope:message.WarningProto)
   }
 
-  public interface HeartbeatProtoOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:message.HeartbeatProto)
+  public interface WarningBatchProtoOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:message.WarningBatchProto)
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>optional string HeartbeatUrl = 1;</code>
+     * <code>repeated .message.WarningProto WarningBatch = 1;</code>
      */
-    boolean hasHeartbeatUrl();
+    java.util.List<stu.lanyu.springdocker.message.MessageProto.WarningProto> 
+        getWarningBatchList();
     /**
-     * <code>optional string HeartbeatUrl = 1;</code>
+     * <code>repeated .message.WarningProto WarningBatch = 1;</code>
      */
-    java.lang.String getHeartbeatUrl();
+    stu.lanyu.springdocker.message.MessageProto.WarningProto getWarningBatch(int index);
     /**
-     * <code>optional string HeartbeatUrl = 1;</code>
+     * <code>repeated .message.WarningProto WarningBatch = 1;</code>
      */
-    com.google.protobuf.ByteString
-        getHeartbeatUrlBytes();
-
+    int getWarningBatchCount();
     /**
-     * <code>optional string ServiceIdentity = 2;</code>
+     * <code>repeated .message.WarningProto WarningBatch = 1;</code>
      */
-    boolean hasServiceIdentity();
+    java.util.List<? extends stu.lanyu.springdocker.message.MessageProto.WarningProtoOrBuilder> 
+        getWarningBatchOrBuilderList();
     /**
-     * <code>optional string ServiceIdentity = 2;</code>
+     * <code>repeated .message.WarningProto WarningBatch = 1;</code>
      */
-    java.lang.String getServiceIdentity();
-    /**
-     * <code>optional string ServiceIdentity = 2;</code>
-     */
-    com.google.protobuf.ByteString
-        getServiceIdentityBytes();
+    stu.lanyu.springdocker.message.MessageProto.WarningProtoOrBuilder getWarningBatchOrBuilder(
+        int index);
   }
   /**
-   * Protobuf type {@code message.HeartbeatProto}
+   * Protobuf type {@code message.WarningBatchProto}
    */
-  public static final class HeartbeatProto extends
+  public static final class WarningBatchProto extends
       com.google.protobuf.GeneratedMessage implements
-      // @@protoc_insertion_point(message_implements:message.HeartbeatProto)
-      HeartbeatProtoOrBuilder {
-    // Use HeartbeatProto.newBuilder() to construct.
-    private HeartbeatProto(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      // @@protoc_insertion_point(message_implements:message.WarningBatchProto)
+      WarningBatchProtoOrBuilder {
+    // Use WarningBatchProto.newBuilder() to construct.
+    private WarningBatchProto(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
       super(builder);
       this.unknownFields = builder.getUnknownFields();
     }
-    private HeartbeatProto(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
+    private WarningBatchProto(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
 
-    private static final HeartbeatProto defaultInstance;
-    public static HeartbeatProto getDefaultInstance() {
+    private static final WarningBatchProto defaultInstance;
+    public static WarningBatchProto getDefaultInstance() {
       return defaultInstance;
     }
 
-    public HeartbeatProto getDefaultInstanceForType() {
+    public WarningBatchProto getDefaultInstanceForType() {
       return defaultInstance;
     }
 
@@ -5129,7 +7183,7 @@ public final class MessageProto {
         getUnknownFields() {
       return this.unknownFields;
     }
-    private HeartbeatProto(
+    private WarningBatchProto(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -5153,15 +7207,11 @@ public final class MessageProto {
               break;
             }
             case 10: {
-              com.google.protobuf.ByteString bs = input.readBytes();
-              bitField0_ |= 0x00000001;
-              heartbeatUrl_ = bs;
-              break;
-            }
-            case 18: {
-              com.google.protobuf.ByteString bs = input.readBytes();
-              bitField0_ |= 0x00000002;
-              serviceIdentity_ = bs;
+              if (!((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+                warningBatch_ = new java.util.ArrayList<stu.lanyu.springdocker.message.MessageProto.WarningProto>();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              warningBatch_.add(input.readMessage(stu.lanyu.springdocker.message.MessageProto.WarningProto.PARSER, extensionRegistry));
               break;
             }
           }
@@ -5172,125 +7222,77 @@ public final class MessageProto {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e.getMessage()).setUnfinishedMessage(this);
       } finally {
+        if (((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+          warningBatch_ = java.util.Collections.unmodifiableList(warningBatch_);
+        }
         this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
       }
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return stu.lanyu.springdocker.message.MessageProto.internal_static_message_HeartbeatProto_descriptor;
+      return stu.lanyu.springdocker.message.MessageProto.internal_static_message_WarningBatchProto_descriptor;
     }
 
     protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return stu.lanyu.springdocker.message.MessageProto.internal_static_message_HeartbeatProto_fieldAccessorTable
+      return stu.lanyu.springdocker.message.MessageProto.internal_static_message_WarningBatchProto_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              stu.lanyu.springdocker.message.MessageProto.HeartbeatProto.class, stu.lanyu.springdocker.message.MessageProto.HeartbeatProto.Builder.class);
+              stu.lanyu.springdocker.message.MessageProto.WarningBatchProto.class, stu.lanyu.springdocker.message.MessageProto.WarningBatchProto.Builder.class);
     }
 
-    public static com.google.protobuf.Parser<HeartbeatProto> PARSER =
-        new com.google.protobuf.AbstractParser<HeartbeatProto>() {
-      public HeartbeatProto parsePartialFrom(
+    public static com.google.protobuf.Parser<WarningBatchProto> PARSER =
+        new com.google.protobuf.AbstractParser<WarningBatchProto>() {
+      public WarningBatchProto parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-        return new HeartbeatProto(input, extensionRegistry);
+        return new WarningBatchProto(input, extensionRegistry);
       }
     };
 
     @java.lang.Override
-    public com.google.protobuf.Parser<HeartbeatProto> getParserForType() {
+    public com.google.protobuf.Parser<WarningBatchProto> getParserForType() {
       return PARSER;
     }
 
-    private int bitField0_;
-    public static final int HEARTBEATURL_FIELD_NUMBER = 1;
-    private java.lang.Object heartbeatUrl_;
+    public static final int WARNINGBATCH_FIELD_NUMBER = 1;
+    private java.util.List<stu.lanyu.springdocker.message.MessageProto.WarningProto> warningBatch_;
     /**
-     * <code>optional string HeartbeatUrl = 1;</code>
+     * <code>repeated .message.WarningProto WarningBatch = 1;</code>
      */
-    public boolean hasHeartbeatUrl() {
-      return ((bitField0_ & 0x00000001) == 0x00000001);
+    public java.util.List<stu.lanyu.springdocker.message.MessageProto.WarningProto> getWarningBatchList() {
+      return warningBatch_;
     }
     /**
-     * <code>optional string HeartbeatUrl = 1;</code>
+     * <code>repeated .message.WarningProto WarningBatch = 1;</code>
      */
-    public java.lang.String getHeartbeatUrl() {
-      java.lang.Object ref = heartbeatUrl_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        if (bs.isValidUtf8()) {
-          heartbeatUrl_ = s;
-        }
-        return s;
-      }
+    public java.util.List<? extends stu.lanyu.springdocker.message.MessageProto.WarningProtoOrBuilder> 
+        getWarningBatchOrBuilderList() {
+      return warningBatch_;
     }
     /**
-     * <code>optional string HeartbeatUrl = 1;</code>
+     * <code>repeated .message.WarningProto WarningBatch = 1;</code>
      */
-    public com.google.protobuf.ByteString
-        getHeartbeatUrlBytes() {
-      java.lang.Object ref = heartbeatUrl_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        heartbeatUrl_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int SERVICEIDENTITY_FIELD_NUMBER = 2;
-    private java.lang.Object serviceIdentity_;
-    /**
-     * <code>optional string ServiceIdentity = 2;</code>
-     */
-    public boolean hasServiceIdentity() {
-      return ((bitField0_ & 0x00000002) == 0x00000002);
+    public int getWarningBatchCount() {
+      return warningBatch_.size();
     }
     /**
-     * <code>optional string ServiceIdentity = 2;</code>
+     * <code>repeated .message.WarningProto WarningBatch = 1;</code>
      */
-    public java.lang.String getServiceIdentity() {
-      java.lang.Object ref = serviceIdentity_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        if (bs.isValidUtf8()) {
-          serviceIdentity_ = s;
-        }
-        return s;
-      }
+    public stu.lanyu.springdocker.message.MessageProto.WarningProto getWarningBatch(int index) {
+      return warningBatch_.get(index);
     }
     /**
-     * <code>optional string ServiceIdentity = 2;</code>
+     * <code>repeated .message.WarningProto WarningBatch = 1;</code>
      */
-    public com.google.protobuf.ByteString
-        getServiceIdentityBytes() {
-      java.lang.Object ref = serviceIdentity_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        serviceIdentity_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
+    public stu.lanyu.springdocker.message.MessageProto.WarningProtoOrBuilder getWarningBatchOrBuilder(
+        int index) {
+      return warningBatch_.get(index);
     }
 
     private void initFields() {
-      heartbeatUrl_ = "";
-      serviceIdentity_ = "";
+      warningBatch_ = java.util.Collections.emptyList();
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -5305,11 +7307,8 @@ public final class MessageProto {
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
       getSerializedSize();
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        output.writeBytes(1, getHeartbeatUrlBytes());
-      }
-      if (((bitField0_ & 0x00000002) == 0x00000002)) {
-        output.writeBytes(2, getServiceIdentityBytes());
+      for (int i = 0; i < warningBatch_.size(); i++) {
+        output.writeMessage(1, warningBatch_.get(i));
       }
       getUnknownFields().writeTo(output);
     }
@@ -5320,13 +7319,9 @@ public final class MessageProto {
       if (size != -1) return size;
 
       size = 0;
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+      for (int i = 0; i < warningBatch_.size(); i++) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(1, getHeartbeatUrlBytes());
-      }
-      if (((bitField0_ & 0x00000002) == 0x00000002)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(2, getServiceIdentityBytes());
+          .computeMessageSize(1, warningBatch_.get(i));
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -5340,53 +7335,53 @@ public final class MessageProto {
       return super.writeReplace();
     }
 
-    public static stu.lanyu.springdocker.message.MessageProto.HeartbeatProto parseFrom(
+    public static stu.lanyu.springdocker.message.MessageProto.WarningBatchProto parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static stu.lanyu.springdocker.message.MessageProto.HeartbeatProto parseFrom(
+    public static stu.lanyu.springdocker.message.MessageProto.WarningBatchProto parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static stu.lanyu.springdocker.message.MessageProto.HeartbeatProto parseFrom(byte[] data)
+    public static stu.lanyu.springdocker.message.MessageProto.WarningBatchProto parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static stu.lanyu.springdocker.message.MessageProto.HeartbeatProto parseFrom(
+    public static stu.lanyu.springdocker.message.MessageProto.WarningBatchProto parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static stu.lanyu.springdocker.message.MessageProto.HeartbeatProto parseFrom(java.io.InputStream input)
+    public static stu.lanyu.springdocker.message.MessageProto.WarningBatchProto parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return PARSER.parseFrom(input);
     }
-    public static stu.lanyu.springdocker.message.MessageProto.HeartbeatProto parseFrom(
+    public static stu.lanyu.springdocker.message.MessageProto.WarningBatchProto parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return PARSER.parseFrom(input, extensionRegistry);
     }
-    public static stu.lanyu.springdocker.message.MessageProto.HeartbeatProto parseDelimitedFrom(java.io.InputStream input)
+    public static stu.lanyu.springdocker.message.MessageProto.WarningBatchProto parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return PARSER.parseDelimitedFrom(input);
     }
-    public static stu.lanyu.springdocker.message.MessageProto.HeartbeatProto parseDelimitedFrom(
+    public static stu.lanyu.springdocker.message.MessageProto.WarningBatchProto parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return PARSER.parseDelimitedFrom(input, extensionRegistry);
     }
-    public static stu.lanyu.springdocker.message.MessageProto.HeartbeatProto parseFrom(
+    public static stu.lanyu.springdocker.message.MessageProto.WarningBatchProto parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return PARSER.parseFrom(input);
     }
-    public static stu.lanyu.springdocker.message.MessageProto.HeartbeatProto parseFrom(
+    public static stu.lanyu.springdocker.message.MessageProto.WarningBatchProto parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -5395,7 +7390,7 @@ public final class MessageProto {
 
     public static Builder newBuilder() { return Builder.create(); }
     public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder(stu.lanyu.springdocker.message.MessageProto.HeartbeatProto prototype) {
+    public static Builder newBuilder(stu.lanyu.springdocker.message.MessageProto.WarningBatchProto prototype) {
       return newBuilder().mergeFrom(prototype);
     }
     public Builder toBuilder() { return newBuilder(this); }
@@ -5407,25 +7402,25 @@ public final class MessageProto {
       return builder;
     }
     /**
-     * Protobuf type {@code message.HeartbeatProto}
+     * Protobuf type {@code message.WarningBatchProto}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessage.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:message.HeartbeatProto)
-        stu.lanyu.springdocker.message.MessageProto.HeartbeatProtoOrBuilder {
+        // @@protoc_insertion_point(builder_implements:message.WarningBatchProto)
+        stu.lanyu.springdocker.message.MessageProto.WarningBatchProtoOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return stu.lanyu.springdocker.message.MessageProto.internal_static_message_HeartbeatProto_descriptor;
+        return stu.lanyu.springdocker.message.MessageProto.internal_static_message_WarningBatchProto_descriptor;
       }
 
       protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return stu.lanyu.springdocker.message.MessageProto.internal_static_message_HeartbeatProto_fieldAccessorTable
+        return stu.lanyu.springdocker.message.MessageProto.internal_static_message_WarningBatchProto_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                stu.lanyu.springdocker.message.MessageProto.HeartbeatProto.class, stu.lanyu.springdocker.message.MessageProto.HeartbeatProto.Builder.class);
+                stu.lanyu.springdocker.message.MessageProto.WarningBatchProto.class, stu.lanyu.springdocker.message.MessageProto.WarningBatchProto.Builder.class);
       }
 
-      // Construct using stu.lanyu.springdocker.message.MessageProto.HeartbeatProto.newBuilder()
+      // Construct using stu.lanyu.springdocker.message.MessageProto.WarningBatchProto.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
@@ -5437,6 +7432,7 @@ public final class MessageProto {
       }
       private void maybeForceBuilderInitialization() {
         if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+          getWarningBatchFieldBuilder();
         }
       }
       private static Builder create() {
@@ -5445,10 +7441,12 @@ public final class MessageProto {
 
       public Builder clear() {
         super.clear();
-        heartbeatUrl_ = "";
-        bitField0_ = (bitField0_ & ~0x00000001);
-        serviceIdentity_ = "";
-        bitField0_ = (bitField0_ & ~0x00000002);
+        if (warningBatchBuilder_ == null) {
+          warningBatch_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+        } else {
+          warningBatchBuilder_.clear();
+        }
         return this;
       }
 
@@ -5458,58 +7456,73 @@ public final class MessageProto {
 
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return stu.lanyu.springdocker.message.MessageProto.internal_static_message_HeartbeatProto_descriptor;
+        return stu.lanyu.springdocker.message.MessageProto.internal_static_message_WarningBatchProto_descriptor;
       }
 
-      public stu.lanyu.springdocker.message.MessageProto.HeartbeatProto getDefaultInstanceForType() {
-        return stu.lanyu.springdocker.message.MessageProto.HeartbeatProto.getDefaultInstance();
+      public stu.lanyu.springdocker.message.MessageProto.WarningBatchProto getDefaultInstanceForType() {
+        return stu.lanyu.springdocker.message.MessageProto.WarningBatchProto.getDefaultInstance();
       }
 
-      public stu.lanyu.springdocker.message.MessageProto.HeartbeatProto build() {
-        stu.lanyu.springdocker.message.MessageProto.HeartbeatProto result = buildPartial();
+      public stu.lanyu.springdocker.message.MessageProto.WarningBatchProto build() {
+        stu.lanyu.springdocker.message.MessageProto.WarningBatchProto result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
         return result;
       }
 
-      public stu.lanyu.springdocker.message.MessageProto.HeartbeatProto buildPartial() {
-        stu.lanyu.springdocker.message.MessageProto.HeartbeatProto result = new stu.lanyu.springdocker.message.MessageProto.HeartbeatProto(this);
+      public stu.lanyu.springdocker.message.MessageProto.WarningBatchProto buildPartial() {
+        stu.lanyu.springdocker.message.MessageProto.WarningBatchProto result = new stu.lanyu.springdocker.message.MessageProto.WarningBatchProto(this);
         int from_bitField0_ = bitField0_;
-        int to_bitField0_ = 0;
-        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
-          to_bitField0_ |= 0x00000001;
+        if (warningBatchBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) == 0x00000001)) {
+            warningBatch_ = java.util.Collections.unmodifiableList(warningBatch_);
+            bitField0_ = (bitField0_ & ~0x00000001);
+          }
+          result.warningBatch_ = warningBatch_;
+        } else {
+          result.warningBatch_ = warningBatchBuilder_.build();
         }
-        result.heartbeatUrl_ = heartbeatUrl_;
-        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
-          to_bitField0_ |= 0x00000002;
-        }
-        result.serviceIdentity_ = serviceIdentity_;
-        result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
       }
 
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof stu.lanyu.springdocker.message.MessageProto.HeartbeatProto) {
-          return mergeFrom((stu.lanyu.springdocker.message.MessageProto.HeartbeatProto)other);
+        if (other instanceof stu.lanyu.springdocker.message.MessageProto.WarningBatchProto) {
+          return mergeFrom((stu.lanyu.springdocker.message.MessageProto.WarningBatchProto)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(stu.lanyu.springdocker.message.MessageProto.HeartbeatProto other) {
-        if (other == stu.lanyu.springdocker.message.MessageProto.HeartbeatProto.getDefaultInstance()) return this;
-        if (other.hasHeartbeatUrl()) {
-          bitField0_ |= 0x00000001;
-          heartbeatUrl_ = other.heartbeatUrl_;
-          onChanged();
-        }
-        if (other.hasServiceIdentity()) {
-          bitField0_ |= 0x00000002;
-          serviceIdentity_ = other.serviceIdentity_;
-          onChanged();
+      public Builder mergeFrom(stu.lanyu.springdocker.message.MessageProto.WarningBatchProto other) {
+        if (other == stu.lanyu.springdocker.message.MessageProto.WarningBatchProto.getDefaultInstance()) return this;
+        if (warningBatchBuilder_ == null) {
+          if (!other.warningBatch_.isEmpty()) {
+            if (warningBatch_.isEmpty()) {
+              warningBatch_ = other.warningBatch_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+            } else {
+              ensureWarningBatchIsMutable();
+              warningBatch_.addAll(other.warningBatch_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.warningBatch_.isEmpty()) {
+            if (warningBatchBuilder_.isEmpty()) {
+              warningBatchBuilder_.dispose();
+              warningBatchBuilder_ = null;
+              warningBatch_ = other.warningBatch_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+              warningBatchBuilder_ = 
+                com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders ?
+                   getWarningBatchFieldBuilder() : null;
+            } else {
+              warningBatchBuilder_.addAllMessages(other.warningBatch_);
+            }
+          }
         }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
@@ -5523,11 +7536,11 @@ public final class MessageProto {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        stu.lanyu.springdocker.message.MessageProto.HeartbeatProto parsedMessage = null;
+        stu.lanyu.springdocker.message.MessageProto.WarningBatchProto parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (stu.lanyu.springdocker.message.MessageProto.HeartbeatProto) e.getUnfinishedMessage();
+          parsedMessage = (stu.lanyu.springdocker.message.MessageProto.WarningBatchProto) e.getUnfinishedMessage();
           throw e;
         } finally {
           if (parsedMessage != null) {
@@ -5538,169 +7551,262 @@ public final class MessageProto {
       }
       private int bitField0_;
 
-      private java.lang.Object heartbeatUrl_ = "";
-      /**
-       * <code>optional string HeartbeatUrl = 1;</code>
-       */
-      public boolean hasHeartbeatUrl() {
-        return ((bitField0_ & 0x00000001) == 0x00000001);
-      }
-      /**
-       * <code>optional string HeartbeatUrl = 1;</code>
-       */
-      public java.lang.String getHeartbeatUrl() {
-        java.lang.Object ref = heartbeatUrl_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          if (bs.isValidUtf8()) {
-            heartbeatUrl_ = s;
-          }
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>optional string HeartbeatUrl = 1;</code>
-       */
-      public com.google.protobuf.ByteString
-          getHeartbeatUrlBytes() {
-        java.lang.Object ref = heartbeatUrl_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          heartbeatUrl_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>optional string HeartbeatUrl = 1;</code>
-       */
-      public Builder setHeartbeatUrl(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000001;
-        heartbeatUrl_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string HeartbeatUrl = 1;</code>
-       */
-      public Builder clearHeartbeatUrl() {
-        bitField0_ = (bitField0_ & ~0x00000001);
-        heartbeatUrl_ = getDefaultInstance().getHeartbeatUrl();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string HeartbeatUrl = 1;</code>
-       */
-      public Builder setHeartbeatUrlBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000001;
-        heartbeatUrl_ = value;
-        onChanged();
-        return this;
+      private java.util.List<stu.lanyu.springdocker.message.MessageProto.WarningProto> warningBatch_ =
+        java.util.Collections.emptyList();
+      private void ensureWarningBatchIsMutable() {
+        if (!((bitField0_ & 0x00000001) == 0x00000001)) {
+          warningBatch_ = new java.util.ArrayList<stu.lanyu.springdocker.message.MessageProto.WarningProto>(warningBatch_);
+          bitField0_ |= 0x00000001;
+         }
       }
 
-      private java.lang.Object serviceIdentity_ = "";
+      private com.google.protobuf.RepeatedFieldBuilder<
+          stu.lanyu.springdocker.message.MessageProto.WarningProto, stu.lanyu.springdocker.message.MessageProto.WarningProto.Builder, stu.lanyu.springdocker.message.MessageProto.WarningProtoOrBuilder> warningBatchBuilder_;
+
       /**
-       * <code>optional string ServiceIdentity = 2;</code>
+       * <code>repeated .message.WarningProto WarningBatch = 1;</code>
        */
-      public boolean hasServiceIdentity() {
-        return ((bitField0_ & 0x00000002) == 0x00000002);
+      public java.util.List<stu.lanyu.springdocker.message.MessageProto.WarningProto> getWarningBatchList() {
+        if (warningBatchBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(warningBatch_);
+        } else {
+          return warningBatchBuilder_.getMessageList();
+        }
       }
       /**
-       * <code>optional string ServiceIdentity = 2;</code>
+       * <code>repeated .message.WarningProto WarningBatch = 1;</code>
        */
-      public java.lang.String getServiceIdentity() {
-        java.lang.Object ref = serviceIdentity_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          if (bs.isValidUtf8()) {
-            serviceIdentity_ = s;
+      public int getWarningBatchCount() {
+        if (warningBatchBuilder_ == null) {
+          return warningBatch_.size();
+        } else {
+          return warningBatchBuilder_.getCount();
+        }
+      }
+      /**
+       * <code>repeated .message.WarningProto WarningBatch = 1;</code>
+       */
+      public stu.lanyu.springdocker.message.MessageProto.WarningProto getWarningBatch(int index) {
+        if (warningBatchBuilder_ == null) {
+          return warningBatch_.get(index);
+        } else {
+          return warningBatchBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <code>repeated .message.WarningProto WarningBatch = 1;</code>
+       */
+      public Builder setWarningBatch(
+          int index, stu.lanyu.springdocker.message.MessageProto.WarningProto value) {
+        if (warningBatchBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
           }
-          return s;
+          ensureWarningBatchIsMutable();
+          warningBatch_.set(index, value);
+          onChanged();
         } else {
-          return (java.lang.String) ref;
+          warningBatchBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .message.WarningProto WarningBatch = 1;</code>
+       */
+      public Builder setWarningBatch(
+          int index, stu.lanyu.springdocker.message.MessageProto.WarningProto.Builder builderForValue) {
+        if (warningBatchBuilder_ == null) {
+          ensureWarningBatchIsMutable();
+          warningBatch_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          warningBatchBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .message.WarningProto WarningBatch = 1;</code>
+       */
+      public Builder addWarningBatch(stu.lanyu.springdocker.message.MessageProto.WarningProto value) {
+        if (warningBatchBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureWarningBatchIsMutable();
+          warningBatch_.add(value);
+          onChanged();
+        } else {
+          warningBatchBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .message.WarningProto WarningBatch = 1;</code>
+       */
+      public Builder addWarningBatch(
+          int index, stu.lanyu.springdocker.message.MessageProto.WarningProto value) {
+        if (warningBatchBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureWarningBatchIsMutable();
+          warningBatch_.add(index, value);
+          onChanged();
+        } else {
+          warningBatchBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .message.WarningProto WarningBatch = 1;</code>
+       */
+      public Builder addWarningBatch(
+          stu.lanyu.springdocker.message.MessageProto.WarningProto.Builder builderForValue) {
+        if (warningBatchBuilder_ == null) {
+          ensureWarningBatchIsMutable();
+          warningBatch_.add(builderForValue.build());
+          onChanged();
+        } else {
+          warningBatchBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .message.WarningProto WarningBatch = 1;</code>
+       */
+      public Builder addWarningBatch(
+          int index, stu.lanyu.springdocker.message.MessageProto.WarningProto.Builder builderForValue) {
+        if (warningBatchBuilder_ == null) {
+          ensureWarningBatchIsMutable();
+          warningBatch_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          warningBatchBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .message.WarningProto WarningBatch = 1;</code>
+       */
+      public Builder addAllWarningBatch(
+          java.lang.Iterable<? extends stu.lanyu.springdocker.message.MessageProto.WarningProto> values) {
+        if (warningBatchBuilder_ == null) {
+          ensureWarningBatchIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, warningBatch_);
+          onChanged();
+        } else {
+          warningBatchBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .message.WarningProto WarningBatch = 1;</code>
+       */
+      public Builder clearWarningBatch() {
+        if (warningBatchBuilder_ == null) {
+          warningBatch_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+          onChanged();
+        } else {
+          warningBatchBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .message.WarningProto WarningBatch = 1;</code>
+       */
+      public Builder removeWarningBatch(int index) {
+        if (warningBatchBuilder_ == null) {
+          ensureWarningBatchIsMutable();
+          warningBatch_.remove(index);
+          onChanged();
+        } else {
+          warningBatchBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .message.WarningProto WarningBatch = 1;</code>
+       */
+      public stu.lanyu.springdocker.message.MessageProto.WarningProto.Builder getWarningBatchBuilder(
+          int index) {
+        return getWarningBatchFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <code>repeated .message.WarningProto WarningBatch = 1;</code>
+       */
+      public stu.lanyu.springdocker.message.MessageProto.WarningProtoOrBuilder getWarningBatchOrBuilder(
+          int index) {
+        if (warningBatchBuilder_ == null) {
+          return warningBatch_.get(index);  } else {
+          return warningBatchBuilder_.getMessageOrBuilder(index);
         }
       }
       /**
-       * <code>optional string ServiceIdentity = 2;</code>
+       * <code>repeated .message.WarningProto WarningBatch = 1;</code>
        */
-      public com.google.protobuf.ByteString
-          getServiceIdentityBytes() {
-        java.lang.Object ref = serviceIdentity_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          serviceIdentity_ = b;
-          return b;
+      public java.util.List<? extends stu.lanyu.springdocker.message.MessageProto.WarningProtoOrBuilder> 
+           getWarningBatchOrBuilderList() {
+        if (warningBatchBuilder_ != null) {
+          return warningBatchBuilder_.getMessageOrBuilderList();
         } else {
-          return (com.google.protobuf.ByteString) ref;
+          return java.util.Collections.unmodifiableList(warningBatch_);
         }
       }
       /**
-       * <code>optional string ServiceIdentity = 2;</code>
+       * <code>repeated .message.WarningProto WarningBatch = 1;</code>
        */
-      public Builder setServiceIdentity(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000002;
-        serviceIdentity_ = value;
-        onChanged();
-        return this;
+      public stu.lanyu.springdocker.message.MessageProto.WarningProto.Builder addWarningBatchBuilder() {
+        return getWarningBatchFieldBuilder().addBuilder(
+            stu.lanyu.springdocker.message.MessageProto.WarningProto.getDefaultInstance());
       }
       /**
-       * <code>optional string ServiceIdentity = 2;</code>
+       * <code>repeated .message.WarningProto WarningBatch = 1;</code>
        */
-      public Builder clearServiceIdentity() {
-        bitField0_ = (bitField0_ & ~0x00000002);
-        serviceIdentity_ = getDefaultInstance().getServiceIdentity();
-        onChanged();
-        return this;
+      public stu.lanyu.springdocker.message.MessageProto.WarningProto.Builder addWarningBatchBuilder(
+          int index) {
+        return getWarningBatchFieldBuilder().addBuilder(
+            index, stu.lanyu.springdocker.message.MessageProto.WarningProto.getDefaultInstance());
       }
       /**
-       * <code>optional string ServiceIdentity = 2;</code>
+       * <code>repeated .message.WarningProto WarningBatch = 1;</code>
        */
-      public Builder setServiceIdentityBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000002;
-        serviceIdentity_ = value;
-        onChanged();
-        return this;
+      public java.util.List<stu.lanyu.springdocker.message.MessageProto.WarningProto.Builder> 
+           getWarningBatchBuilderList() {
+        return getWarningBatchFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilder<
+          stu.lanyu.springdocker.message.MessageProto.WarningProto, stu.lanyu.springdocker.message.MessageProto.WarningProto.Builder, stu.lanyu.springdocker.message.MessageProto.WarningProtoOrBuilder> 
+          getWarningBatchFieldBuilder() {
+        if (warningBatchBuilder_ == null) {
+          warningBatchBuilder_ = new com.google.protobuf.RepeatedFieldBuilder<
+              stu.lanyu.springdocker.message.MessageProto.WarningProto, stu.lanyu.springdocker.message.MessageProto.WarningProto.Builder, stu.lanyu.springdocker.message.MessageProto.WarningProtoOrBuilder>(
+                  warningBatch_,
+                  ((bitField0_ & 0x00000001) == 0x00000001),
+                  getParentForChildren(),
+                  isClean());
+          warningBatch_ = null;
+        }
+        return warningBatchBuilder_;
       }
 
-      // @@protoc_insertion_point(builder_scope:message.HeartbeatProto)
+      // @@protoc_insertion_point(builder_scope:message.WarningBatchProto)
     }
 
     static {
-      defaultInstance = new HeartbeatProto(true);
+      defaultInstance = new WarningBatchProto(true);
       defaultInstance.initFields();
     }
 
-    // @@protoc_insertion_point(class_scope:message.HeartbeatProto)
+    // @@protoc_insertion_point(class_scope:message.WarningBatchProto)
   }
 
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_message_LogCollectBatchProto_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_message_LogCollectBatchProto_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_message_LogCollectProto_descriptor;
   private static
@@ -5712,25 +7818,30 @@ public final class MessageProto {
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_message_LogProto_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_message_RegisterServiceProto_descriptor;
+    internal_static_message_MonitorProto_descriptor;
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_message_RegisterServiceProto_fieldAccessorTable;
+      internal_static_message_MonitorProto_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_message_RegisterJobProto_descriptor;
+    internal_static_message_MonitorTaskProto_descriptor;
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_message_RegisterJobProto_fieldAccessorTable;
+      internal_static_message_MonitorTaskProto_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_message_MonitorJobProto_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_message_MonitorJobProto_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_message_WarningProto_descriptor;
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_message_WarningProto_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_message_HeartbeatProto_descriptor;
+    internal_static_message_WarningBatchProto_descriptor;
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_message_HeartbeatProto_fieldAccessorTable;
+      internal_static_message_WarningBatchProto_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -5740,25 +7851,33 @@ public final class MessageProto {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\022MessageProto.proto\022\007message\"K\n\017LogColl" +
-      "ectProto\022\037\n\004Logs\030\001 \003(\0132\021.message.LogProt" +
-      "o\022\027\n\017ServiceIdentity\030\002 \001(\t\"8\n\010LogProto\022\014" +
-      "\n\004Body\030\001 \001(\t\022\r\n\005Level\030\002 \001(\t\022\017\n\007LogTime\030\003" +
-      " \001(\003\"\237\001\n\024RegisterServiceProto\022\027\n\017Service" +
-      "Identity\030\001 \001(\t\022\024\n\014RegisterTime\030\002 \001(\003\022\023\n\013" +
-      "ActionToken\030\003 \001(\t\022\022\n\nBreakerUrl\030\004 \001(\t\022/\n" +
-      "\014RegisterJobs\030\005 \003(\0132\031.message.RegisterJo" +
-      "bProto\"\243\001\n\020RegisterJobProto\022\017\n\007JobName\030\001" +
-      " \001(\t\022\020\n\010JogGroup\030\002 \001(\t\022\024\n\014JobClassType\030\003",
-      " \001(\t\022\023\n\013TriggerName\030\004 \001(\t\022\024\n\014TriggerGrou" +
-      "p\030\005 \001(\t\022\023\n\013RepeatCount\030\006 \001(\005\022\026\n\016RepeatIn" +
-      "terval\030\007 \001(\005\"v\n\014WarningProto\022\027\n\017ServiceI" +
-      "dentity\030\001 \001(\t\022\017\n\007JobName\030\002 \001(\t\022\020\n\010JobGro" +
-      "up\030\003 \001(\t\022\025\n\rWarningReason\030\004 \001(\t\022\023\n\013Warni" +
-      "ngTime\030\005 \001(\003\"?\n\016HeartbeatProto\022\024\n\014Heartb" +
-      "eatUrl\030\001 \001(\t\022\027\n\017ServiceIdentity\030\002 \001(\tB.\n" +
-      "\036stu.lanyu.springdocker.messageB\014Message" +
-      "Proto"
+      "\n\022MessageProto.proto\022\007message\"B\n\024LogColl" +
+      "ectBatchProto\022*\n\010LogBatch\030\001 \003(\0132\030.messag" +
+      "e.LogCollectProto\"K\n\017LogCollectProto\022\037\n\004" +
+      "Logs\030\001 \003(\0132\021.message.LogProto\022\027\n\017Service" +
+      "Identity\030\002 \001(\t\"8\n\010LogProto\022\014\n\004Body\030\001 \001(\t" +
+      "\022\r\n\005Level\030\002 \001(\t\022\017\n\007LogTime\030\003 \001(\003\"X\n\014Moni" +
+      "torProto\0224\n\021RegisterTaskBatch\030\001 \003(\0132\031.me" +
+      "ssage.MonitorTaskProto\022\022\n\nBreakerUrl\030\002 \001" +
+      "(\t\"\231\001\n\020MonitorTaskProto\022\027\n\017ServiceIdenti" +
+      "ty\030\001 \001(\t\022\024\n\014RegisterTime\030\002 \001(\003\022\023\n\013Action",
+      "Token\030\003 \001(\t\022\031\n\021LastHeartbeatTime\030\004 \001(\003\022&" +
+      "\n\004Jobs\030\005 \003(\0132\030.message.MonitorJobProto\"\315" +
+      "\002\n\017MonitorJobProto\022\017\n\007JobName\030\001 \001(\t\022\020\n\010J" +
+      "ogGroup\030\002 \001(\t\022\024\n\014JobClassType\030\003 \001(\t\022\023\n\013T" +
+      "riggerName\030\004 \001(\t\022\024\n\014TriggerGroup\030\005 \001(\t\022\023" +
+      "\n\013RepeatCount\030\006 \001(\005\022\026\n\016RepeatInterval\030\007 " +
+      "\001(\005\022\034\n\024JobCompletedLastTime\030\010 \001(\003\022\030\n\020Job" +
+      "FiredLastTime\030\t \001(\003\022\034\n\024JobMissfiredLastT" +
+      "ime\030\n \001(\003\022\017\n\007JobVeto\030\013 \001(\010\022\027\n\017ServiceIde" +
+      "ntity\030\014 \001(\t\022\022\n\nFiredTimes\030\r \001(\005\022\025\n\rMissf",
+      "ireTimes\030\016 \001(\005\"v\n\014WarningProto\022\027\n\017Servic" +
+      "eIdentity\030\001 \001(\t\022\017\n\007JobName\030\002 \001(\t\022\020\n\010JobG" +
+      "roup\030\003 \001(\t\022\025\n\rWarningReason\030\004 \001(\t\022\023\n\013War" +
+      "ningTime\030\005 \001(\003\"@\n\021WarningBatchProto\022+\n\014W" +
+      "arningBatch\030\001 \003(\0132\025.message.WarningProto" +
+      "B.\n\036stu.lanyu.springdocker.messageB\014Mess" +
+      "ageProto"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -5772,42 +7891,54 @@ public final class MessageProto {
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
         }, assigner);
-    internal_static_message_LogCollectProto_descriptor =
+    internal_static_message_LogCollectBatchProto_descriptor =
       getDescriptor().getMessageTypes().get(0);
+    internal_static_message_LogCollectBatchProto_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_message_LogCollectBatchProto_descriptor,
+        new java.lang.String[] { "LogBatch", });
+    internal_static_message_LogCollectProto_descriptor =
+      getDescriptor().getMessageTypes().get(1);
     internal_static_message_LogCollectProto_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_message_LogCollectProto_descriptor,
         new java.lang.String[] { "Logs", "ServiceIdentity", });
     internal_static_message_LogProto_descriptor =
-      getDescriptor().getMessageTypes().get(1);
+      getDescriptor().getMessageTypes().get(2);
     internal_static_message_LogProto_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_message_LogProto_descriptor,
         new java.lang.String[] { "Body", "Level", "LogTime", });
-    internal_static_message_RegisterServiceProto_descriptor =
-      getDescriptor().getMessageTypes().get(2);
-    internal_static_message_RegisterServiceProto_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-        internal_static_message_RegisterServiceProto_descriptor,
-        new java.lang.String[] { "ServiceIdentity", "RegisterTime", "ActionToken", "BreakerUrl", "RegisterJobs", });
-    internal_static_message_RegisterJobProto_descriptor =
+    internal_static_message_MonitorProto_descriptor =
       getDescriptor().getMessageTypes().get(3);
-    internal_static_message_RegisterJobProto_fieldAccessorTable = new
+    internal_static_message_MonitorProto_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-        internal_static_message_RegisterJobProto_descriptor,
-        new java.lang.String[] { "JobName", "JogGroup", "JobClassType", "TriggerName", "TriggerGroup", "RepeatCount", "RepeatInterval", });
-    internal_static_message_WarningProto_descriptor =
+        internal_static_message_MonitorProto_descriptor,
+        new java.lang.String[] { "RegisterTaskBatch", "BreakerUrl", });
+    internal_static_message_MonitorTaskProto_descriptor =
       getDescriptor().getMessageTypes().get(4);
+    internal_static_message_MonitorTaskProto_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_message_MonitorTaskProto_descriptor,
+        new java.lang.String[] { "ServiceIdentity", "RegisterTime", "ActionToken", "LastHeartbeatTime", "Jobs", });
+    internal_static_message_MonitorJobProto_descriptor =
+      getDescriptor().getMessageTypes().get(5);
+    internal_static_message_MonitorJobProto_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_message_MonitorJobProto_descriptor,
+        new java.lang.String[] { "JobName", "JogGroup", "JobClassType", "TriggerName", "TriggerGroup", "RepeatCount", "RepeatInterval", "JobCompletedLastTime", "JobFiredLastTime", "JobMissfiredLastTime", "JobVeto", "ServiceIdentity", "FiredTimes", "MissfireTimes", });
+    internal_static_message_WarningProto_descriptor =
+      getDescriptor().getMessageTypes().get(6);
     internal_static_message_WarningProto_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_message_WarningProto_descriptor,
         new java.lang.String[] { "ServiceIdentity", "JobName", "JobGroup", "WarningReason", "WarningTime", });
-    internal_static_message_HeartbeatProto_descriptor =
-      getDescriptor().getMessageTypes().get(5);
-    internal_static_message_HeartbeatProto_fieldAccessorTable = new
+    internal_static_message_WarningBatchProto_descriptor =
+      getDescriptor().getMessageTypes().get(7);
+    internal_static_message_WarningBatchProto_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-        internal_static_message_HeartbeatProto_descriptor,
-        new java.lang.String[] { "HeartbeatUrl", "ServiceIdentity", });
+        internal_static_message_WarningBatchProto_descriptor,
+        new java.lang.String[] { "WarningBatch", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)
