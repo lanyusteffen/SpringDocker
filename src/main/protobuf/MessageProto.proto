@@ -5,6 +5,11 @@ package message;
 option java_package = "stu.lanyu.springdocker.message";
 option java_outer_classname = "MessageProto";
 
+message LogCollectBatchProto
+{
+    repeated LogCollectProto LogBatch = 1;
+}
+
 message LogCollectProto
 {
     repeated LogProto Logs = 1;
@@ -18,16 +23,22 @@ message LogProto
     optional int64 LogTime = 3;
 }
 
-message RegisterServiceProto
+message MonitorProto
+{
+    repeated MonitorTaskProto RegisterTaskBatch = 1;
+    optional string BreakerUrl = 2;
+}
+
+message MonitorTaskProto
 {
     optional string ServiceIdentity = 1;
     optional int64 RegisterTime = 2;
     optional string ActionToken = 3;
-    optional string BreakerUrl = 4;
-    repeated RegisterJobProto RegisterJobs = 5;
+    optional int64 LastHeartbeatTime = 4;
+    repeated MonitorJobProto Jobs = 5;
 }
 
-message RegisterJobProto
+message MonitorJobProto
 {
     optional string JobName = 1;
     optional string JogGroup = 2;
@@ -36,6 +47,11 @@ message RegisterJobProto
     optional string TriggerGroup = 5;
     optional int32 RepeatCount = 6;
     optional int32 RepeatInterval = 7;
+    optional int64 JobCompletedLastTime = 8;
+    optional int64 JobFiredLastTime = 9;
+    optional int64 JobMissfiredLastTime = 10;
+    optional bool JobVeto = 11;
+    optional string ServiceIdentity = 12;
 }
 
 message WarningProto {
@@ -44,9 +60,11 @@ message WarningProto {
     optional string JobGroup = 3;
     optional string WarningReason = 4;
     optional int64 WarningTime = 5;
+    optional int32 FiredTimes = 6;
+    optional int32 MissfireTimes = 7;
 }
 
-message HeartbeatProto {
-    optional string HeartbeatUrl = 1;
-    optional string ServiceIdentity = 2;
+message WarningBatchProto
+{
+    repeated WarningProto WarningBatch = 1;
 }
