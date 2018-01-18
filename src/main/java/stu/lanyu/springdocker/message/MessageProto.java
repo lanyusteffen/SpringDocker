@@ -3118,25 +3118,43 @@ public final class MessageProto {
     long getLastHeartbeatTime();
 
     /**
-     * <code>repeated .message.MonitorJobProto Jobs = 5;</code>
+     * <code>optional bool TaskVeto = 5;</code>
+     */
+    boolean hasTaskVeto();
+    /**
+     * <code>optional bool TaskVeto = 5;</code>
+     */
+    boolean getTaskVeto();
+
+    /**
+     * <code>optional bool IsHeartbeatBreak = 6;</code>
+     */
+    boolean hasIsHeartbeatBreak();
+    /**
+     * <code>optional bool IsHeartbeatBreak = 6;</code>
+     */
+    boolean getIsHeartbeatBreak();
+
+    /**
+     * <code>repeated .message.MonitorJobProto Jobs = 7;</code>
      */
     java.util.List<stu.lanyu.springdocker.message.MessageProto.MonitorJobProto> 
         getJobsList();
     /**
-     * <code>repeated .message.MonitorJobProto Jobs = 5;</code>
+     * <code>repeated .message.MonitorJobProto Jobs = 7;</code>
      */
     stu.lanyu.springdocker.message.MessageProto.MonitorJobProto getJobs(int index);
     /**
-     * <code>repeated .message.MonitorJobProto Jobs = 5;</code>
+     * <code>repeated .message.MonitorJobProto Jobs = 7;</code>
      */
     int getJobsCount();
     /**
-     * <code>repeated .message.MonitorJobProto Jobs = 5;</code>
+     * <code>repeated .message.MonitorJobProto Jobs = 7;</code>
      */
     java.util.List<? extends stu.lanyu.springdocker.message.MessageProto.MonitorJobProtoOrBuilder> 
         getJobsOrBuilderList();
     /**
-     * <code>repeated .message.MonitorJobProto Jobs = 5;</code>
+     * <code>repeated .message.MonitorJobProto Jobs = 7;</code>
      */
     stu.lanyu.springdocker.message.MessageProto.MonitorJobProtoOrBuilder getJobsOrBuilder(
         int index);
@@ -3215,10 +3233,20 @@ public final class MessageProto {
               lastHeartbeatTime_ = input.readInt64();
               break;
             }
-            case 42: {
-              if (!((mutable_bitField0_ & 0x00000010) == 0x00000010)) {
+            case 40: {
+              bitField0_ |= 0x00000010;
+              taskVeto_ = input.readBool();
+              break;
+            }
+            case 48: {
+              bitField0_ |= 0x00000020;
+              isHeartbeatBreak_ = input.readBool();
+              break;
+            }
+            case 58: {
+              if (!((mutable_bitField0_ & 0x00000040) == 0x00000040)) {
                 jobs_ = new java.util.ArrayList<stu.lanyu.springdocker.message.MessageProto.MonitorJobProto>();
-                mutable_bitField0_ |= 0x00000010;
+                mutable_bitField0_ |= 0x00000040;
               }
               jobs_.add(input.readMessage(stu.lanyu.springdocker.message.MessageProto.MonitorJobProto.PARSER, extensionRegistry));
               break;
@@ -3231,7 +3259,7 @@ public final class MessageProto {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e.getMessage()).setUnfinishedMessage(this);
       } finally {
-        if (((mutable_bitField0_ & 0x00000010) == 0x00000010)) {
+        if (((mutable_bitField0_ & 0x00000040) == 0x00000040)) {
           jobs_ = java.util.Collections.unmodifiableList(jobs_);
         }
         this.unknownFields = unknownFields.build();
@@ -3380,35 +3408,65 @@ public final class MessageProto {
       return lastHeartbeatTime_;
     }
 
-    public static final int JOBS_FIELD_NUMBER = 5;
+    public static final int TASKVETO_FIELD_NUMBER = 5;
+    private boolean taskVeto_;
+    /**
+     * <code>optional bool TaskVeto = 5;</code>
+     */
+    public boolean hasTaskVeto() {
+      return ((bitField0_ & 0x00000010) == 0x00000010);
+    }
+    /**
+     * <code>optional bool TaskVeto = 5;</code>
+     */
+    public boolean getTaskVeto() {
+      return taskVeto_;
+    }
+
+    public static final int ISHEARTBEATBREAK_FIELD_NUMBER = 6;
+    private boolean isHeartbeatBreak_;
+    /**
+     * <code>optional bool IsHeartbeatBreak = 6;</code>
+     */
+    public boolean hasIsHeartbeatBreak() {
+      return ((bitField0_ & 0x00000020) == 0x00000020);
+    }
+    /**
+     * <code>optional bool IsHeartbeatBreak = 6;</code>
+     */
+    public boolean getIsHeartbeatBreak() {
+      return isHeartbeatBreak_;
+    }
+
+    public static final int JOBS_FIELD_NUMBER = 7;
     private java.util.List<stu.lanyu.springdocker.message.MessageProto.MonitorJobProto> jobs_;
     /**
-     * <code>repeated .message.MonitorJobProto Jobs = 5;</code>
+     * <code>repeated .message.MonitorJobProto Jobs = 7;</code>
      */
     public java.util.List<stu.lanyu.springdocker.message.MessageProto.MonitorJobProto> getJobsList() {
       return jobs_;
     }
     /**
-     * <code>repeated .message.MonitorJobProto Jobs = 5;</code>
+     * <code>repeated .message.MonitorJobProto Jobs = 7;</code>
      */
     public java.util.List<? extends stu.lanyu.springdocker.message.MessageProto.MonitorJobProtoOrBuilder> 
         getJobsOrBuilderList() {
       return jobs_;
     }
     /**
-     * <code>repeated .message.MonitorJobProto Jobs = 5;</code>
+     * <code>repeated .message.MonitorJobProto Jobs = 7;</code>
      */
     public int getJobsCount() {
       return jobs_.size();
     }
     /**
-     * <code>repeated .message.MonitorJobProto Jobs = 5;</code>
+     * <code>repeated .message.MonitorJobProto Jobs = 7;</code>
      */
     public stu.lanyu.springdocker.message.MessageProto.MonitorJobProto getJobs(int index) {
       return jobs_.get(index);
     }
     /**
-     * <code>repeated .message.MonitorJobProto Jobs = 5;</code>
+     * <code>repeated .message.MonitorJobProto Jobs = 7;</code>
      */
     public stu.lanyu.springdocker.message.MessageProto.MonitorJobProtoOrBuilder getJobsOrBuilder(
         int index) {
@@ -3420,6 +3478,8 @@ public final class MessageProto {
       registerTime_ = 0L;
       actionToken_ = "";
       lastHeartbeatTime_ = 0L;
+      taskVeto_ = false;
+      isHeartbeatBreak_ = false;
       jobs_ = java.util.Collections.emptyList();
     }
     private byte memoizedIsInitialized = -1;
@@ -3447,8 +3507,14 @@ public final class MessageProto {
       if (((bitField0_ & 0x00000008) == 0x00000008)) {
         output.writeInt64(4, lastHeartbeatTime_);
       }
+      if (((bitField0_ & 0x00000010) == 0x00000010)) {
+        output.writeBool(5, taskVeto_);
+      }
+      if (((bitField0_ & 0x00000020) == 0x00000020)) {
+        output.writeBool(6, isHeartbeatBreak_);
+      }
       for (int i = 0; i < jobs_.size(); i++) {
-        output.writeMessage(5, jobs_.get(i));
+        output.writeMessage(7, jobs_.get(i));
       }
       getUnknownFields().writeTo(output);
     }
@@ -3475,9 +3541,17 @@ public final class MessageProto {
         size += com.google.protobuf.CodedOutputStream
           .computeInt64Size(4, lastHeartbeatTime_);
       }
+      if (((bitField0_ & 0x00000010) == 0x00000010)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(5, taskVeto_);
+      }
+      if (((bitField0_ & 0x00000020) == 0x00000020)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(6, isHeartbeatBreak_);
+      }
       for (int i = 0; i < jobs_.size(); i++) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(5, jobs_.get(i));
+          .computeMessageSize(7, jobs_.get(i));
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -3605,9 +3679,13 @@ public final class MessageProto {
         bitField0_ = (bitField0_ & ~0x00000004);
         lastHeartbeatTime_ = 0L;
         bitField0_ = (bitField0_ & ~0x00000008);
+        taskVeto_ = false;
+        bitField0_ = (bitField0_ & ~0x00000010);
+        isHeartbeatBreak_ = false;
+        bitField0_ = (bitField0_ & ~0x00000020);
         if (jobsBuilder_ == null) {
           jobs_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000010);
+          bitField0_ = (bitField0_ & ~0x00000040);
         } else {
           jobsBuilder_.clear();
         }
@@ -3655,10 +3733,18 @@ public final class MessageProto {
           to_bitField0_ |= 0x00000008;
         }
         result.lastHeartbeatTime_ = lastHeartbeatTime_;
+        if (((from_bitField0_ & 0x00000010) == 0x00000010)) {
+          to_bitField0_ |= 0x00000010;
+        }
+        result.taskVeto_ = taskVeto_;
+        if (((from_bitField0_ & 0x00000020) == 0x00000020)) {
+          to_bitField0_ |= 0x00000020;
+        }
+        result.isHeartbeatBreak_ = isHeartbeatBreak_;
         if (jobsBuilder_ == null) {
-          if (((bitField0_ & 0x00000010) == 0x00000010)) {
+          if (((bitField0_ & 0x00000040) == 0x00000040)) {
             jobs_ = java.util.Collections.unmodifiableList(jobs_);
-            bitField0_ = (bitField0_ & ~0x00000010);
+            bitField0_ = (bitField0_ & ~0x00000040);
           }
           result.jobs_ = jobs_;
         } else {
@@ -3696,11 +3782,17 @@ public final class MessageProto {
         if (other.hasLastHeartbeatTime()) {
           setLastHeartbeatTime(other.getLastHeartbeatTime());
         }
+        if (other.hasTaskVeto()) {
+          setTaskVeto(other.getTaskVeto());
+        }
+        if (other.hasIsHeartbeatBreak()) {
+          setIsHeartbeatBreak(other.getIsHeartbeatBreak());
+        }
         if (jobsBuilder_ == null) {
           if (!other.jobs_.isEmpty()) {
             if (jobs_.isEmpty()) {
               jobs_ = other.jobs_;
-              bitField0_ = (bitField0_ & ~0x00000010);
+              bitField0_ = (bitField0_ & ~0x00000040);
             } else {
               ensureJobsIsMutable();
               jobs_.addAll(other.jobs_);
@@ -3713,7 +3805,7 @@ public final class MessageProto {
               jobsBuilder_.dispose();
               jobsBuilder_ = null;
               jobs_ = other.jobs_;
-              bitField0_ = (bitField0_ & ~0x00000010);
+              bitField0_ = (bitField0_ & ~0x00000040);
               jobsBuilder_ = 
                 com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders ?
                    getJobsFieldBuilder() : null;
@@ -3965,12 +4057,76 @@ public final class MessageProto {
         return this;
       }
 
+      private boolean taskVeto_ ;
+      /**
+       * <code>optional bool TaskVeto = 5;</code>
+       */
+      public boolean hasTaskVeto() {
+        return ((bitField0_ & 0x00000010) == 0x00000010);
+      }
+      /**
+       * <code>optional bool TaskVeto = 5;</code>
+       */
+      public boolean getTaskVeto() {
+        return taskVeto_;
+      }
+      /**
+       * <code>optional bool TaskVeto = 5;</code>
+       */
+      public Builder setTaskVeto(boolean value) {
+        bitField0_ |= 0x00000010;
+        taskVeto_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional bool TaskVeto = 5;</code>
+       */
+      public Builder clearTaskVeto() {
+        bitField0_ = (bitField0_ & ~0x00000010);
+        taskVeto_ = false;
+        onChanged();
+        return this;
+      }
+
+      private boolean isHeartbeatBreak_ ;
+      /**
+       * <code>optional bool IsHeartbeatBreak = 6;</code>
+       */
+      public boolean hasIsHeartbeatBreak() {
+        return ((bitField0_ & 0x00000020) == 0x00000020);
+      }
+      /**
+       * <code>optional bool IsHeartbeatBreak = 6;</code>
+       */
+      public boolean getIsHeartbeatBreak() {
+        return isHeartbeatBreak_;
+      }
+      /**
+       * <code>optional bool IsHeartbeatBreak = 6;</code>
+       */
+      public Builder setIsHeartbeatBreak(boolean value) {
+        bitField0_ |= 0x00000020;
+        isHeartbeatBreak_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional bool IsHeartbeatBreak = 6;</code>
+       */
+      public Builder clearIsHeartbeatBreak() {
+        bitField0_ = (bitField0_ & ~0x00000020);
+        isHeartbeatBreak_ = false;
+        onChanged();
+        return this;
+      }
+
       private java.util.List<stu.lanyu.springdocker.message.MessageProto.MonitorJobProto> jobs_ =
         java.util.Collections.emptyList();
       private void ensureJobsIsMutable() {
-        if (!((bitField0_ & 0x00000010) == 0x00000010)) {
+        if (!((bitField0_ & 0x00000040) == 0x00000040)) {
           jobs_ = new java.util.ArrayList<stu.lanyu.springdocker.message.MessageProto.MonitorJobProto>(jobs_);
-          bitField0_ |= 0x00000010;
+          bitField0_ |= 0x00000040;
          }
       }
 
@@ -3978,7 +4134,7 @@ public final class MessageProto {
           stu.lanyu.springdocker.message.MessageProto.MonitorJobProto, stu.lanyu.springdocker.message.MessageProto.MonitorJobProto.Builder, stu.lanyu.springdocker.message.MessageProto.MonitorJobProtoOrBuilder> jobsBuilder_;
 
       /**
-       * <code>repeated .message.MonitorJobProto Jobs = 5;</code>
+       * <code>repeated .message.MonitorJobProto Jobs = 7;</code>
        */
       public java.util.List<stu.lanyu.springdocker.message.MessageProto.MonitorJobProto> getJobsList() {
         if (jobsBuilder_ == null) {
@@ -3988,7 +4144,7 @@ public final class MessageProto {
         }
       }
       /**
-       * <code>repeated .message.MonitorJobProto Jobs = 5;</code>
+       * <code>repeated .message.MonitorJobProto Jobs = 7;</code>
        */
       public int getJobsCount() {
         if (jobsBuilder_ == null) {
@@ -3998,7 +4154,7 @@ public final class MessageProto {
         }
       }
       /**
-       * <code>repeated .message.MonitorJobProto Jobs = 5;</code>
+       * <code>repeated .message.MonitorJobProto Jobs = 7;</code>
        */
       public stu.lanyu.springdocker.message.MessageProto.MonitorJobProto getJobs(int index) {
         if (jobsBuilder_ == null) {
@@ -4008,7 +4164,7 @@ public final class MessageProto {
         }
       }
       /**
-       * <code>repeated .message.MonitorJobProto Jobs = 5;</code>
+       * <code>repeated .message.MonitorJobProto Jobs = 7;</code>
        */
       public Builder setJobs(
           int index, stu.lanyu.springdocker.message.MessageProto.MonitorJobProto value) {
@@ -4025,7 +4181,7 @@ public final class MessageProto {
         return this;
       }
       /**
-       * <code>repeated .message.MonitorJobProto Jobs = 5;</code>
+       * <code>repeated .message.MonitorJobProto Jobs = 7;</code>
        */
       public Builder setJobs(
           int index, stu.lanyu.springdocker.message.MessageProto.MonitorJobProto.Builder builderForValue) {
@@ -4039,7 +4195,7 @@ public final class MessageProto {
         return this;
       }
       /**
-       * <code>repeated .message.MonitorJobProto Jobs = 5;</code>
+       * <code>repeated .message.MonitorJobProto Jobs = 7;</code>
        */
       public Builder addJobs(stu.lanyu.springdocker.message.MessageProto.MonitorJobProto value) {
         if (jobsBuilder_ == null) {
@@ -4055,7 +4211,7 @@ public final class MessageProto {
         return this;
       }
       /**
-       * <code>repeated .message.MonitorJobProto Jobs = 5;</code>
+       * <code>repeated .message.MonitorJobProto Jobs = 7;</code>
        */
       public Builder addJobs(
           int index, stu.lanyu.springdocker.message.MessageProto.MonitorJobProto value) {
@@ -4072,7 +4228,7 @@ public final class MessageProto {
         return this;
       }
       /**
-       * <code>repeated .message.MonitorJobProto Jobs = 5;</code>
+       * <code>repeated .message.MonitorJobProto Jobs = 7;</code>
        */
       public Builder addJobs(
           stu.lanyu.springdocker.message.MessageProto.MonitorJobProto.Builder builderForValue) {
@@ -4086,7 +4242,7 @@ public final class MessageProto {
         return this;
       }
       /**
-       * <code>repeated .message.MonitorJobProto Jobs = 5;</code>
+       * <code>repeated .message.MonitorJobProto Jobs = 7;</code>
        */
       public Builder addJobs(
           int index, stu.lanyu.springdocker.message.MessageProto.MonitorJobProto.Builder builderForValue) {
@@ -4100,7 +4256,7 @@ public final class MessageProto {
         return this;
       }
       /**
-       * <code>repeated .message.MonitorJobProto Jobs = 5;</code>
+       * <code>repeated .message.MonitorJobProto Jobs = 7;</code>
        */
       public Builder addAllJobs(
           java.lang.Iterable<? extends stu.lanyu.springdocker.message.MessageProto.MonitorJobProto> values) {
@@ -4115,12 +4271,12 @@ public final class MessageProto {
         return this;
       }
       /**
-       * <code>repeated .message.MonitorJobProto Jobs = 5;</code>
+       * <code>repeated .message.MonitorJobProto Jobs = 7;</code>
        */
       public Builder clearJobs() {
         if (jobsBuilder_ == null) {
           jobs_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000010);
+          bitField0_ = (bitField0_ & ~0x00000040);
           onChanged();
         } else {
           jobsBuilder_.clear();
@@ -4128,7 +4284,7 @@ public final class MessageProto {
         return this;
       }
       /**
-       * <code>repeated .message.MonitorJobProto Jobs = 5;</code>
+       * <code>repeated .message.MonitorJobProto Jobs = 7;</code>
        */
       public Builder removeJobs(int index) {
         if (jobsBuilder_ == null) {
@@ -4141,14 +4297,14 @@ public final class MessageProto {
         return this;
       }
       /**
-       * <code>repeated .message.MonitorJobProto Jobs = 5;</code>
+       * <code>repeated .message.MonitorJobProto Jobs = 7;</code>
        */
       public stu.lanyu.springdocker.message.MessageProto.MonitorJobProto.Builder getJobsBuilder(
           int index) {
         return getJobsFieldBuilder().getBuilder(index);
       }
       /**
-       * <code>repeated .message.MonitorJobProto Jobs = 5;</code>
+       * <code>repeated .message.MonitorJobProto Jobs = 7;</code>
        */
       public stu.lanyu.springdocker.message.MessageProto.MonitorJobProtoOrBuilder getJobsOrBuilder(
           int index) {
@@ -4158,7 +4314,7 @@ public final class MessageProto {
         }
       }
       /**
-       * <code>repeated .message.MonitorJobProto Jobs = 5;</code>
+       * <code>repeated .message.MonitorJobProto Jobs = 7;</code>
        */
       public java.util.List<? extends stu.lanyu.springdocker.message.MessageProto.MonitorJobProtoOrBuilder> 
            getJobsOrBuilderList() {
@@ -4169,14 +4325,14 @@ public final class MessageProto {
         }
       }
       /**
-       * <code>repeated .message.MonitorJobProto Jobs = 5;</code>
+       * <code>repeated .message.MonitorJobProto Jobs = 7;</code>
        */
       public stu.lanyu.springdocker.message.MessageProto.MonitorJobProto.Builder addJobsBuilder() {
         return getJobsFieldBuilder().addBuilder(
             stu.lanyu.springdocker.message.MessageProto.MonitorJobProto.getDefaultInstance());
       }
       /**
-       * <code>repeated .message.MonitorJobProto Jobs = 5;</code>
+       * <code>repeated .message.MonitorJobProto Jobs = 7;</code>
        */
       public stu.lanyu.springdocker.message.MessageProto.MonitorJobProto.Builder addJobsBuilder(
           int index) {
@@ -4184,7 +4340,7 @@ public final class MessageProto {
             index, stu.lanyu.springdocker.message.MessageProto.MonitorJobProto.getDefaultInstance());
       }
       /**
-       * <code>repeated .message.MonitorJobProto Jobs = 5;</code>
+       * <code>repeated .message.MonitorJobProto Jobs = 7;</code>
        */
       public java.util.List<stu.lanyu.springdocker.message.MessageProto.MonitorJobProto.Builder> 
            getJobsBuilderList() {
@@ -4197,7 +4353,7 @@ public final class MessageProto {
           jobsBuilder_ = new com.google.protobuf.RepeatedFieldBuilder<
               stu.lanyu.springdocker.message.MessageProto.MonitorJobProto, stu.lanyu.springdocker.message.MessageProto.MonitorJobProto.Builder, stu.lanyu.springdocker.message.MessageProto.MonitorJobProtoOrBuilder>(
                   jobs_,
-                  ((bitField0_ & 0x00000010) == 0x00000010),
+                  ((bitField0_ & 0x00000040) == 0x00000040),
                   getParentForChildren(),
                   isClean());
           jobs_ = null;
@@ -4345,34 +4501,20 @@ public final class MessageProto {
     boolean getJobVeto();
 
     /**
-     * <code>optional string ServiceIdentity = 12;</code>
-     */
-    boolean hasServiceIdentity();
-    /**
-     * <code>optional string ServiceIdentity = 12;</code>
-     */
-    java.lang.String getServiceIdentity();
-    /**
-     * <code>optional string ServiceIdentity = 12;</code>
-     */
-    com.google.protobuf.ByteString
-        getServiceIdentityBytes();
-
-    /**
-     * <code>optional int32 FiredTimes = 13;</code>
+     * <code>optional int32 FiredTimes = 12;</code>
      */
     boolean hasFiredTimes();
     /**
-     * <code>optional int32 FiredTimes = 13;</code>
+     * <code>optional int32 FiredTimes = 12;</code>
      */
     int getFiredTimes();
 
     /**
-     * <code>optional int32 MissfireTimes = 14;</code>
+     * <code>optional int32 MissfireTimes = 13;</code>
      */
     boolean hasMissfireTimes();
     /**
-     * <code>optional int32 MissfireTimes = 14;</code>
+     * <code>optional int32 MissfireTimes = 13;</code>
      */
     int getMissfireTimes();
   }
@@ -4488,19 +4630,13 @@ public final class MessageProto {
               jobVeto_ = input.readBool();
               break;
             }
-            case 98: {
-              com.google.protobuf.ByteString bs = input.readBytes();
+            case 96: {
               bitField0_ |= 0x00000800;
-              serviceIdentity_ = bs;
+              firedTimes_ = input.readInt32();
               break;
             }
             case 104: {
               bitField0_ |= 0x00001000;
-              firedTimes_ = input.readInt32();
-              break;
-            }
-            case 112: {
-              bitField0_ |= 0x00002000;
               missfireTimes_ = input.readInt32();
               break;
             }
@@ -4844,73 +4980,31 @@ public final class MessageProto {
       return jobVeto_;
     }
 
-    public static final int SERVICEIDENTITY_FIELD_NUMBER = 12;
-    private java.lang.Object serviceIdentity_;
+    public static final int FIREDTIMES_FIELD_NUMBER = 12;
+    private int firedTimes_;
     /**
-     * <code>optional string ServiceIdentity = 12;</code>
+     * <code>optional int32 FiredTimes = 12;</code>
      */
-    public boolean hasServiceIdentity() {
+    public boolean hasFiredTimes() {
       return ((bitField0_ & 0x00000800) == 0x00000800);
     }
     /**
-     * <code>optional string ServiceIdentity = 12;</code>
-     */
-    public java.lang.String getServiceIdentity() {
-      java.lang.Object ref = serviceIdentity_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        if (bs.isValidUtf8()) {
-          serviceIdentity_ = s;
-        }
-        return s;
-      }
-    }
-    /**
-     * <code>optional string ServiceIdentity = 12;</code>
-     */
-    public com.google.protobuf.ByteString
-        getServiceIdentityBytes() {
-      java.lang.Object ref = serviceIdentity_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        serviceIdentity_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int FIREDTIMES_FIELD_NUMBER = 13;
-    private int firedTimes_;
-    /**
-     * <code>optional int32 FiredTimes = 13;</code>
-     */
-    public boolean hasFiredTimes() {
-      return ((bitField0_ & 0x00001000) == 0x00001000);
-    }
-    /**
-     * <code>optional int32 FiredTimes = 13;</code>
+     * <code>optional int32 FiredTimes = 12;</code>
      */
     public int getFiredTimes() {
       return firedTimes_;
     }
 
-    public static final int MISSFIRETIMES_FIELD_NUMBER = 14;
+    public static final int MISSFIRETIMES_FIELD_NUMBER = 13;
     private int missfireTimes_;
     /**
-     * <code>optional int32 MissfireTimes = 14;</code>
+     * <code>optional int32 MissfireTimes = 13;</code>
      */
     public boolean hasMissfireTimes() {
-      return ((bitField0_ & 0x00002000) == 0x00002000);
+      return ((bitField0_ & 0x00001000) == 0x00001000);
     }
     /**
-     * <code>optional int32 MissfireTimes = 14;</code>
+     * <code>optional int32 MissfireTimes = 13;</code>
      */
     public int getMissfireTimes() {
       return missfireTimes_;
@@ -4928,7 +5022,6 @@ public final class MessageProto {
       jobFiredLastTime_ = 0L;
       jobMissfiredLastTime_ = 0L;
       jobVeto_ = false;
-      serviceIdentity_ = "";
       firedTimes_ = 0;
       missfireTimes_ = 0;
     }
@@ -4979,13 +5072,10 @@ public final class MessageProto {
         output.writeBool(11, jobVeto_);
       }
       if (((bitField0_ & 0x00000800) == 0x00000800)) {
-        output.writeBytes(12, getServiceIdentityBytes());
+        output.writeInt32(12, firedTimes_);
       }
       if (((bitField0_ & 0x00001000) == 0x00001000)) {
-        output.writeInt32(13, firedTimes_);
-      }
-      if (((bitField0_ & 0x00002000) == 0x00002000)) {
-        output.writeInt32(14, missfireTimes_);
+        output.writeInt32(13, missfireTimes_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -5042,15 +5132,11 @@ public final class MessageProto {
       }
       if (((bitField0_ & 0x00000800) == 0x00000800)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(12, getServiceIdentityBytes());
+          .computeInt32Size(12, firedTimes_);
       }
       if (((bitField0_ & 0x00001000) == 0x00001000)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(13, firedTimes_);
-      }
-      if (((bitField0_ & 0x00002000) == 0x00002000)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(14, missfireTimes_);
+          .computeInt32Size(13, missfireTimes_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -5191,12 +5277,10 @@ public final class MessageProto {
         bitField0_ = (bitField0_ & ~0x00000200);
         jobVeto_ = false;
         bitField0_ = (bitField0_ & ~0x00000400);
-        serviceIdentity_ = "";
-        bitField0_ = (bitField0_ & ~0x00000800);
         firedTimes_ = 0;
-        bitField0_ = (bitField0_ & ~0x00001000);
+        bitField0_ = (bitField0_ & ~0x00000800);
         missfireTimes_ = 0;
-        bitField0_ = (bitField0_ & ~0x00002000);
+        bitField0_ = (bitField0_ & ~0x00001000);
         return this;
       }
 
@@ -5272,13 +5356,9 @@ public final class MessageProto {
         if (((from_bitField0_ & 0x00000800) == 0x00000800)) {
           to_bitField0_ |= 0x00000800;
         }
-        result.serviceIdentity_ = serviceIdentity_;
+        result.firedTimes_ = firedTimes_;
         if (((from_bitField0_ & 0x00001000) == 0x00001000)) {
           to_bitField0_ |= 0x00001000;
-        }
-        result.firedTimes_ = firedTimes_;
-        if (((from_bitField0_ & 0x00002000) == 0x00002000)) {
-          to_bitField0_ |= 0x00002000;
         }
         result.missfireTimes_ = missfireTimes_;
         result.bitField0_ = to_bitField0_;
@@ -5339,11 +5419,6 @@ public final class MessageProto {
         }
         if (other.hasJobVeto()) {
           setJobVeto(other.getJobVeto());
-        }
-        if (other.hasServiceIdentity()) {
-          bitField0_ |= 0x00000800;
-          serviceIdentity_ = other.serviceIdentity_;
-          onChanged();
         }
         if (other.hasFiredTimes()) {
           setFiredTimes(other.getFiredTimes());
@@ -5950,109 +6025,33 @@ public final class MessageProto {
         return this;
       }
 
-      private java.lang.Object serviceIdentity_ = "";
+      private int firedTimes_ ;
       /**
-       * <code>optional string ServiceIdentity = 12;</code>
+       * <code>optional int32 FiredTimes = 12;</code>
        */
-      public boolean hasServiceIdentity() {
+      public boolean hasFiredTimes() {
         return ((bitField0_ & 0x00000800) == 0x00000800);
       }
       /**
-       * <code>optional string ServiceIdentity = 12;</code>
-       */
-      public java.lang.String getServiceIdentity() {
-        java.lang.Object ref = serviceIdentity_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          if (bs.isValidUtf8()) {
-            serviceIdentity_ = s;
-          }
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>optional string ServiceIdentity = 12;</code>
-       */
-      public com.google.protobuf.ByteString
-          getServiceIdentityBytes() {
-        java.lang.Object ref = serviceIdentity_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          serviceIdentity_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>optional string ServiceIdentity = 12;</code>
-       */
-      public Builder setServiceIdentity(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000800;
-        serviceIdentity_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string ServiceIdentity = 12;</code>
-       */
-      public Builder clearServiceIdentity() {
-        bitField0_ = (bitField0_ & ~0x00000800);
-        serviceIdentity_ = getDefaultInstance().getServiceIdentity();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string ServiceIdentity = 12;</code>
-       */
-      public Builder setServiceIdentityBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000800;
-        serviceIdentity_ = value;
-        onChanged();
-        return this;
-      }
-
-      private int firedTimes_ ;
-      /**
-       * <code>optional int32 FiredTimes = 13;</code>
-       */
-      public boolean hasFiredTimes() {
-        return ((bitField0_ & 0x00001000) == 0x00001000);
-      }
-      /**
-       * <code>optional int32 FiredTimes = 13;</code>
+       * <code>optional int32 FiredTimes = 12;</code>
        */
       public int getFiredTimes() {
         return firedTimes_;
       }
       /**
-       * <code>optional int32 FiredTimes = 13;</code>
+       * <code>optional int32 FiredTimes = 12;</code>
        */
       public Builder setFiredTimes(int value) {
-        bitField0_ |= 0x00001000;
+        bitField0_ |= 0x00000800;
         firedTimes_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional int32 FiredTimes = 13;</code>
+       * <code>optional int32 FiredTimes = 12;</code>
        */
       public Builder clearFiredTimes() {
-        bitField0_ = (bitField0_ & ~0x00001000);
+        bitField0_ = (bitField0_ & ~0x00000800);
         firedTimes_ = 0;
         onChanged();
         return this;
@@ -6060,31 +6059,31 @@ public final class MessageProto {
 
       private int missfireTimes_ ;
       /**
-       * <code>optional int32 MissfireTimes = 14;</code>
+       * <code>optional int32 MissfireTimes = 13;</code>
        */
       public boolean hasMissfireTimes() {
-        return ((bitField0_ & 0x00002000) == 0x00002000);
+        return ((bitField0_ & 0x00001000) == 0x00001000);
       }
       /**
-       * <code>optional int32 MissfireTimes = 14;</code>
+       * <code>optional int32 MissfireTimes = 13;</code>
        */
       public int getMissfireTimes() {
         return missfireTimes_;
       }
       /**
-       * <code>optional int32 MissfireTimes = 14;</code>
+       * <code>optional int32 MissfireTimes = 13;</code>
        */
       public Builder setMissfireTimes(int value) {
-        bitField0_ |= 0x00002000;
+        bitField0_ |= 0x00001000;
         missfireTimes_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional int32 MissfireTimes = 14;</code>
+       * <code>optional int32 MissfireTimes = 13;</code>
        */
       public Builder clearMissfireTimes() {
-        bitField0_ = (bitField0_ & ~0x00002000);
+        bitField0_ = (bitField0_ & ~0x00001000);
         missfireTimes_ = 0;
         onChanged();
         return this;
@@ -7859,25 +7858,25 @@ public final class MessageProto {
       "\022\r\n\005Level\030\002 \001(\t\022\017\n\007LogTime\030\003 \001(\003\"X\n\014Moni" +
       "torProto\0224\n\021RegisterTaskBatch\030\001 \003(\0132\031.me" +
       "ssage.MonitorTaskProto\022\022\n\nBreakerUrl\030\002 \001" +
-      "(\t\"\231\001\n\020MonitorTaskProto\022\027\n\017ServiceIdenti" +
+      "(\t\"\305\001\n\020MonitorTaskProto\022\027\n\017ServiceIdenti" +
       "ty\030\001 \001(\t\022\024\n\014RegisterTime\030\002 \001(\003\022\023\n\013Action",
-      "Token\030\003 \001(\t\022\031\n\021LastHeartbeatTime\030\004 \001(\003\022&" +
-      "\n\004Jobs\030\005 \003(\0132\030.message.MonitorJobProto\"\315" +
-      "\002\n\017MonitorJobProto\022\017\n\007JobName\030\001 \001(\t\022\020\n\010J" +
-      "ogGroup\030\002 \001(\t\022\024\n\014JobClassType\030\003 \001(\t\022\023\n\013T" +
-      "riggerName\030\004 \001(\t\022\024\n\014TriggerGroup\030\005 \001(\t\022\023" +
-      "\n\013RepeatCount\030\006 \001(\005\022\026\n\016RepeatInterval\030\007 " +
-      "\001(\005\022\034\n\024JobCompletedLastTime\030\010 \001(\003\022\030\n\020Job" +
-      "FiredLastTime\030\t \001(\003\022\034\n\024JobMissfiredLastT" +
-      "ime\030\n \001(\003\022\017\n\007JobVeto\030\013 \001(\010\022\027\n\017ServiceIde" +
-      "ntity\030\014 \001(\t\022\022\n\nFiredTimes\030\r \001(\005\022\025\n\rMissf",
-      "ireTimes\030\016 \001(\005\"v\n\014WarningProto\022\027\n\017Servic" +
-      "eIdentity\030\001 \001(\t\022\017\n\007JobName\030\002 \001(\t\022\020\n\010JobG" +
-      "roup\030\003 \001(\t\022\025\n\rWarningReason\030\004 \001(\t\022\023\n\013War" +
-      "ningTime\030\005 \001(\003\"@\n\021WarningBatchProto\022+\n\014W" +
-      "arningBatch\030\001 \003(\0132\025.message.WarningProto" +
-      "B.\n\036stu.lanyu.springdocker.messageB\014Mess" +
-      "ageProto"
+      "Token\030\003 \001(\t\022\031\n\021LastHeartbeatTime\030\004 \001(\003\022\020" +
+      "\n\010TaskVeto\030\005 \001(\010\022\030\n\020IsHeartbeatBreak\030\006 \001" +
+      "(\010\022&\n\004Jobs\030\007 \003(\0132\030.message.MonitorJobPro" +
+      "to\"\264\002\n\017MonitorJobProto\022\017\n\007JobName\030\001 \001(\t\022" +
+      "\020\n\010JogGroup\030\002 \001(\t\022\024\n\014JobClassType\030\003 \001(\t\022" +
+      "\023\n\013TriggerName\030\004 \001(\t\022\024\n\014TriggerGroup\030\005 \001" +
+      "(\t\022\023\n\013RepeatCount\030\006 \001(\005\022\026\n\016RepeatInterva" +
+      "l\030\007 \001(\005\022\034\n\024JobCompletedLastTime\030\010 \001(\003\022\030\n" +
+      "\020JobFiredLastTime\030\t \001(\003\022\034\n\024JobMissfiredL" +
+      "astTime\030\n \001(\003\022\017\n\007JobVeto\030\013 \001(\010\022\022\n\nFiredT",
+      "imes\030\014 \001(\005\022\025\n\rMissfireTimes\030\r \001(\005\"v\n\014War" +
+      "ningProto\022\027\n\017ServiceIdentity\030\001 \001(\t\022\017\n\007Jo" +
+      "bName\030\002 \001(\t\022\020\n\010JobGroup\030\003 \001(\t\022\025\n\rWarning" +
+      "Reason\030\004 \001(\t\022\023\n\013WarningTime\030\005 \001(\003\"@\n\021War" +
+      "ningBatchProto\022+\n\014WarningBatch\030\001 \003(\0132\025.m" +
+      "essage.WarningProtoB.\n\036stu.lanyu.springd" +
+      "ocker.messageB\014MessageProto"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -7920,13 +7919,13 @@ public final class MessageProto {
     internal_static_message_MonitorTaskProto_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_message_MonitorTaskProto_descriptor,
-        new java.lang.String[] { "ServiceIdentity", "RegisterTime", "ActionToken", "LastHeartbeatTime", "Jobs", });
+        new java.lang.String[] { "ServiceIdentity", "RegisterTime", "ActionToken", "LastHeartbeatTime", "TaskVeto", "IsHeartbeatBreak", "Jobs", });
     internal_static_message_MonitorJobProto_descriptor =
       getDescriptor().getMessageTypes().get(5);
     internal_static_message_MonitorJobProto_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_message_MonitorJobProto_descriptor,
-        new java.lang.String[] { "JobName", "JogGroup", "JobClassType", "TriggerName", "TriggerGroup", "RepeatCount", "RepeatInterval", "JobCompletedLastTime", "JobFiredLastTime", "JobMissfiredLastTime", "JobVeto", "ServiceIdentity", "FiredTimes", "MissfireTimes", });
+        new java.lang.String[] { "JobName", "JogGroup", "JobClassType", "TriggerName", "TriggerGroup", "RepeatCount", "RepeatInterval", "JobCompletedLastTime", "JobFiredLastTime", "JobMissfiredLastTime", "JobVeto", "FiredTimes", "MissfireTimes", });
     internal_static_message_WarningProto_descriptor =
       getDescriptor().getMessageTypes().get(6);
     internal_static_message_WarningProto_fieldAccessorTable = new
