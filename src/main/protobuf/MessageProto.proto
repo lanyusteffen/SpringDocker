@@ -53,9 +53,8 @@ message MonitorJobProto
     optional int64 JobFiredLastTime = 9;
     optional int64 JobMissfiredLastTime = 10;
     optional bool JobVeto = 11;
-    optional string ServiceIdentity = 12;
-    optional int32 FiredTimes = 13;
-    optional int32 MissfireTimes = 14;
+    optional int32 FiredTimes = 12;
+    optional int32 MissfireTimes = 13;
 }
 
 message WarningProto {
