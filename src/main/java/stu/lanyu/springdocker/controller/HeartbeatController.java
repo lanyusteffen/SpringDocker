@@ -10,12 +10,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import stu.lanyu.springdocker.annotation.Approve;
 import stu.lanyu.springdocker.business.readwrite.TaskMonitorInfoService;
-import stu.lanyu.springdocker.config.GlobalConfig;
 import stu.lanyu.springdocker.domain.TaskMonitorInfo;
 import stu.lanyu.springdocker.redis.entity.RegisterTask;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(value = "/heartbeat")
@@ -53,21 +51,5 @@ public class HeartbeatController {
     public @ResponseBody TaskMonitorInfo getDetail(long id) {
         TaskMonitorInfo taskMonitorInfo = taskMonitorInfoQueryService.getDetail(id);
         return taskMonitorInfo;
-    }
-
-    @Approve
-    @RequestMapping(value = "/getAllHeartbeatUrl", method = RequestMethod.GET)
-    public @ResponseBody List<String> getAllHeartbeatUrl() {
-        return redisTemplate.opsForHash().values(GlobalConfig.Redis.REGISTER_HEARTBEAT_CACHE_KEY).stream()
-                .map(r -> (String)r)
-                .collect(Collectors.toList());
-    }
-
-    @Approve
-    @RequestMapping(value = "/getAllRegisterService", method = RequestMethod.GET)
-    public @ResponseBody List<RegisterTask> getAllRegisterService() {
-        return redisTaskTemplate.opsForHash().values(GlobalConfig.Redis.REGISTER_TASK_CACHE_KEY).stream()
-                .map(r -> (RegisterTask)r)
-                .collect(Collectors.toList());
     }
 }

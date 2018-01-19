@@ -9,19 +9,13 @@ public class GlobalConfig {
 
     public class Redis {
 
-        public static final String REGISTER_TASK_CACHE_KEY = "stu.lanyu.springdocker.register.task";
-
-        public static final String REGISTER_HEARTBEAT_CACHE_KEY = "stu.lanyu.springdocker.register.heartbeat";
-
         public static final String REGISTER_NEWUSER_CACHE_KEY = "stu.lanyu.springdocker.register.user";
 
         public static final String ESFTASK_PUSHLOG_CHANNEL = "ESFTask.Commands.ESFTaskPushLogChannel";
 
-        public static final String ESFTASK_REGISTER_CHANNEL = "ESFTask.Commands.ESFTaskRegisterChannel";
+        public static final String ESFTASK_MONITOR_CHANNEL = "ESFTask.Commands.ESFTaskMonitorChannel";
 
         public static final String ESFTASK_WARNING_CHANNEL = "ESFTask.Commands.ESFTaskWarningChannel";
-
-        public static final String ESFTASK_HEARTBEAT_CHANNEL = "ESFTask.Commands.ESFTaskHeartbeatChannel";
     }
 
     public class WebConfig {

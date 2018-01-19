@@ -8,9 +8,8 @@ import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import stu.lanyu.springdocker.config.GlobalConfig;
 import stu.lanyu.springdocker.message.ScheduledExecutorServiceFacade;
-import stu.lanyu.springdocker.message.subscriber.HeartbeatSubscriber;
 import stu.lanyu.springdocker.message.subscriber.LogCollectSubscriber;
-import stu.lanyu.springdocker.message.subscriber.RegisterSubscriber;
+import stu.lanyu.springdocker.message.subscriber.MonitorSubscriber;
 import stu.lanyu.springdocker.message.subscriber.WarningSubscriber;
 import stu.lanyu.springdocker.utility.DateUtility;
 
@@ -27,44 +26,6 @@ public class MaintainSchedule {
     private JedisPool getJedisPool() {
         return context.getBean("RedisSubscriberMessagePool",
                 JedisPool.class);
-    }
-
-    private ScheduledExecutorService getHeartbeatScheduledExecutorService(ScheduledExecutorServiceFacade serviceHeartbeatFacade) {
-        HeartbeatSubscriber heartbeatSubscriber = context.getBean(HeartbeatSubscriber.class);
-        ScheduledExecutorService service = Executors.newSingleThreadScheduledExecutor();
-        service.execute(() -> {
-
-            JedisPool pool = getJedisPool();
-            Jedis jedis = null;
-
-            try {
-                System.out.println("[" + DateUtility.getDateNowFormat(null) + "]" + "Start restore subscribe channel ESFTask.Commands.ESFTaskHeartbeatChannel!");
-
-                jedis = pool.getResource();
-                jedis.subscribe(heartbeatSubscriber, GlobalConfig.Redis.ESFTASK_HEARTBEAT_CHANNEL);
-
-                try {
-                    jedis.quit();
-                } catch (Exception e) {
-                    System.out.println("[" + DateUtility.getDateNowFormat(null) + "]" + "ESFTask.Commands.ESFTaskHeartbeatChannel jedis quit error: " + e.getMessage());
-                }
-                System.out.println("[" + DateUtility.getDateNowFormat(null) + "]" + "End restore subscribe channel ESFTask.Commands.ESFTaskHeartbeatChannel!");
-            } catch (Exception e) {
-                System.out.println("[" + DateUtility.getDateNowFormat(null) + "]" + "ESFTask.Commands.ESFTaskHeartbeatChannel restore error: " + e.getMessage());
-            }
-            finally {
-                if (jedis != null)
-                    jedis.close();
-            }
-
-            serviceHeartbeatFacade.getScheduleExecutorService().shutdownNow();
-        });
-
-        serviceHeartbeatFacade.setScheduleExecutorService(service);
-        serviceHeartbeatFacade.setLastSubscribeTime(new Date());
-        serviceHeartbeatFacade.setSubscriber(heartbeatSubscriber);
-
-        return service;
     }
 
     private ScheduledExecutorService getWarningScheduledExecutorService(ScheduledExecutorServiceFacade serviceWarningFacade) {
@@ -105,8 +66,8 @@ public class MaintainSchedule {
         return service;
     }
 
-    private ScheduledExecutorService getRegisterScheduledExecutorService(ScheduledExecutorServiceFacade serviceRegisterFacade) {
-        RegisterSubscriber registerSubscriber = context.getBean(RegisterSubscriber.class);
+    private ScheduledExecutorService getMonitorScheduledExecutorService(ScheduledExecutorServiceFacade serviceRegisterFacade) {
+        MonitorSubscriber monitorSubscriber = context.getBean(MonitorSubscriber.class);
         ScheduledExecutorService service = Executors.newSingleThreadScheduledExecutor();
         service.execute(() -> {
 
@@ -114,19 +75,19 @@ public class MaintainSchedule {
             Jedis jedis = null;
 
             try {
-                System.out.println("[" + DateUtility.getDateNowFormat(null) + "]" + "Start restore subscribe channel ESFTask.Commands.ESFTaskRegisterChannel!");
+                System.out.println("[" + DateUtility.getDateNowFormat(null) + "]" + "Start restore subscribe channel ESFTask.Commands.ESFTaskMonitorChannel!");
 
                 jedis = pool.getResource();
-                jedis.subscribe(registerSubscriber, GlobalConfig.Redis.ESFTASK_REGISTER_CHANNEL);
+                jedis.subscribe(monitorSubscriber, GlobalConfig.Redis.ESFTASK_MONITOR_CHANNEL);
 
                 try {
                     jedis.quit();
                 } catch (Exception e) {
-                    System.out.println("[" + DateUtility.getDateNowFormat(null) + "]" + "ESFTask.Commands.ESFTaskRegisterChannel jedis quit error: " + e.getMessage());
+                    System.out.println("[" + DateUtility.getDateNowFormat(null) + "]" + "ESFTask.Commands.ESFTaskMonitorChannel jedis quit error: " + e.getMessage());
                 }
-                System.out.println("[" + DateUtility.getDateNowFormat(null) + "]" + "End restore subscribe channel ESFTask.Commands.ESFTaskRegisterChannel!");
+                System.out.println("[" + DateUtility.getDateNowFormat(null) + "]" + "End restore subscribe channel ESFTask.Commands.ESFTaskMonitorChannel!");
             } catch (Exception e) {
-                System.out.println("[" + DateUtility.getDateNowFormat(null) + "]" + "ESFTask.Commands.ESFTaskRegisterChannel restore error: " + e.getMessage());
+                System.out.println("[" + DateUtility.getDateNowFormat(null) + "]" + "ESFTask.Commands.ESFTaskMonitorChannel restore error: " + e.getMessage());
             }
             finally {
                 if (jedis != null)
@@ -138,7 +99,7 @@ public class MaintainSchedule {
 
         serviceRegisterFacade.setScheduleExecutorService(service);
         serviceRegisterFacade.setLastSubscribeTime(new Date());
-        serviceRegisterFacade.setSubscriber(registerSubscriber);
+        serviceRegisterFacade.setSubscriber(monitorSubscriber);
 
         return service;
     }
@@ -186,30 +147,6 @@ public class MaintainSchedule {
 
         System.out.println("[" + DateUtility.getDateNowFormat(null) + "]" + "Start MaintainSchedule!");
 
-        ScheduledExecutorServiceFacade serviceHeartbeatFacade = context.getBean("HeartbeatExecutorService",
-                ScheduledExecutorServiceFacade.class);
-
-        if (serviceHeartbeatFacade != null) {
-
-            if (serviceHeartbeatFacade.getScheduleExecutorService().isShutdown()) {
-
-                getHeartbeatScheduledExecutorService(serviceHeartbeatFacade);
-            }
-            else {
-
-                if (DateUtility.compareFormNowByHour(serviceHeartbeatFacade.getLastSubscribeTime()) > GlobalConfig.WebConfig.REDIS_SUBSCRIBER_EXPIRE_HOUR) {
-
-                    try {
-                        serviceHeartbeatFacade.getSubscriber().unsubscribe(GlobalConfig.Redis.ESFTASK_HEARTBEAT_CHANNEL);
-                    }catch (Exception e) {
-                        System.out.println("[" + DateUtility.getDateNowFormat(null) + "]" + "ESFTask.Commands.ESFTaskHeartbeatChannel unsubscribe error: " + e.getMessage());
-                    }
-
-                    serviceHeartbeatFacade.getScheduleExecutorService().shutdownNow();
-                }
-            }
-        }
-
         ScheduledExecutorServiceFacade serviceLogCollectFacade = context.getBean("LogCollectExecutorService",
                 ScheduledExecutorServiceFacade.class);
 
@@ -221,7 +158,7 @@ public class MaintainSchedule {
             }
             else {
 
-                if (DateUtility.compareFormNowByHour(serviceHeartbeatFacade.getLastSubscribeTime()) > GlobalConfig.WebConfig.REDIS_SUBSCRIBER_EXPIRE_HOUR) {
+                if (DateUtility.compareFormNowByHour(serviceLogCollectFacade.getLastSubscribeTime()) > GlobalConfig.WebConfig.REDIS_SUBSCRIBER_EXPIRE_HOUR) {
 
                     try {
                         serviceLogCollectFacade.getSubscriber().unsubscribe(GlobalConfig.Redis.ESFTASK_PUSHLOG_CHANNEL);
@@ -245,7 +182,7 @@ public class MaintainSchedule {
             }
             else {
 
-                if (DateUtility.compareFormNowByHour(serviceHeartbeatFacade.getLastSubscribeTime()) > GlobalConfig.WebConfig.REDIS_SUBSCRIBER_EXPIRE_HOUR) {
+                if (DateUtility.compareFormNowByHour(serviceWarningFacade.getLastSubscribeTime()) > GlobalConfig.WebConfig.REDIS_SUBSCRIBER_EXPIRE_HOUR) {
 
                     try {
                         serviceWarningFacade.getSubscriber().unsubscribe(GlobalConfig.Redis.ESFTASK_WARNING_CHANNEL);
@@ -258,27 +195,27 @@ public class MaintainSchedule {
             }
         }
 
-        ScheduledExecutorServiceFacade serviceRegisterFacade = context.getBean("RegisterExecutorService",
+        ScheduledExecutorServiceFacade serviceMonitorFacade = context.getBean("MonitorExecutorService",
                 ScheduledExecutorServiceFacade.class);
 
-        if (serviceRegisterFacade != null) {
+        if (serviceMonitorFacade != null) {
 
-            if (serviceRegisterFacade.getScheduleExecutorService().isShutdown()) {
+            if (serviceMonitorFacade.getScheduleExecutorService().isShutdown()) {
 
-                getRegisterScheduledExecutorService(serviceRegisterFacade);
+                getMonitorScheduledExecutorService(serviceMonitorFacade);
             }
             else {
 
-                if (DateUtility.compareFormNowByHour(serviceHeartbeatFacade.getLastSubscribeTime()) > GlobalConfig.WebConfig.REDIS_SUBSCRIBER_EXPIRE_HOUR) {
+                if (DateUtility.compareFormNowByHour(serviceMonitorFacade.getLastSubscribeTime()) > GlobalConfig.WebConfig.REDIS_SUBSCRIBER_EXPIRE_HOUR) {
 
                     try {
-                        serviceRegisterFacade.getSubscriber().unsubscribe(GlobalConfig.Redis.ESFTASK_REGISTER_CHANNEL);
+                        serviceMonitorFacade.getSubscriber().unsubscribe(GlobalConfig.Redis.ESFTASK_MONITOR_CHANNEL);
                     }catch (Exception e) {
                         System.out.println("[" + DateUtility.getDateNowFormat(null) + "]" +
-                                "ESFTask.Commands.ESFTaskRegisterChannel unsubscribe error: " + e.getMessage());
+                                "ESFTask.Commands.ESFTaskMonitorChannel unsubscribe error: " + e.getMessage());
                     }
 
-                    serviceRegisterFacade.getScheduleExecutorService().shutdownNow();
+                    serviceMonitorFacade.getScheduleExecutorService().shutdownNow();
                 }
             }
         }

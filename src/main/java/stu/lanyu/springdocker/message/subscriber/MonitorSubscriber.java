@@ -12,26 +12,26 @@ import stu.lanyu.springdocker.redis.entity.RegisterTask;
 import java.util.ArrayList;
 import java.util.Base64;
 
-public class RegisterSubscriber extends JedisPubSub {
+public class MonitorSubscriber extends JedisPubSub {
 
     @Autowired
     private RedisTemplate<String, RegisterTask> redisTemplate;
 
     public void onMessage(String channel, String message) {
 
-        MessageProto.RegisterServiceProto proto = null;
+        MessageProto.MonitorTaskProto proto = null;
 
         try {
 
             byte[] decodedData = Base64.getDecoder().decode(message);
-            proto = MessageProto.RegisterServiceProto.parseFrom(decodedData);
+            proto = MessageProto.MonitorTaskProto.parseFrom(decodedData);
 
             RegisterTask registerTask = new RegisterTask();
 
             registerTask.setActionToken(proto.getActionToken());
             registerTask.setRegisterTime(proto.getRegisterTime());
             registerTask.setServiceIdentity(proto.getServiceIdentity());
-            registerTask.setBreakerUrl(proto.getBreakerUrl());
+            registerTask.setBreakerUrl(proto.g());
 
             ArrayList<RegisterJob> registerJobs = new ArrayList<RegisterJob>();
 
