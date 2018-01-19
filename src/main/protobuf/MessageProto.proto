@@ -35,9 +35,10 @@ message MonitorTaskProto
     optional int64 RegisterTime = 2;
     optional string ActionToken = 3;
     optional int64 LastHeartbeatTime = 4;
-    optional bool TaskVeto = 5;
-    optional bool IsHeartbeatBreak = 6;
-    repeated MonitorJobProto Jobs = 7;
+    optional string BreakerUrl = 5;
+    optional bool TaskVeto = 6;
+    optional bool IsHeartbeatBreak = 7;
+    repeated MonitorJobProto Jobs = 8;
 }
 
 message MonitorJobProto
