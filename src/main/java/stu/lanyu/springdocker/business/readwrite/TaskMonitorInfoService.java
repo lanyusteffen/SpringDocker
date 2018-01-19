@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 import stu.lanyu.springdocker.domain.TaskMonitorInfo;
 import stu.lanyu.springdocker.repository.readwrite.TaskMonitorInfoRepository;
 
+import java.util.List;
+
 @Service("TaskMonitorInfoServiceReadwrite")
 public class TaskMonitorInfoService {
     @Autowired(required = true)
@@ -14,5 +16,9 @@ public class TaskMonitorInfoService {
 
     public void save(TaskMonitorInfo taskMonitorInfo) {
         taskMonitorInfoRepository.save(taskMonitorInfo);
+    }
+
+    public void saveBatch(List<TaskMonitorInfo> taskMonitorInfoList) {
+        taskMonitorInfoRepository.save(taskMonitorInfoList);
     }
 }

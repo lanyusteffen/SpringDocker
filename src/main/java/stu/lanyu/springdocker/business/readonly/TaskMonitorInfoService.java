@@ -53,4 +53,8 @@ public class TaskMonitorInfoService extends AbstractBusinessService {
     public TaskMonitorInfo getTaskMonitorInfoByServiceIdentity(String serviceIdentity) {
         return taskMonitorInfoRepository.findOneByServiceIdentity(serviceIdentity);
     }
+
+    public List<TaskMonitorInfo> getTaskMonitorInfoByServiceIdentityInRange(List<String> serviceIdentityList) {
+        return taskMonitorInfoRepository.findAllByServiceIdentityIn(serviceIdentityList);
+    }
 }

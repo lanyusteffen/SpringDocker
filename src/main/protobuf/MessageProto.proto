@@ -25,7 +25,7 @@ message LogProto
 
 message MonitorProto
 {
-    repeated MonitorTaskProto RegisterTaskBatch = 1;
+    repeated MonitorTaskProto MonitorTaskBatch = 1;
     optional string BreakerUrl = 2;
 }
 

@@ -7,7 +7,6 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,7 +16,6 @@ import stu.lanyu.springdocker.config.GlobalConfig;
 import stu.lanyu.springdocker.contract.entity.JobBreaker;
 import stu.lanyu.springdocker.contract.entity.ServiceBreaker;
 import stu.lanyu.springdocker.domain.TaskMonitorInfo;
-import stu.lanyu.springdocker.redis.entity.RegisterTask;
 import stu.lanyu.springdocker.utility.StringUtility;
 
 import java.io.IOException;
@@ -42,9 +40,6 @@ public class BreakerController {
 
         httpClient = new OkHttpClient();
     }
-
-    @Autowired
-    private RedisTemplate<String, RegisterTask> redisTemplate;
 
     private ServiceBreaker getServiceBreaker(RegisterTask task, boolean isForTask, boolean isVeto, String jobName, String jobGroup) {
 
@@ -120,7 +115,7 @@ public class BreakerController {
 
         Map<Object, Object> entries = redisTemplate.opsForHash().entries(GlobalConfig.Redis.REGISTER_TASK_CACHE_KEY);
 
-        RegisterTask task = entries.entrySet().stream()
+        TaskMonitorInfo task = entries.entrySet().stream()
                 .filter(map -> serviceIdentity.equals(map.getKey().toString()))
                 .map(map -> RegisterTask.class.cast(map.getValue()))
                 .findFirst().orElse(null);

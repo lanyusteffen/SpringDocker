@@ -17,6 +17,9 @@ public class TaskMonitorInfo extends AbstractEntity implements Serializable {
     private boolean heartbeatBreak;
     private boolean taskVeto;
     private String heartbeatUrl;
+    private String breakerUrl;
+    private String actionToken;
+    private Date registerTime;
     private Date lastHeartbeatTime;
 
     @OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE }, fetch = FetchType.EAGER)
@@ -49,6 +52,30 @@ public class TaskMonitorInfo extends AbstractEntity implements Serializable {
 
     public void setHeartbeatUrl(String heartbeatUrl) {
         this.heartbeatUrl = heartbeatUrl;
+    }
+
+    public String getBreakerUrl() {
+        return breakerUrl;
+    }
+
+    public void setBreakerUrl(String breakerUrl) {
+        this.breakerUrl = breakerUrl;
+    }
+
+    public String getActionToken() {
+        return actionToken;
+    }
+
+    public void setActionToken(String actionToken) {
+        this.actionToken = actionToken;
+    }
+
+    public Date getRegisterTime() {
+        return registerTime;
+    }
+
+    public void setRegisterTime(Date registerTime) {
+        this.registerTime = registerTime;
     }
 
     public String getServiceIdentity() {

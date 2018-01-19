@@ -2236,27 +2236,27 @@ public final class MessageProto {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>repeated .message.MonitorTaskProto RegisterTaskBatch = 1;</code>
+     * <code>repeated .message.MonitorTaskProto MonitorTaskBatch = 1;</code>
      */
     java.util.List<stu.lanyu.springdocker.message.MessageProto.MonitorTaskProto> 
-        getRegisterTaskBatchList();
+        getMonitorTaskBatchList();
     /**
-     * <code>repeated .message.MonitorTaskProto RegisterTaskBatch = 1;</code>
+     * <code>repeated .message.MonitorTaskProto MonitorTaskBatch = 1;</code>
      */
-    stu.lanyu.springdocker.message.MessageProto.MonitorTaskProto getRegisterTaskBatch(int index);
+    stu.lanyu.springdocker.message.MessageProto.MonitorTaskProto getMonitorTaskBatch(int index);
     /**
-     * <code>repeated .message.MonitorTaskProto RegisterTaskBatch = 1;</code>
+     * <code>repeated .message.MonitorTaskProto MonitorTaskBatch = 1;</code>
      */
-    int getRegisterTaskBatchCount();
+    int getMonitorTaskBatchCount();
     /**
-     * <code>repeated .message.MonitorTaskProto RegisterTaskBatch = 1;</code>
+     * <code>repeated .message.MonitorTaskProto MonitorTaskBatch = 1;</code>
      */
     java.util.List<? extends stu.lanyu.springdocker.message.MessageProto.MonitorTaskProtoOrBuilder> 
-        getRegisterTaskBatchOrBuilderList();
+        getMonitorTaskBatchOrBuilderList();
     /**
-     * <code>repeated .message.MonitorTaskProto RegisterTaskBatch = 1;</code>
+     * <code>repeated .message.MonitorTaskProto MonitorTaskBatch = 1;</code>
      */
-    stu.lanyu.springdocker.message.MessageProto.MonitorTaskProtoOrBuilder getRegisterTaskBatchOrBuilder(
+    stu.lanyu.springdocker.message.MessageProto.MonitorTaskProtoOrBuilder getMonitorTaskBatchOrBuilder(
         int index);
 
     /**
@@ -2327,10 +2327,10 @@ public final class MessageProto {
             }
             case 10: {
               if (!((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
-                registerTaskBatch_ = new java.util.ArrayList<stu.lanyu.springdocker.message.MessageProto.MonitorTaskProto>();
+                monitorTaskBatch_ = new java.util.ArrayList<stu.lanyu.springdocker.message.MessageProto.MonitorTaskProto>();
                 mutable_bitField0_ |= 0x00000001;
               }
-              registerTaskBatch_.add(input.readMessage(stu.lanyu.springdocker.message.MessageProto.MonitorTaskProto.PARSER, extensionRegistry));
+              monitorTaskBatch_.add(input.readMessage(stu.lanyu.springdocker.message.MessageProto.MonitorTaskProto.PARSER, extensionRegistry));
               break;
             }
             case 18: {
@@ -2348,7 +2348,7 @@ public final class MessageProto {
             e.getMessage()).setUnfinishedMessage(this);
       } finally {
         if (((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
-          registerTaskBatch_ = java.util.Collections.unmodifiableList(registerTaskBatch_);
+          monitorTaskBatch_ = java.util.Collections.unmodifiableList(monitorTaskBatch_);
         }
         this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
@@ -2382,39 +2382,39 @@ public final class MessageProto {
     }
 
     private int bitField0_;
-    public static final int REGISTERTASKBATCH_FIELD_NUMBER = 1;
-    private java.util.List<stu.lanyu.springdocker.message.MessageProto.MonitorTaskProto> registerTaskBatch_;
+    public static final int MONITORTASKBATCH_FIELD_NUMBER = 1;
+    private java.util.List<stu.lanyu.springdocker.message.MessageProto.MonitorTaskProto> monitorTaskBatch_;
     /**
-     * <code>repeated .message.MonitorTaskProto RegisterTaskBatch = 1;</code>
+     * <code>repeated .message.MonitorTaskProto MonitorTaskBatch = 1;</code>
      */
-    public java.util.List<stu.lanyu.springdocker.message.MessageProto.MonitorTaskProto> getRegisterTaskBatchList() {
-      return registerTaskBatch_;
+    public java.util.List<stu.lanyu.springdocker.message.MessageProto.MonitorTaskProto> getMonitorTaskBatchList() {
+      return monitorTaskBatch_;
     }
     /**
-     * <code>repeated .message.MonitorTaskProto RegisterTaskBatch = 1;</code>
+     * <code>repeated .message.MonitorTaskProto MonitorTaskBatch = 1;</code>
      */
     public java.util.List<? extends stu.lanyu.springdocker.message.MessageProto.MonitorTaskProtoOrBuilder> 
-        getRegisterTaskBatchOrBuilderList() {
-      return registerTaskBatch_;
+        getMonitorTaskBatchOrBuilderList() {
+      return monitorTaskBatch_;
     }
     /**
-     * <code>repeated .message.MonitorTaskProto RegisterTaskBatch = 1;</code>
+     * <code>repeated .message.MonitorTaskProto MonitorTaskBatch = 1;</code>
      */
-    public int getRegisterTaskBatchCount() {
-      return registerTaskBatch_.size();
+    public int getMonitorTaskBatchCount() {
+      return monitorTaskBatch_.size();
     }
     /**
-     * <code>repeated .message.MonitorTaskProto RegisterTaskBatch = 1;</code>
+     * <code>repeated .message.MonitorTaskProto MonitorTaskBatch = 1;</code>
      */
-    public stu.lanyu.springdocker.message.MessageProto.MonitorTaskProto getRegisterTaskBatch(int index) {
-      return registerTaskBatch_.get(index);
+    public stu.lanyu.springdocker.message.MessageProto.MonitorTaskProto getMonitorTaskBatch(int index) {
+      return monitorTaskBatch_.get(index);
     }
     /**
-     * <code>repeated .message.MonitorTaskProto RegisterTaskBatch = 1;</code>
+     * <code>repeated .message.MonitorTaskProto MonitorTaskBatch = 1;</code>
      */
-    public stu.lanyu.springdocker.message.MessageProto.MonitorTaskProtoOrBuilder getRegisterTaskBatchOrBuilder(
+    public stu.lanyu.springdocker.message.MessageProto.MonitorTaskProtoOrBuilder getMonitorTaskBatchOrBuilder(
         int index) {
-      return registerTaskBatch_.get(index);
+      return monitorTaskBatch_.get(index);
     }
 
     public static final int BREAKERURL_FIELD_NUMBER = 2;
@@ -2460,7 +2460,7 @@ public final class MessageProto {
     }
 
     private void initFields() {
-      registerTaskBatch_ = java.util.Collections.emptyList();
+      monitorTaskBatch_ = java.util.Collections.emptyList();
       breakerUrl_ = "";
     }
     private byte memoizedIsInitialized = -1;
@@ -2476,8 +2476,8 @@ public final class MessageProto {
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
       getSerializedSize();
-      for (int i = 0; i < registerTaskBatch_.size(); i++) {
-        output.writeMessage(1, registerTaskBatch_.get(i));
+      for (int i = 0; i < monitorTaskBatch_.size(); i++) {
+        output.writeMessage(1, monitorTaskBatch_.get(i));
       }
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         output.writeBytes(2, getBreakerUrlBytes());
@@ -2491,9 +2491,9 @@ public final class MessageProto {
       if (size != -1) return size;
 
       size = 0;
-      for (int i = 0; i < registerTaskBatch_.size(); i++) {
+      for (int i = 0; i < monitorTaskBatch_.size(); i++) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(1, registerTaskBatch_.get(i));
+          .computeMessageSize(1, monitorTaskBatch_.get(i));
       }
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         size += com.google.protobuf.CodedOutputStream
@@ -2608,7 +2608,7 @@ public final class MessageProto {
       }
       private void maybeForceBuilderInitialization() {
         if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
-          getRegisterTaskBatchFieldBuilder();
+          getMonitorTaskBatchFieldBuilder();
         }
       }
       private static Builder create() {
@@ -2617,11 +2617,11 @@ public final class MessageProto {
 
       public Builder clear() {
         super.clear();
-        if (registerTaskBatchBuilder_ == null) {
-          registerTaskBatch_ = java.util.Collections.emptyList();
+        if (monitorTaskBatchBuilder_ == null) {
+          monitorTaskBatch_ = java.util.Collections.emptyList();
           bitField0_ = (bitField0_ & ~0x00000001);
         } else {
-          registerTaskBatchBuilder_.clear();
+          monitorTaskBatchBuilder_.clear();
         }
         breakerUrl_ = "";
         bitField0_ = (bitField0_ & ~0x00000002);
@@ -2653,14 +2653,14 @@ public final class MessageProto {
         stu.lanyu.springdocker.message.MessageProto.MonitorProto result = new stu.lanyu.springdocker.message.MessageProto.MonitorProto(this);
         int from_bitField0_ = bitField0_;
         int to_bitField0_ = 0;
-        if (registerTaskBatchBuilder_ == null) {
+        if (monitorTaskBatchBuilder_ == null) {
           if (((bitField0_ & 0x00000001) == 0x00000001)) {
-            registerTaskBatch_ = java.util.Collections.unmodifiableList(registerTaskBatch_);
+            monitorTaskBatch_ = java.util.Collections.unmodifiableList(monitorTaskBatch_);
             bitField0_ = (bitField0_ & ~0x00000001);
           }
-          result.registerTaskBatch_ = registerTaskBatch_;
+          result.monitorTaskBatch_ = monitorTaskBatch_;
         } else {
-          result.registerTaskBatch_ = registerTaskBatchBuilder_.build();
+          result.monitorTaskBatch_ = monitorTaskBatchBuilder_.build();
         }
         if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
           to_bitField0_ |= 0x00000001;
@@ -2682,29 +2682,29 @@ public final class MessageProto {
 
       public Builder mergeFrom(stu.lanyu.springdocker.message.MessageProto.MonitorProto other) {
         if (other == stu.lanyu.springdocker.message.MessageProto.MonitorProto.getDefaultInstance()) return this;
-        if (registerTaskBatchBuilder_ == null) {
-          if (!other.registerTaskBatch_.isEmpty()) {
-            if (registerTaskBatch_.isEmpty()) {
-              registerTaskBatch_ = other.registerTaskBatch_;
+        if (monitorTaskBatchBuilder_ == null) {
+          if (!other.monitorTaskBatch_.isEmpty()) {
+            if (monitorTaskBatch_.isEmpty()) {
+              monitorTaskBatch_ = other.monitorTaskBatch_;
               bitField0_ = (bitField0_ & ~0x00000001);
             } else {
-              ensureRegisterTaskBatchIsMutable();
-              registerTaskBatch_.addAll(other.registerTaskBatch_);
+              ensureMonitorTaskBatchIsMutable();
+              monitorTaskBatch_.addAll(other.monitorTaskBatch_);
             }
             onChanged();
           }
         } else {
-          if (!other.registerTaskBatch_.isEmpty()) {
-            if (registerTaskBatchBuilder_.isEmpty()) {
-              registerTaskBatchBuilder_.dispose();
-              registerTaskBatchBuilder_ = null;
-              registerTaskBatch_ = other.registerTaskBatch_;
+          if (!other.monitorTaskBatch_.isEmpty()) {
+            if (monitorTaskBatchBuilder_.isEmpty()) {
+              monitorTaskBatchBuilder_.dispose();
+              monitorTaskBatchBuilder_ = null;
+              monitorTaskBatch_ = other.monitorTaskBatch_;
               bitField0_ = (bitField0_ & ~0x00000001);
-              registerTaskBatchBuilder_ = 
+              monitorTaskBatchBuilder_ = 
                 com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders ?
-                   getRegisterTaskBatchFieldBuilder() : null;
+                   getMonitorTaskBatchFieldBuilder() : null;
             } else {
-              registerTaskBatchBuilder_.addAllMessages(other.registerTaskBatch_);
+              monitorTaskBatchBuilder_.addAllMessages(other.monitorTaskBatch_);
             }
           }
         }
@@ -2740,244 +2740,244 @@ public final class MessageProto {
       }
       private int bitField0_;
 
-      private java.util.List<stu.lanyu.springdocker.message.MessageProto.MonitorTaskProto> registerTaskBatch_ =
+      private java.util.List<stu.lanyu.springdocker.message.MessageProto.MonitorTaskProto> monitorTaskBatch_ =
         java.util.Collections.emptyList();
-      private void ensureRegisterTaskBatchIsMutable() {
+      private void ensureMonitorTaskBatchIsMutable() {
         if (!((bitField0_ & 0x00000001) == 0x00000001)) {
-          registerTaskBatch_ = new java.util.ArrayList<stu.lanyu.springdocker.message.MessageProto.MonitorTaskProto>(registerTaskBatch_);
+          monitorTaskBatch_ = new java.util.ArrayList<stu.lanyu.springdocker.message.MessageProto.MonitorTaskProto>(monitorTaskBatch_);
           bitField0_ |= 0x00000001;
          }
       }
 
       private com.google.protobuf.RepeatedFieldBuilder<
-          stu.lanyu.springdocker.message.MessageProto.MonitorTaskProto, stu.lanyu.springdocker.message.MessageProto.MonitorTaskProto.Builder, stu.lanyu.springdocker.message.MessageProto.MonitorTaskProtoOrBuilder> registerTaskBatchBuilder_;
+          stu.lanyu.springdocker.message.MessageProto.MonitorTaskProto, stu.lanyu.springdocker.message.MessageProto.MonitorTaskProto.Builder, stu.lanyu.springdocker.message.MessageProto.MonitorTaskProtoOrBuilder> monitorTaskBatchBuilder_;
 
       /**
-       * <code>repeated .message.MonitorTaskProto RegisterTaskBatch = 1;</code>
+       * <code>repeated .message.MonitorTaskProto MonitorTaskBatch = 1;</code>
        */
-      public java.util.List<stu.lanyu.springdocker.message.MessageProto.MonitorTaskProto> getRegisterTaskBatchList() {
-        if (registerTaskBatchBuilder_ == null) {
-          return java.util.Collections.unmodifiableList(registerTaskBatch_);
+      public java.util.List<stu.lanyu.springdocker.message.MessageProto.MonitorTaskProto> getMonitorTaskBatchList() {
+        if (monitorTaskBatchBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(monitorTaskBatch_);
         } else {
-          return registerTaskBatchBuilder_.getMessageList();
+          return monitorTaskBatchBuilder_.getMessageList();
         }
       }
       /**
-       * <code>repeated .message.MonitorTaskProto RegisterTaskBatch = 1;</code>
+       * <code>repeated .message.MonitorTaskProto MonitorTaskBatch = 1;</code>
        */
-      public int getRegisterTaskBatchCount() {
-        if (registerTaskBatchBuilder_ == null) {
-          return registerTaskBatch_.size();
+      public int getMonitorTaskBatchCount() {
+        if (monitorTaskBatchBuilder_ == null) {
+          return monitorTaskBatch_.size();
         } else {
-          return registerTaskBatchBuilder_.getCount();
+          return monitorTaskBatchBuilder_.getCount();
         }
       }
       /**
-       * <code>repeated .message.MonitorTaskProto RegisterTaskBatch = 1;</code>
+       * <code>repeated .message.MonitorTaskProto MonitorTaskBatch = 1;</code>
        */
-      public stu.lanyu.springdocker.message.MessageProto.MonitorTaskProto getRegisterTaskBatch(int index) {
-        if (registerTaskBatchBuilder_ == null) {
-          return registerTaskBatch_.get(index);
+      public stu.lanyu.springdocker.message.MessageProto.MonitorTaskProto getMonitorTaskBatch(int index) {
+        if (monitorTaskBatchBuilder_ == null) {
+          return monitorTaskBatch_.get(index);
         } else {
-          return registerTaskBatchBuilder_.getMessage(index);
+          return monitorTaskBatchBuilder_.getMessage(index);
         }
       }
       /**
-       * <code>repeated .message.MonitorTaskProto RegisterTaskBatch = 1;</code>
+       * <code>repeated .message.MonitorTaskProto MonitorTaskBatch = 1;</code>
        */
-      public Builder setRegisterTaskBatch(
+      public Builder setMonitorTaskBatch(
           int index, stu.lanyu.springdocker.message.MessageProto.MonitorTaskProto value) {
-        if (registerTaskBatchBuilder_ == null) {
+        if (monitorTaskBatchBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
           }
-          ensureRegisterTaskBatchIsMutable();
-          registerTaskBatch_.set(index, value);
+          ensureMonitorTaskBatchIsMutable();
+          monitorTaskBatch_.set(index, value);
           onChanged();
         } else {
-          registerTaskBatchBuilder_.setMessage(index, value);
+          monitorTaskBatchBuilder_.setMessage(index, value);
         }
         return this;
       }
       /**
-       * <code>repeated .message.MonitorTaskProto RegisterTaskBatch = 1;</code>
+       * <code>repeated .message.MonitorTaskProto MonitorTaskBatch = 1;</code>
        */
-      public Builder setRegisterTaskBatch(
+      public Builder setMonitorTaskBatch(
           int index, stu.lanyu.springdocker.message.MessageProto.MonitorTaskProto.Builder builderForValue) {
-        if (registerTaskBatchBuilder_ == null) {
-          ensureRegisterTaskBatchIsMutable();
-          registerTaskBatch_.set(index, builderForValue.build());
+        if (monitorTaskBatchBuilder_ == null) {
+          ensureMonitorTaskBatchIsMutable();
+          monitorTaskBatch_.set(index, builderForValue.build());
           onChanged();
         } else {
-          registerTaskBatchBuilder_.setMessage(index, builderForValue.build());
+          monitorTaskBatchBuilder_.setMessage(index, builderForValue.build());
         }
         return this;
       }
       /**
-       * <code>repeated .message.MonitorTaskProto RegisterTaskBatch = 1;</code>
+       * <code>repeated .message.MonitorTaskProto MonitorTaskBatch = 1;</code>
        */
-      public Builder addRegisterTaskBatch(stu.lanyu.springdocker.message.MessageProto.MonitorTaskProto value) {
-        if (registerTaskBatchBuilder_ == null) {
+      public Builder addMonitorTaskBatch(stu.lanyu.springdocker.message.MessageProto.MonitorTaskProto value) {
+        if (monitorTaskBatchBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
           }
-          ensureRegisterTaskBatchIsMutable();
-          registerTaskBatch_.add(value);
+          ensureMonitorTaskBatchIsMutable();
+          monitorTaskBatch_.add(value);
           onChanged();
         } else {
-          registerTaskBatchBuilder_.addMessage(value);
+          monitorTaskBatchBuilder_.addMessage(value);
         }
         return this;
       }
       /**
-       * <code>repeated .message.MonitorTaskProto RegisterTaskBatch = 1;</code>
+       * <code>repeated .message.MonitorTaskProto MonitorTaskBatch = 1;</code>
        */
-      public Builder addRegisterTaskBatch(
+      public Builder addMonitorTaskBatch(
           int index, stu.lanyu.springdocker.message.MessageProto.MonitorTaskProto value) {
-        if (registerTaskBatchBuilder_ == null) {
+        if (monitorTaskBatchBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
           }
-          ensureRegisterTaskBatchIsMutable();
-          registerTaskBatch_.add(index, value);
+          ensureMonitorTaskBatchIsMutable();
+          monitorTaskBatch_.add(index, value);
           onChanged();
         } else {
-          registerTaskBatchBuilder_.addMessage(index, value);
+          monitorTaskBatchBuilder_.addMessage(index, value);
         }
         return this;
       }
       /**
-       * <code>repeated .message.MonitorTaskProto RegisterTaskBatch = 1;</code>
+       * <code>repeated .message.MonitorTaskProto MonitorTaskBatch = 1;</code>
        */
-      public Builder addRegisterTaskBatch(
+      public Builder addMonitorTaskBatch(
           stu.lanyu.springdocker.message.MessageProto.MonitorTaskProto.Builder builderForValue) {
-        if (registerTaskBatchBuilder_ == null) {
-          ensureRegisterTaskBatchIsMutable();
-          registerTaskBatch_.add(builderForValue.build());
+        if (monitorTaskBatchBuilder_ == null) {
+          ensureMonitorTaskBatchIsMutable();
+          monitorTaskBatch_.add(builderForValue.build());
           onChanged();
         } else {
-          registerTaskBatchBuilder_.addMessage(builderForValue.build());
+          monitorTaskBatchBuilder_.addMessage(builderForValue.build());
         }
         return this;
       }
       /**
-       * <code>repeated .message.MonitorTaskProto RegisterTaskBatch = 1;</code>
+       * <code>repeated .message.MonitorTaskProto MonitorTaskBatch = 1;</code>
        */
-      public Builder addRegisterTaskBatch(
+      public Builder addMonitorTaskBatch(
           int index, stu.lanyu.springdocker.message.MessageProto.MonitorTaskProto.Builder builderForValue) {
-        if (registerTaskBatchBuilder_ == null) {
-          ensureRegisterTaskBatchIsMutable();
-          registerTaskBatch_.add(index, builderForValue.build());
+        if (monitorTaskBatchBuilder_ == null) {
+          ensureMonitorTaskBatchIsMutable();
+          monitorTaskBatch_.add(index, builderForValue.build());
           onChanged();
         } else {
-          registerTaskBatchBuilder_.addMessage(index, builderForValue.build());
+          monitorTaskBatchBuilder_.addMessage(index, builderForValue.build());
         }
         return this;
       }
       /**
-       * <code>repeated .message.MonitorTaskProto RegisterTaskBatch = 1;</code>
+       * <code>repeated .message.MonitorTaskProto MonitorTaskBatch = 1;</code>
        */
-      public Builder addAllRegisterTaskBatch(
+      public Builder addAllMonitorTaskBatch(
           java.lang.Iterable<? extends stu.lanyu.springdocker.message.MessageProto.MonitorTaskProto> values) {
-        if (registerTaskBatchBuilder_ == null) {
-          ensureRegisterTaskBatchIsMutable();
+        if (monitorTaskBatchBuilder_ == null) {
+          ensureMonitorTaskBatchIsMutable();
           com.google.protobuf.AbstractMessageLite.Builder.addAll(
-              values, registerTaskBatch_);
+              values, monitorTaskBatch_);
           onChanged();
         } else {
-          registerTaskBatchBuilder_.addAllMessages(values);
+          monitorTaskBatchBuilder_.addAllMessages(values);
         }
         return this;
       }
       /**
-       * <code>repeated .message.MonitorTaskProto RegisterTaskBatch = 1;</code>
+       * <code>repeated .message.MonitorTaskProto MonitorTaskBatch = 1;</code>
        */
-      public Builder clearRegisterTaskBatch() {
-        if (registerTaskBatchBuilder_ == null) {
-          registerTaskBatch_ = java.util.Collections.emptyList();
+      public Builder clearMonitorTaskBatch() {
+        if (monitorTaskBatchBuilder_ == null) {
+          monitorTaskBatch_ = java.util.Collections.emptyList();
           bitField0_ = (bitField0_ & ~0x00000001);
           onChanged();
         } else {
-          registerTaskBatchBuilder_.clear();
+          monitorTaskBatchBuilder_.clear();
         }
         return this;
       }
       /**
-       * <code>repeated .message.MonitorTaskProto RegisterTaskBatch = 1;</code>
+       * <code>repeated .message.MonitorTaskProto MonitorTaskBatch = 1;</code>
        */
-      public Builder removeRegisterTaskBatch(int index) {
-        if (registerTaskBatchBuilder_ == null) {
-          ensureRegisterTaskBatchIsMutable();
-          registerTaskBatch_.remove(index);
+      public Builder removeMonitorTaskBatch(int index) {
+        if (monitorTaskBatchBuilder_ == null) {
+          ensureMonitorTaskBatchIsMutable();
+          monitorTaskBatch_.remove(index);
           onChanged();
         } else {
-          registerTaskBatchBuilder_.remove(index);
+          monitorTaskBatchBuilder_.remove(index);
         }
         return this;
       }
       /**
-       * <code>repeated .message.MonitorTaskProto RegisterTaskBatch = 1;</code>
+       * <code>repeated .message.MonitorTaskProto MonitorTaskBatch = 1;</code>
        */
-      public stu.lanyu.springdocker.message.MessageProto.MonitorTaskProto.Builder getRegisterTaskBatchBuilder(
+      public stu.lanyu.springdocker.message.MessageProto.MonitorTaskProto.Builder getMonitorTaskBatchBuilder(
           int index) {
-        return getRegisterTaskBatchFieldBuilder().getBuilder(index);
+        return getMonitorTaskBatchFieldBuilder().getBuilder(index);
       }
       /**
-       * <code>repeated .message.MonitorTaskProto RegisterTaskBatch = 1;</code>
+       * <code>repeated .message.MonitorTaskProto MonitorTaskBatch = 1;</code>
        */
-      public stu.lanyu.springdocker.message.MessageProto.MonitorTaskProtoOrBuilder getRegisterTaskBatchOrBuilder(
+      public stu.lanyu.springdocker.message.MessageProto.MonitorTaskProtoOrBuilder getMonitorTaskBatchOrBuilder(
           int index) {
-        if (registerTaskBatchBuilder_ == null) {
-          return registerTaskBatch_.get(index);  } else {
-          return registerTaskBatchBuilder_.getMessageOrBuilder(index);
+        if (monitorTaskBatchBuilder_ == null) {
+          return monitorTaskBatch_.get(index);  } else {
+          return monitorTaskBatchBuilder_.getMessageOrBuilder(index);
         }
       }
       /**
-       * <code>repeated .message.MonitorTaskProto RegisterTaskBatch = 1;</code>
+       * <code>repeated .message.MonitorTaskProto MonitorTaskBatch = 1;</code>
        */
       public java.util.List<? extends stu.lanyu.springdocker.message.MessageProto.MonitorTaskProtoOrBuilder> 
-           getRegisterTaskBatchOrBuilderList() {
-        if (registerTaskBatchBuilder_ != null) {
-          return registerTaskBatchBuilder_.getMessageOrBuilderList();
+           getMonitorTaskBatchOrBuilderList() {
+        if (monitorTaskBatchBuilder_ != null) {
+          return monitorTaskBatchBuilder_.getMessageOrBuilderList();
         } else {
-          return java.util.Collections.unmodifiableList(registerTaskBatch_);
+          return java.util.Collections.unmodifiableList(monitorTaskBatch_);
         }
       }
       /**
-       * <code>repeated .message.MonitorTaskProto RegisterTaskBatch = 1;</code>
+       * <code>repeated .message.MonitorTaskProto MonitorTaskBatch = 1;</code>
        */
-      public stu.lanyu.springdocker.message.MessageProto.MonitorTaskProto.Builder addRegisterTaskBatchBuilder() {
-        return getRegisterTaskBatchFieldBuilder().addBuilder(
+      public stu.lanyu.springdocker.message.MessageProto.MonitorTaskProto.Builder addMonitorTaskBatchBuilder() {
+        return getMonitorTaskBatchFieldBuilder().addBuilder(
             stu.lanyu.springdocker.message.MessageProto.MonitorTaskProto.getDefaultInstance());
       }
       /**
-       * <code>repeated .message.MonitorTaskProto RegisterTaskBatch = 1;</code>
+       * <code>repeated .message.MonitorTaskProto MonitorTaskBatch = 1;</code>
        */
-      public stu.lanyu.springdocker.message.MessageProto.MonitorTaskProto.Builder addRegisterTaskBatchBuilder(
+      public stu.lanyu.springdocker.message.MessageProto.MonitorTaskProto.Builder addMonitorTaskBatchBuilder(
           int index) {
-        return getRegisterTaskBatchFieldBuilder().addBuilder(
+        return getMonitorTaskBatchFieldBuilder().addBuilder(
             index, stu.lanyu.springdocker.message.MessageProto.MonitorTaskProto.getDefaultInstance());
       }
       /**
-       * <code>repeated .message.MonitorTaskProto RegisterTaskBatch = 1;</code>
+       * <code>repeated .message.MonitorTaskProto MonitorTaskBatch = 1;</code>
        */
       public java.util.List<stu.lanyu.springdocker.message.MessageProto.MonitorTaskProto.Builder> 
-           getRegisterTaskBatchBuilderList() {
-        return getRegisterTaskBatchFieldBuilder().getBuilderList();
+           getMonitorTaskBatchBuilderList() {
+        return getMonitorTaskBatchFieldBuilder().getBuilderList();
       }
       private com.google.protobuf.RepeatedFieldBuilder<
           stu.lanyu.springdocker.message.MessageProto.MonitorTaskProto, stu.lanyu.springdocker.message.MessageProto.MonitorTaskProto.Builder, stu.lanyu.springdocker.message.MessageProto.MonitorTaskProtoOrBuilder> 
-          getRegisterTaskBatchFieldBuilder() {
-        if (registerTaskBatchBuilder_ == null) {
-          registerTaskBatchBuilder_ = new com.google.protobuf.RepeatedFieldBuilder<
+          getMonitorTaskBatchFieldBuilder() {
+        if (monitorTaskBatchBuilder_ == null) {
+          monitorTaskBatchBuilder_ = new com.google.protobuf.RepeatedFieldBuilder<
               stu.lanyu.springdocker.message.MessageProto.MonitorTaskProto, stu.lanyu.springdocker.message.MessageProto.MonitorTaskProto.Builder, stu.lanyu.springdocker.message.MessageProto.MonitorTaskProtoOrBuilder>(
-                  registerTaskBatch_,
+                  monitorTaskBatch_,
                   ((bitField0_ & 0x00000001) == 0x00000001),
                   getParentForChildren(),
                   isClean());
-          registerTaskBatch_ = null;
+          monitorTaskBatch_ = null;
         }
-        return registerTaskBatchBuilder_;
+        return monitorTaskBatchBuilder_;
       }
 
       private java.lang.Object breakerUrl_ = "";
@@ -3118,43 +3118,57 @@ public final class MessageProto {
     long getLastHeartbeatTime();
 
     /**
-     * <code>optional bool TaskVeto = 5;</code>
+     * <code>optional string BreakerUrl = 5;</code>
+     */
+    boolean hasBreakerUrl();
+    /**
+     * <code>optional string BreakerUrl = 5;</code>
+     */
+    java.lang.String getBreakerUrl();
+    /**
+     * <code>optional string BreakerUrl = 5;</code>
+     */
+    com.google.protobuf.ByteString
+        getBreakerUrlBytes();
+
+    /**
+     * <code>optional bool TaskVeto = 6;</code>
      */
     boolean hasTaskVeto();
     /**
-     * <code>optional bool TaskVeto = 5;</code>
+     * <code>optional bool TaskVeto = 6;</code>
      */
     boolean getTaskVeto();
 
     /**
-     * <code>optional bool IsHeartbeatBreak = 6;</code>
+     * <code>optional bool IsHeartbeatBreak = 7;</code>
      */
     boolean hasIsHeartbeatBreak();
     /**
-     * <code>optional bool IsHeartbeatBreak = 6;</code>
+     * <code>optional bool IsHeartbeatBreak = 7;</code>
      */
     boolean getIsHeartbeatBreak();
 
     /**
-     * <code>repeated .message.MonitorJobProto Jobs = 7;</code>
+     * <code>repeated .message.MonitorJobProto Jobs = 8;</code>
      */
     java.util.List<stu.lanyu.springdocker.message.MessageProto.MonitorJobProto> 
         getJobsList();
     /**
-     * <code>repeated .message.MonitorJobProto Jobs = 7;</code>
+     * <code>repeated .message.MonitorJobProto Jobs = 8;</code>
      */
     stu.lanyu.springdocker.message.MessageProto.MonitorJobProto getJobs(int index);
     /**
-     * <code>repeated .message.MonitorJobProto Jobs = 7;</code>
+     * <code>repeated .message.MonitorJobProto Jobs = 8;</code>
      */
     int getJobsCount();
     /**
-     * <code>repeated .message.MonitorJobProto Jobs = 7;</code>
+     * <code>repeated .message.MonitorJobProto Jobs = 8;</code>
      */
     java.util.List<? extends stu.lanyu.springdocker.message.MessageProto.MonitorJobProtoOrBuilder> 
         getJobsOrBuilderList();
     /**
-     * <code>repeated .message.MonitorJobProto Jobs = 7;</code>
+     * <code>repeated .message.MonitorJobProto Jobs = 8;</code>
      */
     stu.lanyu.springdocker.message.MessageProto.MonitorJobProtoOrBuilder getJobsOrBuilder(
         int index);
@@ -3233,20 +3247,26 @@ public final class MessageProto {
               lastHeartbeatTime_ = input.readInt64();
               break;
             }
-            case 40: {
+            case 42: {
+              com.google.protobuf.ByteString bs = input.readBytes();
               bitField0_ |= 0x00000010;
-              taskVeto_ = input.readBool();
+              breakerUrl_ = bs;
               break;
             }
             case 48: {
               bitField0_ |= 0x00000020;
+              taskVeto_ = input.readBool();
+              break;
+            }
+            case 56: {
+              bitField0_ |= 0x00000040;
               isHeartbeatBreak_ = input.readBool();
               break;
             }
-            case 58: {
-              if (!((mutable_bitField0_ & 0x00000040) == 0x00000040)) {
+            case 66: {
+              if (!((mutable_bitField0_ & 0x00000080) == 0x00000080)) {
                 jobs_ = new java.util.ArrayList<stu.lanyu.springdocker.message.MessageProto.MonitorJobProto>();
-                mutable_bitField0_ |= 0x00000040;
+                mutable_bitField0_ |= 0x00000080;
               }
               jobs_.add(input.readMessage(stu.lanyu.springdocker.message.MessageProto.MonitorJobProto.PARSER, extensionRegistry));
               break;
@@ -3259,7 +3279,7 @@ public final class MessageProto {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e.getMessage()).setUnfinishedMessage(this);
       } finally {
-        if (((mutable_bitField0_ & 0x00000040) == 0x00000040)) {
+        if (((mutable_bitField0_ & 0x00000080) == 0x00000080)) {
           jobs_ = java.util.Collections.unmodifiableList(jobs_);
         }
         this.unknownFields = unknownFields.build();
@@ -3408,65 +3428,107 @@ public final class MessageProto {
       return lastHeartbeatTime_;
     }
 
-    public static final int TASKVETO_FIELD_NUMBER = 5;
-    private boolean taskVeto_;
+    public static final int BREAKERURL_FIELD_NUMBER = 5;
+    private java.lang.Object breakerUrl_;
     /**
-     * <code>optional bool TaskVeto = 5;</code>
+     * <code>optional string BreakerUrl = 5;</code>
      */
-    public boolean hasTaskVeto() {
+    public boolean hasBreakerUrl() {
       return ((bitField0_ & 0x00000010) == 0x00000010);
     }
     /**
-     * <code>optional bool TaskVeto = 5;</code>
+     * <code>optional string BreakerUrl = 5;</code>
+     */
+    public java.lang.String getBreakerUrl() {
+      java.lang.Object ref = breakerUrl_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          breakerUrl_ = s;
+        }
+        return s;
+      }
+    }
+    /**
+     * <code>optional string BreakerUrl = 5;</code>
+     */
+    public com.google.protobuf.ByteString
+        getBreakerUrlBytes() {
+      java.lang.Object ref = breakerUrl_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        breakerUrl_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int TASKVETO_FIELD_NUMBER = 6;
+    private boolean taskVeto_;
+    /**
+     * <code>optional bool TaskVeto = 6;</code>
+     */
+    public boolean hasTaskVeto() {
+      return ((bitField0_ & 0x00000020) == 0x00000020);
+    }
+    /**
+     * <code>optional bool TaskVeto = 6;</code>
      */
     public boolean getTaskVeto() {
       return taskVeto_;
     }
 
-    public static final int ISHEARTBEATBREAK_FIELD_NUMBER = 6;
+    public static final int ISHEARTBEATBREAK_FIELD_NUMBER = 7;
     private boolean isHeartbeatBreak_;
     /**
-     * <code>optional bool IsHeartbeatBreak = 6;</code>
+     * <code>optional bool IsHeartbeatBreak = 7;</code>
      */
     public boolean hasIsHeartbeatBreak() {
-      return ((bitField0_ & 0x00000020) == 0x00000020);
+      return ((bitField0_ & 0x00000040) == 0x00000040);
     }
     /**
-     * <code>optional bool IsHeartbeatBreak = 6;</code>
+     * <code>optional bool IsHeartbeatBreak = 7;</code>
      */
     public boolean getIsHeartbeatBreak() {
       return isHeartbeatBreak_;
     }
 
-    public static final int JOBS_FIELD_NUMBER = 7;
+    public static final int JOBS_FIELD_NUMBER = 8;
     private java.util.List<stu.lanyu.springdocker.message.MessageProto.MonitorJobProto> jobs_;
     /**
-     * <code>repeated .message.MonitorJobProto Jobs = 7;</code>
+     * <code>repeated .message.MonitorJobProto Jobs = 8;</code>
      */
     public java.util.List<stu.lanyu.springdocker.message.MessageProto.MonitorJobProto> getJobsList() {
       return jobs_;
     }
     /**
-     * <code>repeated .message.MonitorJobProto Jobs = 7;</code>
+     * <code>repeated .message.MonitorJobProto Jobs = 8;</code>
      */
     public java.util.List<? extends stu.lanyu.springdocker.message.MessageProto.MonitorJobProtoOrBuilder> 
         getJobsOrBuilderList() {
       return jobs_;
     }
     /**
-     * <code>repeated .message.MonitorJobProto Jobs = 7;</code>
+     * <code>repeated .message.MonitorJobProto Jobs = 8;</code>
      */
     public int getJobsCount() {
       return jobs_.size();
     }
     /**
-     * <code>repeated .message.MonitorJobProto Jobs = 7;</code>
+     * <code>repeated .message.MonitorJobProto Jobs = 8;</code>
      */
     public stu.lanyu.springdocker.message.MessageProto.MonitorJobProto getJobs(int index) {
       return jobs_.get(index);
     }
     /**
-     * <code>repeated .message.MonitorJobProto Jobs = 7;</code>
+     * <code>repeated .message.MonitorJobProto Jobs = 8;</code>
      */
     public stu.lanyu.springdocker.message.MessageProto.MonitorJobProtoOrBuilder getJobsOrBuilder(
         int index) {
@@ -3478,6 +3540,7 @@ public final class MessageProto {
       registerTime_ = 0L;
       actionToken_ = "";
       lastHeartbeatTime_ = 0L;
+      breakerUrl_ = "";
       taskVeto_ = false;
       isHeartbeatBreak_ = false;
       jobs_ = java.util.Collections.emptyList();
@@ -3508,13 +3571,16 @@ public final class MessageProto {
         output.writeInt64(4, lastHeartbeatTime_);
       }
       if (((bitField0_ & 0x00000010) == 0x00000010)) {
-        output.writeBool(5, taskVeto_);
+        output.writeBytes(5, getBreakerUrlBytes());
       }
       if (((bitField0_ & 0x00000020) == 0x00000020)) {
-        output.writeBool(6, isHeartbeatBreak_);
+        output.writeBool(6, taskVeto_);
+      }
+      if (((bitField0_ & 0x00000040) == 0x00000040)) {
+        output.writeBool(7, isHeartbeatBreak_);
       }
       for (int i = 0; i < jobs_.size(); i++) {
-        output.writeMessage(7, jobs_.get(i));
+        output.writeMessage(8, jobs_.get(i));
       }
       getUnknownFields().writeTo(output);
     }
@@ -3543,15 +3609,19 @@ public final class MessageProto {
       }
       if (((bitField0_ & 0x00000010) == 0x00000010)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBoolSize(5, taskVeto_);
+          .computeBytesSize(5, getBreakerUrlBytes());
       }
       if (((bitField0_ & 0x00000020) == 0x00000020)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBoolSize(6, isHeartbeatBreak_);
+          .computeBoolSize(6, taskVeto_);
+      }
+      if (((bitField0_ & 0x00000040) == 0x00000040)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(7, isHeartbeatBreak_);
       }
       for (int i = 0; i < jobs_.size(); i++) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(7, jobs_.get(i));
+          .computeMessageSize(8, jobs_.get(i));
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -3679,13 +3749,15 @@ public final class MessageProto {
         bitField0_ = (bitField0_ & ~0x00000004);
         lastHeartbeatTime_ = 0L;
         bitField0_ = (bitField0_ & ~0x00000008);
-        taskVeto_ = false;
+        breakerUrl_ = "";
         bitField0_ = (bitField0_ & ~0x00000010);
-        isHeartbeatBreak_ = false;
+        taskVeto_ = false;
         bitField0_ = (bitField0_ & ~0x00000020);
+        isHeartbeatBreak_ = false;
+        bitField0_ = (bitField0_ & ~0x00000040);
         if (jobsBuilder_ == null) {
           jobs_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000040);
+          bitField0_ = (bitField0_ & ~0x00000080);
         } else {
           jobsBuilder_.clear();
         }
@@ -3736,15 +3808,19 @@ public final class MessageProto {
         if (((from_bitField0_ & 0x00000010) == 0x00000010)) {
           to_bitField0_ |= 0x00000010;
         }
-        result.taskVeto_ = taskVeto_;
+        result.breakerUrl_ = breakerUrl_;
         if (((from_bitField0_ & 0x00000020) == 0x00000020)) {
           to_bitField0_ |= 0x00000020;
         }
+        result.taskVeto_ = taskVeto_;
+        if (((from_bitField0_ & 0x00000040) == 0x00000040)) {
+          to_bitField0_ |= 0x00000040;
+        }
         result.isHeartbeatBreak_ = isHeartbeatBreak_;
         if (jobsBuilder_ == null) {
-          if (((bitField0_ & 0x00000040) == 0x00000040)) {
+          if (((bitField0_ & 0x00000080) == 0x00000080)) {
             jobs_ = java.util.Collections.unmodifiableList(jobs_);
-            bitField0_ = (bitField0_ & ~0x00000040);
+            bitField0_ = (bitField0_ & ~0x00000080);
           }
           result.jobs_ = jobs_;
         } else {
@@ -3782,6 +3858,11 @@ public final class MessageProto {
         if (other.hasLastHeartbeatTime()) {
           setLastHeartbeatTime(other.getLastHeartbeatTime());
         }
+        if (other.hasBreakerUrl()) {
+          bitField0_ |= 0x00000010;
+          breakerUrl_ = other.breakerUrl_;
+          onChanged();
+        }
         if (other.hasTaskVeto()) {
           setTaskVeto(other.getTaskVeto());
         }
@@ -3792,7 +3873,7 @@ public final class MessageProto {
           if (!other.jobs_.isEmpty()) {
             if (jobs_.isEmpty()) {
               jobs_ = other.jobs_;
-              bitField0_ = (bitField0_ & ~0x00000040);
+              bitField0_ = (bitField0_ & ~0x00000080);
             } else {
               ensureJobsIsMutable();
               jobs_.addAll(other.jobs_);
@@ -3805,7 +3886,7 @@ public final class MessageProto {
               jobsBuilder_.dispose();
               jobsBuilder_ = null;
               jobs_ = other.jobs_;
-              bitField0_ = (bitField0_ & ~0x00000040);
+              bitField0_ = (bitField0_ & ~0x00000080);
               jobsBuilder_ = 
                 com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders ?
                    getJobsFieldBuilder() : null;
@@ -4057,33 +4138,109 @@ public final class MessageProto {
         return this;
       }
 
-      private boolean taskVeto_ ;
+      private java.lang.Object breakerUrl_ = "";
       /**
-       * <code>optional bool TaskVeto = 5;</code>
+       * <code>optional string BreakerUrl = 5;</code>
        */
-      public boolean hasTaskVeto() {
+      public boolean hasBreakerUrl() {
         return ((bitField0_ & 0x00000010) == 0x00000010);
       }
       /**
-       * <code>optional bool TaskVeto = 5;</code>
+       * <code>optional string BreakerUrl = 5;</code>
+       */
+      public java.lang.String getBreakerUrl() {
+        java.lang.Object ref = breakerUrl_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            breakerUrl_ = s;
+          }
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>optional string BreakerUrl = 5;</code>
+       */
+      public com.google.protobuf.ByteString
+          getBreakerUrlBytes() {
+        java.lang.Object ref = breakerUrl_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          breakerUrl_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string BreakerUrl = 5;</code>
+       */
+      public Builder setBreakerUrl(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000010;
+        breakerUrl_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string BreakerUrl = 5;</code>
+       */
+      public Builder clearBreakerUrl() {
+        bitField0_ = (bitField0_ & ~0x00000010);
+        breakerUrl_ = getDefaultInstance().getBreakerUrl();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string BreakerUrl = 5;</code>
+       */
+      public Builder setBreakerUrlBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000010;
+        breakerUrl_ = value;
+        onChanged();
+        return this;
+      }
+
+      private boolean taskVeto_ ;
+      /**
+       * <code>optional bool TaskVeto = 6;</code>
+       */
+      public boolean hasTaskVeto() {
+        return ((bitField0_ & 0x00000020) == 0x00000020);
+      }
+      /**
+       * <code>optional bool TaskVeto = 6;</code>
        */
       public boolean getTaskVeto() {
         return taskVeto_;
       }
       /**
-       * <code>optional bool TaskVeto = 5;</code>
+       * <code>optional bool TaskVeto = 6;</code>
        */
       public Builder setTaskVeto(boolean value) {
-        bitField0_ |= 0x00000010;
+        bitField0_ |= 0x00000020;
         taskVeto_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional bool TaskVeto = 5;</code>
+       * <code>optional bool TaskVeto = 6;</code>
        */
       public Builder clearTaskVeto() {
-        bitField0_ = (bitField0_ & ~0x00000010);
+        bitField0_ = (bitField0_ & ~0x00000020);
         taskVeto_ = false;
         onChanged();
         return this;
@@ -4091,31 +4248,31 @@ public final class MessageProto {
 
       private boolean isHeartbeatBreak_ ;
       /**
-       * <code>optional bool IsHeartbeatBreak = 6;</code>
+       * <code>optional bool IsHeartbeatBreak = 7;</code>
        */
       public boolean hasIsHeartbeatBreak() {
-        return ((bitField0_ & 0x00000020) == 0x00000020);
+        return ((bitField0_ & 0x00000040) == 0x00000040);
       }
       /**
-       * <code>optional bool IsHeartbeatBreak = 6;</code>
+       * <code>optional bool IsHeartbeatBreak = 7;</code>
        */
       public boolean getIsHeartbeatBreak() {
         return isHeartbeatBreak_;
       }
       /**
-       * <code>optional bool IsHeartbeatBreak = 6;</code>
+       * <code>optional bool IsHeartbeatBreak = 7;</code>
        */
       public Builder setIsHeartbeatBreak(boolean value) {
-        bitField0_ |= 0x00000020;
+        bitField0_ |= 0x00000040;
         isHeartbeatBreak_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional bool IsHeartbeatBreak = 6;</code>
+       * <code>optional bool IsHeartbeatBreak = 7;</code>
        */
       public Builder clearIsHeartbeatBreak() {
-        bitField0_ = (bitField0_ & ~0x00000020);
+        bitField0_ = (bitField0_ & ~0x00000040);
         isHeartbeatBreak_ = false;
         onChanged();
         return this;
@@ -4124,9 +4281,9 @@ public final class MessageProto {
       private java.util.List<stu.lanyu.springdocker.message.MessageProto.MonitorJobProto> jobs_ =
         java.util.Collections.emptyList();
       private void ensureJobsIsMutable() {
-        if (!((bitField0_ & 0x00000040) == 0x00000040)) {
+        if (!((bitField0_ & 0x00000080) == 0x00000080)) {
           jobs_ = new java.util.ArrayList<stu.lanyu.springdocker.message.MessageProto.MonitorJobProto>(jobs_);
-          bitField0_ |= 0x00000040;
+          bitField0_ |= 0x00000080;
          }
       }
 
@@ -4134,7 +4291,7 @@ public final class MessageProto {
           stu.lanyu.springdocker.message.MessageProto.MonitorJobProto, stu.lanyu.springdocker.message.MessageProto.MonitorJobProto.Builder, stu.lanyu.springdocker.message.MessageProto.MonitorJobProtoOrBuilder> jobsBuilder_;
 
       /**
-       * <code>repeated .message.MonitorJobProto Jobs = 7;</code>
+       * <code>repeated .message.MonitorJobProto Jobs = 8;</code>
        */
       public java.util.List<stu.lanyu.springdocker.message.MessageProto.MonitorJobProto> getJobsList() {
         if (jobsBuilder_ == null) {
@@ -4144,7 +4301,7 @@ public final class MessageProto {
         }
       }
       /**
-       * <code>repeated .message.MonitorJobProto Jobs = 7;</code>
+       * <code>repeated .message.MonitorJobProto Jobs = 8;</code>
        */
       public int getJobsCount() {
         if (jobsBuilder_ == null) {
@@ -4154,7 +4311,7 @@ public final class MessageProto {
         }
       }
       /**
-       * <code>repeated .message.MonitorJobProto Jobs = 7;</code>
+       * <code>repeated .message.MonitorJobProto Jobs = 8;</code>
        */
       public stu.lanyu.springdocker.message.MessageProto.MonitorJobProto getJobs(int index) {
         if (jobsBuilder_ == null) {
@@ -4164,7 +4321,7 @@ public final class MessageProto {
         }
       }
       /**
-       * <code>repeated .message.MonitorJobProto Jobs = 7;</code>
+       * <code>repeated .message.MonitorJobProto Jobs = 8;</code>
        */
       public Builder setJobs(
           int index, stu.lanyu.springdocker.message.MessageProto.MonitorJobProto value) {
@@ -4181,7 +4338,7 @@ public final class MessageProto {
         return this;
       }
       /**
-       * <code>repeated .message.MonitorJobProto Jobs = 7;</code>
+       * <code>repeated .message.MonitorJobProto Jobs = 8;</code>
        */
       public Builder setJobs(
           int index, stu.lanyu.springdocker.message.MessageProto.MonitorJobProto.Builder builderForValue) {
@@ -4195,7 +4352,7 @@ public final class MessageProto {
         return this;
       }
       /**
-       * <code>repeated .message.MonitorJobProto Jobs = 7;</code>
+       * <code>repeated .message.MonitorJobProto Jobs = 8;</code>
        */
       public Builder addJobs(stu.lanyu.springdocker.message.MessageProto.MonitorJobProto value) {
         if (jobsBuilder_ == null) {
@@ -4211,7 +4368,7 @@ public final class MessageProto {
         return this;
       }
       /**
-       * <code>repeated .message.MonitorJobProto Jobs = 7;</code>
+       * <code>repeated .message.MonitorJobProto Jobs = 8;</code>
        */
       public Builder addJobs(
           int index, stu.lanyu.springdocker.message.MessageProto.MonitorJobProto value) {
@@ -4228,7 +4385,7 @@ public final class MessageProto {
         return this;
       }
       /**
-       * <code>repeated .message.MonitorJobProto Jobs = 7;</code>
+       * <code>repeated .message.MonitorJobProto Jobs = 8;</code>
        */
       public Builder addJobs(
           stu.lanyu.springdocker.message.MessageProto.MonitorJobProto.Builder builderForValue) {
@@ -4242,7 +4399,7 @@ public final class MessageProto {
         return this;
       }
       /**
-       * <code>repeated .message.MonitorJobProto Jobs = 7;</code>
+       * <code>repeated .message.MonitorJobProto Jobs = 8;</code>
        */
       public Builder addJobs(
           int index, stu.lanyu.springdocker.message.MessageProto.MonitorJobProto.Builder builderForValue) {
@@ -4256,7 +4413,7 @@ public final class MessageProto {
         return this;
       }
       /**
-       * <code>repeated .message.MonitorJobProto Jobs = 7;</code>
+       * <code>repeated .message.MonitorJobProto Jobs = 8;</code>
        */
       public Builder addAllJobs(
           java.lang.Iterable<? extends stu.lanyu.springdocker.message.MessageProto.MonitorJobProto> values) {
@@ -4271,12 +4428,12 @@ public final class MessageProto {
         return this;
       }
       /**
-       * <code>repeated .message.MonitorJobProto Jobs = 7;</code>
+       * <code>repeated .message.MonitorJobProto Jobs = 8;</code>
        */
       public Builder clearJobs() {
         if (jobsBuilder_ == null) {
           jobs_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000040);
+          bitField0_ = (bitField0_ & ~0x00000080);
           onChanged();
         } else {
           jobsBuilder_.clear();
@@ -4284,7 +4441,7 @@ public final class MessageProto {
         return this;
       }
       /**
-       * <code>repeated .message.MonitorJobProto Jobs = 7;</code>
+       * <code>repeated .message.MonitorJobProto Jobs = 8;</code>
        */
       public Builder removeJobs(int index) {
         if (jobsBuilder_ == null) {
@@ -4297,14 +4454,14 @@ public final class MessageProto {
         return this;
       }
       /**
-       * <code>repeated .message.MonitorJobProto Jobs = 7;</code>
+       * <code>repeated .message.MonitorJobProto Jobs = 8;</code>
        */
       public stu.lanyu.springdocker.message.MessageProto.MonitorJobProto.Builder getJobsBuilder(
           int index) {
         return getJobsFieldBuilder().getBuilder(index);
       }
       /**
-       * <code>repeated .message.MonitorJobProto Jobs = 7;</code>
+       * <code>repeated .message.MonitorJobProto Jobs = 8;</code>
        */
       public stu.lanyu.springdocker.message.MessageProto.MonitorJobProtoOrBuilder getJobsOrBuilder(
           int index) {
@@ -4314,7 +4471,7 @@ public final class MessageProto {
         }
       }
       /**
-       * <code>repeated .message.MonitorJobProto Jobs = 7;</code>
+       * <code>repeated .message.MonitorJobProto Jobs = 8;</code>
        */
       public java.util.List<? extends stu.lanyu.springdocker.message.MessageProto.MonitorJobProtoOrBuilder> 
            getJobsOrBuilderList() {
@@ -4325,14 +4482,14 @@ public final class MessageProto {
         }
       }
       /**
-       * <code>repeated .message.MonitorJobProto Jobs = 7;</code>
+       * <code>repeated .message.MonitorJobProto Jobs = 8;</code>
        */
       public stu.lanyu.springdocker.message.MessageProto.MonitorJobProto.Builder addJobsBuilder() {
         return getJobsFieldBuilder().addBuilder(
             stu.lanyu.springdocker.message.MessageProto.MonitorJobProto.getDefaultInstance());
       }
       /**
-       * <code>repeated .message.MonitorJobProto Jobs = 7;</code>
+       * <code>repeated .message.MonitorJobProto Jobs = 8;</code>
        */
       public stu.lanyu.springdocker.message.MessageProto.MonitorJobProto.Builder addJobsBuilder(
           int index) {
@@ -4340,7 +4497,7 @@ public final class MessageProto {
             index, stu.lanyu.springdocker.message.MessageProto.MonitorJobProto.getDefaultInstance());
       }
       /**
-       * <code>repeated .message.MonitorJobProto Jobs = 7;</code>
+       * <code>repeated .message.MonitorJobProto Jobs = 8;</code>
        */
       public java.util.List<stu.lanyu.springdocker.message.MessageProto.MonitorJobProto.Builder> 
            getJobsBuilderList() {
@@ -4353,7 +4510,7 @@ public final class MessageProto {
           jobsBuilder_ = new com.google.protobuf.RepeatedFieldBuilder<
               stu.lanyu.springdocker.message.MessageProto.MonitorJobProto, stu.lanyu.springdocker.message.MessageProto.MonitorJobProto.Builder, stu.lanyu.springdocker.message.MessageProto.MonitorJobProtoOrBuilder>(
                   jobs_,
-                  ((bitField0_ & 0x00000040) == 0x00000040),
+                  ((bitField0_ & 0x00000080) == 0x00000080),
                   getParentForChildren(),
                   isClean());
           jobs_ = null;
@@ -7855,28 +8012,29 @@ public final class MessageProto {
       "e.LogCollectProto\"K\n\017LogCollectProto\022\037\n\004" +
       "Logs\030\001 \003(\0132\021.message.LogProto\022\027\n\017Service" +
       "Identity\030\002 \001(\t\"8\n\010LogProto\022\014\n\004Body\030\001 \001(\t" +
-      "\022\r\n\005Level\030\002 \001(\t\022\017\n\007LogTime\030\003 \001(\003\"X\n\014Moni" +
-      "torProto\0224\n\021RegisterTaskBatch\030\001 \003(\0132\031.me" +
-      "ssage.MonitorTaskProto\022\022\n\nBreakerUrl\030\002 \001" +
-      "(\t\"\305\001\n\020MonitorTaskProto\022\027\n\017ServiceIdenti" +
-      "ty\030\001 \001(\t\022\024\n\014RegisterTime\030\002 \001(\003\022\023\n\013Action",
-      "Token\030\003 \001(\t\022\031\n\021LastHeartbeatTime\030\004 \001(\003\022\020" +
-      "\n\010TaskVeto\030\005 \001(\010\022\030\n\020IsHeartbeatBreak\030\006 \001" +
-      "(\010\022&\n\004Jobs\030\007 \003(\0132\030.message.MonitorJobPro" +
-      "to\"\264\002\n\017MonitorJobProto\022\017\n\007JobName\030\001 \001(\t\022" +
-      "\020\n\010JogGroup\030\002 \001(\t\022\024\n\014JobClassType\030\003 \001(\t\022" +
-      "\023\n\013TriggerName\030\004 \001(\t\022\024\n\014TriggerGroup\030\005 \001" +
-      "(\t\022\023\n\013RepeatCount\030\006 \001(\005\022\026\n\016RepeatInterva" +
-      "l\030\007 \001(\005\022\034\n\024JobCompletedLastTime\030\010 \001(\003\022\030\n" +
-      "\020JobFiredLastTime\030\t \001(\003\022\034\n\024JobMissfiredL" +
-      "astTime\030\n \001(\003\022\017\n\007JobVeto\030\013 \001(\010\022\022\n\nFiredT",
-      "imes\030\014 \001(\005\022\025\n\rMissfireTimes\030\r \001(\005\"v\n\014War" +
-      "ningProto\022\027\n\017ServiceIdentity\030\001 \001(\t\022\017\n\007Jo" +
-      "bName\030\002 \001(\t\022\020\n\010JobGroup\030\003 \001(\t\022\025\n\rWarning" +
-      "Reason\030\004 \001(\t\022\023\n\013WarningTime\030\005 \001(\003\"@\n\021War" +
-      "ningBatchProto\022+\n\014WarningBatch\030\001 \003(\0132\025.m" +
-      "essage.WarningProtoB.\n\036stu.lanyu.springd" +
-      "ocker.messageB\014MessageProto"
+      "\022\r\n\005Level\030\002 \001(\t\022\017\n\007LogTime\030\003 \001(\003\"W\n\014Moni" +
+      "torProto\0223\n\020MonitorTaskBatch\030\001 \003(\0132\031.mes" +
+      "sage.MonitorTaskProto\022\022\n\nBreakerUrl\030\002 \001(" +
+      "\t\"\331\001\n\020MonitorTaskProto\022\027\n\017ServiceIdentit" +
+      "y\030\001 \001(\t\022\024\n\014RegisterTime\030\002 \001(\003\022\023\n\013ActionT",
+      "oken\030\003 \001(\t\022\031\n\021LastHeartbeatTime\030\004 \001(\003\022\022\n" +
+      "\nBreakerUrl\030\005 \001(\t\022\020\n\010TaskVeto\030\006 \001(\010\022\030\n\020I" +
+      "sHeartbeatBreak\030\007 \001(\010\022&\n\004Jobs\030\010 \003(\0132\030.me" +
+      "ssage.MonitorJobProto\"\264\002\n\017MonitorJobProt" +
+      "o\022\017\n\007JobName\030\001 \001(\t\022\020\n\010JogGroup\030\002 \001(\t\022\024\n\014" +
+      "JobClassType\030\003 \001(\t\022\023\n\013TriggerName\030\004 \001(\t\022" +
+      "\024\n\014TriggerGroup\030\005 \001(\t\022\023\n\013RepeatCount\030\006 \001" +
+      "(\005\022\026\n\016RepeatInterval\030\007 \001(\005\022\034\n\024JobComplet" +
+      "edLastTime\030\010 \001(\003\022\030\n\020JobFiredLastTime\030\t \001" +
+      "(\003\022\034\n\024JobMissfiredLastTime\030\n \001(\003\022\017\n\007JobV",
+      "eto\030\013 \001(\010\022\022\n\nFiredTimes\030\014 \001(\005\022\025\n\rMissfir" +
+      "eTimes\030\r \001(\005\"v\n\014WarningProto\022\027\n\017ServiceI" +
+      "dentity\030\001 \001(\t\022\017\n\007JobName\030\002 \001(\t\022\020\n\010JobGro" +
+      "up\030\003 \001(\t\022\025\n\rWarningReason\030\004 \001(\t\022\023\n\013Warni" +
+      "ngTime\030\005 \001(\003\"@\n\021WarningBatchProto\022+\n\014War" +
+      "ningBatch\030\001 \003(\0132\025.message.WarningProtoB." +
+      "\n\036stu.lanyu.springdocker.messageB\014Messag" +
+      "eProto"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -7913,13 +8071,13 @@ public final class MessageProto {
     internal_static_message_MonitorProto_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_message_MonitorProto_descriptor,
-        new java.lang.String[] { "RegisterTaskBatch", "BreakerUrl", });
+        new java.lang.String[] { "MonitorTaskBatch", "BreakerUrl", });
     internal_static_message_MonitorTaskProto_descriptor =
       getDescriptor().getMessageTypes().get(4);
     internal_static_message_MonitorTaskProto_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_message_MonitorTaskProto_descriptor,
-        new java.lang.String[] { "ServiceIdentity", "RegisterTime", "ActionToken", "LastHeartbeatTime", "TaskVeto", "IsHeartbeatBreak", "Jobs", });
+        new java.lang.String[] { "ServiceIdentity", "RegisterTime", "ActionToken", "LastHeartbeatTime", "BreakerUrl", "TaskVeto", "IsHeartbeatBreak", "Jobs", });
     internal_static_message_MonitorJobProto_descriptor =
       getDescriptor().getMessageTypes().get(5);
     internal_static_message_MonitorJobProto_fieldAccessorTable = new
