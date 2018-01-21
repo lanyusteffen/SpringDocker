@@ -4,6 +4,7 @@ import com.google.protobuf.InvalidProtocolBufferException;
 import org.springframework.beans.factory.annotation.Autowired;
 import redis.clients.jedis.JedisPubSub;
 import stu.lanyu.springdocker.business.readonly.TaskMonitorInfoService;
+import stu.lanyu.springdocker.domain.JobMonitorInfo;
 import stu.lanyu.springdocker.domain.TaskMonitorInfo;
 import stu.lanyu.springdocker.message.MessageProto;
 import stu.lanyu.springdocker.utility.DateUtility;
@@ -48,7 +49,7 @@ public class MonitorSubscriber extends JedisPubSub {
                 .map(r -> r.getServiceIdentity())
                 .collect(Collectors.toList());
 
-            List<TaskMonitorInfo> newMonitorTaskList = proto.getMonitorTaskBatchList()
+            List<TaskMonitorInfo> newTaskMonitorInfoList = proto.getMonitorTaskBatchList()
                 .stream()
                 .filter(n -> !existedServiceIdentityList.contains(n.getServiceIdentity()))
                 .map(r -> {
@@ -85,6 +86,7 @@ public class MonitorSubscriber extends JedisPubSub {
                 updateJob(taskMonitorInfo, monitorTaskProto);
             }
 
+            taskMonitorInfoService.saveBatch(newTaskMonitorInfoList);
             taskMonitorInfoService.saveBatch(taskMonitorInfoList);
             deleteUnusedJob(taskMonitorInfoList, proto);
         } catch (InvalidProtocolBufferException e) {
@@ -124,6 +126,94 @@ public class MonitorSubscriber extends JedisPubSub {
 
     private void updateJob(TaskMonitorInfo taskMonitorInfo, MessageProto.MonitorTaskProto monitorTaskProto) {
 
+        List<stu.lanyu.springdocker.domain.JobMonitorInfo>
+            newJobMonitorInfoList = monitorTaskProto.getJobsList()
+            .stream()
+            .filter(r -> taskMonitorInfo.getJobs().stream().filter(t -> {
+                String existedJobName = t.getJobName();
+                String existedJobGroup = t.getJobGroup();
+                String jobName = r.getJobName();
+                String jobGroup = r.getJogGroup();
+
+                if (StringUtility.isNullOrEmpty(existedJobGroup)
+                        && StringUtility.isNullOrEmpty(jobGroup)) {
+                    return true;
+                } else if (StringUtility.isNullOrEmpty(existedJobGroup) &&
+                        !StringUtility.isNullOrEmpty(jobGroup)) {
+                    return false;
+                } else if (!StringUtility.isNullOrEmpty(existedJobGroup) &&
+                        StringUtility.isNullOrEmpty(jobGroup)) {
+                    return false;
+                }
+                else {
+                    return jobName.equals(existedJobName) && jobGroup.equals(existedJobGroup);
+                }
+            }).count() == 0)
+            .map(n -> {
+                stu.lanyu.springdocker.domain.JobMonitorInfo jobMonitorInfo =
+                        new stu.lanyu.springdocker.domain.JobMonitorInfo();
+
+                jobMonitorInfo.setFiredTimes(n.getFiredTimes());
+                jobMonitorInfo.setJobCompletedLastTime(new Date(n.getJobCompletedLastTime()));
+                jobMonitorInfo.setJobFiredLastTime(new Date(n.getJobFiredLastTime()));
+                jobMonitorInfo.setJobGroup(n.getJogGroup());
+                jobMonitorInfo.setJobName(n.getJobName());
+                jobMonitorInfo.setJobMissfiredLastTime(new Date(n.getJobMissfiredLastTime()));
+                jobMonitorInfo.setJobVeto(n.getJobVeto());
+                jobMonitorInfo.setMissfireTimes(n.getMissfireTimes());
+                jobMonitorInfo.setServiceIdentity(taskMonitorInfo.getServiceIdentity());
+
+                return jobMonitorInfo;
+            })
+            .collect(Collectors.toList());
+
+        jobMonitorInfoService.saveBatch(newJobMonitorInfoList);
+
+        List<JobMonitorInfo> existedJobMonitorInfoListForTask =
+                taskMonitorInfo.getJobs();
+
+        for(int i = 0; i < existedJobMonitorInfoListForTask.size(); i++) {
+
+            JobMonitorInfo jobMonitorInfo = existedJobMonitorInfoListForTask.get(i);
+
+            stu.lanyu.springdocker.contract.entity.JobMonitorInfo updatedJobMonitorInfo =
+                    monitorTaskProto.getJobsList()
+                    .stream()
+                    .filter(r -> {
+                        String jobName = r.getJobName();
+                        String jobGroup = r.getJogGroup();
+
+                        String existedJobName = jobMonitorInfo.getJobName();
+                        String existedJobGroup = jobMonitorInfo.getJobGroup();
+
+                        if (StringUtility.isNullOrEmpty(existedJobGroup)
+                                && StringUtility.isNullOrEmpty(jobGroup)) {
+                            return true;
+                        } else if (StringUtility.isNullOrEmpty(existedJobGroup) &&
+                                !StringUtility.isNullOrEmpty(jobGroup)) {
+                            return false;
+                        } else if (!StringUtility.isNullOrEmpty(existedJobGroup) &&
+                                StringUtility.isNullOrEmpty(jobGroup)) {
+                            return false;
+                        }
+                        else {
+                            return jobName.equals(existedJobName) && jobGroup.equals(existedJobGroup);
+                        }
+                    }).orElse(null);
+
+            if (updatedJobMonitorInfo == null) {
+                continue;
+            }
+
+            jobMonitorInfo.setFiredTimes(updatedJobMonitorInfo.getFiredTimes());
+            jobMonitorInfo.setJobCompletedLastTime(new Date(updatedJobMonitorInfo.getJobCompletedLastTime()));
+            jobMonitorInfo.setJobFiredLastTime(new Date(updatedJobMonitorInfo.getJobFiredLastTime()));
+            jobMonitorInfo.setJobGroup(updatedJobMonitorInfo.getJogGroup());
+            jobMonitorInfo.setJobName(updatedJobMonitorInfo.getJobName());
+            jobMonitorInfo.setJobMissfiredLastTime(new Date(updatedJobMonitorInfo.getJobMissfiredLastTime()));
+            jobMonitorInfo.setJobVeto(updatedJobMonitorInfo.getJobVeto());
+            jobMonitorInfo.setMissfireTimes(updatedJobMonitorInfo.getMissfireTimes());
+        }
     }
 
     private void deleteUnusedJob(List<TaskMonitorInfo> taskMonitorInfoList, MessageProto.MonitorProto proto) {
