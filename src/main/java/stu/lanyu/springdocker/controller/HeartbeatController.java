@@ -3,7 +3,6 @@ package stu.lanyu.springdocker.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -11,7 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 import stu.lanyu.springdocker.annotation.Approve;
 import stu.lanyu.springdocker.business.readwrite.TaskMonitorInfoService;
 import stu.lanyu.springdocker.domain.TaskMonitorInfo;
-import stu.lanyu.springdocker.redis.entity.RegisterTask;
 
 import java.util.List;
 
@@ -25,12 +23,6 @@ public class HeartbeatController {
     @Qualifier(value = "TaskMonitorInfoServiceReadonly")
     @Autowired(required = true)
     private stu.lanyu.springdocker.business.readonly.TaskMonitorInfoService taskMonitorInfoQueryService;
-
-    @Autowired
-    private RedisTemplate<String, String> redisTemplate;
-
-    @Autowired
-    private RedisTemplate<String, RegisterTask> redisTaskTemplate;
 
     @Approve
     @RequestMapping(value = "/getAll", method = RequestMethod.GET)

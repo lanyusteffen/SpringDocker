@@ -20,7 +20,6 @@ import stu.lanyu.springdocker.utility.StringUtility;
 
 import java.io.IOException;
 import java.net.ConnectException;
-import java.util.Map;
 
 @RestController
 @RequestMapping(value = "/breaker")
@@ -41,14 +40,14 @@ public class BreakerController {
         httpClient = new OkHttpClient();
     }
 
-    private ServiceBreaker getServiceBreaker(RegisterTask task, boolean isForTask, boolean isVeto, String jobName, String jobGroup) {
+    private ServiceBreaker getServiceBreaker(TaskMonitorInfo taskMonitorInfo, boolean isForTask, boolean isVeto, String jobName, String jobGroup) {
 
         ServiceBreaker serviceBreaker = new ServiceBreaker();
 
-        serviceBreaker.setActionToken(task.getActionToken());
+        serviceBreaker.setActionToken(taskMonitorInfo.getActionToken());
         serviceBreaker.setAuthenticationFailure(false);
         serviceBreaker.setBreakerResult(false);
-        serviceBreaker.setServiceIdentity(task.getServiceIdentity());
+        serviceBreaker.setServiceIdentity(taskMonitorInfo.getServiceIdentity());
 
         if (isForTask) {
             serviceBreaker.setBreakerForTask(true);
@@ -74,9 +73,9 @@ public class BreakerController {
     /**
      * 访问指定任务的断路WCF服务
      */
-    private ServiceBreaker doBreakerService(RegisterTask task, boolean isForTask, boolean isVeto, String jobName, String jobGroup) {
+    private ServiceBreaker doBreakerService(TaskMonitorInfo taskMonitorInfo, boolean isForTask, boolean isVeto, String jobName, String jobGroup) {
 
-        ServiceBreaker serviceBreaker = getServiceBreaker(task, isForTask, isVeto, jobName, jobGroup);
+        ServiceBreaker serviceBreaker = getServiceBreaker(taskMonitorInfo, isForTask, isVeto, jobName, jobGroup);
 
         try {
 
@@ -85,7 +84,7 @@ public class BreakerController {
             RequestBody body = RequestBody.create(GlobalConfig.WCFHost.JSON, gson.toJson(serviceBreaker));
 
             Request req = new Request.Builder()
-                    .url(task.getBreakerUrl())
+                    .url(taskMonitorInfo.getBreakerUrl())
                     .post(body)
                     .build();
 
@@ -113,15 +112,10 @@ public class BreakerController {
     @RequestMapping(value ="/doForTask", method = RequestMethod.GET)
     public boolean doForTask(String serviceIdentity, boolean isVeto) {
 
-        Map<Object, Object> entries = redisTemplate.opsForHash().entries(GlobalConfig.Redis.REGISTER_TASK_CACHE_KEY);
+        TaskMonitorInfo taskMonitorInfo = taskMonitorInfoQueryService.getTaskMonitorInfoByServiceIdentity(serviceIdentity);
 
-        TaskMonitorInfo task = entries.entrySet().stream()
-                .filter(map -> serviceIdentity.equals(map.getKey().toString()))
-                .map(map -> RegisterTask.class.cast(map.getValue()))
-                .findFirst().orElse(null);
-
-        if (task != null) {
-           ServiceBreaker serviceBreaker = doBreakerService(task, true, isVeto, null, null);
+        if (taskMonitorInfo != null) {
+           ServiceBreaker serviceBreaker = doBreakerService(taskMonitorInfo, true, isVeto, null, null);
 
            boolean result = serviceBreaker.isBreakerResult();
 
@@ -160,18 +154,11 @@ public class BreakerController {
     @RequestMapping(value = "/doForJob", method = RequestMethod.GET)
     public boolean doForJob(String serviceIdentity, String jobName, String jobGroup, boolean isVeto) {
 
-        Map<Object, Object> entries = redisTemplate.opsForHash().entries(GlobalConfig.Redis.REGISTER_TASK_CACHE_KEY);
+        TaskMonitorInfo taskMonitorInfo = taskMonitorInfoQueryService.getTaskMonitorInfoByServiceIdentity(serviceIdentity);
 
-        OkHttpClient httpClient = new OkHttpClient();
+        if (taskMonitorInfo != null) {
 
-        RegisterTask task = entries.entrySet().stream()
-                .filter(map -> serviceIdentity.equals(map.getKey().toString()))
-                .map(map -> RegisterTask.class.cast(map.getValue()))
-                .findFirst().orElse(null);
-
-        if (task != null) {
-
-            ServiceBreaker serviceBreaker = doBreakerService(task, false, isVeto, jobName, jobGroup);
+            ServiceBreaker serviceBreaker = doBreakerService(taskMonitorInfo, false, isVeto, jobName, jobGroup);
             boolean result = serviceBreaker.getJobBreakers()[0].isBreakerResult();
 
             if (result) {
