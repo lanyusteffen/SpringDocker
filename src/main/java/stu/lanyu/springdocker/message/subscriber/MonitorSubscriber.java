@@ -60,6 +60,7 @@ public class MonitorSubscriber extends JedisPubSub {
                     taskMonitorInfo.setHeartbeatBreak(r.getIsHeartbeatBreak());
                     taskMonitorInfo.setTaskVeto(r.getTaskVeto());
                     taskMonitorInfo.setActionToken(r.getActionToken());
+                    taskMonitorInfo.setServiceIdentity(r.getServiceIdentity());
                     taskMonitorInfo.setRegisterTime(new Date(r.getRegisterTime()));
 
                     // 添加Job
@@ -100,10 +101,7 @@ public class MonitorSubscriber extends JedisPubSub {
 
     private void addJob(TaskMonitorInfo taskMonitorInfo, MessageProto.MonitorTaskProto monitorTaskProto) {
 
-        List<stu.lanyu.springdocker.domain.JobMonitorInfo> jobMonitorInfoList =
-                new ArrayList<>();
-
-        monitorTaskProto.getJobsList()
+        List<stu.lanyu.springdocker.domain.JobMonitorInfo> jobMonitorInfoList = monitorTaskProto.getJobsList()
             .stream()
             .map(r -> {
                 stu.lanyu.springdocker.domain.JobMonitorInfo jobMonitorInfo =
