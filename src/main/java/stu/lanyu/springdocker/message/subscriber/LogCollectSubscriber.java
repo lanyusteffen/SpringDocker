@@ -11,6 +11,7 @@ import stu.lanyu.springdocker.message.MessageProto;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.Date;
+import java.util.List;
 
 public class LogCollectSubscriber extends JedisPubSub {
 
@@ -27,7 +28,7 @@ public class LogCollectSubscriber extends JedisPubSub {
             byte[] decodedData = Base64.getDecoder().decode(message);
             proto = MessageProto.LogCollectProto.parseFrom(decodedData);
 
-            ArrayList<LogCollect> logCollectArrayList = new ArrayList<LogCollect>();
+            List<LogCollect> logCollectArrayList = new ArrayList<LogCollect>();
 
             for (MessageProto.LogProto log : proto.getLogsList()) {
 
@@ -41,7 +42,9 @@ public class LogCollectSubscriber extends JedisPubSub {
                 logCollectArrayList.add(logCollect);
             }
 
-            logCollectService.saveInBatch(logCollectArrayList);
+            if (logCollectArrayList.size() > 0) {
+                logCollectService.saveInBatch(logCollectArrayList);
+            }
         } catch (InvalidProtocolBufferException e) {
             e.printStackTrace();
         }

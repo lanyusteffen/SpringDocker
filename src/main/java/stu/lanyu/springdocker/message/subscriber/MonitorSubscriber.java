@@ -9,7 +9,6 @@ import stu.lanyu.springdocker.domain.TaskMonitorInfo;
 import stu.lanyu.springdocker.message.MessageProto;
 import stu.lanyu.springdocker.utility.StringUtility;
 
-import java.util.ArrayList;
 import java.util.Base64;
 import java.util.Date;
 import java.util.List;

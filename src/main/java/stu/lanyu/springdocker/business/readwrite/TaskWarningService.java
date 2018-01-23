@@ -7,6 +7,8 @@ import stu.lanyu.springdocker.business.AbstractBusinessService;
 import stu.lanyu.springdocker.domain.TaskWarning;
 import stu.lanyu.springdocker.repository.readwrite.TaskWarningRepository;
 
+import java.util.List;
+
 @Service("TaskWarningServiceReadwrite")
 public class TaskWarningService extends AbstractBusinessService {
 
@@ -16,5 +18,9 @@ public class TaskWarningService extends AbstractBusinessService {
 
     public void save(TaskWarning taskWarning) {
         taskWarningRepository.save(taskWarning);
+    }
+
+    public void saveBatch(List<TaskWarning> taskMonitorInfoList) {
+        taskWarningRepository.save(taskMonitorInfoList);
     }
 }

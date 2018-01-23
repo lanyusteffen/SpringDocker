@@ -7,7 +7,6 @@ import stu.lanyu.springdocker.business.AbstractBusinessService;
 import stu.lanyu.springdocker.domain.LogCollect;
 import stu.lanyu.springdocker.repository.readwrite.LogCollectRepository;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service("LogCollectServiceReadwrite")
@@ -20,7 +19,7 @@ public class LogCollectService extends AbstractBusinessService {
         logCollectRepository.save(logCollect);
     }
 
-    public void saveInBatch(ArrayList<LogCollect> logCollectIterable) {
+    public void saveInBatch(List<LogCollect> logCollectIterable) {
         logCollectRepository.save(logCollectIterable);
     }
 }

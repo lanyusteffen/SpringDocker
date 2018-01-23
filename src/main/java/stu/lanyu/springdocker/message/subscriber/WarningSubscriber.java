@@ -8,8 +8,10 @@ import stu.lanyu.springdocker.business.readwrite.TaskWarningService;
 import stu.lanyu.springdocker.domain.TaskWarning;
 import stu.lanyu.springdocker.message.MessageProto;
 
+import java.util.ArrayList;
 import java.util.Base64;
 import java.util.Date;
+import java.util.List;
 
 public class WarningSubscriber extends JedisPubSub {
 
@@ -19,23 +21,32 @@ public class WarningSubscriber extends JedisPubSub {
 
     public void onMessage(String channel, String message) {
 
-        MessageProto.WarningProto proto = null;
+        MessageProto.WarningBatchProto proto = null;
 
         try {
 
             byte[] decodedData = Base64.getDecoder().decode(message);
 
-            proto = MessageProto.WarningProto.parseFrom(decodedData);
+            proto = MessageProto.WarningBatchProto.parseFrom(decodedData);
 
-            TaskWarning taskWarning = new TaskWarning();
+            List<TaskWarning> taskWarningList = new ArrayList<>();
 
-            taskWarning.setServiceIdentity(proto.getServiceIdentity());
-            taskWarning.setJobGroup(proto.getJobGroup());
-            taskWarning.setJobName(proto.getJobName());
-            taskWarning.setWarningReason(proto.getWarningReason());
-            taskWarning.setAddTime(new Date());
+            for (MessageProto.WarningProto warningProto : proto.getWarningBatchList()) {
 
-            taskWarningService.save(taskWarning);
+                TaskWarning taskWarning = new TaskWarning();
+
+                taskWarning.setServiceIdentity(warningProto.getServiceIdentity());
+                taskWarning.setJobGroup(warningProto.getJobGroup());
+                taskWarning.setJobName(warningProto.getJobName());
+                taskWarning.setWarningReason(warningProto.getWarningReason());
+                taskWarning.setAddTime(new Date());
+
+                taskWarningList.add(taskWarning);
+            }
+
+            if (taskWarningList.size() > 0) {
+                taskWarningService.saveBatch(taskWarningList);
+            }
         } catch (InvalidProtocolBufferException e) {
             e.printStackTrace();
         }
