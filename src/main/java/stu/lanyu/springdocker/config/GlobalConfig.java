@@ -36,8 +36,8 @@ public class GlobalConfig {
         public static final String JWTREFRESHID = "SpringDocker Refresh Token";
         public static final String SUBJECT = "Online JWT Builder";
         public static final String IISUSER = "StelyLan";
-        public static final long TTLMILLIS = 1000 * 60 * 20;
-        public static final long REFRESHTTLMILLIS = 1000 * 60 * 60 * 2;
+        public static final long TTLMILLIS = 1000 * 30;
+        public static final long REFRESHTTLMILLIS = 1000 * 60 * 20;
     }
 
     public static class RateLimiter {

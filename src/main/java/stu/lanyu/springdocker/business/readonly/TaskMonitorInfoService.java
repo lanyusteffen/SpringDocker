@@ -32,14 +32,16 @@ public class TaskMonitorInfoService extends AbstractBusinessService {
 
         ZoneId zoneId = (useUTC ? ZoneId.of("UTC") : ZoneId.systemDefault());
 
-        Instant instant = Instant.now();
-        LocalDateTime dt = LocalDateTime.now().minusSeconds(GlobalConfig.WebConfig.BAD_HEARTBEAT_DASHBOARD_SHOWRULE);
+        LocalDateTime dtEnd = LocalDateTime.now().minusSeconds(GlobalConfig.WebConfig.BAD_HEARTBEAT_DASHBOARD_SHOWRULE);
 
-        ZonedDateTime endDate = ZonedDateTime.ofInstant(instant , zoneId);
-
-        ZonedDateTime zdt = dt.atZone(ZoneId.systemDefault());
-        instant = dt.toInstant(zdt.getOffset());
+        LocalDateTime dtStart = LocalDate.now().atStartOfDay();
+        ZonedDateTime zdt = dtStart.atZone(ZoneId.systemDefault());
+        Instant instant = LocalDate.now().atStartOfDay().toInstant(zdt.getOffset());
         ZonedDateTime beginDate = ZonedDateTime.ofInstant(instant , zoneId);
+
+        ZonedDateTime zdtEnd = dtEnd.atZone(ZoneId.systemDefault());
+        instant = dtEnd.toInstant(zdtEnd.getOffset());
+        ZonedDateTime endDate = ZonedDateTime.ofInstant(instant , zoneId);
 
         return new SearchDateStamp(beginDate, endDate);
     }

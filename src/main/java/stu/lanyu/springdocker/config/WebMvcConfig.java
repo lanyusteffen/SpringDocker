@@ -19,6 +19,7 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/**");
+        registry.addMapping("/**")
+            .exposedHeaders(GlobalConfig.WebConfig.HEADER_AUTHORIZE, GlobalConfig.WebConfig.HEADER_REFRESHTOKEN);
     }
 }
