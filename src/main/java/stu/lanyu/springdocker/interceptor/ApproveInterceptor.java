@@ -2,7 +2,6 @@ package stu.lanyu.springdocker.interceptor;
 
 import io.jsonwebtoken.*;
 import org.springframework.web.method.HandlerMethod;
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 import stu.lanyu.springdocker.annotation.Approve;
 import stu.lanyu.springdocker.config.GlobalConfig;
@@ -39,7 +38,7 @@ public class ApproveInterceptor extends HandlerInterceptorAdapter {
 //    }
 
     private Jws<Claims> judgeRefreshToken(HttpServletRequest request, HttpServletResponse
-                                      response, Object handler) {
+                                      response) {
         Jws<Claims> claimsJws = null;
         String refreshToken = request
                 .getHeader(GlobalConfig.WebConfig.HEADER_REFRESHTOKEN);
@@ -57,61 +56,85 @@ public class ApproveInterceptor extends HandlerInterceptorAdapter {
         return claimsJws;
     }
 
+    private Jws<Claims> judgeAccessToken(HttpServletRequest request, HttpServletResponse
+            response)  {
+
+        Jws<Claims> claimsJws = null;
+        String accessToken = request
+                .getHeader(GlobalConfig.WebConfig.HEADER_AUTHORIZE);
+
+        if (!StringUtility.isNullOrEmpty(accessToken)) {
+            try {
+                claimsJws = JWTUtility.parseJWT(accessToken);
+            } catch (ExpiredJwtException e) { e.printStackTrace(); }
+            catch (UnsupportedJwtException e) { e.printStackTrace(); }
+            catch (MalformedJwtException e) { e.printStackTrace(); }
+            catch (SignatureException e) { e.printStackTrace(); }
+            catch (IllegalArgumentException e) { e.printStackTrace(); }
+        }
+
+        return claimsJws;
+    }
+
+    private boolean judgeApprove(Approve approve, Jws<Claims> claimsJws, HttpServletRequest request, HttpServletResponse
+            response) {
+
+        boolean tokenValid = false;
+
+        String role = claimsJws.getHeader()
+                .get(GlobalConfig.WebConfig.CLAIMS_ROLE_KEY).toString();
+
+        if (approve.role().equals(role)) {
+
+            request.setAttribute(GlobalConfig.WebConfig.CLAIMS_USER_KEY,
+                    claimsJws.getHeader().get(GlobalConfig.WebConfig.CLAIMS_USER_KEY));
+
+            request.setAttribute(GlobalConfig.WebConfig.CLAIMS_ROLE_KEY, role);
+
+            tokenValid = true;
+        }
+
+        return tokenValid;
+    }
+
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 
         Approve approve = preHandleAnnotation(handler);
 
-        if (approve != null) {
-            boolean tokenValid = false;
-            String accessToken = request
-                    .getHeader(GlobalConfig.WebConfig.HEADER_AUTHORIZE);
+        // 无需验证权限API
+        if (approve == null) {
+            return true;
+        }
 
-            if (!StringUtility.isNullOrEmpty(accessToken)) {
-                try {
-                    Jws<Claims> claims = JWTUtility.parseJWT(accessToken);
+        Jws<Claims> claimsJws = judgeAccessToken(request, response);
+        boolean tokenValid = true;
 
-                    String role = claims.getHeader()
-                            .get(GlobalConfig.WebConfig.CLAIMS_ROLE_KEY).toString();
-
-                    if (approve.role().equals(role)) {
-
-                        tokenValid = true;
-
-                        request.setAttribute(GlobalConfig.WebConfig.CLAIMS_USER_KEY,
-                                claims.getHeader()
-                                        .get(GlobalConfig.WebConfig.CLAIMS_USER_KEY)
-                        );
-
-                        request.setAttribute(GlobalConfig.WebConfig.CLAIMS_ROLE_KEY,
-                                role
-                        );
-                    }
-                } catch (ExpiredJwtException e) { }
-                catch (UnsupportedJwtException e) { }
-                catch (MalformedJwtException e) { }
-                catch (SignatureException e) { }
-                catch (IllegalArgumentException e) { }
-
-                if (!tokenValid)
-                    response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "未授权");
-            }
-            else {
-                Jws<Claims> claimsJws = judgeRefreshToken(request, response, handler);
-                if (claimsJws == null) {
-                    response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "未授权");
-                } else {
+        if (claimsJws == null) {
+            // 验证RefreshToken
+            claimsJws = judgeRefreshToken(request, response);
+            if (claimsJws == null) {
+                response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "未授权");
+                tokenValid = false;
+            } else {
+                if (judgeApprove(approve, claimsJws, request, response)) {
+                    // RefreshToken验证通过需要将更新得AccessToken验证给客户端
                     response.setHeader(GlobalConfig.WebConfig.HEADER_REFRESHTOKEN,
-                            JWTUtility.createJWT(GlobalConfig.JWTConfig.JWTREFRESHID,
+                            JWTUtility.createJWT(GlobalConfig.JWTConfig.JWTID,
                                     Long.parseLong(claimsJws.getHeader().get(GlobalConfig.WebConfig.CLAIMS_USER_KEY).toString()),
                                     claimsJws.getHeader().get(GlobalConfig.WebConfig.CLAIMS_ROLE_KEY).toString(),
                                     GlobalConfig.JWTConfig.TTLMILLIS));
-                    tokenValid = true;
+                } else {
+                    response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "未授权");
+                    tokenValid = false;
                 }
             }
-
-            return tokenValid;
+        } else {
+            if (!judgeApprove(approve, claimsJws, request, response)) {
+                response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "未授权");
+                tokenValid = false;
+            }
         }
 
-        return true;
+        return tokenValid;
     }
 }

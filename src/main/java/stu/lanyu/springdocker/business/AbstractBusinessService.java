@@ -1,59 +1,48 @@
 package stu.lanyu.springdocker.business;
 
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.util.Date;
+import java.time.*;
 
 public abstract class AbstractBusinessService {
 
     protected class SearchDateStamp {
 
-        public SearchDateStamp(Date beginDate, Date endDate) {
+        public SearchDateStamp(ZonedDateTime beginDate, ZonedDateTime endDate) {
             this.beginDate = beginDate;
             this.endDate = endDate;
         }
 
-        private Date beginDate;
-        private Date endDate;
+        private ZonedDateTime beginDate;
+        private ZonedDateTime endDate;
 
-        public Date getBeginDate() {
+        public ZonedDateTime getBeginDate() {
             return beginDate;
         }
 
-        public void setBeginDate(Date beginDate) {
+        public void setBeginDate(ZonedDateTime beginDate) {
             this.beginDate = beginDate;
         }
 
-        public Date getEndDate() {
+        public ZonedDateTime getEndDate() {
             return endDate;
         }
 
-        public void setEndDate(Date endDate) {
+        public void setEndDate(ZonedDateTime endDate) {
             this.endDate = endDate;
         }
     }
 
     protected SearchDateStamp getTodaySearchDate(boolean useUTC) {
 
-        LocalDate lt = LocalDate.now();
-        Instant instant = lt.atStartOfDay(useUTC ? ZoneId.of("UTC") : ZoneId.systemDefault()).toInstant();
-        Date beginDate = Date.from(instant);
+        ZoneId zoneId = (useUTC ? ZoneId.of("UTC") : ZoneId.systemDefault());
 
-        Date endDate = Date.from(Instant.now().atZone(useUTC ? ZoneId.of("UTC") : ZoneId.systemDefault()).toInstant());
+        LocalDateTime dt = LocalDate.now().atStartOfDay();
+        Instant instant = Instant.now();
 
-        return new SearchDateStamp(beginDate, endDate);
-    }
+        ZonedDateTime endDate = ZonedDateTime.ofInstant(instant , zoneId);
 
-    protected SearchDateStamp getBeforeTodaySearchDate(boolean useUTC) {
-
-        LocalDate localEndDate = LocalDate.now();
-        Instant instantForEnd = localEndDate.atStartOfDay(useUTC ? ZoneId.of("UTC") : ZoneId.systemDefault()).toInstant();
-        Date endDate = Date.from(instantForEnd);
-
-        LocalDate localBeginDate = localEndDate.minusYears(1);
-        Instant instantForBegin = localBeginDate.atStartOfDay(useUTC ? ZoneId.of("UTC") : ZoneId.systemDefault()).toInstant();
-        Date beginDate = Date.from(instantForBegin);
+        ZonedDateTime zdt = dt.atZone(ZoneId.systemDefault());
+        instant = LocalDate.now().atStartOfDay().toInstant(zdt.getOffset());
+        ZonedDateTime beginDate = ZonedDateTime.ofInstant(instant , zoneId);
 
         return new SearchDateStamp(beginDate, endDate);
     }

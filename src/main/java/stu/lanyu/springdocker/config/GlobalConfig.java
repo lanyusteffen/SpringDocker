@@ -27,7 +27,7 @@ public class GlobalConfig {
         public static final String HEADER_REFRESHTOKEN = "RefreshToken";
         public static final String CLAIMS_USER_KEY = "UserId";
         public static final String CLAIMS_ROLE_KEY = "Role";
-        public static final long BAD_HEARTBEAT_DASHBOARD_SHOWRULE = 1000 * 60 * 20;
+        public static final int BAD_HEARTBEAT_DASHBOARD_SHOWRULE = 60 * 2; // 2分钟监测不到心跳则判定为心跳异常
     }
 
     public class JWTConfig {

@@ -11,6 +11,7 @@ import stu.lanyu.springdocker.business.AbstractBusinessService;
 import stu.lanyu.springdocker.domain.TaskWarning;
 import stu.lanyu.springdocker.repository.readonly.TaskWarningRepository;
 
+import java.sql.Date;
 import java.util.List;
 
 @Service("TaskWarningServiceReadonly")
@@ -41,6 +42,6 @@ public class TaskWarningService extends AbstractBusinessService {
 
     public List<TaskWarning> getDashboard() {
         AbstractBusinessService.SearchDateStamp searchDate = getTodaySearchDate(true);
-        return taskWarningRepository.findAllByAddTimeBetween(searchDate.getBeginDate(), searchDate.getEndDate());
+        return taskWarningRepository.findAllByAddTimeBetween(Date.from(searchDate.getBeginDate().toInstant()), Date.from(searchDate.getEndDate().toInstant()));
     }
 }

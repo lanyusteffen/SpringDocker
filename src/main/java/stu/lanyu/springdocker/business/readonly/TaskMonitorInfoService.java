@@ -12,9 +12,7 @@ import stu.lanyu.springdocker.config.GlobalConfig;
 import stu.lanyu.springdocker.domain.TaskMonitorInfo;
 import stu.lanyu.springdocker.repository.readonly.TaskMonitorInfoRepository;
 
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.ZoneId;
+import java.time.*;
 import java.util.Date;
 import java.util.List;
 
@@ -32,18 +30,23 @@ public class TaskMonitorInfoService extends AbstractBusinessService {
 
     private SearchDateStamp getHeartbeatDashboardShowRule(boolean useUTC) {
 
-        Date endDate = Date.from(Instant.now().atZone(useUTC ? ZoneId.of("UTC") : ZoneId.systemDefault()).toInstant().minusMillis(GlobalConfig.WebConfig.BAD_HEARTBEAT_DASHBOARD_SHOWRULE));
+        ZoneId zoneId = (useUTC ? ZoneId.of("UTC") : ZoneId.systemDefault());
 
-        LocalDate localBeginDate = LocalDate.now().minusYears(1);
-        Instant instantForBegin = localBeginDate.atStartOfDay(useUTC ? ZoneId.of("UTC") : ZoneId.systemDefault()).toInstant();
-        Date beginDate = Date.from(instantForBegin);
+        Instant instant = Instant.now();
+        LocalDateTime dt = LocalDateTime.now().minusSeconds(GlobalConfig.WebConfig.BAD_HEARTBEAT_DASHBOARD_SHOWRULE);
+
+        ZonedDateTime endDate = ZonedDateTime.ofInstant(instant , zoneId);
+
+        ZonedDateTime zdt = dt.atZone(ZoneId.systemDefault());
+        instant = dt.toInstant(zdt.getOffset());
+        ZonedDateTime beginDate = ZonedDateTime.ofInstant(instant , zoneId);
 
         return new SearchDateStamp(beginDate, endDate);
     }
 
     public List<TaskMonitorInfo> getDashboard() {
         SearchDateStamp searchDate = getHeartbeatDashboardShowRule(true);
-        return taskMonitorInfoRepository.findAllByLastHeartbeatTimeBetween(searchDate.getBeginDate(), searchDate.getEndDate());
+        return taskMonitorInfoRepository.findAllByLastHeartbeatTimeBetween(Date.from(searchDate.getBeginDate().toInstant()), Date.from(searchDate.getEndDate().toInstant()));
     }
 
     public TaskMonitorInfo getDetail(long id) {
