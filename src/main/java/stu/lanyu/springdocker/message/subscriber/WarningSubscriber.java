@@ -7,10 +7,10 @@ import redis.clients.jedis.JedisPubSub;
 import stu.lanyu.springdocker.business.readwrite.TaskWarningService;
 import stu.lanyu.springdocker.domain.TaskWarning;
 import stu.lanyu.springdocker.message.MessageProto;
+import stu.lanyu.springdocker.utility.DateUtility;
 
 import java.util.ArrayList;
 import java.util.Base64;
-import java.util.Date;
 import java.util.List;
 
 public class WarningSubscriber extends JedisPubSub {
@@ -39,7 +39,7 @@ public class WarningSubscriber extends JedisPubSub {
                 taskWarning.setJobGroup(warningProto.getJobGroup());
                 taskWarning.setJobName(warningProto.getJobName());
                 taskWarning.setWarningReason(warningProto.getWarningReason());
-                taskWarning.setAddTime(new Date());
+                taskWarning.setAddTime(DateUtility.getDate(warningProto.getWarningTime()));
 
                 taskWarningList.add(taskWarning);
             }

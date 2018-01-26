@@ -2,27 +2,31 @@ package stu.lanyu.springdocker.message.subscriber;
 
 import com.google.protobuf.InvalidProtocolBufferException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import redis.clients.jedis.JedisPubSub;
 import stu.lanyu.springdocker.business.readonly.TaskMonitorInfoService;
 import stu.lanyu.springdocker.domain.JobMonitorInfo;
 import stu.lanyu.springdocker.domain.TaskMonitorInfo;
 import stu.lanyu.springdocker.message.MessageProto;
+import stu.lanyu.springdocker.utility.DateUtility;
 import stu.lanyu.springdocker.utility.StringUtility;
 
 import java.util.Base64;
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class MonitorSubscriber extends JedisPubSub {
 
     @Autowired
+    @Qualifier(value = "TaskMonitorInfoServiceReadwrite")
     private stu.lanyu.springdocker.business.readwrite.TaskMonitorInfoService taskMonitorInfoService;
 
     @Autowired
+    @Qualifier(value = "TaskMonitorInfoServiceReadonly")
     private TaskMonitorInfoService taskMonitorInfoQueryService;
 
     @Autowired
+    @Qualifier(value = "JobMonitorInfoServiceReadwrite")
     private stu.lanyu.springdocker.business.readwrite.JobMonitorInfoService jobMonitorInfoService;
 
     public void onMessage(String channel, String message) {
@@ -54,13 +58,13 @@ public class MonitorSubscriber extends JedisPubSub {
                 .map(r -> {
                     TaskMonitorInfo taskMonitorInfo = new TaskMonitorInfo();
 
-                    taskMonitorInfo.setLastHeartbeatTime(new Date(r.getLastHeartbeatTime()));
+                    taskMonitorInfo.setLastHeartbeatTime(DateUtility.getDate(r.getLastHeartbeatTime()));
                     taskMonitorInfo.setBreakerUrl(r.getBreakerUrl());
                     taskMonitorInfo.setHeartbeatBreak(r.getIsHeartbeatBreak());
                     taskMonitorInfo.setTaskVeto(r.getTaskVeto());
                     taskMonitorInfo.setActionToken(r.getActionToken());
                     taskMonitorInfo.setServiceIdentity(r.getServiceIdentity());
-                    taskMonitorInfo.setRegisterTime(new Date(r.getRegisterTime()));
+                    taskMonitorInfo.setRegisterTime(DateUtility.getDate(r.getRegisterTime()));
 
                     // 添加Job
                     addJob(taskMonitorInfo, r);
@@ -81,9 +85,9 @@ public class MonitorSubscriber extends JedisPubSub {
                 taskMonitorInfo.setTaskVeto(monitorTaskProto.getTaskVeto());
                 taskMonitorInfo.setHeartbeatBreak(monitorTaskProto.getIsHeartbeatBreak());
                 taskMonitorInfo.setBreakerUrl(monitorTaskProto.getBreakerUrl());
-                taskMonitorInfo.setLastHeartbeatTime(new Date(monitorTaskProto.getLastHeartbeatTime()));
+                taskMonitorInfo.setLastHeartbeatTime(DateUtility.getDate(monitorTaskProto.getLastHeartbeatTime()));
                 taskMonitorInfo.setActionToken(monitorTaskProto.getActionToken());
-                taskMonitorInfo.setRegisterTime(new Date(monitorTaskProto.getRegisterTime()));
+                taskMonitorInfo.setRegisterTime(DateUtility.getDate(monitorTaskProto.getRegisterTime()));
 
                 updateTaskNewJob(taskMonitorInfo, monitorTaskProto);
                 updateJob(taskMonitorInfo, monitorTaskProto);
@@ -108,11 +112,11 @@ public class MonitorSubscriber extends JedisPubSub {
 
                 jobMonitorInfo.setJobVeto(r.getJobVeto());
                 jobMonitorInfo.setFiredTimes(r.getFiredTimes());
-                jobMonitorInfo.setJobCompletedLastTime(new Date(r.getJobCompletedLastTime()));
+                jobMonitorInfo.setJobCompletedLastTime(DateUtility.getDate(r.getJobCompletedLastTime()));
                 jobMonitorInfo.setJobName(r.getJobName());
                 jobMonitorInfo.setJobGroup(r.getJogGroup());
-                jobMonitorInfo.setJobFiredLastTime(new Date(r.getJobFiredLastTime()));
-                jobMonitorInfo.setJobMissfiredLastTime(new Date(r.getJobMissfiredLastTime()));
+                jobMonitorInfo.setJobFiredLastTime(DateUtility.getDate(r.getJobFiredLastTime()));
+                jobMonitorInfo.setJobMissfiredLastTime(DateUtility.getDate(r.getJobMissfiredLastTime()));
                 jobMonitorInfo.setMissfireTimes(r.getMissfireTimes());
                 jobMonitorInfo.setServiceIdentity(taskMonitorInfo.getServiceIdentity());
 
@@ -155,11 +159,11 @@ public class MonitorSubscriber extends JedisPubSub {
                             new stu.lanyu.springdocker.domain.JobMonitorInfo();
 
                     jobMonitorInfo.setFiredTimes(n.getFiredTimes());
-                    jobMonitorInfo.setJobCompletedLastTime(new Date(n.getJobCompletedLastTime()));
-                    jobMonitorInfo.setJobFiredLastTime(new Date(n.getJobFiredLastTime()));
+                    jobMonitorInfo.setJobCompletedLastTime(DateUtility.getDate(n.getJobCompletedLastTime()));
+                    jobMonitorInfo.setJobFiredLastTime(DateUtility.getDate(n.getJobFiredLastTime()));
                     jobMonitorInfo.setJobGroup(n.getJogGroup());
                     jobMonitorInfo.setJobName(n.getJobName());
-                    jobMonitorInfo.setJobMissfiredLastTime(new Date(n.getJobMissfiredLastTime()));
+                    jobMonitorInfo.setJobMissfiredLastTime(DateUtility.getDate(n.getJobMissfiredLastTime()));
                     jobMonitorInfo.setJobVeto(n.getJobVeto());
                     jobMonitorInfo.setMissfireTimes(n.getMissfireTimes());
                     jobMonitorInfo.setServiceIdentity(taskMonitorInfo.getServiceIdentity());
@@ -192,11 +196,11 @@ public class MonitorSubscriber extends JedisPubSub {
             }
 
             jobMonitorInfo.setFiredTimes(updatedJobMonitorInfo.getFiredTimes());
-            jobMonitorInfo.setJobCompletedLastTime(new Date(updatedJobMonitorInfo.getJobCompletedLastTime()));
-            jobMonitorInfo.setJobFiredLastTime(new Date(updatedJobMonitorInfo.getJobFiredLastTime()));
+            jobMonitorInfo.setJobCompletedLastTime(DateUtility.getDate(updatedJobMonitorInfo.getJobCompletedLastTime()));
+            jobMonitorInfo.setJobFiredLastTime(DateUtility.getDate(updatedJobMonitorInfo.getJobFiredLastTime()));
             jobMonitorInfo.setJobGroup(updatedJobMonitorInfo.getJogGroup());
             jobMonitorInfo.setJobName(updatedJobMonitorInfo.getJobName());
-            jobMonitorInfo.setJobMissfiredLastTime(new Date(updatedJobMonitorInfo.getJobMissfiredLastTime()));
+            jobMonitorInfo.setJobMissfiredLastTime(DateUtility.getDate(updatedJobMonitorInfo.getJobMissfiredLastTime()));
             jobMonitorInfo.setJobVeto(updatedJobMonitorInfo.getJobVeto());
             jobMonitorInfo.setMissfireTimes(updatedJobMonitorInfo.getMissfireTimes());
         }

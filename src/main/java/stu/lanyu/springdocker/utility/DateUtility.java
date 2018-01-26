@@ -1,6 +1,8 @@
 package stu.lanyu.springdocker.utility;
 
 import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.ZoneId;
 import java.util.Date;
 
 public class DateUtility {
@@ -16,6 +18,10 @@ public class DateUtility {
             dateFormatString = "yyyy-MM-dd HH:mm:ss";
 
         return new SimpleDateFormat(dateFormatString).format(new Date()) ;
+    }
+
+    public static Date getDate(long dateTicks) {
+        return Date.from(Instant.ofEpochMilli(dateTicks).atZone(ZoneId.of("UTC")).toInstant());
     }
 
     /**

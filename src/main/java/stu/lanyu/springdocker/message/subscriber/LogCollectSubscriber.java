@@ -7,10 +7,10 @@ import redis.clients.jedis.JedisPubSub;
 import stu.lanyu.springdocker.business.readwrite.LogCollectService;
 import stu.lanyu.springdocker.domain.LogCollect;
 import stu.lanyu.springdocker.message.MessageProto;
+import stu.lanyu.springdocker.utility.DateUtility;
 
 import java.util.ArrayList;
 import java.util.Base64;
-import java.util.Date;
 import java.util.List;
 
 public class LogCollectSubscriber extends JedisPubSub {
@@ -21,25 +21,27 @@ public class LogCollectSubscriber extends JedisPubSub {
 
     public void onMessage(String channel, String message) {
 
-        MessageProto.LogCollectProto proto = null;
+        MessageProto.LogCollectBatchProto proto = null;
 
         try {
 
             byte[] decodedData = Base64.getDecoder().decode(message);
-            proto = MessageProto.LogCollectProto.parseFrom(decodedData);
+            proto = MessageProto.LogCollectBatchProto.parseFrom(decodedData);
 
             List<LogCollect> logCollectArrayList = new ArrayList<LogCollect>();
 
-            for (MessageProto.LogProto log : proto.getLogsList()) {
+            for (MessageProto.LogCollectProto logCollectProto : proto.getLogBatchList()) {
 
-                LogCollect logCollect = new LogCollect();
+                for (MessageProto.LogProto logProto : logCollectProto.getLogsList()) {
 
-                logCollect.setLogTime(new Date(log.getLogTime()));
-                logCollect.setBody(log.getBody());
-                logCollect.setLevel(log.getLevel());
-                logCollect.setServiceIdentity(proto.getServiceIdentity());
+                    LogCollect logCollect = new LogCollect();
+                    logCollect.setLogTime(DateUtility.getDate(logProto.getLogTime()));
+                    logCollect.setBody(logProto.getBody());
+                    logCollect.setLevel(logProto.getLevel());
+                    logCollect.setServiceIdentity(logCollectProto.getServiceIdentity());
 
-                logCollectArrayList.add(logCollect);
+                    logCollectArrayList.add(logCollect);
+                }
             }
 
             if (logCollectArrayList.size() > 0) {
