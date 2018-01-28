@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import stu.lanyu.springdocker.business.AbstractBusinessService;
 import stu.lanyu.springdocker.domain.LogCollect;
 import stu.lanyu.springdocker.repository.readonly.LogCollectRepository;
+import stu.lanyu.springdocker.response.PagedResult;
 
 import java.util.Date;
 import java.util.List;
@@ -30,9 +31,13 @@ public class LogCollectService extends AbstractBusinessService {
         return logCollectRepository.getOne(id);
     }
 
-    public List<LogCollect> getDashboard() {
+    public PagedResult<LogCollect> getDashboard(int totalResults) {
         AbstractBusinessService.SearchDateStamp searchDate = getTodaySearchDate(true);
-        return logCollectRepository.findAllByLogTimeBetween(Date.from(searchDate.getBeginDate().toInstant()), Date.from(searchDate.getEndDate().toInstant()));
+        List<LogCollect> logCollectList = logCollectRepository
+                .findAllByLogTimeBetween(Date.from(searchDate.getBeginDate().toInstant()),
+                        Date.from(searchDate.getEndDate().toInstant()));
+        return new PagedResult<>(logCollectList.size() > totalResults
+                ? logCollectList.subList(0, totalResults) : logCollectList, totalResults, 0, totalResults);
     }
 
     public Page<LogCollect> getListPagedByServiceIdentity(String serviceIdentity, int pageIndex, int pageSize) {

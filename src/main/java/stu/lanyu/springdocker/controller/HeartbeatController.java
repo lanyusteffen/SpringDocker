@@ -10,8 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import stu.lanyu.springdocker.annotation.Approve;
 import stu.lanyu.springdocker.business.readwrite.TaskMonitorInfoService;
 import stu.lanyu.springdocker.domain.TaskMonitorInfo;
-
-import java.util.List;
+import stu.lanyu.springdocker.response.PagedResult;
 
 @RestController
 @RequestMapping(value = "/heartbeat")
@@ -33,8 +32,8 @@ public class HeartbeatController {
 
     @Approve
     @RequestMapping(value = "/getDashBoard", method = RequestMethod.GET)
-    public @ResponseBody List<TaskMonitorInfo> getDashBoard() {
-        List<TaskMonitorInfo> taskMonitorInfoPage = taskMonitorInfoQueryService.getDashboard();
+    public @ResponseBody PagedResult<TaskMonitorInfo> getDashBoard(int totalResults) {
+        PagedResult<TaskMonitorInfo> taskMonitorInfoPage = taskMonitorInfoQueryService.getDashboard(totalResults);
         return taskMonitorInfoPage;
     }
 

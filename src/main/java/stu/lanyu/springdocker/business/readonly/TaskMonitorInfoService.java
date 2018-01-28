@@ -11,6 +11,7 @@ import stu.lanyu.springdocker.business.AbstractBusinessService;
 import stu.lanyu.springdocker.config.GlobalConfig;
 import stu.lanyu.springdocker.domain.TaskMonitorInfo;
 import stu.lanyu.springdocker.repository.readonly.TaskMonitorInfoRepository;
+import stu.lanyu.springdocker.response.PagedResult;
 
 import java.time.*;
 import java.util.Date;
@@ -46,9 +47,13 @@ public class TaskMonitorInfoService extends AbstractBusinessService {
         return new SearchDateStamp(beginDate, endDate);
     }
 
-    public List<TaskMonitorInfo> getDashboard() {
+    public PagedResult<TaskMonitorInfo> getDashboard(int totalResults) {
         SearchDateStamp searchDate = getHeartbeatDashboardShowRule(true);
-        return taskMonitorInfoRepository.findAllByLastHeartbeatTimeBetween(Date.from(searchDate.getBeginDate().toInstant()), Date.from(searchDate.getEndDate().toInstant()));
+        List<TaskMonitorInfo> taskMonitorInfoList = taskMonitorInfoRepository
+                .findAllByLastHeartbeatTimeBetween(Date.from(searchDate.getBeginDate().toInstant()),
+                        Date.from(searchDate.getEndDate().toInstant()));
+        return new PagedResult<>(taskMonitorInfoList.size() > totalResults
+                ? taskMonitorInfoList.subList(0, totalResults) : taskMonitorInfoList, totalResults, 0, totalResults);
     }
 
     public TaskMonitorInfo getDetail(long id) {

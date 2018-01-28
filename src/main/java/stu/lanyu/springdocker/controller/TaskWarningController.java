@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import stu.lanyu.springdocker.annotation.Approve;
 import stu.lanyu.springdocker.domain.TaskWarning;
+import stu.lanyu.springdocker.response.PagedResult;
 
 import java.util.List;
 
@@ -43,8 +44,8 @@ public class TaskWarningController {
 
     @Approve
     @RequestMapping(value = "/getDashBoard", method = RequestMethod.GET)
-    public @ResponseBody List<TaskWarning> getDashBoard() {
-        List<TaskWarning> taskWarningPage = taskWarningQueryService.getDashboard();
+    public @ResponseBody PagedResult<TaskWarning> getDashBoard(int totalResults) {
+        PagedResult<TaskWarning> taskWarningPage = taskWarningQueryService.getDashboard(totalResults);
         return taskWarningPage;
     }
 
