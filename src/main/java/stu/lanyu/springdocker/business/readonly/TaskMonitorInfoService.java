@@ -53,7 +53,7 @@ public class TaskMonitorInfoService extends AbstractBusinessService {
                 .findAllByLastHeartbeatTimeBetween(Date.from(searchDate.getBeginDate().toInstant()),
                         Date.from(searchDate.getEndDate().toInstant()));
         return new PagedResult<>(taskMonitorInfoList.size() > totalResults
-                ? taskMonitorInfoList.subList(0, totalResults) : taskMonitorInfoList, totalResults, 0, totalResults);
+                ? taskMonitorInfoList.subList(0, totalResults) : taskMonitorInfoList, taskMonitorInfoList.size(), 0, totalResults);
     }
 
     public TaskMonitorInfo getDetail(long id) {

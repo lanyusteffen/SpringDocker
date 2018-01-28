@@ -37,7 +37,7 @@ public class LogCollectService extends AbstractBusinessService {
                 .findAllByLogTimeBetween(Date.from(searchDate.getBeginDate().toInstant()),
                         Date.from(searchDate.getEndDate().toInstant()));
         return new PagedResult<>(logCollectList.size() > totalResults
-                ? logCollectList.subList(0, totalResults) : logCollectList, totalResults, 0, totalResults);
+                ? logCollectList.subList(0, totalResults) : logCollectList, logCollectList.size(), 0, totalResults);
     }
 
     public Page<LogCollect> getListPagedByServiceIdentity(String serviceIdentity, int pageIndex, int pageSize) {
