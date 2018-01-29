@@ -23,7 +23,7 @@ public class TaskWarningService extends AbstractBusinessService {
     private TaskWarningRepository taskWarningRepository;
 
     public Page<TaskWarning> getListPaged(int pageIndex, int pageSize) {
-        Pageable pageable = new PageRequest(pageIndex, pageSize, Sort.Direction.DESC, "add_time");
+        Pageable pageable = new PageRequest(pageIndex, pageSize, Sort.Direction.DESC, "addTime");
         return taskWarningRepository.findAll(pageable);
     }
 
@@ -32,12 +32,12 @@ public class TaskWarningService extends AbstractBusinessService {
     }
 
     public Page<TaskWarning> getListPagedByServiceIdentity(String serviceIdentity, int pageIndex, int pageSize) {
-        Pageable pageable = new PageRequest(pageIndex, pageSize, Sort.Direction.DESC, "add_time");
+        Pageable pageable = new PageRequest(pageIndex, pageSize, Sort.Direction.DESC, "addTime");
         return taskWarningRepository.findOneByServiceIdentity(serviceIdentity, pageable);
     }
 
     public Page<TaskWarning> getListPagedByJob(String jobName, String jobGroup, int pageIndex, int pageSize) {
-        Pageable pageable = new PageRequest(pageIndex, pageSize, Sort.Direction.DESC, "add_time");
+        Pageable pageable = new PageRequest(pageIndex, pageSize, Sort.Direction.DESC, "addTime");
         return taskWarningRepository.findAllByJobNameAndJobGroup(jobName, jobGroup, pageable);
     }
 
