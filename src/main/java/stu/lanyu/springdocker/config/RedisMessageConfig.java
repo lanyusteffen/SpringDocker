@@ -1,5 +1,10 @@
 package stu.lanyu.springdocker.config;
 
+import io.lettuce.core.RedisClient;
+import io.lettuce.core.RedisURI;
+import io.lettuce.core.api.StatefulRedisConnection;
+import io.lettuce.core.pubsub.api.sync.RedisPubSubCommands;
+import io.lettuce.core.sentinel.api.StatefulRedisSentinelConnection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.data.redis.RedisProperties;
@@ -10,16 +15,15 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
 import org.springframework.data.redis.connection.RedisSentinelConfiguration;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
-import redis.clients.jedis.Jedis;
-import redis.clients.jedis.JedisPool;
-import redis.clients.jedis.JedisPoolConfig;
 import stu.lanyu.springdocker.message.ScheduledExecutorServiceFacade;
 import stu.lanyu.springdocker.message.subscriber.LogCollectSubscriber;
 import stu.lanyu.springdocker.message.subscriber.MonitorSubscriber;
 import stu.lanyu.springdocker.message.subscriber.WarningSubscriber;
 import stu.lanyu.springdocker.utility.DateUtility;
 
+import java.time.Duration;
 import java.util.Date;
+import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 
@@ -37,95 +41,54 @@ public class RedisMessageConfig {
     private RedisProperties properties;
 
     // Construct the RedisSentinelConfiguration using all the nodes in RedisSentinelNodes
-    RedisSentinelConfiguration sentinelConfiguration () {
-        RedisSentinelConfiguration sentinelConfig = new RedisSentinelConfiguration()
-                .master(properties.getSentinel().getMaster());
+    RedisURI sentinelConfiguration () {
 
-        String[] nodes = properties.getSentinel().getNodes().split(",");
+       RedisURI.Builder builder = RedisURI.builder().withSentinelMasterId(properties.getSentinel().getMaster());
 
-        for (int i = 0; i < nodes.length; i++) {
-            String node  = nodes[i];
+        List<String> nodes = properties.getSentinel().getNodes();
+
+        for (int i = 0; i < nodes.size(); i++) {
+
+            String node  = nodes.get(i);
             String[] ipAndPort = node.split(":");
 
-            sentinelConfig.sentinel(ipAndPort[0], Integer.parseInt(ipAndPort[1]));
+            builder.withSentinel(ipAndPort[0], Integer.parseInt(ipAndPort[1]));
         }
 
-        return sentinelConfig;
+        return builder.build();
     }
 
     @Bean
-    JedisConnectionFactory redisConnectionFactory() {
+    StatefulRedisSentinelConnection<String, String> redisConnectionFactory() {
 
-        JedisConnectionFactory jedisConnectionFactory = new JedisConnectionFactory(sentinelConfiguration());
-        jedisConnectionFactory.setUsePool(true);
-
-        jedisConnectionFactory.setPassword(properties.getPassword());
-
-        JedisPoolConfig poolConfig = jedisConnectionFactory.getPoolConfig();
-        poolConfig.setMaxIdle(properties.getPool().getMaxIdle());
-        poolConfig.setMinIdle(properties.getPool().getMinIdle());
-        poolConfig.setMaxTotal(properties.getPool().getMaxActive());
-        // poolConfig.setMaxTotal(properties.getPool().getMaxTotal);
-        poolConfig.setMaxWaitMillis(properties.getPool().getMaxWait());
-
-        poolConfig.setTestOnBorrow(true);
-        poolConfig.setTestOnReturn(true);
-        poolConfig.setTestWhileIdle(true);
-
-        jedisConnectionFactory.setPoolConfig(poolConfig);
-
-        jedisConnectionFactory.afterPropertiesSet();
-
-        return jedisConnectionFactory;
+        RedisClient client = RedisClient.create(sentinelConfiguration());
+        StatefulRedisSentinelConnection<String, String> connection = client.connectSentinel();
+        return connection;
     }
 
     @Bean
     @Qualifier("RedisSubscriberConnectionFactory")
     @Scope("singleton")
-    JedisConnectionFactory getRedisSubscriberConnectionFactory(){
+    RedisClient getRedisSubscriberConnectionFactory(){
 
-        JedisConnectionFactory jedisConnectionFactory = new JedisConnectionFactory();
-        jedisConnectionFactory.setHostName(redisMessageProperties.getHost());
-        jedisConnectionFactory.setPort(redisMessageProperties.getPort());
-        jedisConnectionFactory.setTimeout(redisMessageProperties.getTimeOut());
-        jedisConnectionFactory.setUsePool(true);
+        RedisURI.Builder builder = RedisURI.builder().withHost(redisMessageProperties.getHost())
+                .withPort(redisMessageProperties.getPort())
+                .withPassword(redisMessageProperties.getPassword())
+                .withTimeout(Duration.ofMillis(redisMessageProperties.getTimeOut()));
 
-        jedisConnectionFactory.setPassword(redisMessageProperties.getPassword());
-
-        JedisPoolConfig poolConfig = jedisConnectionFactory.getPoolConfig();
-        poolConfig.setMaxIdle(redisMessageProperties.getMaxIdle());
-        poolConfig.setMinIdle(redisMessageProperties.getMinIdle());
-        poolConfig.setMaxTotal(redisMessageProperties.getMaxTotal());
-        poolConfig.setMaxWaitMillis(redisMessageProperties.getMaxWaitMillis());
-
-        poolConfig.setTestOnBorrow(true);
-        poolConfig.setTestOnReturn(true);
-        poolConfig.setTestWhileIdle(true);
-
-        jedisConnectionFactory.setPoolConfig(poolConfig);
-
-        jedisConnectionFactory.afterPropertiesSet();
-
-        return jedisConnectionFactory;
+        return RedisClient.create(builder.build());
     }
 
     @Bean("RedisSubscriberMessagePool")
     @Scope("singleton")
-    JedisPool getRedisMessagePool() {
+    RedisClient getRedisMessagePool() {
 
-        JedisPoolConfig poolConfig = new JedisPoolConfig();
+        RedisURI.Builder builder = RedisURI.builder().withHost(redisMessageProperties.getHost())
+                .withPort(redisMessageProperties.getPort())
+                .withPassword(redisMessageProperties.getPassword())
+                .withTimeout(Duration.ofMillis(redisMessageProperties.getTimeOut()));
 
-        poolConfig.setMaxIdle(redisMessageProperties.getMaxIdle());
-        poolConfig.setMinIdle(redisMessageProperties.getMinIdle());
-        poolConfig.setMaxTotal(redisMessageProperties.getMaxTotal());
-        poolConfig.setMaxWaitMillis(redisMessageProperties.getMaxWaitMillis());
-        poolConfig.setTestOnBorrow(true);
-        poolConfig.setTestOnReturn(true);
-
-        JedisPool jedisPool = new JedisPool(poolConfig, redisMessageProperties.getHost(), redisMessageProperties.getPort(),
-                redisMessageProperties.getTimeOut(), redisMessageProperties.getPassword());
-
-        return jedisPool;
+        return RedisClient.create(builder.build());
     }
 
     @Bean
@@ -149,17 +112,19 @@ public class RedisMessageConfig {
         ScheduledExecutorService service = Executors.newSingleThreadScheduledExecutor();
         service.execute(() -> {
 
-            JedisPool pool = context.getBean("RedisSubscriberMessagePool",
-                    JedisPool.class);
-            Jedis jedis = null;
+            RedisClient client = context.getBean("RedisSubscriberMessagePool",
+                    RedisClient.class);
+            RedisPubSubCommands<String, String> redis = client.connectPubSub().sync();
 
             try {
                 System.out.println("[" + DateUtility.getDateNowFormat(null) + "]" +
                         "Start subscribe channel ESFTask.Commands.ESFTaskPushLogChannel!");
-                jedis = pool.getResource();
-                jedis.subscribe(logCollectSubscriber, GlobalConfig.Redis.ESFTASK_PUSHLOG_CHANNEL);
+
+                redis.addListener(logCollectSubscriber);
+                redis.subscribe(GlobalConfig.Redis.ESFTASK_PUSHLOG_CHANNEL);
+
                 try {
-                    jedis.quit();
+                    redis.shutdown(true);
                 } catch (Exception e) {
                     System.out.println("[" + DateUtility.getDateNowFormat(null) + "]" +
                             "ESFTask.Commands.ESFTaskPushLogChannel jedis quit error: " + e.getMessage());
