@@ -20,6 +20,6 @@ public class LogCollectService extends AbstractBusinessService {
     }
 
     public void saveInBatch(List<LogCollect> logCollectIterable) {
-        logCollectRepository.save(logCollectIterable);
+        logCollectRepository.saveAll(logCollectIterable);
     }
 }

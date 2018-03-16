@@ -21,6 +21,6 @@ public class TaskWarningService extends AbstractBusinessService {
     }
 
     public void saveBatch(List<TaskWarning> taskMonitorInfoList) {
-        taskWarningRepository.save(taskMonitorInfoList);
+        taskWarningRepository.saveAll(taskMonitorInfoList);
     }
 }

@@ -1,11 +1,10 @@
 package stu.lanyu.springdocker.config;
 
-import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 @ConfigurationProperties(ignoreUnknownFields = true, prefix = "redis.message")
 public class RedisMessageProperties {
-    @NotBlank
+
     private String host;
     private int port;
     private int timeOut;

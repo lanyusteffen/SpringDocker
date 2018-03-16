@@ -1,7 +1,9 @@
 package stu.lanyu.springdocker.redis;
 
-import redis.clients.jedis.Jedis;
-import redis.clients.jedis.Transaction;
+import io.lettuce.core.Range;
+import io.lettuce.core.TransactionResult;
+import io.lettuce.core.api.StatefulRedisConnection;
+import io.lettuce.core.api.sync.RedisCommands;
 import stu.lanyu.springdocker.config.GlobalConfig;
 
 import java.util.List;
@@ -13,32 +15,31 @@ public class RedisRateLimiter {
 
     /**
      * 分布式令牌桶算法实现限流
-     * @param jedis Redis访问实例
+     * @param connection Redis连接实例
      * @param method 限流方法名
      * @param qps 单位时间间隔内允许放入的令牌数量
      * @param interval 单位时间间隔, 单位:毫秒
      * @param minTimeSinceLastRequest 最小令盘获取时间差, 单位:毫秒
      * @return
      */
-    public static boolean acquireToken(Jedis jedis, String method, int qps, int interval, int minTimeSinceLastRequest) {
+    public static boolean acquireToken(StatefulRedisConnection<String, String> connection, String method, int qps, int interval, int minTimeSinceLastRequest) {
         long now = System.currentTimeMillis();
 
-        Transaction transaction = jedis.multi();
+        RedisCommands<String, String> transaction = connection.sync();
 
-        String clearBefore = String.valueOf(now - interval);
+        long clearBefore = now - interval;
 
         String id = GlobalConfig.RateLimiter.TOKEN_BUCKET_IDENTITIEFER + method;
 
         // 移除已超时的令牌
-        transaction.zremrangeByScore(id, "0", clearBefore);
-
+        transaction.zremrangebyscore(id, Range.create(0, clearBefore));
         transaction.zrange(id, 0, -1);
         transaction.zadd(id, now, UUID.randomUUID().toString());
 
         // 设置令牌超时过期时间 双保险
         transaction.expire(id, (int)interval / 1000);
 
-        List<Object> results = transaction.exec();
+        TransactionResult results = transaction.exec();
 
         List<Long> timestamps = IntStream.range(0, results.size())
                         .filter(i -> i % 2 == 0)

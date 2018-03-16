@@ -25,7 +25,7 @@ public class TaskMonitorInfoService extends AbstractBusinessService {
     private TaskMonitorInfoRepository taskMonitorInfoRepository;
 
     public Page<TaskMonitorInfo> getListPaged(int pageIndex, int pageSize) {
-        Pageable pageable = new PageRequest(pageIndex, pageSize, Sort.Direction.DESC, "id");
+        Pageable pageable = PageRequest.of(pageIndex, pageSize, Sort.Direction.DESC, "id");
         return taskMonitorInfoRepository.findAll(pageable);
     }
 

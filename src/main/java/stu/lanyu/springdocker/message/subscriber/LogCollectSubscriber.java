@@ -1,9 +1,9 @@
 package stu.lanyu.springdocker.message.subscriber;
 
 import com.google.protobuf.InvalidProtocolBufferException;
+import io.lettuce.core.pubsub.RedisPubSubListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import redis.clients.jedis.JedisPubSub;
 import stu.lanyu.springdocker.business.readwrite.LogCollectService;
 import stu.lanyu.springdocker.domain.LogCollect;
 import stu.lanyu.springdocker.message.MessageProto;
@@ -13,13 +13,14 @@ import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
 
-public class LogCollectSubscriber extends JedisPubSub {
+public class LogCollectSubscriber implements RedisPubSubListener<String, String> {
 
     @Qualifier(value = "LogCollectServiceReadwrite")
     @Autowired(required = true)
     private LogCollectService logCollectService;
 
-    public void onMessage(String channel, String message) {
+    @Override
+    public void message(String channel, String message) {
 
         MessageProto.LogCollectBatchProto proto = null;
 
@@ -50,18 +51,38 @@ public class LogCollectSubscriber extends JedisPubSub {
         } catch (InvalidProtocolBufferException e) {
             e.printStackTrace();
         }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
-    public void onSubscribe(String channel, int subscribedChannels) {
+    @Override
+    public void message(String pattern, String channel, String message) {
+
+        message(channel, message);
+    }
+
+    @Override
+    public void subscribed(String channel, long count) {
+
         System.out.println(String.format("subscribe redis channel '%s' success",
                 channel));
     }
 
-    public void onUnsubscribe(String channel, int subscribedChannels) {
+    @Override
+    public void psubscribed(String pattern, long count) {
+
+        System.out.println(String.format("subscribe redis channel with match pattern '%s' success",
+                pattern));
+    }
+
+    @Override
+    public void unsubscribed(String channel, long count) {
         System.out.println(String.format("unsubscribe redis channel '%s'",
                 channel));
+    }
+
+    @Override
+    public void punsubscribed(String pattern, long count) {
+
+        System.out.println(String.format("unsubscribe redis channel with match pattern '%s'",
+                pattern));
     }
 }

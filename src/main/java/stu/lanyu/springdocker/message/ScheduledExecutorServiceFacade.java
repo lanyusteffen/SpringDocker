@@ -1,6 +1,6 @@
 package stu.lanyu.springdocker.message;
 
-import redis.clients.jedis.JedisPubSub;
+import io.lettuce.core.pubsub.RedisPubSubListener;
 
 import java.util.Date;
 import java.util.concurrent.ScheduledExecutorService;
@@ -27,13 +27,13 @@ public class ScheduledExecutorServiceFacade {
         this.lastSubscribeTime = lastSubscribeTime;
     }
 
-    private JedisPubSub subscriber;
+    private RedisPubSubListener subscriber;
 
-    public JedisPubSub getSubscriber() {
+    public RedisPubSubListener getSubscriber() {
         return subscriber;
     }
 
-    public void setSubscriber(JedisPubSub subscriber) {
+    public void setSubscriber(RedisPubSubListener subscriber) {
         this.subscriber = subscriber;
     }
 }

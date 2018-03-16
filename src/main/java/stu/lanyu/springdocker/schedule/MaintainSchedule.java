@@ -1,11 +1,12 @@
 package stu.lanyu.springdocker.schedule;
 
+import io.lettuce.core.RedisClient;
+import io.lettuce.core.pubsub.StatefulRedisPubSubConnection;
+import io.lettuce.core.pubsub.api.sync.RedisPubSubCommands;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
-import redis.clients.jedis.Jedis;
-import redis.clients.jedis.JedisPool;
 import stu.lanyu.springdocker.config.GlobalConfig;
 import stu.lanyu.springdocker.message.ScheduledExecutorServiceFacade;
 import stu.lanyu.springdocker.message.subscriber.LogCollectSubscriber;
@@ -23,9 +24,9 @@ public class MaintainSchedule {
     @Autowired(required = true)
     private ApplicationContext context;
 
-    private JedisPool getJedisPool() {
+    private RedisClient getJedisPool() {
         return context.getBean("RedisSubscriberMessagePool",
-                JedisPool.class);
+                RedisClient.class);
     }
 
     private ScheduledExecutorService getWarningScheduledExecutorService(ScheduledExecutorServiceFacade serviceWarningFacade) {
@@ -33,17 +34,18 @@ public class MaintainSchedule {
         ScheduledExecutorService service = Executors.newSingleThreadScheduledExecutor();
         service.execute(() -> {
 
-            JedisPool pool = getJedisPool();
-            Jedis jedis = null;
+            RedisClient client = getJedisPool();
+            StatefulRedisPubSubConnection<String, String> connection = client.connectPubSub();
 
             try {
                 System.out.println("[" + DateUtility.getDateNowFormat(null) + "]" + "Start restore subscribe channel ESFTask.Commands.ESFTaskWarningChannel!");
 
-                jedis = pool.getResource();
-                jedis.subscribe(warningSubscriber, GlobalConfig.Redis.ESFTASK_WARNING_CHANNEL);
+                connection.addListener(warningSubscriber);
+                RedisPubSubCommands<String, String> redis = connection.sync();
+                redis.subscribe(GlobalConfig.Redis.ESFTASK_WARNING_CHANNEL);
 
                 try {
-                    jedis.quit();
+                    redis.quit();
                 } catch (Exception e) {
                     System.out.println("[" + DateUtility.getDateNowFormat(null) + "]" + "ESFTask.Commands.ESFTaskWarningChannel jedis quit error: " + e.getMessage());
                 }
@@ -52,8 +54,8 @@ public class MaintainSchedule {
                 System.out.println("[" + DateUtility.getDateNowFormat(null) + "]" + "ESFTask.Commands.ESFTaskWarningChannel restore error: " + e.getMessage());
             }
             finally {
-                if (jedis != null)
-                    jedis.close();
+                if (connection != null)
+                    connection.close();
             }
 
             serviceWarningFacade.getScheduleExecutorService().shutdownNow();
@@ -71,17 +73,18 @@ public class MaintainSchedule {
         ScheduledExecutorService service = Executors.newSingleThreadScheduledExecutor();
         service.execute(() -> {
 
-            JedisPool pool = getJedisPool();
-            Jedis jedis = null;
+            RedisClient client = getJedisPool();
+            StatefulRedisPubSubConnection<String, String> connection = client.connectPubSub();
 
             try {
                 System.out.println("[" + DateUtility.getDateNowFormat(null) + "]" + "Start restore subscribe channel ESFTask.Commands.ESFTaskMonitorChannel!");
 
-                jedis = pool.getResource();
-                jedis.subscribe(monitorSubscriber, GlobalConfig.Redis.ESFTASK_MONITOR_CHANNEL);
+                connection.addListener(monitorSubscriber);
+                RedisPubSubCommands<String, String> redis = connection.sync();
+                redis.subscribe(GlobalConfig.Redis.ESFTASK_MONITOR_CHANNEL);
 
                 try {
-                    jedis.quit();
+                    redis.quit();
                 } catch (Exception e) {
                     System.out.println("[" + DateUtility.getDateNowFormat(null) + "]" + "ESFTask.Commands.ESFTaskMonitorChannel jedis quit error: " + e.getMessage());
                 }
@@ -90,8 +93,8 @@ public class MaintainSchedule {
                 System.out.println("[" + DateUtility.getDateNowFormat(null) + "]" + "ESFTask.Commands.ESFTaskMonitorChannel restore error: " + e.getMessage());
             }
             finally {
-                if (jedis != null)
-                    jedis.close();
+                if (connection != null)
+                    connection.close();
             }
 
             serviceRegisterFacade.getScheduleExecutorService().shutdownNow();
@@ -109,17 +112,18 @@ public class MaintainSchedule {
         ScheduledExecutorService service = Executors.newSingleThreadScheduledExecutor();
         service.execute(() -> {
 
-            JedisPool pool = getJedisPool();
-            Jedis jedis = null;
+            RedisClient client = getJedisPool();
+            StatefulRedisPubSubConnection<String, String> connection = client.connectPubSub();
 
             try {
                 System.out.println("[" + DateUtility.getDateNowFormat(null) + "]" + "Start restore subscribe channel ESFTask.Commands.ESFTaskPushLogChannel!");
 
-                jedis = pool.getResource();
-                jedis.subscribe(logCollectSubscriber, GlobalConfig.Redis.ESFTASK_PUSHLOG_CHANNEL);
+                connection.addListener(logCollectSubscriber);
+                RedisPubSubCommands<String, String> redis = connection.sync();
+                redis.subscribe(GlobalConfig.Redis.ESFTASK_PUSHLOG_CHANNEL);
 
                 try {
-                    jedis.quit();
+                    redis.quit();
                 } catch (Exception e) {
                     System.out.println("[" + DateUtility.getDateNowFormat(null) + "]" + "ESFTask.Commands.ESFTaskPushLogChannel jedis quit error: " + e.getMessage());
                 }
@@ -128,8 +132,8 @@ public class MaintainSchedule {
                 System.out.println("[" + DateUtility.getDateNowFormat(null) + "]" + "ESFTask.Commands.ESFTaskPushLogChannel restore error: " + e.getMessage());
             }
             finally {
-                if (jedis != null)
-                    jedis.close();
+                if (connection != null)
+                    connection.close();
             }
 
             serviceLogCollectFacade.getScheduleExecutorService().shutdownNow();

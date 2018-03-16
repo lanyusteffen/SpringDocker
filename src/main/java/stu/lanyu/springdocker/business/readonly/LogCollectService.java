@@ -23,7 +23,7 @@ public class LogCollectService extends AbstractBusinessService {
     private LogCollectRepository logCollectRepository;
 
     public Page<LogCollect> getListPaged(int pageIndex, int pageSize) {
-        Pageable pageable = new PageRequest(pageIndex, pageSize, Sort.Direction.DESC, "logTime");
+        Pageable pageable = PageRequest.of(pageIndex, pageSize, Sort.Direction.DESC, "logTime");
         return logCollectRepository.findAll(pageable);
     }
 
@@ -41,7 +41,7 @@ public class LogCollectService extends AbstractBusinessService {
     }
 
     public Page<LogCollect> getListPagedByServiceIdentity(String serviceIdentity, int pageIndex, int pageSize) {
-        Pageable pageable = new PageRequest(pageIndex, pageSize, Sort.Direction.DESC, "logTime");
+        Pageable pageable = PageRequest.of(pageIndex, pageSize, Sort.Direction.DESC, "logTime");
         return logCollectRepository.findAllByServiceIdentity(serviceIdentity, pageable);
     }
 }

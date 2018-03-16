@@ -19,6 +19,6 @@ public class TaskMonitorInfoService {
     }
 
     public void saveBatch(List<TaskMonitorInfo> taskMonitorInfoList) {
-        taskMonitorInfoRepository.save(taskMonitorInfoList);
+        taskMonitorInfoRepository.saveAll(taskMonitorInfoList);
     }
 }

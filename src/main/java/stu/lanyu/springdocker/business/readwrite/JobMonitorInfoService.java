@@ -21,7 +21,7 @@ public class JobMonitorInfoService extends AbstractBusinessService {
     }
 
     public void saveBatch(List<JobMonitorInfo> monitorInfoList) {
-        jobMonitorInfoRepository.save(monitorInfoList);
+        jobMonitorInfoRepository.saveAll(monitorInfoList);
     }
 
     public void delete(JobMonitorInfo monitorInfo) {
@@ -29,6 +29,6 @@ public class JobMonitorInfoService extends AbstractBusinessService {
     }
 
     public void deleteBatch(List<JobMonitorInfo> monitorInfoList) {
-        jobMonitorInfoRepository.delete(monitorInfoList);
+        jobMonitorInfoRepository.deleteAll(monitorInfoList);
     }
 }

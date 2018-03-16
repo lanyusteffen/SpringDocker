@@ -1,12 +1,12 @@
 package stu.lanyu.springdocker.interceptor;
 
+import io.lettuce.core.RedisClient;
+import io.lettuce.core.api.StatefulRedisConnection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
-import redis.clients.jedis.Jedis;
 import stu.lanyu.springdocker.annotation.RateLimiter;
 import stu.lanyu.springdocker.redis.RedisRateLimiter;
 
@@ -30,7 +30,7 @@ public class RateLimitInterceptor extends HandlerInterceptorAdapter {
 
     @Autowired
     @Qualifier("RedisSubscriberConnectionFactory")
-    private JedisConnectionFactory jedisConnectionFactory;
+    private RedisClient redis;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
@@ -47,20 +47,19 @@ public class RateLimitInterceptor extends HandlerInterceptorAdapter {
             int interval = rateLimiter.interval();
             int minFrequencyInInterval = rateLimiter.minFrequencyInInterval();
 
-            Jedis jedis = null;
+            StatefulRedisConnection<String, String> connection = redis.connect();
 
             try {
-                jedis = jedisConnectionFactory.getShardInfo().createResource();
 
-                if (RedisRateLimiter.acquireToken(jedis, method.getName(), qps, interval, minFrequencyInInterval)) {
+                if (RedisRateLimiter.acquireToken(connection, method.getName(), qps, interval, minFrequencyInInterval)) {
                     response.sendError(HttpStatus.TOO_MANY_REQUESTS.value(), "单位时间请求过多");
                     isOverLimit = true;
                 }
             } catch (Exception e) {
                 e.printStackTrace();
             } finally {
-                if (jedis != null)
-                    jedis.close();
+                if (connection != null)
+                    connection.close();
             }
 
             return !isOverLimit;

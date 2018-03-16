@@ -19,17 +19,17 @@ public class JobMonitorInfoService extends AbstractBusinessService {
     private JobMonitorInfoRepository jobMonitorInfoRepository;
 
     public Page<JobMonitorInfo> getListPaged(int pageIndex, int pageSize) {
-        Pageable pageable = new PageRequest(pageIndex, pageSize, Sort.Direction.DESC, "id");
+        Pageable pageable = PageRequest.of(pageIndex, pageSize, Sort.Direction.DESC, "id");
         return jobMonitorInfoRepository.findAll(pageable);
     }
 
     public Page<JobMonitorInfo> getListPagedByServiceIdentity(String serviceIdentity, int pageIndex, int pageSize) {
-        Pageable pageable = new PageRequest(pageIndex, pageSize, Sort.Direction.DESC, "id");
+        Pageable pageable = PageRequest.of(pageIndex, pageSize, Sort.Direction.DESC, "id");
         return jobMonitorInfoRepository.findAllByServiceIdentity(serviceIdentity, pageable);
     }
 
     public Page<JobMonitorInfo> getListPagedByJob(String jobName, String jobGroup, int pageIndex, int pageSize) {
-        Pageable pageable = new PageRequest(pageIndex, pageSize, Sort.Direction.DESC, "id");
+        Pageable pageable = PageRequest.of(pageIndex, pageSize, Sort.Direction.DESC, "id");
         return jobMonitorInfoRepository.findAllByJobNameAndJobGroup(jobName, jobGroup, pageable);
     }
 }
