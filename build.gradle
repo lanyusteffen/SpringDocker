@@ -22,6 +22,7 @@ sourceCompatibility = 1.8
 
 repositories {
 	mavenCentral()
+	maven { url "https://repo.spring.io/milestone" }
 }
 
 jar {
@@ -29,15 +30,20 @@ jar {
 	version =  '1.0.0'
 }
 
+ext {
+	springCloudVersion = 'Finchley.M9'
+}
+
 dependencies {
 	compile('org.springframework.boot:spring-boot-starter-data-jpa')
 	compile('org.springframework.boot:spring-boot-starter-web')
 	compile('org.springframework.boot:spring-boot-starter-data-redis')
+	compile('org.springframework.cloud:spring-cloud-starter-netflix-hystrix')
+	compile('org.springframework.kafka:spring-kafka')
 	compile('com.google.protobuf:protobuf-java:2.6.1')
 	compile('com.squareup.okhttp3:okhttp:3.9.0')
 	compile('com.google.code.gson:gson:2.8.2')
-	compile('org.springframework.cloud:spring-cloud-starter-hystrix')
-	compile 'com.alibaba:druid-spring-boot-starter:1.1.6'
+	compile 'com.alibaba:druid-spring-boot-starter:1.1.9'
 	compile 'io.jsonwebtoken:jjwt:0.9.0'
 	compile('org.apache.commons:commons-lang3:3.7')
 	runtime('org.postgresql:postgresql')
@@ -46,7 +52,7 @@ dependencies {
 
 dependencyManagement {
 	imports {
-		mavenBom "org.springframework.cloud:spring-cloud-dependencies:Camden.SR5"
+		mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
 	}
 }
 

@@ -27,13 +27,13 @@ public class ScheduledExecutorServiceFacade {
         this.lastSubscribeTime = lastSubscribeTime;
     }
 
-    private RedisPubSubListener subscriber;
+    private RedisPubSubListener<String, String> subscriber;
 
-    public RedisPubSubListener getSubscriber() {
+    public RedisPubSubListener<String, String> getSubscriber() {
         return subscriber;
     }
 
-    public void setSubscriber(RedisPubSubListener subscriber) {
+    public void setSubscriber(RedisPubSubListener<String, String> subscriber) {
         this.subscriber = subscriber;
     }
 }

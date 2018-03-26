@@ -164,11 +164,11 @@ public class MaintainSchedule {
 
                 if (DateUtility.compareFormNowByHour(serviceLogCollectFacade.getLastSubscribeTime()) > GlobalConfig.WebConfig.REDIS_SUBSCRIBER_EXPIRE_HOUR) {
 
-                    try {
-                        serviceLogCollectFacade.getSubscriber().unsubscribe(GlobalConfig.Redis.ESFTASK_PUSHLOG_CHANNEL);
-                    }catch (Exception e) {
-                        System.out.println("[" + DateUtility.getDateNowFormat(null) + "]" + "ESFTask.Commands.ESFTaskPushLogChannel unsubscribe error: " + e.getMessage());
-                    }
+//                    try {
+//                        serviceLogCollectFacade.getSubscriber().unsubscribe(GlobalConfig.Redis.ESFTASK_PUSHLOG_CHANNEL);
+//                    }catch (Exception e) {
+//                        System.out.println("[" + DateUtility.getDateNowFormat(null) + "]" + "ESFTask.Commands.ESFTaskPushLogChannel unsubscribe error: " + e.getMessage());
+//                    }
 
                     serviceLogCollectFacade.getScheduleExecutorService().shutdownNow();
                 }
@@ -188,11 +188,11 @@ public class MaintainSchedule {
 
                 if (DateUtility.compareFormNowByHour(serviceWarningFacade.getLastSubscribeTime()) > GlobalConfig.WebConfig.REDIS_SUBSCRIBER_EXPIRE_HOUR) {
 
-                    try {
-                        serviceWarningFacade.getSubscriber().unsubscribe(GlobalConfig.Redis.ESFTASK_WARNING_CHANNEL);
-                    } catch (Exception e) {
-                        System.out.println("[" + DateUtility.getDateNowFormat(null) + "]" + "ESFTask.Commands.ESFTaskWarningChannel unsubscribe error: " + e.getMessage());
-                    }
+//                    try {
+//                        serviceWarningFacade.getSubscriber().unsubscribe(GlobalConfig.Redis.ESFTASK_WARNING_CHANNEL);
+//                    } catch (Exception e) {
+//                        System.out.println("[" + DateUtility.getDateNowFormat(null) + "]" + "ESFTask.Commands.ESFTaskWarningChannel unsubscribe error: " + e.getMessage());
+//                    }
 
                     serviceWarningFacade.getScheduleExecutorService().shutdownNow();
                 }
@@ -212,12 +212,12 @@ public class MaintainSchedule {
 
                 if (DateUtility.compareFormNowByHour(serviceMonitorFacade.getLastSubscribeTime()) > GlobalConfig.WebConfig.REDIS_SUBSCRIBER_EXPIRE_HOUR) {
 
-                    try {
-                        serviceMonitorFacade.getSubscriber().unsubscribe(GlobalConfig.Redis.ESFTASK_MONITOR_CHANNEL);
-                    }catch (Exception e) {
-                        System.out.println("[" + DateUtility.getDateNowFormat(null) + "]" +
-                                "ESFTask.Commands.ESFTaskMonitorChannel unsubscribe error: " + e.getMessage());
-                    }
+//                    try {
+//                        serviceMonitorFacade.getSubscriber().unsubscribe(GlobalConfig.Redis.ESFTASK_MONITOR_CHANNEL);
+//                    }catch (Exception e) {
+//                        System.out.println("[" + DateUtility.getDateNowFormat(null) + "]" +
+//                                "ESFTask.Commands.ESFTaskMonitorChannel unsubscribe error: " + e.getMessage());
+//                    }
 
                     serviceMonitorFacade.getScheduleExecutorService().shutdownNow();
                 }
