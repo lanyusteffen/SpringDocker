@@ -1,7 +1,7 @@
 package stu.lanyu.springdocker.request;
 
 import stu.lanyu.springdocker.contract.IValidation;
-import stu.lanyu.springdocker.domain.User;
+import stu.lanyu.springdocker.domain.entity.User;
 import stu.lanyu.springdocker.exception.DomainException;
 import stu.lanyu.springdocker.response.ValidationError;
 import stu.lanyu.springdocker.response.ValidationErrors;

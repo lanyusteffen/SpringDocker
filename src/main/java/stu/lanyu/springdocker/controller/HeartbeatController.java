@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import stu.lanyu.springdocker.annotation.Approve;
 import stu.lanyu.springdocker.business.readwrite.TaskMonitorInfoService;
-import stu.lanyu.springdocker.domain.TaskMonitorInfo;
+import stu.lanyu.springdocker.domain.entity.TaskMonitorInfo;
 import stu.lanyu.springdocker.response.PagedResult;
 
 @RestController

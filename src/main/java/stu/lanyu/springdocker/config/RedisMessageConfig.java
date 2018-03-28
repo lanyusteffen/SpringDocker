@@ -2,28 +2,15 @@ package stu.lanyu.springdocker.config;
 
 import io.lettuce.core.RedisClient;
 import io.lettuce.core.RedisURI;
-import io.lettuce.core.pubsub.StatefulRedisPubSubConnection;
-import io.lettuce.core.pubsub.api.sync.RedisPubSubCommands;
 import io.lettuce.core.sentinel.api.StatefulRedisSentinelConnection;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.data.redis.RedisProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Scope;
-import stu.lanyu.springdocker.message.ScheduledExecutorServiceFacade;
-import stu.lanyu.springdocker.message.subscriber.LogCollectSubscriber;
-import stu.lanyu.springdocker.message.subscriber.MonitorSubscriber;
-import stu.lanyu.springdocker.message.subscriber.WarningSubscriber;
-import stu.lanyu.springdocker.utility.DateUtility;
 
-import java.time.Duration;
-import java.util.Date;
 import java.util.List;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
 
 @Configuration
 @EnableConfigurationProperties(RedisMessageProperties.class)
@@ -62,185 +49,5 @@ public class RedisMessageConfig {
         RedisClient client = RedisClient.create(sentinelConfiguration());
         StatefulRedisSentinelConnection<String, String> connection = client.connectSentinel();
         return connection;
-    }
-
-    @Bean
-    @Qualifier("RedisSubscriberConnectionFactory")
-    @Scope("singleton")
-    RedisClient getRedisSubscriberConnectionFactory(){
-
-        RedisURI.Builder builder = RedisURI.builder().withHost(redisMessageProperties.getHost())
-                .withPort(redisMessageProperties.getPort())
-                .withPassword(redisMessageProperties.getPassword())
-                .withTimeout(Duration.ofMillis(redisMessageProperties.getTimeOut()));
-
-        return RedisClient.create(builder.build());
-    }
-
-    @Bean("RedisSubscriberMessagePool")
-    @Scope("singleton")
-    RedisClient getRedisMessagePool() {
-
-        RedisURI.Builder builder = RedisURI.builder().withHost(redisMessageProperties.getHost())
-                .withPort(redisMessageProperties.getPort())
-                .withPassword(redisMessageProperties.getPassword())
-                .withTimeout(Duration.ofMillis(redisMessageProperties.getTimeOut()));
-
-        return RedisClient.create(builder.build());
-    }
-
-    @Bean
-    LogCollectSubscriber getLogCollectSubscriber() {
-        return new LogCollectSubscriber();
-    }
-
-    @Bean
-    MonitorSubscriber getRegisterSubscriber() {
-        return new MonitorSubscriber();
-    }
-
-    @Bean
-    WarningSubscriber getWarningSubscriber() {
-        return new WarningSubscriber();
-    }
-
-    @Bean(name = "LogCollectExecutorService")
-    @Scope("singleton")
-    ScheduledExecutorServiceFacade getLogCollectScheduleExecutorService(LogCollectSubscriber logCollectSubscriber) {
-        ScheduledExecutorService service = Executors.newSingleThreadScheduledExecutor();
-        service.execute(() -> {
-
-            RedisClient client = context.getBean("RedisSubscriberMessagePool",
-                    RedisClient.class);
-            StatefulRedisPubSubConnection<String, String> connection = client.connectPubSub();
-
-            try {
-                System.out.println("[" + DateUtility.getDateNowFormat(null) + "]" +
-                        "Start subscribe channel ESFTask.Commands.ESFTaskPushLogChannel!");
-
-                connection.addListener(logCollectSubscriber);
-                RedisPubSubCommands<String, String> redis = connection.sync();
-                redis.subscribe(GlobalConfig.Redis.ESFTASK_PUSHLOG_CHANNEL);
-
-                try {
-                    redis.quit();
-                } catch (Exception e) {
-                    System.out.println("[" + DateUtility.getDateNowFormat(null) + "]" +
-                            "ESFTask.Commands.ESFTaskPushLogChannel jedis quit error: " + e.getMessage());
-                }
-                System.out.println("[" + DateUtility.getDateNowFormat(null) + "]" +
-                        "End subscribe channel ESFTask.Commands.ESFTaskPushLogChannel!");
-            } catch (Exception e) {
-                System.out.println("[" + DateUtility.getDateNowFormat(null) + "]" +
-                        "ESFTask.Commands.ESFTaskPushLogChannel subscribe error: " + e.getMessage());
-            }
-            finally {
-                if (connection != null)
-                    connection.close();
-            }
-
-            ScheduledExecutorServiceFacade serviceFacade = context.getBean("LogCollectExecutorService",
-                    ScheduledExecutorServiceFacade.class);
-            serviceFacade.getScheduleExecutorService().shutdownNow();
-        });
-
-        ScheduledExecutorServiceFacade serviceFacade = new ScheduledExecutorServiceFacade();
-        serviceFacade.setScheduleExecutorService(service);
-        serviceFacade.setLastSubscribeTime(new Date());
-        serviceFacade.setSubscriber(logCollectSubscriber);
-
-        return serviceFacade;
-    }
-
-    @Bean(name = "WarningExecutorService")
-    @Scope("singleton")
-    ScheduledExecutorServiceFacade getWarningScheduleExecutorService(WarningSubscriber warningSubscriber) {
-        ScheduledExecutorService service = Executors.newSingleThreadScheduledExecutor();
-        service.execute(() -> {
-
-            RedisClient client = context.getBean("RedisSubscriberMessagePool",
-                    RedisClient.class);
-            StatefulRedisPubSubConnection<String, String> connection = client.connectPubSub();
-
-            try {
-                System.out.println("[" + DateUtility.getDateNowFormat(null) + "]" +
-                        "Start subscribe channel ESFTask.Commands.ESFTaskWarningChannel!");
-
-                connection.addListener(warningSubscriber);
-                RedisPubSubCommands<String, String> redis = connection.sync();
-                redis.subscribe(GlobalConfig.Redis.ESFTASK_WARNING_CHANNEL);
-
-                try {
-                    redis.quit();
-                } catch (Exception e) {
-                    System.out.println("[" + DateUtility.getDateNowFormat(null) + "]" +
-                            "ESFTask.Commands.ESFTaskWarningChannel jedis quit error: " + e.getMessage());
-                }
-                System.out.println("[" + DateUtility.getDateNowFormat(null) + "]" +
-                        "End subscribe channel ESFTask.Commands.ESFTaskWarningChannel!");
-            } catch (Exception e) {
-                System.out.println("[" + DateUtility.getDateNowFormat(null) + "]" +
-                        "ESFTask.Commands.ESFTaskWarningChannel subscribe error: " + e.getMessage());
-            }
-            finally {
-                if (connection != null)
-                    connection.close();
-            }
-
-            ScheduledExecutorServiceFacade serviceFacade = context.getBean("WarningExecutorService",
-                    ScheduledExecutorServiceFacade.class);
-            serviceFacade.getScheduleExecutorService().shutdownNow();
-        });
-
-        ScheduledExecutorServiceFacade serviceFacade = new ScheduledExecutorServiceFacade();
-        serviceFacade.setScheduleExecutorService(service);
-        serviceFacade.setLastSubscribeTime(new Date());
-        serviceFacade.setSubscriber(warningSubscriber);
-
-        return serviceFacade;
-    }
-
-    @Bean(name = "MonitorExecutorService")
-    @Scope("singleton")
-    ScheduledExecutorServiceFacade getMonitorScheduleExecutorService(MonitorSubscriber monitorSubscriber) {
-        ScheduledExecutorService service = Executors.newSingleThreadScheduledExecutor();
-        service.execute(() -> {
-
-            RedisClient client = context.getBean("RedisSubscriberMessagePool",
-                    RedisClient.class);
-            StatefulRedisPubSubConnection<String, String> connection = client.connectPubSub();
-
-            try {
-                System.out.println("[" + DateUtility.getDateNowFormat(null) + "]" + "Start subscribe channel ESFTask.Commands.ESFTaskMonitorChannel!");
-
-                connection.addListener(monitorSubscriber);
-                RedisPubSubCommands<String, String> redis = connection.sync();
-                redis.subscribe(GlobalConfig.Redis.ESFTASK_MONITOR_CHANNEL);
-
-                try {
-                    redis.quit();
-                } catch (Exception e) {
-                    System.out.println("[" + DateUtility.getDateNowFormat(null) + "]" + "ESFTask.Commands.ESFTaskMonitorChannel jedis quit error: " + e.getMessage());
-                }
-                System.out.println("[" + DateUtility.getDateNowFormat(null) + "]" + "End subscribe channel ESFTask.Commands.ESFTaskMonitorChannel!");
-            } catch (Exception e) {
-                System.out.println("[" + DateUtility.getDateNowFormat(null) + "]" + "ESFTask.Commands.ESFTaskMonitorChannel subscribe error: " + e.getMessage());
-            }
-            finally {
-                if (connection != null)
-                    connection.close();
-            }
-
-            ScheduledExecutorServiceFacade serviceFacade = context.getBean("MonitorExecutorService",
-                    ScheduledExecutorServiceFacade.class);
-            serviceFacade.getScheduleExecutorService().shutdownNow();
-        });
-
-        ScheduledExecutorServiceFacade serviceFacade = new ScheduledExecutorServiceFacade();
-        serviceFacade.setScheduleExecutorService(service);
-        serviceFacade.setLastSubscribeTime(new Date());
-        serviceFacade.setSubscriber(monitorSubscriber);
-
-        return serviceFacade;
     }
 }

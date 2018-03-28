@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import stu.lanyu.springdocker.annotation.Approve;
-import stu.lanyu.springdocker.domain.LogCollect;
+import stu.lanyu.springdocker.domain.entity.LogCollect;
 import stu.lanyu.springdocker.response.PagedResult;
 
 @RestController

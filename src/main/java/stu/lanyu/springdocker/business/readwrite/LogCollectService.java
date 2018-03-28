@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import stu.lanyu.springdocker.business.AbstractBusinessService;
-import stu.lanyu.springdocker.domain.LogCollect;
+import stu.lanyu.springdocker.domain.entity.LogCollect;
 import stu.lanyu.springdocker.repository.readwrite.LogCollectRepository;
 
 import java.util.List;

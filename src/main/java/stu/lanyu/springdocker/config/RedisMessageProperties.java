@@ -2,7 +2,7 @@ package stu.lanyu.springdocker.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
-@ConfigurationProperties(ignoreUnknownFields = true, prefix = "redis.message")
+@ConfigurationProperties(ignoreUnknownFields = true, prefix = "redis.messagequeue")
 public class RedisMessageProperties {
 
     private String host;

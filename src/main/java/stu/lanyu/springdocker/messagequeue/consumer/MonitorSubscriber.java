@@ -1,13 +1,13 @@
-package stu.lanyu.springdocker.message.subscriber;
+package stu.lanyu.springdocker.messagequeue.consumer;
 
 import com.google.protobuf.InvalidProtocolBufferException;
 import io.lettuce.core.pubsub.RedisPubSubListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import stu.lanyu.springdocker.business.readonly.TaskMonitorInfoService;
-import stu.lanyu.springdocker.domain.JobMonitorInfo;
-import stu.lanyu.springdocker.domain.TaskMonitorInfo;
-import stu.lanyu.springdocker.message.MessageProto;
+import stu.lanyu.springdocker.domain.entity.JobMonitorInfo;
+import stu.lanyu.springdocker.domain.entity.TaskMonitorInfo;
+import stu.lanyu.springdocker.messagequeue.contract.MessageProto;
 import stu.lanyu.springdocker.utility.DateUtility;
 import stu.lanyu.springdocker.utility.StringUtility;
 
@@ -31,11 +31,11 @@ public class MonitorSubscriber implements RedisPubSubListener<String, String> {
 
     private void addJob(TaskMonitorInfo taskMonitorInfo, MessageProto.MonitorTaskProto monitorTaskProto) {
 
-        List<stu.lanyu.springdocker.domain.JobMonitorInfo> jobMonitorInfoList = monitorTaskProto.getJobsList()
+        List<JobMonitorInfo> jobMonitorInfoList = monitorTaskProto.getJobsList()
             .stream()
             .map(r -> {
-                stu.lanyu.springdocker.domain.JobMonitorInfo jobMonitorInfo =
-                        new stu.lanyu.springdocker.domain.JobMonitorInfo();
+                JobMonitorInfo jobMonitorInfo =
+                        new JobMonitorInfo();
 
                 jobMonitorInfo.setJobVeto(r.getJobVeto());
                 jobMonitorInfo.setFiredTimes(r.getFiredTimes());
@@ -82,8 +82,8 @@ public class MonitorSubscriber implements RedisPubSubListener<String, String> {
                 .stream()
                 .filter(r -> taskMonitorInfo.getJobs().stream().filter(t -> compareInteractionJob(t, r)).count() == 0)
                 .map(n -> {
-                    stu.lanyu.springdocker.domain.JobMonitorInfo jobMonitorInfo =
-                            new stu.lanyu.springdocker.domain.JobMonitorInfo();
+                    JobMonitorInfo jobMonitorInfo =
+                            new JobMonitorInfo();
 
                     jobMonitorInfo.setFiredTimes(n.getFiredTimes());
                     jobMonitorInfo.setJobCompletedLastTime(DateUtility.getDate(n.getJobCompletedLastTime()));

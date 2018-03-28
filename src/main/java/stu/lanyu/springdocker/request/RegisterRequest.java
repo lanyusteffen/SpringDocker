@@ -5,7 +5,7 @@ import stu.lanyu.springdocker.config.GlobalAppSettingsProperties;
 import stu.lanyu.springdocker.config.GlobalConfig;
 import stu.lanyu.springdocker.contract.IMapRequest;
 import stu.lanyu.springdocker.contract.IValidation;
-import stu.lanyu.springdocker.domain.User;
+import stu.lanyu.springdocker.domain.entity.User;
 import stu.lanyu.springdocker.exception.DomainException;
 import stu.lanyu.springdocker.response.ValidationError;
 import stu.lanyu.springdocker.response.ValidationErrors;
@@ -77,6 +77,7 @@ public class RegisterRequest extends AbstractRequest implements IMapRequest<User
 
     @Override
     public User mapToDomain() {
+
         User user = new User();
         user.setNickName(this.nickName);
         user.setFirstName(this.firstName);
@@ -89,7 +90,9 @@ public class RegisterRequest extends AbstractRequest implements IMapRequest<User
 
     @Override
     public void validation() throws DomainException {
+
         ValidationErrors errors = new ValidationErrors();
+
         if (StringUtility.isNullOrEmpty(this.nickName)) {
             errors.getErrorItems().add(new ValidationError("NickName", null));
             throw new DomainException("用户昵称不能为空", errors);

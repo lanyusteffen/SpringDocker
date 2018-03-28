@@ -9,7 +9,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import stu.lanyu.springdocker.business.AbstractBusinessService;
 import stu.lanyu.springdocker.config.GlobalConfig;
-import stu.lanyu.springdocker.domain.TaskMonitorInfo;
+import stu.lanyu.springdocker.domain.entity.TaskMonitorInfo;
 import stu.lanyu.springdocker.repository.readonly.TaskMonitorInfoRepository;
 import stu.lanyu.springdocker.response.PagedResult;
 

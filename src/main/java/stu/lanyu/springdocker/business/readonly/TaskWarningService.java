@@ -8,7 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import stu.lanyu.springdocker.business.AbstractBusinessService;
-import stu.lanyu.springdocker.domain.TaskWarning;
+import stu.lanyu.springdocker.domain.entity.TaskWarning;
 import stu.lanyu.springdocker.repository.readonly.TaskWarningRepository;
 import stu.lanyu.springdocker.response.PagedResult;
 

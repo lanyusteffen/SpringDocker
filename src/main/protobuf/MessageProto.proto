@@ -2,7 +2,7 @@ syntax = "proto2";
 
 package message;
 
-option java_package = "stu.lanyu.springdocker.message";
+option java_package = "stu.lanyu.springdocker.messagequeue";
 option java_outer_classname = "MessageProto";
 
 message LogCollectBatchProto

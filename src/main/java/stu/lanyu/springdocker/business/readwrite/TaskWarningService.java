@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import stu.lanyu.springdocker.business.AbstractBusinessService;
-import stu.lanyu.springdocker.domain.TaskWarning;
+import stu.lanyu.springdocker.domain.entity.TaskWarning;
 import stu.lanyu.springdocker.repository.readwrite.TaskWarningRepository;
 
 import java.util.List;

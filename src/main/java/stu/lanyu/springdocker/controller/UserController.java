@@ -1,6 +1,5 @@
 package stu.lanyu.springdocker.controller;
 
-import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -10,7 +9,7 @@ import stu.lanyu.springdocker.annotation.Approve;
 import stu.lanyu.springdocker.business.readwrite.UserService;
 import stu.lanyu.springdocker.config.GlobalAppSettingsProperties;
 import stu.lanyu.springdocker.config.GlobalConfig;
-import stu.lanyu.springdocker.domain.User;
+import stu.lanyu.springdocker.domain.entity.User;
 import stu.lanyu.springdocker.exception.DomainException;
 import stu.lanyu.springdocker.request.LoginRequest;
 import stu.lanyu.springdocker.request.RegisterRequest;

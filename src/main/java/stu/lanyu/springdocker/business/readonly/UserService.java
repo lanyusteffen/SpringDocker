@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import stu.lanyu.springdocker.business.AbstractBusinessService;
-import stu.lanyu.springdocker.domain.User;
+import stu.lanyu.springdocker.domain.entity.User;
 import stu.lanyu.springdocker.exception.DomainException;
 import stu.lanyu.springdocker.repository.readonly.UserRepository;
 import stu.lanyu.springdocker.response.ValidationError;

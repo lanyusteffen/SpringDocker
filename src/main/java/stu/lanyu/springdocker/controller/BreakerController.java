@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.RestController;
 import stu.lanyu.springdocker.annotation.Approve;
 import stu.lanyu.springdocker.business.readonly.TaskMonitorInfoService;
 import stu.lanyu.springdocker.config.GlobalConfig;
-import stu.lanyu.springdocker.contract.entity.JobBreaker;
-import stu.lanyu.springdocker.contract.entity.ServiceBreaker;
-import stu.lanyu.springdocker.domain.TaskMonitorInfo;
+import stu.lanyu.springdocker.domain.valueobject.JobBreaker;
+import stu.lanyu.springdocker.domain.valueobject.ServiceBreaker;
+import stu.lanyu.springdocker.domain.entity.TaskMonitorInfo;
 import stu.lanyu.springdocker.utility.StringUtility;
 
 import java.io.IOException;

@@ -1,4 +1,6 @@
-package stu.lanyu.springdocker.contract.entity;
+package stu.lanyu.springdocker.domain.valueobject;
+
+import stu.lanyu.springdocker.domain.valueobject.JobBreaker;
 
 public class ServiceBreaker {
 

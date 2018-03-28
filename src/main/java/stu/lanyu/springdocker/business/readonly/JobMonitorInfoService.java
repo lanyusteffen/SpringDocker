@@ -8,7 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import stu.lanyu.springdocker.business.AbstractBusinessService;
-import stu.lanyu.springdocker.domain.JobMonitorInfo;
+import stu.lanyu.springdocker.domain.entity.JobMonitorInfo;
 import stu.lanyu.springdocker.repository.readonly.JobMonitorInfoRepository;
 
 @Service("JobMonitorInfoServiceReadonly")
