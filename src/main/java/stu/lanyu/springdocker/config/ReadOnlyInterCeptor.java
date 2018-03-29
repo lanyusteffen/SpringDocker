@@ -7,7 +7,7 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.Ordered;
 import org.springframework.stereotype.Component;
-import stu.lanyu.springdocker.annotation.ReadWrite;
+import stu.lanyu.springdocker.annotation.Readwrite;
 
 @Aspect
 @Component
@@ -16,8 +16,8 @@ public class ReadOnlyInterCeptor implements Ordered {
     @Pointcut(value="execution(public * *(..))")
     public void anyPublicMethod() { }
 
-    @Around("@annotation(readWrite)")
-    public Object proceed(ProceedingJoinPoint pjp, ReadWrite readWrite) throws Throwable {
+    @Around("@annotation(readwrite)")
+    public Object proceed(ProceedingJoinPoint pjp, Readwrite readwrite) throws Throwable {
 
         try {
 
