@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: spring-docker
+
+server:
+  port: 12312
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://10.9.41.43:18188/eureka/

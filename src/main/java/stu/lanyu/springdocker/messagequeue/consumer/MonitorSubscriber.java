@@ -1,9 +1,11 @@
 package stu.lanyu.springdocker.messagequeue.consumer;
 
 import com.google.protobuf.InvalidProtocolBufferException;
-import io.lettuce.core.pubsub.RedisPubSubListener;
+import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.kafka.support.Acknowledgment;
 import stu.lanyu.springdocker.business.readonly.TaskMonitorInfoService;
 import stu.lanyu.springdocker.domain.entity.JobMonitorInfo;
 import stu.lanyu.springdocker.domain.entity.TaskMonitorInfo;
@@ -13,9 +15,26 @@ import stu.lanyu.springdocker.utility.StringUtility;
 
 import java.util.Base64;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
-public class MonitorSubscriber implements RedisPubSubListener<String, String> {
+public class MonitorSubscriber {
+
+    @KafkaListener(topics = {"Monitor"})
+    public void listen(ConsumerRecord<String, String> record, Acknowledgment ack) {
+
+        Optional<String> kafkaMessage = Optional.ofNullable(record.value());
+
+        if (kafkaMessage.isPresent()) {
+
+            String message = kafkaMessage.get();
+
+            processMessage(message);
+
+            ack.acknowledge();
+        }
+
+    }
 
     @Autowired
     @Qualifier(value = "TaskMonitorInfoServiceReadwrite")
@@ -133,8 +152,7 @@ public class MonitorSubscriber implements RedisPubSubListener<String, String> {
         }
     }
 
-    @Override
-    public void message(String channel, String message) {
+    public void processMessage(String message) {
 
         MessageProto.MonitorProto proto = null;
 
@@ -203,35 +221,5 @@ public class MonitorSubscriber implements RedisPubSubListener<String, String> {
         } catch (InvalidProtocolBufferException e) {
             e.printStackTrace();
         }
-    }
-
-    @Override
-    public void message(String pattern, String channel, String message) {
-
-        message(channel, message);
-    }
-
-    @Override
-    public void subscribed(String channel, long count) {
-        System.out.println(String.format("subscribe redis channel '%s' success",
-                channel));
-    }
-
-    @Override
-    public void psubscribed(String pattern, long count) {
-        System.out.println(String.format("subscribe redis channel with match pattern '%s' success",
-                pattern));
-    }
-
-    @Override
-    public void unsubscribed(String channel, long count) {
-        System.out.println(String.format("unsubscribe redis channel '%s'",
-                channel));
-    }
-
-    @Override
-    public void punsubscribed(String pattern, long count) {
-        System.out.println(String.format("unsubscribe redis channel with match pattern '%s'",
-                pattern));
     }
 }
