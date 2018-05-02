@@ -17,15 +17,15 @@ import org.springframework.kafka.core.ProducerFactory;
 @EnableKafka
 public class KafkaProducerConfig {
 
-    @Value("${spring.kafka.producer.servers}")
+    @Value("${spring.kafka.servers}")
     private String servers;
-    @Value("${spring.kafka.producer.retries}")
+    @Value("${spring.kafka.producer.retries:2}")
     private int retries;
-    @Value("${spring.kafka.producer.batch.size}")
+    @Value("${spring.kafka.producer.batch.size:100000}")
     private int batchSize;
-    @Value("${spring.kafka.producer.linger}")
+    @Value("${spring.kafka.producer.linger:0}")
     private int linger;
-    @Value("${spring.kafka.producer.buffer.memory}")
+    @Value("${spring.kafka.producer.buffer.memory:33554432}")
     private int bufferMemory;
 
 

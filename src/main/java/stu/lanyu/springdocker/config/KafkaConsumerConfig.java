@@ -21,19 +21,19 @@ import java.util.Map;
 @EnableKafka
 public class KafkaConsumerConfig {
 
-    @Value("${spring.kafka.consumer.servers}")
+    @Value("${spring.kafka.servers}")
     private String servers;
-    @Value("${spring.kafka.consumer.enable.auto.commit}")
+    @Value("${spring.kafka.consumer.enable.auto.commit:false}")
     private boolean enableAutoCommit;
-    @Value("${spring.kafka.consumer.session.timeout}")
+    @Value("${spring.kafka.consumer.session.timeout:10000}")
     private String sessionTimeout;
-    @Value("${spring.kafka.consumer.auto.commit.interval}")
+    @Value("${spring.kafka.consumer.auto.commit.interval:10}")
     private String autoCommitInterval;
     @Value("${spring.kafka.consumer.group.id}")
     private String groupId;
-    @Value("${spring.kafka.consumer.auto.offset.reset}")
+    @Value("${spring.kafka.consumer.auto.offset.reset:largest}")
     private String autoOffsetReset;
-    @Value("${spring.kafka.consumer.concurrency}")
+    @Value("${spring.kafka.consumer.concurrency:3}")
     private int concurrency;
 
     @Bean
